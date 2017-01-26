@@ -29,9 +29,8 @@ From the intellij directory:
 `$ gradle build --refresh-dependencies` to force Gradle to download the dependencies
 
 #### JAR Export
-In the same directory:  
-`$ gradle createJar` to create the JAR file associated with the projet (all dependencies are integrated in the JAR file)
+The JAR file is created on build.  
 
-You can find it in build/libs and you can run it with `$ java -jar bioinfo-{version}.jar` where {version} can be replaced with 1.0, 1.1...
+You can find it in build/libs and you can run it with `$ java -jar bioinfoCMPSSSW-{version}.jar` where {version} can be replaced with 1.0, 1.1...
 
-To change the main class in the JAR file you juste have to change the attribute `Main-Class` of the task `createJar` in `build.gradle` file
+To change the main class in the JAR file you juste have to change the attribute `Main-Class` of the task `jar` in `build.gradle` file
