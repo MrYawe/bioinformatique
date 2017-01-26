@@ -12,6 +12,8 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'application'
 
+mainClassName = 'Main'
+
 version = '1.0'
 
 // In this section you declare where to find the dependencies of your project
@@ -49,9 +51,13 @@ sourceSets {
     }
 }
 
-jar {
+task createJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'Main',
-                    'Class-Path': configurations.runtime.files.collect {"$it.name"}.join(' ')
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'tests/Xls_test'
     }
+    baseName = "bioinfo"
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
