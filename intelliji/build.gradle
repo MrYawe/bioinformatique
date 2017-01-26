@@ -51,13 +51,11 @@ sourceSets {
     }
 }
 
-task createJar(type: Jar) {
+jar {
     manifest {
-        attributes 'Implementation-Title': 'Gradle Jar File Example',
+        attributes 'Implementation-Title': 'Projet Bioinformatique CMPSSSW',
                 'Implementation-Version': version,
                 'Main-Class': 'tests/Xls_test'
     }
-    baseName = "bioinfo"
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
 }

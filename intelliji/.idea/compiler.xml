@@ -2,8 +2,10 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="intelliji_main" target="1.8" />
-      <module name="intelliji_test" target="1.8" />
+      <module name="bioinfo_main" target="1.8" />
+      <module name="bioinfo_test" target="1.8" />
+      <module name="bioinfoCMPSSSW_main" target="1.8" />
+      <module name="bioinfoCMPSSSW_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

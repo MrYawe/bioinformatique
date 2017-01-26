@@ -15,5 +15,5 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'intelliji'
+rootProject.name = 'bioinfoCMPSSSW'
 

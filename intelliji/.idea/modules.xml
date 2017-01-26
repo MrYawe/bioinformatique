@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/intelliji.iml" filepath="$PROJECT_DIR$/.idea/modules/intelliji.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/intelliji_main.iml" filepath="$PROJECT_DIR$/.idea/modules/intelliji_main.iml" group="intelliji" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/intelliji_test.iml" filepath="$PROJECT_DIR$/.idea/modules/intelliji_test.iml" group="intelliji" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bioinfoCMPSSSW.iml" filepath="$PROJECT_DIR$/.idea/modules/bioinfoCMPSSSW.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bioinfoCMPSSSW_main.iml" filepath="$PROJECT_DIR$/.idea/modules/bioinfoCMPSSSW_main.iml" group="bioinfoCMPSSSW" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bioinfoCMPSSSW_test.iml" filepath="$PROJECT_DIR$/.idea/modules/bioinfoCMPSSSW_test.iml" group="bioinfoCMPSSSW" />
     </modules>
   </component>
 </project>
