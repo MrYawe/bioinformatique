@@ -17,7 +17,7 @@ import java.util.Random;
 
 /**
  * Created by brice on 24/01/17.
- * Test for writing in Excel files
+ * test for writing in Excel files
  */
 public class Xls_test
 {

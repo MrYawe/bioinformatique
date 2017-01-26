@@ -1,4 +1,3 @@
-package Test;
 import Class.Chain;
 import junit.framework.TestCase;
 import org.junit.Assert;
@@ -7,7 +6,7 @@ import org.junit.Test;
 
 public class ChainTest {
     @Test
-    public void testLength() throws Exception
+    public static void testLength() throws Exception
     {
         Assert.assertTrue(Chain.length("abc"));
         Assert.assertFalse(Chain.length("abcd"));
