@@ -21,7 +21,7 @@ Open a new terminal and install Gradle:
 ### Using Gradle
 
 #### Build
-From the intellij directory:
+From the intellij directory:  
 `$ gradle build` ou `$ gradle idea` to create the files for IntelliJ only
 
 `$ gradle clean` to clean all build
@@ -29,7 +29,7 @@ From the intellij directory:
 `$ gradle build --refresh-dependencies` to force Gradle to download the dependencies
 
 #### JAR Export
-In the same directory:
+In the same directory:  
 `$ gradle createJar` to create the JAR file associated with the projet
 
 You can find it in build/libs and you can run it with `$ java -jar bioinfo-{version}.jar` where {version} can be replaced with 1.0, 1.1...
