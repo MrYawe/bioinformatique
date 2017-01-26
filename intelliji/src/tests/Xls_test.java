@@ -67,8 +67,9 @@ public class Xls_test
             Cell moyenne = last_row.createCell(1, CellType.FORMULA);
             moyenne.setCellFormula("AVERAGE(B2:B" + row + ")");
 
-
             workbook.write(os);
+            System.out.println("XLSX successfully created : " + filename);
+
             os.close();
             workbook.close();
 
@@ -76,7 +77,7 @@ public class Xls_test
             XSSFWorkbook book = new XSSFWorkbook(fis);
 
             XSSFCell moy = book.getSheetAt(0).getRow(row).getCell(1);
-            System.out.println(new XSSFFormulaEvaluator(book).evaluateInCell(moy));
+            System.out.println("Average age : " + new XSSFFormulaEvaluator(book).evaluateInCell(moy));
 
             fis.close();
             book.close();
