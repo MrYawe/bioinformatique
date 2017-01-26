@@ -22,7 +22,7 @@ Open a new terminal and install Gradle:
 
 #### Build
 From the intellij directory:  
-`$ gradle build` ou `$ gradle idea` to create the files for IntelliJ only
+`$ gradle build` or `$ gradle idea` to create the files for IntelliJ only
 
 `$ gradle clean` to clean all builds
 
