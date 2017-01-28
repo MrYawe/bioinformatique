@@ -21,7 +21,16 @@ public class XlsTest
 {
     public static void main(String[] args)
     {
-        String filename = "/home/" + System.getProperty("user.name") + "/test.xlsx";
+        String filename;
+        if (System.getProperty("os.name").contains("win") ||System.getProperty("os.name").contains("Win"))
+        {
+            filename = "C:/Users/" + System.getProperty("user.name");
+        }
+        else
+        {
+            filename = "/home/" + System.getProperty("user.name");
+        }
+        filename += "/test.xlsx";
         File myFile = new File(filename);
         try
         {
