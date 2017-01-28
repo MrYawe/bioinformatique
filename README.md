@@ -11,12 +11,16 @@ To download the Java 8 JDK on Ubuntu:
 `$ sudo apt-get install openjdk-8-jdk`
 
 #### Gradle
+### Linux
 This project uses Gradle 3.3.
 
 To download Gradle on Ubuntu:  
 `$ curl -s https://get.sdkman.io | bash`  
 Open a new terminal and install Gradle:  
 `$ sdk install gradle 3.3`
+
+### Windows
+https://docs.gradle.org/current/userguide/installation.html
 
 #### Importing project with Gradle
 When opening the project with IntelliJ, you might experience an error "Unregistered Gradle project", just click on the link provided then click OK.
