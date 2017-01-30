@@ -1,4 +1,5 @@
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
@@ -6,21 +7,16 @@ import java.io.*;
 
 public class TemplateTest
 {
-
+	/**
+	 * Main function
+	 * @param args
+	 */
     public static void main(String[] args)
     {
-        String filename;
-        if (System.getProperty("os.name").toLowerCase().contains("win"))
-        {
-            filename = "C:/Users/" + System.getProperty("user.name");
-        }
-        else
-        {
-            filename = "/home/" + System.getProperty("user.name");
-        }
+        String resDirectory = System.getProperty("user.dir") + "/res";
 
-        String templateName = filename + "/template.xlsx";
-        String outputName = filename + "/output.xlsx";
+        String templateName = resDirectory + "/template.xlsx";
+        String outputName = resDirectory + "/output.xlsx";
 
         try
         {
@@ -32,9 +28,17 @@ public class TemplateTest
             XSSFSheet sheet = wb.cloneSheet(0, "newSheetName");
 
             // We edit the new sheet
-            Row r = sheet.createRow(10);
-            Cell c1 = r.createCell(0, CellType.STRING);
-            c1.setCellValue("Edit worked !");
+            Row r = sheet.getRow(10);
+            r.getCell(1).setCellValue(125);
+			r.getCell(3).setCellValue(12);
+			r.getCell(5).setCellValue(26);
+
+			r = sheet.getRow(15);
+			r.getCell(1).setCellValue(17);
+			r.getCell(3).setCellValue(35);
+			r.getCell(5).setCellValue(67);
+
+			XSSFFormulaEvaluator.evaluateAllFormulaCells(wb);
 
             // We write the file with the output name
             FileOutputStream fileOut = new FileOutputStream(outputName);
