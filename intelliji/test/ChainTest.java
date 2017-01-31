@@ -1,4 +1,4 @@
-import Class.Chain;
+import models.Chain;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -8,6 +8,7 @@ public interface Config {
     // General
     String getFolderSeparator();
     String getBaseFolder();
+    String getResFolder();
     boolean useGui();
 
     // Net

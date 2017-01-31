@@ -1,4 +1,4 @@
-package Class;
+package models;
 
 /*Suppose que la lecture du fichier a déjà été faite et que les join+ complément ont déjà été fait*/
 public class Chain
