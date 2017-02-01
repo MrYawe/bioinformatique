@@ -18,6 +18,12 @@ public class ProductionConfig implements Config {
     }
 
     @Override
+    public String getResFolder()
+    {
+        return System.getProperty("user.dir") + "/res";
+    }
+
+    @Override
     public boolean useGui() {
         return false;
     }
