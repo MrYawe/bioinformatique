@@ -22,7 +22,6 @@ public class MainFrame extends JFrame {
         jpnNorth = new JPanel();
         jpnSouth = new JPanel();
 
-
         JScrollPane jspMain = new JScrollPane();
         JTree jtMain = new JTree();
 
@@ -40,14 +39,5 @@ public class MainFrame extends JFrame {
         this.add(jpnNorth, BorderLayout.NORTH);
         this.add(jpnSouth, BorderLayout.SOUTH);
 
-
-
-
-
-
-
-
     }
-
-
 }
