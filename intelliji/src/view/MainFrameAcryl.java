@@ -62,5 +62,11 @@ public class MainFrameAcryl extends JFrame {
         // show application
         setLocation(32, 32);
         setSize(800, 600);
+
+        //add gif
+        Icon icon = new ImageIcon(System.getProperty("user.dir")+"/res/img/brinFinal.gif");
+        JLabel label = new JLabel(icon);
+        contentPanel.add(label, BorderLayout.SOUTH);
+
     }
 }

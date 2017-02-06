@@ -1,7 +1,13 @@
 package view;
 
+import config.Config;
+
 import javax.swing.*;
 import java.awt.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * Created by arnaudSteinmetz on 29/01/2017.
@@ -15,7 +21,7 @@ public class MainFrame extends JFrame {
 
 
     public MainFrame() {
-        this.setSize(700,500);
+        /*this.setSize(700,500);
 
         jpnWest = new JPanel();
         jpnEast = new JPanel();
@@ -38,6 +44,9 @@ public class MainFrame extends JFrame {
         this.add(jpnEast, BorderLayout.EAST);
         this.add(jpnNorth, BorderLayout.NORTH);
         this.add(jpnSouth, BorderLayout.SOUTH);
+*/
+
+
 
     }
 }
