@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.HashMap;
 
 /**
  * Classe permettant de gérer l'export Xls des statistiques
@@ -19,6 +20,10 @@ import java.io.InputStream;
  */
 public class XlsExport
 {
+    private final static int START_ROW = 7;
+    private final static int TRINUCLEOTIDES_START_COLUMN = 0;
+    private final static int DINUCLEOTIDES_START_COLUMN = 11;
+
     /**
      * Permet de récupérer un workbook à partir de la template des résultats
      * @return Un workbook correspondant à un fichier excel
@@ -56,15 +61,39 @@ public class XlsExport
     }
 
     /**
-     * Permet de créer le fichier excel contenant les statistiques des trinucléotides
-     * @param workbook Fichier excel à remplir
+     * Permet d'insérer les statistiques des trinucléotides dans un onglet d'un fichier excel
+     * @param sheet Onglet dans lequel on souhaite insérer les statistiques
+     * @param phase0 Table de hachage associant un trinucléotide à un nombre d'occurences en phase 0
+     * @param phase1 Table de hachage associant un trinucléotide à un nombre d'occurences en phase 1
+     * @param phase2 Table de hachage associant un trinucléotide à un nombre d'occurences en phase 2
      */
-    public static void exportTrinucleotides(XSSFWorkbook workbook)
+    public static void exportTrinucleotides(Sheet sheet, HashMap<String, Integer> phase0, HashMap<String, Integer> phase1, HashMap<String, Integer> phase2)
     {
-        Sheet s = workbook.getSheetAt(2);
-        Row r = s.getRow(13);
-        r.getCell(1).setCellValue(12);
-        s.getRow(16).getCell(1).setCellValue(37);
+        for (int i = START_ROW; i < START_ROW + phase0.size(); i++)
+        {
+            Row r = sheet.getRow(i);
+            String key = r.getCell(TRINUCLEOTIDES_START_COLUMN).getStringCellValue();
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 1).setCellValue(phase0.get(key));
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 3).setCellValue(phase1.get(key));
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 5).setCellValue(phase2.get(key));
+        }
+    }
+
+    /**
+     * Permet d'insérer les statistiques des dinucléotides dans un onglet d'un fichier excel
+     * @param sheet Onglet dans lequel on souhaite insérer les statistiques
+     * @param phase0 Table de hachage associant un dinucléotide à un nombre d'occurences en phase 0
+     * @param phase1 Table de hachage associant un dinucléotide à un nombre d'occurences en phase 1
+     */
+    public static void exportDinucleotides(Sheet sheet, HashMap<String, Integer> phase0, HashMap<String, Integer> phase1)
+    {
+        for (int i = START_ROW; i < START_ROW + phase0.size(); i++)
+        {
+            Row r = sheet.getRow(i);
+            String key = r.getCell(DINUCLEOTIDES_START_COLUMN).getStringCellValue();
+            r.getCell(DINUCLEOTIDES_START_COLUMN + 1).setCellValue(phase0.get(key));
+            r.getCell(DINUCLEOTIDES_START_COLUMN + 3).setCellValue(phase1.get(key));
+        }
     }
 
     /**
