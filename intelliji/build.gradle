@@ -35,7 +35,7 @@ dependencies {
     // 'test.useTestNG()' to your build script.
     compile 'junit:junit:4.12'
     compile 'org.apache.poi:poi-ooxml:3.15'
-    compile group: 'com.jtattoo', name: 'JTattoo', version: '1.6.7'
+    compile 'com.jtattoo:JTattoo:1.6.7'
 }
 
 sourceSets {
@@ -51,6 +51,10 @@ sourceSets {
             srcDir 'test'
         }
     }
+}
+
+javadoc {
+    options.addStringOption("charset", "UTF-8")
 }
 
 jar {

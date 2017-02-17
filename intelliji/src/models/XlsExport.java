@@ -4,7 +4,6 @@ import config.Config;
 import config.ConfigManager;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -47,12 +46,22 @@ public class XlsExport
     }
 
     /**
+     * Permet de créer un nouvel onglet
+     * @param workbook Fichier excel pour lequel on veut créer un nouvel onglet
+     * @param name Nom du nouvel onglet
+     */
+    public static void createNewSheet(XSSFWorkbook workbook, String name)
+    {
+        workbook.cloneSheet(1, name);
+    }
+
+    /**
      * Permet de créer le fichier excel contenant les statistiques des trinucléotides
      * @param workbook Fichier excel à remplir
      */
     public static void exportTrinucleotides(XSSFWorkbook workbook)
     {
-        Sheet s = workbook.getSheetAt(0);
+        Sheet s = workbook.getSheetAt(2);
         Row r = s.getRow(13);
         r.getCell(1).setCellValue(12);
         s.getRow(16).getCell(1).setCellValue(37);
@@ -66,11 +75,13 @@ public class XlsExport
     public static void exportExcelFile(XSSFWorkbook workbook, String outputName)
     {
         Config config = ConfigManager.getConfig();
+        String path = config.getResFolder() + "/" + outputName;
         try
         {
-            FileOutputStream fileOut = new FileOutputStream(config.getResFolder() + "/" + outputName);
+            FileOutputStream fileOut = new FileOutputStream(path);
             XSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
             workbook.write(fileOut);
+            System.out.println("XLSX generated: " + path);
             fileOut.close();
             workbook.close();
         }
