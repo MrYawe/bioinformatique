@@ -52,13 +52,20 @@ public class TreatFile {
             if (nowLine.startsWith("     CDS"))
             {
                 //Récupérer le CDS complet
+                String CDS="";
+                while(! nowLine.contains("/"))
+                {
+                    CDS+=nowLine;
+                    nowLine = sc.nextLine();
+                }
+                System.out.println(CDS);
 
                 //Appliquer les tests
 
                 //Faire le traitement
 
                 //Construire le tableau
-                System.out.println(nowLine);
+
             }
 
             nowLine = sc.nextLine();
