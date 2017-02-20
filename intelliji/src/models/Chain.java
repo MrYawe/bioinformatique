@@ -23,10 +23,5 @@ public class Chain
                 && ((chain.endsWith("TAA") || chain.endsWith("TAG")/*Codon Stop*/
                 || chain.endsWith("TGA") || chain.endsWith("TTA")));
     }
-    public static String extraction()
-    {
-        return  "t";
-    }
-
 
 }
