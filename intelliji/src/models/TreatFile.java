@@ -1,16 +1,15 @@
 package models;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.StringJoiner;
+import java.util.Scanner;
 
 /**
  * Created by mourse on 20/02/17.
  */
-public class File {
+public class TreatFile {
 
-    HashMap<String, Integer> hmap = new HashMap<String, Integer>();
-
-    public static void initialization_hmap(HashMap hmap) {
+    public static HashMap<String, Integer> initializationHmap(HashMap<String, Integer> hmap) {
 
       /*Adding elements to HashMap*/
 
@@ -32,7 +31,49 @@ public class File {
         hmap.put("GTT", 0);hmap.put("GCT", 0);hmap.put("GAT", 0);hmap.put("GGT", 0);
         hmap.put("GTC", 0);hmap.put("GCC", 0);hmap.put("GAC", 0);hmap.put("GGC", 0);
         hmap.put("GTA", 0);hmap.put("GCA", 0);hmap.put("GAA", 0);hmap.put("GGA", 0);
-        hmap.put("GTG", 0);hmap.put("GCG", 0);hmap.put("GAG", 0);hmap.put("GGG  ", 0);
+        hmap.put("GTG", 0);hmap.put("GCG", 0);hmap.put("GAG", 0);hmap.put("GGG", 0);
+
+        return hmap;
+    }
+
+    public static void processFile(java.io.File file) throws FileNotFoundException {
+
+        //Initialiser l' hashmap
+        HashMap<String, Integer> hmap = new HashMap<String, Integer>();
+        hmap=initializationHmap(hmap);
+
+        //Parcourir le fichier
+        Scanner sc = new Scanner(file);
+        String nowLine = sc.nextLine();
+
+        //Detection des CDS
+        while(sc.hasNextLine()){
+
+            if (nowLine.startsWith("     CDS"))
+            {
+                //Récupérer le CDS complet
+
+                //Appliquer les tests
+
+                //Faire le traitement
+
+                //Construire le tableau
+                System.out.println(nowLine);
+            }
+
+            nowLine = sc.nextLine();
+        }
+
+        //Application à l'origin
+
+            //On extrait la chaine
+
+            //On test la chaine
+
+            //Remplit les stats
+
+        //Renvoi l'hashtable
+
 
     }
 
