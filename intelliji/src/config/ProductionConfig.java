@@ -22,7 +22,7 @@ public class ProductionConfig implements Config {
     @Override
     public String getResFolder()
     {
-        return System.getProperty("user.dir") + "/res";
+        return System.getProperty("user.dir") + "/resources";
     }
 
     @Override

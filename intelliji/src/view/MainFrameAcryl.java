@@ -9,6 +9,9 @@ import tree.Tree;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.InputStream;
+import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class MainFrameAcryl extends JFrame {
@@ -64,9 +67,17 @@ public class MainFrameAcryl extends JFrame {
         setSize(800, 600);
 
         //add gif
-        Icon icon = new ImageIcon(System.getProperty("user.dir")+"/res/img/brinFinal.gif");
-        JLabel label = new JLabel(icon);
-        contentPanel.add(label, BorderLayout.SOUTH);
+        try
+        {
+            URL path = this.getClass().getResource("/img/brinFinal.gif");
+            Icon icon = new ImageIcon(path);
+            JLabel label = new JLabel(icon);
+            contentPanel.add(label, BorderLayout.SOUTH);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
 
     }
 }

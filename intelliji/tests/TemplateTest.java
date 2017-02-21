@@ -12,6 +12,7 @@ public class TemplateTest
 	 */
     public static void main(String[] args)
     {
+        XlsExport.createResultsDirectory();
         XSSFWorkbook workbook = XlsExport.getWorkbookFromTemplate();
         XlsExport.createNewSheet(workbook, "Sum_chromosomes");
         HashMap<String, Integer> phase0 = new HashMap<>();

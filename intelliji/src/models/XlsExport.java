@@ -8,9 +8,11 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -24,27 +26,30 @@ public class XlsExport
     private final static int TRINUCLEOTIDES_START_COLUMN = 0;
     private final static int DINUCLEOTIDES_START_COLUMN = 11;
 
+    public static void createResultsDirectory()
+    {
+        new File(System.getProperty("user.dir") + "/results").mkdir();
+    }
+
     /**
      * Permet de récupérer un workbook à partir de la template des résultats
      * @return Un workbook correspondant à un fichier excel
      */
     public static XSSFWorkbook getWorkbookFromTemplate()
     {
-        Config config = ConfigManager.getConfig();
-        String resDir = config.getResFolder();
-        String templateName = resDir + "/template.xlsx";
+
+        InputStream is = XlsExport.class.getClass().getResourceAsStream("/template.xlsx");
 
         XSSFWorkbook workbook = null;
 
         try
         {
-            InputStream inp = new FileInputStream(templateName);
-            workbook = (XSSFWorkbook) WorkbookFactory.create(inp);
-            inp.close();
+            workbook = (XSSFWorkbook) WorkbookFactory.create(is);
+            is.close();
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
 
         return workbook;
@@ -103,8 +108,7 @@ public class XlsExport
      */
     public static void exportExcelFile(XSSFWorkbook workbook, String outputName)
     {
-        Config config = ConfigManager.getConfig();
-        String path = config.getResFolder() + "/" + outputName;
+        String path = System.getProperty("user.dir") + "/results" + "/" + outputName;
         try
         {
             FileOutputStream fileOut = new FileOutputStream(path);

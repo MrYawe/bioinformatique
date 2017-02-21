@@ -47,6 +47,9 @@ sourceSets {
             srcDir 'src'
             srcDir 'tests'
         }
+        resources {
+            srcDir 'resources'
+        }
     }
 
     test {
