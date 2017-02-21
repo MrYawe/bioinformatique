@@ -1,6 +1,7 @@
 import config.ConfigManager;
 import config.ProductionConfig;
 import tree.OrganismTree;
+import tree.Tree;
 import view.MainFrame;
 import view.MainFrameAcryl;
 

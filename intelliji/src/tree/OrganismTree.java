@@ -1,106 +1,52 @@
 package tree;
 
-import config.Config;
-import config.ConfigManager;
-import io.Net;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.common.util.concurrent.ServiceManager;
+
+import tree.TreeBuilderService.OrganismType;
+// import ui.UIManager;
 
 /**
  * Created by yannis on 29/01/17.
  */
-public class OrganismTree extends Tree {
+public class OrganismTree<T> extends Tree {
 
     public static OrganismTree fromGenBank() {
-        Config config = ConfigManager.getConfig();
 
-        System.out.println("Building Tree... (2-3min)");
-        OrganismTree res = new OrganismTree();
-        String baseurl = config.getTreeUrl();
-        int page = 1;
-        int pageSize = 100;
-        Scanner buffer = new Scanner("");
-        Boolean flag = true;
-        while (flag){
-            buffer = Net.getUrl(baseurl+page+"&amp;pageSize="+pageSize);
-            System.out.println("Building Tree... (page "+page+")");
-            int debut=0;
-            while(buffer.hasNext()){
-                String cur = buffer.next();
-                if (debut==0){
-                    if (buffer.hasNext()){
-                        cur = buffer.next();
-                        debut++;
-                    }
-                    else{
-                        flag=false;
-                        break;
-                    }
-                }
+        // UIManager.setMaxProgress(37+72+60+10);
+        List<TreeBuilderService> services = new ArrayList<TreeBuilderService>();
+        TreeBuilderService eukaryotes = new TreeBuilderService(OrganismType.EUKARYOTES);
+        TreeBuilderService prokaryotes = new TreeBuilderService(OrganismType.PROKARYOTES);
+        TreeBuilderService viruses = new TreeBuilderService(OrganismType.VIRUSES);
+        services.add(eukaryotes);
+        services.add(prokaryotes);
+        services.add(viruses);
 
-                // regexp1
-                Pattern regex1 = Pattern.compile("<td>(.*?)<\\/td>");
-                Matcher m = regex1.matcher(cur);
-                m.find();
-                String organism = m.group(1);
-                m.find();
-                String kingdom = m.group(1);
-                //System.out.println(kingdom);
-                m.find();
-                String group = m.group(1);
-                //System.out.println(group);
-                m.find();
-                String subgroup = m.group(1);
-                //System.out.println(subgroup);
+        ServiceManager sm = new ServiceManager(services);
+        sm.startAsync();
+        // UIManager.log("Tree builder services launched");
+        System.out.println("Tree builder services launched");
+        sm.awaitStopped();
 
-                //Regexp2
-                Pattern regex2 = Pattern.compile(">(.*?)<\\/a>");
-                Matcher n = regex2.matcher(organism);
-                n.find();
-                organism = n.group(1);
-                //System.out.println(organism);
+        // UIManager.log("End of tree fetch !");
+        System.out.println("End of tree fetch !");
+        // UIManager.log("Starting tree build.");
+        System.out.println("Starting tree build.");
+        List<Organism> organisms = new ArrayList<Organism>();
+        organisms.addAll(eukaryotes.organisms());
+        organisms.addAll(prokaryotes.organisms());
+        organisms.addAll(viruses.organisms());
 
+        OrganismTree mainTree = new OrganismTree<Tree>();
 
-                //Building Tree
-                //Root Level
-                Tree<Tree> level1 = new Tree<Tree>();
-                if (!res.contains(kingdom)){
-                    res.add(kingdom, level1);
-                }
-                else {
-                    level1=(Tree<Tree>) res.get(kingdom);
-                }
-
-                //Level 1
-                Tree<Tree> level2 = new Tree<Tree>();
-
-                if (!level1.contains(group)){
-                    level1.add(group, level2);
-                }
-                else {
-                    level2=(Tree<Tree>) level1.get(group);
-                }
-
-                //Level 2
-                Tree<String> level3 = new Tree<String>();
-
-                if (!level2.contains(subgroup)){
-                    level2.add(subgroup, level3);
-                }
-                else {
-                    level3=(Tree<String>) level2.get(subgroup);
-                }
-
-                //Level 3
-                level3.add(organism, null);
-
-            }
-            buffer.close();
-            page++;
+        for(Organism o : organisms){
+            o.updateTree(mainTree);
         }
-        //res.printTree();
-        System.out.println("Done. =D");
-        return res;
+
+        // UIManager.log("End of tree build !");
+        System.out.println("End of tree build !");
+        return mainTree;
     }
 }

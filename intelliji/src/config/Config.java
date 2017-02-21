@@ -5,26 +5,31 @@ package config;
  */
 public interface Config {
 
-    // General
+    // General Configuration
     String getFolderSeparator();
     String getBaseFolder();
     String getResFolder();
     boolean useGui();
 
-    // Net
+    // Net Configuration
     int getNetMaxDownloadTries();
     int getNetTimeBetweenTries();
 
-    // IdFetcher Configuration
+    // Fetcher Configuration
     int getIdPerPage();
     int getIdMaxTries();
     String getIdSearchUrl();
-    String getTreeUrl();
 
-    // Parser
+    // Tree Configuration
+    String getTreeUrl();
+    String getTreeEukaryotesUrl();
+    String getTreeProkaryotesUrl();
+    String getTreeVirusesUrl();
+
+    // Parser Configuration
     int getGenPerDownload();
     String getGenDownloadUrl();
 
-    // Thread
+    // Threads Configuration
     int getNbThreads();
 }

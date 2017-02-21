@@ -52,11 +52,12 @@ public class TreeTest {
     @Test
     public void testGet() throws Exception
     {
-
         Object[] nodes = ((Tree<?>) ((Tree<?>) (((Tree<?>)
-                tree.get("Bacteria"))
+                tree
+                .get("Bacteria"))
                 .get("Acidobacteria")))
-                .get("Holophagae")).nodes();
+                .get("Holophagae"))
+                .nodes();
         Assert.assertEquals("Geothrix fermentans", nodes[0]);
         Assert.assertEquals("Holophaga foetida", nodes[1]);
     }
