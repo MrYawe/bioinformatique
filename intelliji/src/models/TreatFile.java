@@ -9,10 +9,10 @@ import java.util.Scanner;
  */
 public class TreatFile {
 
-    public static HashMap<String, Integer> initializationHmap(HashMap<String, Integer> hmap) {
+    public static HashMap<String, Integer> initializationHmap() {
 
       /*Adding elements to HashMap*/
-
+        HashMap<String, Integer> hmap = new HashMap<String, Integer>();
         hmap.put("TTT", 0);hmap.put("TCT", 0);hmap.put("TAT", 0);hmap.put("TGT", 0);
         hmap.put("TTC", 0);hmap.put("TCC", 0);hmap.put("TAC", 0);hmap.put("TGC", 0);
         hmap.put("TTA", 0);hmap.put("TCA", 0);hmap.put("TAA", 0);hmap.put("TGA", 0);
@@ -39,39 +39,49 @@ public class TreatFile {
     public static void processFile(java.io.File file) throws FileNotFoundException {
 
         //Initialiser l' hashmap
-        HashMap<String, Integer> hmap = new HashMap<String, Integer>();
-        hmap=initializationHmap(hmap);
+        HashMap<String, Integer> hmap = initializationHmap();
 
-        //Parcourir le fichier
+        //Ouverture du scanner
         Scanner sc = new Scanner(file);
+
+        //on récupère la première ligne du fichier
         String nowLine = sc.nextLine();
 
-        //Detection des CDS
-        while(sc.hasNextLine()){
+        //boucle principale de lecture
+        while(sc.hasNextLine())
+        {
+            //Detection des CDS, tant que le fichier contient une ligne
+            while(sc.hasNextLine() && !nowLine.startsWith("    ORIGIN")){
 
-            if (nowLine.startsWith("     CDS"))
-            {
-                //Récupérer le CDS complet
-                String CDS="";
-                while(! nowLine.contains("/"))
+                //TODO: expression régulière sur le nombre d'espaces avant le mot clé 'CDS'
+                if (nowLine.startsWith("     CDS"))
                 {
-                    CDS+=nowLine;
-                    nowLine = sc.nextLine();
+                    //Récupérer le CDS complet
+                    String current_CDS="";
+                    while(! nowLine.contains("/"))
+                    {
+                        current_CDS+=nowLine;
+                        nowLine = sc.nextLine();
+                    }
+                    System.out.println(CDS.format(current_CDS));
+
+                    //Appliquer les tests
+
+                    //Faire le traitement
+
+                    //Construire le tableau
+
                 }
-                System.out.println(CDS);
 
-                //Appliquer les tests
+                nowLine = sc.nextLine();
+            }
 
-                //Faire le traitement
-
-                //Construire le tableau
+            while(sc.hasNextLine() && !nowLine.contains("//"))
+            {
 
             }
 
-            nowLine = sc.nextLine();
-        }
-
-        //Application à l'origin
+            //Application à l'origin
 
             //On extrait la chaine
 
@@ -79,7 +89,9 @@ public class TreatFile {
 
             //Remplit les stats
 
-        //Renvoi l'hashtable
+            //Renvoi l'hashtable
+
+        }
 
 
     }
