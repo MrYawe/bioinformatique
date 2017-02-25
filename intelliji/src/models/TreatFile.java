@@ -1,6 +1,7 @@
 package models;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -12,7 +13,7 @@ public class TreatFile {
     public static HashMap<String, Integer> initializationHmap() {
 
       /*Adding elements to HashMap*/
-        HashMap<String, Integer> hmap = new HashMap<String, Integer>();
+        HashMap<String, Integer> hmap = new HashMap<>();
         hmap.put("TTT", 0);hmap.put("TCT", 0);hmap.put("TAT", 0);hmap.put("TGT", 0);
         hmap.put("TTC", 0);hmap.put("TCC", 0);hmap.put("TAC", 0);hmap.put("TGC", 0);
         hmap.put("TTA", 0);hmap.put("TCA", 0);hmap.put("TAA", 0);hmap.put("TGA", 0);
@@ -47,6 +48,9 @@ public class TreatFile {
         //on récupère la première ligne du fichier
         String nowLine = sc.nextLine();
 
+        //On initialise la liste de CDS
+        ArrayList<ArrayList<CDS>> listCDS = new ArrayList<>();
+
         //boucle principale de lecture
         while(sc.hasNextLine())
         {
@@ -70,6 +74,7 @@ public class TreatFile {
                     //Faire le traitement
 
                     //Construire le tableau
+                    listCDS.add(CDS.processCDS(CDS.format(current_CDS)));
 
                 }
 
@@ -91,6 +96,13 @@ public class TreatFile {
 
             //Renvoi l'hashtable
 
+        }
+        for(int i = 0; i < listCDS.size(); i++) {
+            ArrayList<CDS> cds = listCDS.get(i);
+            for (CDS cd : cds) {
+                System.out.printf("type :%s, start: %d, end: %d, number : %d\n", cd.getType(), cd.getStart()
+                        , cd.getEnd(), i);
+            }
         }
 
 

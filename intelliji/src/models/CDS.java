@@ -8,12 +8,12 @@ import java.util.ArrayList;
 public class CDS {
 
     //TODO: ENUM pour le type
-    String type = "none";
-    int start = 0;
-    int end = 0;
+    private String type = "none";
+    private int start = 0;
+    private int end = 0;
 
     //constructeur de la class CDS
-    public CDS (String type, int start, int end)
+    private CDS (String type, int start, int end)
     {
         this.type = type;
         this.start = start;
@@ -57,7 +57,7 @@ public class CDS {
     //// TODO: 20/02/17 améliorer la regex de processCDS
     public static ArrayList<CDS> processCDS(String current_CDS){
 
-        ArrayList<CDS> res = new ArrayList<CDS>();
+        ArrayList<CDS> res = new ArrayList<>();
 
         String result="";
 
@@ -92,39 +92,39 @@ public class CDS {
 
         //On enleve le les mots clés 'complement' et 'join' si jamais ils sont présents, avec leurs
         // parenthèses associées
-        if(DATA_TO_REMOVE!="")
-        {
-            current_CDS = current_CDS.replace(DATA_TO_REMOVE,"");
+        if(DATA_TO_REMOVE!="") {
+            current_CDS = current_CDS.replace(DATA_TO_REMOVE, "");
 
-            current_CDS = current_CDS.replaceAll("\\)","");
-        }
+            current_CDS = current_CDS.replaceAll("\\)", "");
 
-        //On split sur les virgules pour récupérer les codons
-        String[] codon = current_CDS.split(",");
 
-        String[] index;
+            //On split sur les virgules pour récupérer les codons
+            String[] codon = current_CDS.split(",");
 
-        //on parcours les codons
-        for (String word : codon) {
+            String[] index;
 
-            //On split sur les '..' pour avoir les index de chaque codon
-            index=word.split("(\\.\\.)");
+            //on parcours les codons
+            for (String word : codon) {
 
-            int a=Integer.parseInt(index[0]);
+                //On split sur les '..' pour avoir les index de chaque codon
+                index = word.split("(\\.\\.)");
 
-            int b=Integer.parseInt(index[1]);
+                int a = Integer.parseInt(index[0]);
 
-            //On vérifie l'ordre
-            if (a<b){
+                int b = Integer.parseInt(index[1]);
 
-                //On crée un objet CDS avec type,start et end
-                CDS elmt = new CDS(DATA_TYPE,a,b);
+                //On vérifie l'ordre
+                if (a < b) {
 
-                System.out.printf("type: %s,start: %d,end: %d\n",elmt.getType(),elmt.getStart(),elmt.getEnd());
+                    //On crée un objet CDS avec type,start et end
+                    CDS elmt = new CDS(DATA_TYPE, a, b);
 
-                res.add(elmt);
+                    //System.out.printf("type: %s,start: %d,end: %d\n", elmt.getType(), elmt.getStart(), elmt.getEnd());
+
+                    res.add(elmt);
+                }
+
             }
-
         }
 
 
