@@ -9,6 +9,7 @@ import tree.Tree;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import javax.imageio.ImageIO;
@@ -69,7 +70,7 @@ public class MainFrameAcryl extends JFrame {
         //add gif
         try
         {
-            URL path = this.getClass().getResource("/img/brinFinal.gif");
+            URL path = MainFrameAcryl.class.getClass().getResource("/img/brinFinal.gif");
             Icon icon = new ImageIcon(path);
             JLabel label = new JLabel(icon);
             contentPanel.add(label, BorderLayout.SOUTH);

@@ -92,7 +92,7 @@ public class CDS {
 
         //On enleve le les mots clés 'complement' et 'join' si jamais ils sont présents, avec leurs
         // parenthèses associées
-        if(DATA_TO_REMOVE!="") {
+        if(!DATA_TO_REMOVE.equals("")) {
             current_CDS = current_CDS.replace(DATA_TO_REMOVE, "");
 
             current_CDS = current_CDS.replaceAll("\\)", "");
