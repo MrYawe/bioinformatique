@@ -1,5 +1,6 @@
 package models;
 
+import javax.swing.text.html.CSS;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +56,7 @@ public class TreatFile {
         while(sc.hasNextLine())
         {
             //Detection des CDS, tant que le fichier contient une ligne
-            while(sc.hasNextLine() && !nowLine.startsWith("    ORIGIN")){
+            while(sc.hasNextLine() && !nowLine.startsWith("ORIGIN")){
 
                 //TODO: expression régulière sur le nombre d'espaces avant le mot clé 'CDS'
                 if (nowLine.startsWith("     CDS"))
@@ -67,7 +68,7 @@ public class TreatFile {
                         current_CDS+=nowLine;
                         nowLine = sc.nextLine();
                     }
-                    System.out.println(CDS.format(current_CDS));
+                    //System.out.println(CDS.format(current_CDS));
 
                     //Appliquer les tests
 
@@ -80,9 +81,71 @@ public class TreatFile {
 
                 nowLine = sc.nextLine();
             }
-
+            //Boucle origin
             while(sc.hasNextLine() && !nowLine.contains("//"))
             {
+                //detect origin
+                if (nowLine.startsWith("ORIGIN"))
+                {
+                    System.out.print("origin :"+nowLine+"\n");
+                    nowLine=sc.nextLine();
+                    System.out.print("next :"+nowLine+"\n");
+                    String[] splitStart=nowLine.split(" ");
+                    String chain=nowLine;
+                    String before=nowLine;
+
+                    int cStart = 0;
+                    //Parcourt les cds
+                    for(int i = 0; i < listCDS.size(); i++) {
+
+                        ArrayList<CDS> cds = listCDS.get(i);
+                        String finalChain = "";
+                        for (CDS cd : cds) {
+
+                            String type = cd.getType();
+                            int start = cd.getStart();
+                            int end = cd.getEnd();
+                            chain=before;
+
+                            System.out.printf("type :%s, start: %d, end: %d, number : %d\n", cd.getType(), cd.getStart()
+                                    , cd.getEnd(), i);
+
+                            //On cherche la ligne du début
+                            //System.out.print("for start :"+nowLine+"\n");
+                            while (sc.hasNextLine() && cStart<=start-60)
+                            {
+                                nowLine=sc.nextLine();
+                                //System.out.print("for start next :"+nowLine+"\n");
+                                splitStart=nowLine.split("( +)");
+                                cStart = Integer.parseInt(splitStart[1]);
+                                //System.out.print("chain "+chain+"\n");
+
+                            }
+
+                            //System.out.print("start :"+cStart+"\n");
+                            //System.out.print("after for start:"+nowLine+"\n");
+                            //On cherche la ligne de la fin
+                            while (sc.hasNextLine() && cStart<=end)
+                            {
+                                //System.out.print("start :"+cStart+"\n");
+                                chain+=nowLine;
+                                before=nowLine;
+                                //System.out.print("chain "+chain+"\n");
+                                splitStart=nowLine.split("( +)");
+                                //System.out.print(splitStart[1]);
+                                cStart = Integer.parseInt(splitStart[1]);
+                                nowLine=sc.nextLine();
+                                //System.out.print("next for end:"+nowLine+"\n");
+
+                            }
+                            System.out.print("chain final :"+chain+"\n");
+                            //On formate partielle la chaine et on la concatène à la chaine finale.
+
+                        }//fin boucle for pour les parties de cds
+
+                    }//fin
+
+                }
 
             }
 
@@ -97,13 +160,13 @@ public class TreatFile {
             //Renvoi l'hashtable
 
         }
-        for(int i = 0; i < listCDS.size(); i++) {
+/*        for(int i = 0; i < listCDS.size(); i++) {
             ArrayList<CDS> cds = listCDS.get(i);
             for (CDS cd : cds) {
                 System.out.printf("type :%s, start: %d, end: %d, number : %d\n", cd.getType(), cd.getStart()
                         , cd.getEnd(), i);
             }
-        }
+        }*/
 
 
     }

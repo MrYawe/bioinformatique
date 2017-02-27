@@ -1,0 +1,142 @@
+LOCUS       NW_015441057         2549845 bp    DNA     linear   CON 14-MAR-2016
+DEFINITION  Acropora digitifera unplaced genomic scaffold, Adig_1.1 DF970692.1,
+            whole genome shotgun sequence.
+ACCESSION   NW_015441057 GPS_012272917
+VERSION     NW_015441057.1  GI:1004128514
+DBLINK      BioProject: PRJNA314803
+            BioSample: SAMD00004206
+            Assembly: GCF_000222465.1
+KEYWORDS    WGS; RefSeq.
+SOURCE      Acropora digitifera
+  ORGANISM  Acropora digitifera
+            Eukaryota; Metazoa; Cnidaria; Anthozoa; Hexacorallia; Scleractinia;
+            Astrocoeniina; Acroporidae; Acropora.
+REFERENCE   1  (bases 1 to 2549845)
+  AUTHORS   Shinzato,C., Shoguchi,E., Kawashima,T., Hamada,M., Hisata,K.,
+            Tanaka,M., Fujie,M., Fujiwara,M., Koyanagi,R., Ikuta,T.,
+            Fujiyama,A., Miller,D.J. and Satoh,N.
+  TITLE     Using the Acropora digitifera genome to understand coral responses
+            to environmental change
+  JOURNAL   Nature 476 (7360), 320-323 (2011)
+   PUBMED   21785439
+REFERENCE   2  (sites)
+  AUTHORS   Lowe,T.M. and Eddy,S.R.
+  TITLE     tRNAscan-SE: a program for improved detection of transfer RNA genes
+            in genomic sequence
+  JOURNAL   Nucleic Acids Res. 25 (5), 955-964 (1997)
+   PUBMED   9023104
+  REMARK    This is the methods paper for tRNAscan-SE.
+COMMENT     REFSEQ INFORMATION: The reference sequence is identical to
+            DF970692.1.
+            Assembly name: Adig_1.1
+            The genomic sequence for this RefSeq record is from the
+            whole-genome assembly released by the Okinawa Institute of Science
+            and Technology on 2016/01/15. The original whole-genome shotgun
+            project has the accession BACK00000000.2.
+            
+            ##Genome-Assembly-Data-START##
+            Assembly Provider     :: Okinawa Institute of Science and
+                                     Technology
+            Assembly Method       :: GS De Novo Assembler v. 2.3; SOAP; SSPACE
+            Assembly Name         :: Adig_1.1
+            Genome Coverage       :: 150X
+            Sequencing Technology :: 454 GS FLX; Illumina Genome Analyzer
+            ##Genome-Assembly-Data-END##
+            
+            ##Genome-Annotation-Data-START##
+            Annotation Provider         :: NCBI
+            Annotation Status           :: Full annotation
+            Annotation Version          :: Acropora digitifera Annotation
+                                           Release 100
+            Annotation Pipeline         :: NCBI eukaryotic genome annotation
+                                           pipeline
+            Annotation Software Version :: 6.5
+            Annotation Method           :: Best-placed RefSeq; Gnomon
+            Features Annotated          :: Gene; mRNA; CDS; ncRNA
+            ##Genome-Annotation-Data-END##
+FEATURES             Location/Qualifiers
+     source          1..2549845
+                     /organism="Acropora digitifera"
+                     /mol_type="genomic DNA"
+                     /db_xref="taxon:70779"
+                     /chromosome="Unknown"
+                     /country="Japan:Okinawa, Kunigami, Oku"
+     gene            420..3081
+                     /gene="LOC107326863"
+                     /note="Derived by automated computational analysis using
+                     gene prediction method: Gnomon."
+                     /db_xref="GeneID:107326863"
+     mRNA            join(420..518,1484..1598,1698..1750,2850..2959,3043..3081)
+                     /gene="LOC107326863"
+                     /product="protein still life, isoforms C/SIF type 2-like"
+                     /note="Derived by automated computational analysis using
+                     gene prediction method: Gnomon. Supporting evidence
+                     includes similarity to: 1 mRNA, and 87% coverage of the
+                     annotated genomic feature by RNAseq alignments"
+                     /transcript_id="XM_015898527.1"
+                     /db_xref="GI:1005418329"
+                     /db_xref="GeneID:107326863"
+     CDS             join(431..518,1484..1598,1698..1750,2850..2959,3043..3081)
+                     /gene="LOC107326863"
+                     /note="Derived by automated computational analysis using
+                     gene prediction method: Gnomon."
+                     /codon_start=1
+                     /product="protein still life, isoforms C/SIF type 2-like"
+                     /protein_id="XP_015754013.1"
+                     /db_xref="GI:1005418330"
+                     /db_xref="GeneID:107326863"
+ORIGIN      
+        1 tttgaaaact gctctaattg ctttggtttt ggtttttcga cagtcatttg aaaaccgctc
+       61 tattataaca attcttacga ttacgttttt cgattcacat tggattttaa cgctcgttgt
+      121 ttttgtcgtt tagttgtcaa tgacttttaa ggtaactttc ctagttttga aaatgtaatc
+      181 ttcaggcctc agttgttcaa agggtgggta agtgctgtcc gctggataaa tcactatcca
+      241 gtggacgagt gctatcgaaa tcatttgcgt tacccagtgg atagtgattt atccaatgga
+      301 tattgaacga ctggggccag aagtgttctg tagcatcttt taattggcta tttctccttg
+      361 tagacttacg cacctttacg ttagttaatc ggtgcaaagt ttgaatcgag tttcattttc
+      421 ttcaggtgtg atggtggggg atgaaatcat tgcagttaat gacattgatg taacagaagt
+      481 agagaatgct gtggaagatc tgagggaagc tttgaaaggt gaggatgcca tctagtgaat
+      541 caataatagc actggataca tttcatttcc agatttatga aggctcggag agaggttatt
+      601 ataaatatag ttgatgttct gtaagacctc agtaattttg gctatattat gtaagggtag
+      661 ttttcttaca aaatctgcag gccttgatga ctatataagg ttttgagatg cattgagttt
+      721 atcctgcgtg ttgcactgaa cgacgtagtt agaggaggaa ttgaaaaaga gatgtgagag
+      781 gagacggaaa acataagtaa aagcaatcga gatgaacaga aatcctacgt atataaatcc
+      841 ttacttgttt tccaataaat atcgttaggt cgttgttgta acatcagttg gatctggatt
+      901 attttccctg agttcaaggc cctcaccaaa atggccaatt taacgccatc ttaccttctg
+      961 cttcttcttg tttcctgata acctaataga gcagtttcca aatctaagtg tcgaaagtaa
+     1021 ttacgcgatt gcgattgcta tgcttagggc gtgttcgttt gggatattcc ggaataagaa
+     1081 tatattccgg aatatattcc ggcgattctg ctcctgccag gaagcagaat tgtcggaatg
+     1141 gaaatccagg tattccagaa tgagaaaagc gcccaaacaa acgcttactc gcattattcc
+     1201 atttatgctt attctggatt gacgaacgcg ctcttagtga ttgctaaaaa atctcgtgcc
+     1261 agtttttcaa ccaatgagaa gcaaaaccaa aaccaatcgc accttgtacg cgcgattttt
+     1321 cccgcgcctt gaacaagtta caagtaattg ctaggaattc tgattggttc atcgcgctgt
+     1381 ttgctcctgt agtgattagt cggagtagtt gctttggaac aggtttttcg acagttattt
+     1441 gaaaatcgct ctatgagcaa atgtgatctg ttttcatttg cagacccgtc aatcaccttg
+     1501 ttactgcgat catgtcgaga tgagcctcca gttgtcagca aagtgacatc cgatgccatt
+     1561 atttccagcc ttgtcttaaa accgccgccg aaaataaggt acatttgttg agctgaaaat
+     1621 aagtttatac ggagttttac gaaacgttat ccaatcatgt atatccttaa atttcgcttt
+     1681 tcttcttttc ttttcagtga taatattgct gagcaagata tcagtgatct tatagttcct
+     1741 cctcctcaag gtgagtttct agtcttttgt ttcactcgct gcgtagatag attagttctg
+     1801 ttagcaatgc taataaggac tgagtggagt ccaattcggt cggtaatcat acgagttatt
+     1861 tgggagttta agaagcaact acatgtacag ctgctacaac taaactgtca catcaaaata
+     1921 gaactttgcg ttaggtcaag ttttttgcga ctgctccatg ttagtcacgt tgtacgaagt
+     1981 aggtgaagtg tactttcgct tgcttgacac aaacggattt catgtaaaga cggataatga
+     2041 aagatttatt gctgcgggct cgcgttggcc tcagaacctc aaataccgtt acgtatttca
+     2101 aaaattgcac caaaaagcgt tttaggtaat gtcacatcgt catacatgaa atggaaatgg
+     2161 aaaaattaat tttgcacctg tgtaagactg aagttcaaag aagtgaaagt ttctctcact
+     2221 ggaatagagt ttatttgatc ttacaatgga cagagtcttc ctcttcaccg atagaccaag
+     2281 cttgtttttg cataacatag ctgcagtaat tccgttaaat cttgccatag gggtgctcaa
+     2341 gcgagactac aacacttctt catagtttta acgaatggtt atgatcctcg cagatcatgg
+     2401 cggagctctc gcgcgcgaag cagagcaaca tgggtaacaa gaaactgtgg taaactgccc
+     2461 atccgagaaa cgtccgtgcg caccacaggc ataccaacgc aaaatttcgc gtagtctgtg
+     2521 gtgagggttt tttggcgcga aaacgaatgg caacccgcgt ttggtgaagc ataaacaact
+     2581 tagaagttca gggaagtcaa ctccgaacaa aaagaaattt attagaaatt tattattgta
+     2641 acgaaaacgg gagctccgct tttaggtttg gctaaatcta tataattatt atatatatag
+     2701 atctagtttg aattttatta ctttacaagg aagtctactg gtcttccatg ccaactttgc
+     2761 accacagcag atcatatttt actgtttttt taccattttg taagttatgt ttgccgtaat
+     2821 gtgaactttg cattgtgtac ccattgaagc ttatgcagaa gacactgaag acagctgcag
+     2881 catctcgcca acaagccaac acgaggaatc ttatagttct ccgacaaact ccacacagaa
+     2941 tgttgacgaa ctccttcagg taagtaagac ctatgggtca aaaagctacc agctacatac
+     3001 ggcctaccat tcacgactat tttgggtttc taaagaagag aggagaaacc aaaaatattt
+     3061 ccaacgtttc tgtttgcatg atttgtcctg tttgttgcca taaaaggctt gtcagttatt
+     3121 gctctactca tcacaaacaa gactgtgagc gggaagaatg tcttcatttc atatctgaat
+//
