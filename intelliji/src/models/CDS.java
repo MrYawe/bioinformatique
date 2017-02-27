@@ -52,9 +52,14 @@ public class CDS {
         return CDS.replace(" ","").replace("CDS","");
     }
     
-    //Fonction qui retourne une liste permettant l'extraction,le type indique si on doit faire un join(j),
-    //complement(c),complement+join(cj),basic(b), start indique le début de la séquence, end la fin
+
     //// TODO: 20/02/17 améliorer la regex de processCDS
+    /**
+     * Traite un CDS en paramètre, permet d'extraire dans un tableau l'ensemble des séquences
+     * à extraire dans la partie ORIGIN qui suivra la partie des CDS.
+     * @param current_CDS
+     * @return Le tableau de toutes les séquences du CDS
+     */
     public static ArrayList<CDS> processCDS(String current_CDS){
 
         ArrayList<CDS> res = new ArrayList<>();
@@ -92,17 +97,19 @@ public class CDS {
 
         //On enleve le les mots clés 'complement' et 'join' si jamais ils sont présents, avec leurs
         // parenthèses associées
-        if(!DATA_TO_REMOVE.equals("")) {
-            current_CDS = current_CDS.replace(DATA_TO_REMOVE, "");
 
-            current_CDS = current_CDS.replaceAll("\\)", "");
+        current_CDS = current_CDS.replace(DATA_TO_REMOVE, "");
+
+        current_CDS = current_CDS.replaceAll("\\)", "");
 
 
-            //On split sur les virgules pour récupérer les codons
-            String[] codon = current_CDS.split(",");
+        //On split sur les virgules pour récupérer les codons
+        String[] codon = current_CDS.split(",");
 
-            String[] index;
+        String[] index;
 
+        if(DATA_TYPE!="")
+        {
             //on parcours les codons
             for (String word : codon) {
 
@@ -113,7 +120,7 @@ public class CDS {
 
                 int b = Integer.parseInt(index[1]);
 
-                //On vérifie l'ordre
+                //On vérifie l'ordre des coordonnées
                 if (a < b) {
 
                     //On crée un objet CDS avec type,start et end
@@ -123,11 +130,33 @@ public class CDS {
 
                     res.add(elmt);
                 }
+                else
+                {
+                    //CDS INVALIDE
+                    res.clear();
+                    return res;
+                }
+
+                //On test maintenant si les coordonnées des séquences ne se chevauchent pas
+                if(res.size()>1)
+                {
+                    for(int i = 0; i < res.size(); i++)
+                    {
+                        int data = res.get(i).getEnd();
+
+                        //on vérifie qu'il n'y ai pas de outOfRange
+                        if((i+1)!=res.size() && res.get(i+1).getStart()<data)
+                        {
+                            //CDS INVALIDE
+                            res.clear();
+                            return res;
+                        }
+                    }
+                }
+
 
             }
         }
-
-
 
         return res;
     }
