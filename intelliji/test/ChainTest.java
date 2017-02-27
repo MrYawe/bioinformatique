@@ -35,4 +35,11 @@ public class ChainTest {
 
     }
 
+    @Test
+    public void testComplement() throws Exception
+    {
+        Assert.assertEquals(Chain.complement("TTGCATATTTGA"), "TCAAATATGCAA");
+        Assert.assertEquals(Chain.complement("ACGTATCGGTT"), "AACCGATACGT");
+
+    }
 }

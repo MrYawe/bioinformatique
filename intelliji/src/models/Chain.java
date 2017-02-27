@@ -24,4 +24,38 @@ public class Chain
                 || chain.endsWith("TGA") || chain.endsWith("TTA")));
     }
 
+    /**
+     * Méthode permettant de faire le complément d'une séquence
+     * @param chain Chaîne à inverser
+     * @return La séquence inversée
+     */
+    public static String complement(String chain)
+    {
+        String res = "";
+        for (int i = 0; i < chain.length(); i++)
+        {
+            char c = chain.charAt(chain.length() - i - 1);
+            char ch;
+            switch (c)
+            {
+                case 'A':
+                    ch = 'T';
+                    break;
+
+                case 'T':
+                    ch = 'A';
+                    break;
+
+                case 'C':
+                    ch = 'G';
+                    break;
+
+                default:
+                    ch = 'C';
+                    break;
+            }
+            res += ch;
+        }
+        return res;
+    }
 }
