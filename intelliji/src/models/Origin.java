@@ -7,32 +7,29 @@ import java.util.InputMismatchException;
  */
 public class Origin {
     //Fonction qui met en forme pour la chaine finale pour 1 cds
-    public static String formatpchain(String chain,CDS cds)
+    public static String formatpchain(String chain, CDS cds)
     {
-        String[] pchain = chain.split(" +");
-        System.out.print(chain);
-        String finalChain="";
-        for (int j = 1; j < pchain.length; j+=7) {
-            int startl =Integer.parseInt(pchain[j]);
-            int diff = cds.getStart()-startl;
-            if(startl<cds.getStart())
-            {
-                if (diff<60)
-                {
-                    for (int i = j+1; i < j+7; i++) {
-                        finalChain += pchain[i];
-                    }
-                }
-            }
-            if (startl>cds.getStart()&& startl<cds.getEnd())
-            {
-                for (int i = j+1; i < j+7; i++) {
-                    finalChain += pchain[i];
-                }
-            }
-
+        String[] spl = chain.split("[0-9]+");
+        String[] split = chain.split("( +)");
+        int start = Integer.parseInt(split[1]);
+        //System.out.println("start = " + start);
+        String ch = "";
+        String res = "";
+        for (String s : spl)
+        {
+            ch += s;
         }
-        System.out.print(finalChain);
-        return chain;
+        String chaine = ch.replace(" ", "");
+        //System.out.println(chaine);
+        int length = cds.getEnd() - cds.getStart();
+        //System.out.println("length = " + length + " ; " + "startCDS = " + cds.getStart() + " ; endCDS = " + cds.getEnd());
+        int startIndex = cds.getStart() - start;
+        for (int i = startIndex; i < length + startIndex; i++)
+        {
+            res += chaine.charAt(i);
+        }
+        //System.out.println(res);
+        //System.out.println(res.length());
+        return res;
     }
 }
