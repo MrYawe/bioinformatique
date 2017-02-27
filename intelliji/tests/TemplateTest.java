@@ -50,7 +50,7 @@ public class TemplateTest
         phase1.put("TG", 9);
         phase1.put("TT", 6);
         XlsExport.exportDinucleotides(workbook.getSheetAt(2), phase0, phase1);
-        XlsExport.exportExcelFile(workbook, "test.xlsx");
+        XlsExport.exportExcelFile(workbook, "test");
     }
 
 }

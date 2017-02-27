@@ -1,7 +1,5 @@
 package models;
 
-import config.Config;
-import config.ConfigManager;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -13,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -26,6 +26,9 @@ public class XlsExport
     private final static int TRINUCLEOTIDES_START_COLUMN = 0;
     private final static int DINUCLEOTIDES_START_COLUMN = 11;
 
+	/**
+     * Permet de créer le dossier qui contiendra tous les résultats
+     */
     public static void createResultsDirectory()
     {
         new File(System.getProperty("user.dir") + "/results").mkdir();
@@ -43,7 +46,7 @@ public class XlsExport
         XSSFWorkbook workbook = null;
 
         try
-        {
+		{
             workbook = (XSSFWorkbook) WorkbookFactory.create(is);
             is.close();
         }
@@ -108,10 +111,14 @@ public class XlsExport
      */
     public static void exportExcelFile(XSSFWorkbook workbook, String outputName)
     {
-        String path = System.getProperty("user.dir") + "/results" + "/" + outputName;
+        String path = System.getProperty("user.dir") + File.separator + "results" + File.separator + outputName + ".xlsx";
         try
         {
             FileOutputStream fileOut = new FileOutputStream(path);
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat format = new SimpleDateFormat("dd-MM-YYYY HH:mm");
+			workbook.getSheetAt(0).getRow(2).createCell(1).setCellValue(outputName);
+			workbook.getSheetAt(0).getRow(4).createCell(1).setCellValue(format.format(cal.getTime()));
             XSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
             workbook.write(fileOut);
             System.out.println("XLSX generated: " + path);
