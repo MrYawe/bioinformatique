@@ -46,6 +46,11 @@ public class CDS {
     }
     //---- fin des accesseurs ----
 
+    public String toString()
+    {
+        return "start = " + this.getStart() + ", end = " + this.getEnd() + ";";
+    }
+
     //Fonction qui enlève les espaces et le CDS en préfixe
     public static String format(String CDS)
     {
@@ -108,7 +113,7 @@ public class CDS {
 
         String[] index;
 
-        if(DATA_TYPE!="")
+        if(!DATA_TYPE.equals(""))
         {
             //on parcours les codons
             for (String word : codon) {
