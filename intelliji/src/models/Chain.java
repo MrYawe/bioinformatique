@@ -50,8 +50,12 @@ public class Chain
                     ch = 'G';
                     break;
 
-                default:
+                case 'G':
                     ch = 'C';
+                    break;
+
+                default:
+                    ch = c;
                     break;
             }
             res += ch;

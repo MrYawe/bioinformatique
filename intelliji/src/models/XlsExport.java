@@ -22,8 +22,17 @@ import java.util.HashMap;
  */
 public class XlsExport
 {
+    /**
+     * Indice de la ligne de début des stats
+     */
     private final static int START_ROW = 7;
+    /**
+     * Indice de la colonne de début des stats pour les trinucléotides
+     */
     private final static int TRINUCLEOTIDES_START_COLUMN = 0;
+    /**
+     * Indice de la colonne de début des stats pour les dinucléotides
+     */
     private final static int DINUCLEOTIDES_START_COLUMN = 11;
 
 	/**
