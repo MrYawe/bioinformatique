@@ -124,84 +124,38 @@ public class TreatFile {
                 //detect origin
                 if (nowLine.startsWith("ORIGIN"))
                 {
-                    System.out.print("origin :"+nowLine+"\n");
-                    nowLine=sc.nextLine();
-                    System.out.print("next :"+nowLine+"\n");
-                    String[] splitStart=nowLine.split(" ");
-                    String chain="";
-                    String before="";
 
-                    int cStart = 0;
-                    //Parcourt les cds
-                    for(int i = 0; i < listCDS.size(); i++)
+                    // TODO: TESTS sur la chaîne
+                    // TODO: Complément si besoin
+                    // TODO: HASHMAP
+                    // TODO: Compteurs CDS et CDS invalides
+
+                    //séquence origin
+                    StringBuilder currentOrigin = new StringBuilder();
+
+                    nowLine = sc.nextLine();
+
+                    //on parcours la séquence origin et on la stocke dans un StringBuilder
+                    while (!nowLine.contains("//"))
                     {
+                        currentOrigin.append(Origin.formatOriginLine(nowLine)) ;
+                        nowLine = sc.nextLine();
+                    }
 
-                        ArrayList<CDS> cds = listCDS.get(i);
-                        String finalChain = "";
-                        String type = "";
-                        for (CDS cd : cds)
-                        {
+                    String sousChaine = "";
 
-                            type = cd.getType();
-                            int start = cd.getStart();
-                            int end = cd.getEnd();
-                            chain = "";
-
-                            System.out.printf("type :%s, start: %d, end: %d, number : %d\n", cd.getType(), cd.getStart()
-                                    , cd.getEnd(), i);
-
-                            //System.out.println("previous line : " + before);
-                            if (!before.equals(""))
-                            {
-                                splitStart = before.split("( +)");
-                                cStart = Integer.parseInt(splitStart[1]);
-                                if (cStart>start-60)
-                                {
-                                    chain = before;
-                                }
-                            }
-
-                            //On cherche la ligne du début
-                            //System.out.print("for start :"+nowLine+"\n");
-                            // Recherche de la ligne du début de la séquence : le nombre recherché peut être au milieu d'une ligne
-                            while (cStart<=start-60 && sc.hasNextLine())
-                            {
-                                //System.out.print("for start next :"+nowLine+"\n");
-                                splitStart=nowLine.split("( +)");
-                                cStart = Integer.parseInt(splitStart[1]);
-                                //System.out.print("start :"+cStart+"\n");
-                                //System.out.print("chain "+chain+"\n");
-                                chain = nowLine;
-                                nowLine=sc.nextLine();
-                            }
-
-
-                            //System.out.print("start :"+cStart+"\n");
-                            //System.out.print("after for start:"+nowLine+"\n");
-                            //On cherche la ligne de la fin
-                            while (sc.hasNextLine() && cStart<=end-60)
-                            {
-                                //System.out.print("start :"+cStart+"\n");
-                                //System.out.print("chain "+chain+"\n");
-                                splitStart=nowLine.split("( +)");
-                                chain+=nowLine;
-                                before = nowLine;
-                                //System.out.print(splitStart[1]);
-                                cStart = Integer.parseInt(splitStart[1]);
-                                nowLine=sc.nextLine();
-                                //System.out.print("next for end:"+nowLine+"\n");
-
-                            }
-                            System.out.print("chain final :"+chain+"\n");
-                            finalChain += Origin.formatpchain(chain, cd);
-                        }//fin boucle for pour les parties de cds
-                        // TODO: TESTS sur la chaîne
-                        // TODO: Complément si besoin
-                        // TODO: HASHMAP
-                        // TODO: Compteurs CDS et CDS invalides
-                    }//fin
+                    //on parcours la liste des CDS et on récupère les sous-chaines
+                    for(ArrayList<CDS> cds : listCDS)
+                    {
+                        sousChaine =getSousChaine(currentOrigin, cds);
+                        System.out.println(sousChaine);
+                    }
                 }
-                sc.nextLine();
+                if(sc.hasNextLine())
+                {
+                    sc.nextLine();
+                }
+
             }
 
             //On test la chaine
@@ -220,6 +174,29 @@ public class TreatFile {
         }*/
 
 
+    }
+
+    /**
+     * Fonction d'extraction d'une sous chaine de CDS dans une séquence ORIGIN
+     * @param origin
+     * @param bornes
+     * @return
+     */
+    public static String getSousChaine(StringBuilder origin, ArrayList<CDS> bornes)
+    {
+        String res = "";
+
+        for(CDS borne : bornes)
+        {
+            res+=(origin.substring(borne.getStart()-1,borne.getEnd()-1));
+        }
+
+        if(bornes.get(0).getType()=="cj" || bornes.get(0).getType()=="c")
+        {
+            res = Chain.complement(res);
+        }
+
+        return res;
     }
 
 }

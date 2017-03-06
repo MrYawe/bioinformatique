@@ -14,9 +14,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class MainFrameAcryl extends JFrame {
 
     public JPanel backgroundPanel;
+    private JScrollPane westPanel;
 
-    public MainFrameAcryl(Tree tree) {
-        super("Minimal-Frame-Application");
+    public MainFrameAcryl() {
+        super("Bioinformatique");
         backgroundPanel = new JPanel();
 
         // setup menu
@@ -35,7 +36,9 @@ public class MainFrameAcryl extends JFrame {
         // setup widgets
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 4, 4, 4));
-        JScrollPane westPanel = new JScrollPane(buildJTree(tree));
+        //JTree
+        //new JScrollPane(buildJTree(tree));
+        westPanel = new JScrollPane(getDefaultTree());
         JEditorPane editor = new JEditorPane("text/plain", "BioInformatique");
         JScrollPane eastPanel = new JScrollPane(editor);
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, westPanel,eastPanel);
@@ -83,10 +86,19 @@ public class MainFrameAcryl extends JFrame {
         {
             System.out.println(e.getMessage());
         }
-
     }
 
-    private JTree buildJTree(Tree mainTree) {
+    public void updateDisplayedTree(Tree tree)
+    {
+        this.westPanel.setViewportView(buildJTree(tree));
+    }
+
+    private static JTree getDefaultTree(){
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Chargement ...");
+        return new JTree(root);
+    }
+
+    private static JTree buildJTree(Tree mainTree) {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Type");
         Object[] nodes = mainTree.nodes();
         for(Object nodeName : nodes)
@@ -97,7 +109,7 @@ public class MainFrameAcryl extends JFrame {
         return new JTree(root);
     }
 
-    private DefaultMutableTreeNode buildTreeAux(DefaultMutableTreeNode cur, Object nodeName, Tree tree)
+    private static DefaultMutableTreeNode buildTreeAux(DefaultMutableTreeNode cur, Object nodeName, Tree tree)
     {
         //Récupère l'objet associé au String du noeud
         Object nodeObj = tree.get((String) nodeName);
