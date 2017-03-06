@@ -14,11 +14,10 @@ public class TemplateTest
     public static void main(String[] args)
     {
         XlsExport.createResultsDirectory();
-        XSSFWorkbook workbook = XlsExport.getWorkbookFromTemplate();
-        XlsExport.createNewSheet(workbook, "Sum_chromosomes");
-        CDSResult result = new CDSResult();
-        //XlsExport.exportDinucleotides(workbook.getSheetAt(2), phase0, phase1);
-        XlsExport.exportExcelFile(workbook, "test");
+        CDSResult results = new CDSResult();
+        results.setChromosomeName("test");
+        results.setSpecies("abc");
+        XlsExport.createExcelFileWithStats(results);
     }
 
 }

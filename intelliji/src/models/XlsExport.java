@@ -43,6 +43,14 @@ public class XlsExport
         new File(System.getProperty("user.dir") + "/results").mkdir();
     }
 
+    public static void createExcelFileWithStats(CDSResult results)
+    {
+        XSSFWorkbook workbook = XlsExport.getWorkbookFromTemplate();
+        XlsExport.createNewSheet(workbook, results.getChromosomeName());
+        XlsExport.exportStats(workbook.getSheet(results.getChromosomeName()), results);
+        XlsExport.exportExcelFile(workbook, results);
+    }
+
     /**
      * Permet de récupérer un workbook à partir de la template des résultats
      * @return Un workbook correspondant à un fichier excel
@@ -114,19 +122,44 @@ public class XlsExport
     }
 
     /**
+     * Permet d'exporter les statistiques dans un onglet d'un fichier Excel
+     * @param sheet Onglet dans lequel on souhaite insérer les statistiques
+     * @param results Objet contenant les résultats des statistiques effectuées
+     */
+    public static void exportStats(Sheet sheet, CDSResult results)
+    {
+        sheet.getRow(0).getCell(1).setCellValue(results.getChromosomeName());
+        sheet.getRow(2).getCell(1).setCellValue(results.getNbCDS());
+        sheet.getRow(4).getCell(1).setCellValue(results.getNbInvalidCDS());
+        for (int i = START_ROW; i < START_ROW + results.getTriPhase0().size(); i++)
+        {
+            Row r = sheet.getRow(i);
+            String key = r.getCell(TRINUCLEOTIDES_START_COLUMN).getStringCellValue();
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 1).setCellValue(results.getTriPhase0().get(key));
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 3).setCellValue(results.getTriPhase1().get(key));
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 5).setCellValue(results.getTriPhase2().get(key));
+            if (i < START_ROW + results.getDiPhase0().size())
+            {
+                r.getCell(DINUCLEOTIDES_START_COLUMN + 1).setCellValue(results.getDiPhase0().get(key));
+                r.getCell(DINUCLEOTIDES_START_COLUMN + 3).setCellValue(results.getDiPhase1().get(key));
+            }
+        }
+    }
+
+    /**
      * Permet d'exporter le fichier excel correspondant au workbook passé en paramètre
      * @param workbook Workbook à exporter
-     * @param outputName Nom du fichier excel à créer
+     * @param results Objet contenant les résultats des statistiques effectuées
      */
-    public static void exportExcelFile(XSSFWorkbook workbook, String outputName)
+    public static void exportExcelFile(XSSFWorkbook workbook, CDSResult results)
     {
-        String path = System.getProperty("user.dir") + File.separator + "results" + File.separator + outputName + ".xlsx";
+        String path = System.getProperty("user.dir") + File.separator + "results" + File.separator + results.getSpecies() + ".xlsx";
         try
         {
             FileOutputStream fileOut = new FileOutputStream(path);
 			Calendar cal = Calendar.getInstance();
 			SimpleDateFormat format = new SimpleDateFormat("dd-MM-YYYY HH:mm");
-			workbook.getSheetAt(0).getRow(2).createCell(1).setCellValue(outputName);
+			workbook.getSheetAt(0).getRow(2).createCell(1).setCellValue(results.getSpecies());
 			workbook.getSheetAt(0).getRow(4).createCell(1).setCellValue(format.format(cal.getTime()));
             XSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
             workbook.write(fileOut);
