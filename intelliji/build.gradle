@@ -61,6 +61,7 @@ sourceSets {
 
 javadoc {
     options.addStringOption("charset", "UTF-8")
+    options.memberLevel = JavadocMemberLevel.PRIVATE
 }
 
 jar {
