@@ -32,4 +32,16 @@ public class Origin {
         //System.out.println(res.length());
         return res;
     }
+
+    /**
+     * Fonction pour formater correctement la séquence origin (suppression des espaces et des chiffres)
+     * @param chain
+     * @return
+     */
+    public static String formatOriginLine(String chain)
+    {
+        return chain.replace(" ","").replaceAll("[0-9]","").toUpperCase();
+    }
+
+
 }
