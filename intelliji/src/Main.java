@@ -1,9 +1,7 @@
 import config.ConfigManager;
 import config.ProductionConfig;
 import tree.ExampleTree;
-import tree.OrganismTree;
 import tree.Tree;
-import view.MainFrame;
 import view.MainFrameAcryl;
 
 import javax.swing.*;

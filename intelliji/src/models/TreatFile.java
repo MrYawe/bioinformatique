@@ -60,28 +60,60 @@ public class TreatFile {
         while(sc.hasNextLine())
         {
             listCDS.clear();
+            int k = 0;
             //Detection des CDS, tant que le fichier contient une ligne
-            while(sc.hasNextLine() && !nowLine.startsWith("ORIGIN")){
+            while(sc.hasNextLine() && !nowLine.startsWith("ORIGIN"))
+            {
 
                 //TODO: expression régulière sur le nombre d'espaces avant le mot clé 'CDS'
                 if (nowLine.startsWith("     CDS"))
                 {
                     //Récupérer le CDS complet
                     String current_CDS="";
-                    while(! nowLine.contains("/"))
+                    while(!nowLine.contains("/"))
                     {
                         current_CDS+=nowLine;
                         nowLine = sc.nextLine();
                     }
-                    //System.out.println(CDS.format(current_CDS));
 
-                    //Appliquer les tests
+                    ArrayList<CDS> lcds = CDS.processCDS(CDS.format(current_CDS));
 
-                    //Faire le traitement
+                    if (!lcds.isEmpty())
+                    {
+                        // On vérifie que le CDS récupéré n'existe pas déjà
+                        boolean ok = true;
+                        int j = 0;
+                        // On s'arrête à la fin de la liste ou dès qu'on a trouvé un CDS identique
+                        while (ok && j < listCDS.size())
+                        {
+                            ArrayList<CDS> l = listCDS.get(j);
+                            int i = 0;
+                            ok = false;
+                            // On sort de la boucle des bornes dès qu'une des bornes est différente du CDS à tester
+                            while (!ok && i < l.size() && i < lcds.size())
+                            {
+                                CDS c = l.get(i);
+                                CDS cdsToTest = lcds.get(i);
+                                // Il faut que les deux bornes soient identiques
+                                if (c.getStart() == cdsToTest.getStart() && c.getEnd() == cdsToTest.getEnd())
+                                {
+                                    i++;
+                                }
+                                else
+                                {
+                                    ok = true;
+                                }
+                            }
+                            j++;
+                        }
 
-                    //Construire le tableau
-                    listCDS.add(CDS.processCDS(CDS.format(current_CDS)));
 
+                        // On ajoute le CDS récupéré seulement s'il est unique
+                        if (ok)
+                        {
+                            listCDS.add(lcds);
+                        }
+                    }
                 }
 
                 nowLine = sc.nextLine();

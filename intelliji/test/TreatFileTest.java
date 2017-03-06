@@ -8,9 +8,9 @@ import static org.junit.Assert.*;
  */
 public class TreatFileTest {
     @Test
-    public void processFileTest() throws Exception {
-        java.io.File file = new java.io.File("tests/test.gbk");
+    public void processFileTest() throws Exception
+    {
+        java.io.File file = new java.io.File("tests/test4.gbk");
         TreatFile.processFile(file);
     }
-
 }

@@ -3,53 +3,15 @@ package view;
 /**
  * Created by germain on 05/02/2017.
  **/
-
-import tree.ExampleTree;
 import tree.Tree;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.InputStream;
 import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class MainFrameAcryl extends JFrame {
-
-    private static JTree buildJTree(Tree tree) {
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Type");
-        Object[] nodes = tree.nodes();
-        for(Object nodeName : nodes)
-        {
-            root = buildTreeAux(root, nodeName, tree);
-        }
-        return new JTree(root);
-    }
-
-    private static DefaultMutableTreeNode buildTreeAux(DefaultMutableTreeNode cur, Object nodeName, Tree tree)
-    {
-        Object nodeObj = tree.get((String) nodeName);
-        //S'il c'est un arbre qui contient des nodes, on les ajoute recursivement
-        if (nodeObj != null && nodeObj instanceof Tree) {
-            Tree tmp = (Tree<?>) nodeObj;
-            Object[] nodes = tmp.nodes();
-            DefaultMutableTreeNode newTree = new DefaultMutableTreeNode(nodeName);
-            for(Object it : nodes)
-            {
-                newTree = buildTreeAux(newTree, it, tree);
-            }
-            cur.add(newTree);
-            return cur;
-        }
-        else
-        {
-            //Si c'est pas un noeud, on l'ajoute et on retourne le tout
-            cur.add(new DefaultMutableTreeNode(nodeName));
-            return cur;
-        }
-    }
 
     public JPanel backgroundPanel;
 
@@ -112,8 +74,8 @@ public class MainFrameAcryl extends JFrame {
             label.setSize(label.getPreferredSize());
             jlpGIF.add(label,new Integer(0));
 
-
-            this.pack();
+            //Fenster too large (Germain - Win10)
+            //this.pack();
             this.setVisible(true);
 
         }
@@ -122,5 +84,40 @@ public class MainFrameAcryl extends JFrame {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    private JTree buildJTree(Tree mainTree) {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Type");
+        Object[] nodes = mainTree.nodes();
+        for(Object nodeName : nodes)
+        {
+            root = buildTreeAux(root, nodeName, mainTree);
+        }
+        JTree res = new JTree(root);
+        return new JTree(root);
+    }
+
+    private DefaultMutableTreeNode buildTreeAux(DefaultMutableTreeNode cur, Object nodeName, Tree tree)
+    {
+        //Récupère l'objet associé au String du noeud
+        Object nodeObj = tree.get((String) nodeName);
+        //S'il c'est un arbre qui contient des nodes, on les ajoute récursivement
+        if (nodeObj != null && nodeObj instanceof Tree) {
+            Tree subTree = (Tree<?>) nodeObj;
+            Object[] nodes = subTree.nodes();
+            DefaultMutableTreeNode newTree = new DefaultMutableTreeNode(nodeName);
+            for(Object it : nodes)
+            {
+                newTree = buildTreeAux(newTree, it, subTree);
+            }
+            cur.add(newTree);
+            return cur;
+        }
+        //Si ce n'est pas un noeud, on l'ajoute et on retourne le tout
+        else
+        {
+            cur.add(new DefaultMutableTreeNode(nodeName));
+            return cur;
+        }
     }
 }
