@@ -38,13 +38,20 @@ public class TreatFile {
         return hmap;
     }
 
-    public static void processFile(java.io.File file) throws FileNotFoundException {
+    public static CDSResult processFile(java.io.File file) throws FileNotFoundException {
 
         //Initialiser l' hashmap
         CDSResult res = new CDSResult();
 
         //TODO : clarifier l'initialisation des hmap
-        HashMap<String, Integer> hmap = initializationHmap();
+        HashMap<String, Integer> hmapTriPhase0 = initializationHmap();
+        HashMap<String, Integer> hmapTriPhase1 = initializationHmap();
+        HashMap<String, Integer> hmapTriPhase2 = initializationHmap();
+
+        HashMap<String, Integer> hmapDiPhase0 = initializationHmap();
+        HashMap<String, Integer> hmapDiPhase1 = initializationHmap();
+
+        int cdsInvalides = 0;
 
         //Ouverture du scanner
         Scanner sc = new Scanner(file);
@@ -147,8 +154,39 @@ public class TreatFile {
                     //on parcours la liste des CDS et on récupère les sous-chaines
                     for(ArrayList<CDS> cds : listCDS)
                     {
-                        sousChaine =getSousChaine(currentOrigin, cds);
+                        sousChaine = getSousChaine(currentOrigin, cds);
                         System.out.println(sousChaine);
+
+                        if (Chain.isLengthMultipleOf3(sousChaine) && Chain.isChainValid(sousChaine) && Chain.startEnd(sousChaine))
+                        {
+                            // STATS
+
+                            // Trinucléotides
+                            for (int i = 0; i<sousChaine.length()-3; i+=3)
+                            {
+                                String s1 = sousChaine.substring(i, i+4);
+                                hmapTriPhase0.put(s1, hmapTriPhase0.get(s1)+1);
+
+                                String s2 = sousChaine.substring(i+1, i+5);
+                                hmapTriPhase1.put(s2, hmapTriPhase1.get(s2)+1);
+
+                                String s3 = sousChaine.substring(i+2, i+6);
+                                hmapTriPhase2.put(s3, hmapTriPhase2.get(s3)+1);
+                            }
+                            // Dinucléotides
+                            for (int i = 0; i<sousChaine.length()-2; i+=2)
+                            {
+                                String s1 = sousChaine.substring(i, i+3);
+                                hmapDiPhase0.put(s1, hmapDiPhase0.get(s1)+1);
+
+                                String s2 = sousChaine.substring(i+1, i+4);
+                                hmapDiPhase1.put(s2, hmapDiPhase1.get(s2)+1);
+                            }
+                        }
+                        else
+                        {
+                            cdsInvalides++;
+                        }
                     }
                 }
                 if(sc.hasNextLine())
@@ -157,23 +195,18 @@ public class TreatFile {
                 }
 
             }
-
-            //On test la chaine
-
-            //Remplit les stats
-
-            //Renvoi l'hashtable
-
         }
-/*        for(int i = 0; i < listCDS.size(); i++) {
-            ArrayList<CDS> cds = listCDS.get(i);
-            for (CDS cd : cds) {
-                System.out.printf("type :%s, start: %d, end: %d, number : %d\n", cd.getType(), cd.getStart()
-                        , cd.getEnd(), i);
-            }
-        }*/
 
+        //Renvoi l'hashtable
+        res.setDiPhase0(hmapDiPhase0);
+        res.setDiPhase1(hmapDiPhase1);
+        res.setTriPhase0(hmapTriPhase0);
+        res.setTriPhase1(hmapTriPhase1);
+        res.setTriPhase2(hmapTriPhase2);
+        res.setNbCDS(listCDS.size());
+        res.setNbInvalidCDS(cdsInvalides);
 
+        return res;
     }
 
     /**
