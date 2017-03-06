@@ -195,27 +195,18 @@ public class TreatFile {
                 }
 
             }
-
-            //Renvoi l'hashtable
-            res.setDiPhase0(hmapDiPhase0);
-            res.setDiPhase1(hmapDiPhase1);
-            res.setTriPhase0(hmapTriPhase0);
-            res.setTriPhase1(hmapTriPhase1);
-            res.setTriPhase2(hmapTriPhase2);
-            res.setNbCDS(listCDS.size());
-            res.setNbInvalidCDS(cdsInvalides);
-
-            return res;
         }
-/*        for(int i = 0; i < listCDS.size(); i++) {
-            ArrayList<CDS> cds = listCDS.get(i);
-            for (CDS cd : cds) {
-                System.out.printf("type :%s, start: %d, end: %d, number : %d\n", cd.getType(), cd.getStart()
-                        , cd.getEnd(), i);
-            }
-        }*/
 
+        //Renvoi l'hashtable
+        res.setDiPhase0(hmapDiPhase0);
+        res.setDiPhase1(hmapDiPhase1);
+        res.setTriPhase0(hmapTriPhase0);
+        res.setTriPhase1(hmapTriPhase1);
+        res.setTriPhase2(hmapTriPhase2);
+        res.setNbCDS(listCDS.size());
+        res.setNbInvalidCDS(cdsInvalides);
 
+        return res;
     }
 
     /**
