@@ -13,8 +13,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public class MainFrameAcryl extends JFrame {
 
-    public JPanel backgroundPanel;
+    public static JPanel backgroundPanel;
     private JScrollPane westPanel;
+
+    public static void addProgress() {
+        backgroundPanel.setLocation((int)backgroundPanel.getLocation().getX()+1,0);
+    }
+
 
     public MainFrameAcryl() {
         super("Bioinformatique");
