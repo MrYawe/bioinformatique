@@ -7,10 +7,8 @@ import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -41,14 +39,6 @@ public class XlsExport
     public static void createResultsDirectory()
     {
         new File(System.getProperty("user.dir") + "/results").mkdir();
-    }
-
-    public static void createExcelFileWithStats(CDSResult results)
-    {
-        XSSFWorkbook workbook = XlsExport.getWorkbookFromTemplate();
-        XlsExport.createNewSheet(workbook, results.getChromosomeName());
-        XlsExport.exportStats(workbook.getSheet(results.getChromosomeName()), results);
-        XlsExport.exportExcelFile(workbook, results);
     }
 
     /**
@@ -123,11 +113,13 @@ public class XlsExport
 
     /**
      * Permet d'exporter les statistiques dans un onglet d'un fichier Excel
-     * @param sheet Onglet dans lequel on souhaite insérer les statistiques
+     * @param workbook Fichie excel dans lequel on souhaite insérer les statistiques
      * @param results Objet contenant les résultats des statistiques effectuées
      */
-    public static void exportStats(Sheet sheet, CDSResult results)
+    public static void exportStats(XSSFWorkbook workbook, CDSResult results)
     {
+        XlsExport.createNewSheet(workbook, results.getChromosomeName());
+        Sheet sheet = workbook.getSheet(results.getChromosomeName());
         sheet.getRow(0).getCell(1).setCellValue(results.getChromosomeName());
         sheet.getRow(2).getCell(1).setCellValue(results.getNbCDS());
         sheet.getRow(4).getCell(1).setCellValue(results.getNbInvalidCDS());
@@ -140,6 +132,7 @@ public class XlsExport
             r.getCell(TRINUCLEOTIDES_START_COLUMN + 5).setCellValue(results.getTriPhase2().get(key));
             if (i < START_ROW + results.getDiPhase0().size())
             {
+                key = r.getCell(DINUCLEOTIDES_START_COLUMN).getStringCellValue();
                 r.getCell(DINUCLEOTIDES_START_COLUMN + 1).setCellValue(results.getDiPhase0().get(key));
                 r.getCell(DINUCLEOTIDES_START_COLUMN + 3).setCellValue(results.getDiPhase1().get(key));
             }

@@ -11,6 +11,10 @@ import java.util.Scanner;
  */
 public class TreatFile {
 
+    /**
+     * Permet d'initialiser un HashMap pour les statistiques des trinucléotides
+     * @return Un HashMap initialisé
+     */
     public static HashMap<String, Integer> initializationHmap() {
 
       /*Adding elements to HashMap*/
@@ -38,6 +42,32 @@ public class TreatFile {
         return hmap;
     }
 
+    /**
+     * Permet d'initialiser un HashMap pour les statistiques des dinucléotides
+     * @return Un HashMap initialisé
+     */
+    public static HashMap<String, Integer> initializationHmapDi()
+    {
+        HashMap<String, Integer> hash = new HashMap<>();
+        hash.put("AA", 0);
+        hash.put("AC", 0);
+        hash.put("AG", 0);
+        hash.put("AT", 0);
+        hash.put("CA", 0);
+        hash.put("CC", 0);
+        hash.put("CG", 0);
+        hash.put("CT", 0);
+        hash.put("GA", 0);
+        hash.put("GC", 0);
+        hash.put("GG", 0);
+        hash.put("GT", 0);
+        hash.put("TA", 0);
+        hash.put("TC", 0);
+        hash.put("TG", 0);
+        hash.put("TT", 0);
+        return hash;
+    }
+
     public static CDSResult processFile(java.io.File file) throws FileNotFoundException {
 
         //Initialiser l' hashmap
@@ -48,8 +78,8 @@ public class TreatFile {
         HashMap<String, Integer> hmapTriPhase1 = initializationHmap();
         HashMap<String, Integer> hmapTriPhase2 = initializationHmap();
 
-        HashMap<String, Integer> hmapDiPhase0 = initializationHmap();
-        HashMap<String, Integer> hmapDiPhase1 = initializationHmap();
+        HashMap<String, Integer> hmapDiPhase0 = initializationHmapDi();
+        HashMap<String, Integer> hmapDiPhase1 = initializationHmapDi();
 
         int cdsInvalides = 0;
 
@@ -131,12 +161,6 @@ public class TreatFile {
                 //detect origin
                 if (nowLine.startsWith("ORIGIN"))
                 {
-
-                    // TODO: TESTS sur la chaîne
-                    // TODO: Complément si besoin
-                    // TODO: HASHMAP
-                    // TODO: Compteurs CDS et CDS invalides
-
                     //séquence origin
                     StringBuilder currentOrigin = new StringBuilder();
 
@@ -155,7 +179,6 @@ public class TreatFile {
                     for(ArrayList<CDS> cds : listCDS)
                     {
                         sousChaine = getSousChaine(currentOrigin, cds);
-                        System.out.println(sousChaine);
 
                         if (Chain.isLengthMultipleOf3(sousChaine) && Chain.isChainValid(sousChaine) && Chain.startEnd(sousChaine))
                         {
@@ -164,22 +187,22 @@ public class TreatFile {
                             // Trinucléotides
                             for (int i = 0; i<sousChaine.length()-3; i+=3)
                             {
-                                String s1 = sousChaine.substring(i, i+4);
+                                String s1 = sousChaine.substring(i, i+3);
                                 hmapTriPhase0.put(s1, hmapTriPhase0.get(s1)+1);
 
-                                String s2 = sousChaine.substring(i+1, i+5);
+                                String s2 = sousChaine.substring(i+1, i+4);
                                 hmapTriPhase1.put(s2, hmapTriPhase1.get(s2)+1);
 
-                                String s3 = sousChaine.substring(i+2, i+6);
+                                String s3 = sousChaine.substring(i+2, i+5);
                                 hmapTriPhase2.put(s3, hmapTriPhase2.get(s3)+1);
                             }
                             // Dinucléotides
                             for (int i = 0; i<sousChaine.length()-2; i+=2)
                             {
-                                String s1 = sousChaine.substring(i, i+3);
+                                String s1 = sousChaine.substring(i, i+2);
                                 hmapDiPhase0.put(s1, hmapDiPhase0.get(s1)+1);
 
-                                String s2 = sousChaine.substring(i+1, i+4);
+                                String s2 = sousChaine.substring(i+1, i+3);
                                 hmapDiPhase1.put(s2, hmapDiPhase1.get(s2)+1);
                             }
                         }
