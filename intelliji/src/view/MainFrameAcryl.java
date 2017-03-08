@@ -7,7 +7,9 @@ import tree.Tree;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -106,6 +108,7 @@ public class MainFrameAcryl extends JFrame {
     private static JTree buildJTree(Tree mainTree) {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Type");
         Object[] nodes = mainTree.nodes();
+        Arrays.sort(nodes);
         for(Object nodeName : nodes)
         {
             root = buildTreeAux(root, nodeName, mainTree);
@@ -122,6 +125,7 @@ public class MainFrameAcryl extends JFrame {
         if (nodeObj != null && nodeObj instanceof Tree) {
             Tree subTree = (Tree<?>) nodeObj;
             Object[] nodes = subTree.nodes();
+            Arrays.sort(nodes);
             DefaultMutableTreeNode newTree = new DefaultMutableTreeNode(nodeName);
             for(Object it : nodes)
             {
