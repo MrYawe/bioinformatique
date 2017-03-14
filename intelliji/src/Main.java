@@ -1,11 +1,20 @@
+import com.google.common.collect.ImmutableList;
 import config.ConfigManager;
 import config.ProductionConfig;
-import tree.ExampleTree;
-import tree.OrganismTree;
-import tree.Tree;
+import tree.*;
 import view.MainFrameAcryl;
 
+import com.google.common.io.Resources;
 import javax.swing.*;
+import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+
+import static java.io.FileDescriptor.in;
 
 public class Main {
 
@@ -13,12 +22,9 @@ public class Main {
     public static void main(String[] args) {
         //BuildTree
         ConfigManager.setConfig(new ProductionConfig());
-        /*ExampleTree.setup();
-        Tree tree = ExampleTree.getTree();
-        tree.printTree();*/
-        //ConfigManager.setConfig(new ProductionConfig());
-        //OrganismTree tree = OrganismTree.fromGenBank();
-        //tree.printTree();
+        // ExampleTree.setup();
+        // Tree tree = ExampleTree.getTree();
+        // tree.printTree();
 
         //Main view
         MainFrameAcryl jfMain;
@@ -31,9 +37,10 @@ public class Main {
 
 
             OrganismTree tree = OrganismTree.fromGenBank();
-            /*ExampleTree.setup();
-            Tree tree = ExampleTree.getTree();*/
+
             jfMain.updateDisplayedTree(tree);
+
+            tree.downloadAllOrganisms();
         }
         catch (Exception ex) {
             ex.printStackTrace();

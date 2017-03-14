@@ -1,10 +1,18 @@
 package tree;
 
+import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.io.Resources;
 import com.google.common.util.concurrent.ServiceManager;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
+import config.ConfigManager;
 import tree.TreeBuilderService.OrganismType;
 // import ui.UIManager;
 
@@ -44,12 +52,38 @@ public class OrganismTree<T> extends Tree {
 
         OrganismTree mainTree = new OrganismTree<Tree>();
 
-        for(Organism o : organisms){
+        for (Organism o : organisms) {
             o.updateTree(mainTree);
         }
 
         // UIManager.log("End of tree build !");
         System.out.println("End of tree build !");
         return mainTree;
+    }
+
+    public void downloadAllOrganisms() {
+        TreeWalker walker = new TreeWalker(this);
+        Organism org = walker.next();
+        System.out.println("Download "+org.getName()+" ...");
+
+        while(org != null){
+
+            String basePath = ConfigManager.getConfig().getResFolder()+"/organisms/"+org.getName();
+            System.out.println(basePath);
+            (new File(basePath)).mkdirs();
+
+            for(String replicon : org.getReplicons().keySet()){
+                try {
+                    System.out.println("Download "+replicon+" of "+org.getName()+ "...");
+                    String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", org.getReplicons().get(replicon));
+                    InputStream stream = Resources.asByteSource(new URL(url)).openBufferedStream();
+                    Files.copy(stream, Paths.get(basePath+"/"+replicon+".txt"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+            org = walker.next();
+        }
     }
 }
