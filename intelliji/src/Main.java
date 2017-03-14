@@ -1,6 +1,7 @@
 import config.ConfigManager;
 import config.ProductionConfig;
 import tree.ExampleTree;
+import tree.OrganismTree;
 import tree.Tree;
 import view.MainFrameAcryl;
 
@@ -12,10 +13,12 @@ public class Main {
     public static void main(String[] args) {
         //BuildTree
         ConfigManager.setConfig(new ProductionConfig());
-        // OrganismTree tree = OrganismTree.fromGenBank();
-        ExampleTree.setup();
+        /*ExampleTree.setup();
         Tree tree = ExampleTree.getTree();
-        tree.printTree();
+        tree.printTree();*/
+        //ConfigManager.setConfig(new ProductionConfig());
+        //OrganismTree tree = OrganismTree.fromGenBank();
+        //tree.printTree();
 
         //Main view
         MainFrameAcryl jfMain;
@@ -23,20 +26,17 @@ public class Main {
             //Apply acryl theme
             UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
             //Start application
-            jfMain = new MainFrameAcryl(tree);
+            jfMain = new MainFrameAcryl();
             jfMain.setVisible(true);
 
-            for (int i = 0; i<1000;i++) {
-                jfMain.backgroundPanel.setLocation(i,0);
-                Thread.sleep(50);
-            }
+
+            OrganismTree tree = OrganismTree.fromGenBank();
+            /*ExampleTree.setup();
+            Tree tree = ExampleTree.getTree();*/
+            jfMain.updateDisplayedTree(tree);
         }
         catch (Exception ex) {
             ex.printStackTrace();
         }
-
-        //ConfigManager.setConfig(new ProductionConfig());
-        //OrganismTree tree = OrganismTree.fromGenBank();
-        //tree.printTree();
     }
 }

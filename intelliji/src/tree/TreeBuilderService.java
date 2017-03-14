@@ -23,6 +23,7 @@ import com.google.common.base.Predicates;
 import com.google.common.io.Resources;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
 import com.google.common.util.concurrent.AbstractService;
+import view.MainFrameAcryl;
 
 // import ui.UIManager;
 
@@ -89,6 +90,7 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
             // UIManager.log(this.type.toString()+ " page : "+this.currentPage);
             System.out.println(this.type.toString()+ " page : "+this.currentPage);
             // UIManager.addProgress(1);
+            MainFrameAcryl.addProgress();
             currentPage ++;
         }
     }

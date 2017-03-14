@@ -324,4 +324,24 @@ public class CDSResult
 	{
 		this.nbInvalidCDS = nbInvalidCDS;
 	}
+
+	public CDSResult()
+	{
+		this.triPhase0 = new HashMap<>();
+		this.triPhase1 = new HashMap<>();
+		this.triPhase2 = new HashMap<>();
+		this.triPrefPhase0 = new HashMap<>();
+		this.triPrefPhase1 = new HashMap<>();
+		this.triPrefPhase2 = new HashMap<>();
+
+		this.diPhase0 = new HashMap<>();
+		this.diPhase1 = new HashMap<>();
+		this.diPrefPhase0 = new HashMap<>();
+		this.diPrefPhase1 = new HashMap<>();
+
+		this.chromosomeName = "";
+		this.species = "";
+		this.nbCDS = 0;
+		this.nbInvalidCDS = 0;
+	}
 }

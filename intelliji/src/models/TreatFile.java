@@ -11,6 +11,10 @@ import java.util.Scanner;
  */
 public class TreatFile {
 
+    /**
+     * Permet d'initialiser un HashMap pour les statistiques des trinucléotides
+     * @return Un HashMap initialisé
+     */
     public static HashMap<String, Integer> initializationHmap() {
 
       /*Adding elements to HashMap*/
@@ -38,13 +42,46 @@ public class TreatFile {
         return hmap;
     }
 
-    public static void processFile(java.io.File file) throws FileNotFoundException {
+    /**
+     * Permet d'initialiser un HashMap pour les statistiques des dinucléotides
+     * @return Un HashMap initialisé
+     */
+    public static HashMap<String, Integer> initializationHmapDi()
+    {
+        HashMap<String, Integer> hash = new HashMap<>();
+        hash.put("AA", 0);
+        hash.put("AC", 0);
+        hash.put("AG", 0);
+        hash.put("AT", 0);
+        hash.put("CA", 0);
+        hash.put("CC", 0);
+        hash.put("CG", 0);
+        hash.put("CT", 0);
+        hash.put("GA", 0);
+        hash.put("GC", 0);
+        hash.put("GG", 0);
+        hash.put("GT", 0);
+        hash.put("TA", 0);
+        hash.put("TC", 0);
+        hash.put("TG", 0);
+        hash.put("TT", 0);
+        return hash;
+    }
+
+    public static CDSResult processFile(java.io.File file) throws FileNotFoundException {
 
         //Initialiser l' hashmap
         CDSResult res = new CDSResult();
 
         //TODO : clarifier l'initialisation des hmap
-        HashMap<String, Integer> hmap = initializationHmap();
+        HashMap<String, Integer> hmapTriPhase0 = initializationHmap();
+        HashMap<String, Integer> hmapTriPhase1 = initializationHmap();
+        HashMap<String, Integer> hmapTriPhase2 = initializationHmap();
+
+        HashMap<String, Integer> hmapDiPhase0 = initializationHmapDi();
+        HashMap<String, Integer> hmapDiPhase1 = initializationHmapDi();
+
+        int cdsInvalides = 0;
 
         //Ouverture du scanner
         Scanner sc = new Scanner(file);
@@ -124,102 +161,98 @@ public class TreatFile {
                 //detect origin
                 if (nowLine.startsWith("ORIGIN"))
                 {
-                    System.out.print("origin :"+nowLine+"\n");
-                    nowLine=sc.nextLine();
-                    System.out.print("next :"+nowLine+"\n");
-                    String[] splitStart=nowLine.split(" ");
-                    String chain="";
-                    String before="";
+                    //séquence origin
+                    StringBuilder currentOrigin = new StringBuilder();
 
-                    int cStart = 0;
-                    //Parcourt les cds
-                    for(int i = 0; i < listCDS.size(); i++)
+                    nowLine = sc.nextLine();
+
+                    //on parcours la séquence origin et on la stocke dans un StringBuilder
+                    while (!nowLine.contains("//"))
                     {
+                        currentOrigin.append(Origin.formatOriginLine(nowLine)) ;
+                        nowLine = sc.nextLine();
+                    }
 
-                        ArrayList<CDS> cds = listCDS.get(i);
-                        String finalChain = "";
-                        String type = "";
-                        for (CDS cd : cds)
+                    String sousChaine = "";
+
+                    //on parcours la liste des CDS et on récupère les sous-chaines
+                    for(ArrayList<CDS> cds : listCDS)
+                    {
+                        sousChaine = getSousChaine(currentOrigin, cds);
+
+                        if (Chain.isLengthMultipleOf3(sousChaine) && Chain.isChainValid(sousChaine) && Chain.startEnd(sousChaine))
                         {
+                            // STATS
 
-                            type = cd.getType();
-                            int start = cd.getStart();
-                            int end = cd.getEnd();
-                            chain = "";
-
-                            System.out.printf("type :%s, start: %d, end: %d, number : %d\n", cd.getType(), cd.getStart()
-                                    , cd.getEnd(), i);
-
-                            //System.out.println("previous line : " + before);
-                            if (!before.equals(""))
+                            // Trinucléotides
+                            for (int i = 0; i<sousChaine.length()-3; i+=3)
                             {
-                                splitStart = before.split("( +)");
-                                cStart = Integer.parseInt(splitStart[1]);
-                                if (cStart>start-60)
-                                {
-                                    chain = before;
-                                }
-                            }
+                                String s1 = sousChaine.substring(i, i+3);
+                                hmapTriPhase0.put(s1, hmapTriPhase0.get(s1)+1);
 
-                            //On cherche la ligne du début
-                            //System.out.print("for start :"+nowLine+"\n");
-                            // Recherche de la ligne du début de la séquence : le nombre recherché peut être au milieu d'une ligne
-                            while (cStart<=start-60 && sc.hasNextLine())
+                                String s2 = sousChaine.substring(i+1, i+4);
+                                hmapTriPhase1.put(s2, hmapTriPhase1.get(s2)+1);
+
+                                String s3 = sousChaine.substring(i+2, i+5);
+                                hmapTriPhase2.put(s3, hmapTriPhase2.get(s3)+1);
+                            }
+                            // Dinucléotides
+                            for (int i = 0; i<sousChaine.length()-2; i+=2)
                             {
-                                //System.out.print("for start next :"+nowLine+"\n");
-                                splitStart=nowLine.split("( +)");
-                                cStart = Integer.parseInt(splitStart[1]);
-                                //System.out.print("start :"+cStart+"\n");
-                                //System.out.print("chain "+chain+"\n");
-                                chain = nowLine;
-                                nowLine=sc.nextLine();
+                                String s1 = sousChaine.substring(i, i+2);
+                                hmapDiPhase0.put(s1, hmapDiPhase0.get(s1)+1);
+
+                                String s2 = sousChaine.substring(i+1, i+3);
+                                hmapDiPhase1.put(s2, hmapDiPhase1.get(s2)+1);
                             }
-
-
-                            //System.out.print("start :"+cStart+"\n");
-                            //System.out.print("after for start:"+nowLine+"\n");
-                            //On cherche la ligne de la fin
-                            while (sc.hasNextLine() && cStart<=end-60)
-                            {
-                                //System.out.print("start :"+cStart+"\n");
-                                //System.out.print("chain "+chain+"\n");
-                                splitStart=nowLine.split("( +)");
-                                chain+=nowLine;
-                                before = nowLine;
-                                //System.out.print(splitStart[1]);
-                                cStart = Integer.parseInt(splitStart[1]);
-                                nowLine=sc.nextLine();
-                                //System.out.print("next for end:"+nowLine+"\n");
-
-                            }
-                            System.out.print("chain final :"+chain+"\n");
-                            finalChain += Origin.formatpchain(chain, cd);
-                        }//fin boucle for pour les parties de cds
-                        // TODO: TESTS sur la chaîne
-                        // TODO: Complément si besoin
-                        // TODO: HASHMAP
-                        // TODO: Compteurs CDS et CDS invalides
-                    }//fin
+                        }
+                        else
+                        {
+                            cdsInvalides++;
+                        }
+                    }
                 }
-                sc.nextLine();
+                if(sc.hasNextLine())
+                {
+                    sc.nextLine();
+                }
+
             }
-
-            //On test la chaine
-
-            //Remplit les stats
-
-            //Renvoi l'hashtable
-
         }
-/*        for(int i = 0; i < listCDS.size(); i++) {
-            ArrayList<CDS> cds = listCDS.get(i);
-            for (CDS cd : cds) {
-                System.out.printf("type :%s, start: %d, end: %d, number : %d\n", cd.getType(), cd.getStart()
-                        , cd.getEnd(), i);
-            }
-        }*/
 
+        //Renvoi l'hashtable
+        res.setDiPhase0(hmapDiPhase0);
+        res.setDiPhase1(hmapDiPhase1);
+        res.setTriPhase0(hmapTriPhase0);
+        res.setTriPhase1(hmapTriPhase1);
+        res.setTriPhase2(hmapTriPhase2);
+        res.setNbCDS(listCDS.size());
+        res.setNbInvalidCDS(cdsInvalides);
 
+        return res;
+    }
+
+    /**
+     * Fonction d'extraction d'une sous chaine de CDS dans une séquence ORIGIN
+     * @param origin
+     * @param bornes
+     * @return
+     */
+    public static String getSousChaine(StringBuilder origin, ArrayList<CDS> bornes)
+    {
+        String res = "";
+
+        for(CDS borne : bornes)
+        {
+            res+=(origin.substring(borne.getStart()-1,borne.getEnd()-1));
+        }
+
+        if(bornes.get(0).getType()=="cj" || bornes.get(0).getType()=="c")
+        {
+            res = Chain.complement(res);
+        }
+
+        return res;
     }
 
 }
