@@ -48,7 +48,7 @@ public class Tree<T> {
         return res.toArray();
     }
 
-    public void printTree_aux(int level) {
+    public void printTreeAtLevel(int level) {
         if (this != null) {
             Object[] nodess = this.nodes();
             for (Object node : nodess) {
@@ -58,14 +58,14 @@ public class Tree<T> {
                 System.out.println(node);
 
                 if (this.get((String) node) != null && (this.get((String) node)) instanceof Tree) {
-                    ((Tree<?>) this.get((String) node)).printTree_aux(level + 1);
+                    ((Tree<?>) this.get((String) node)).printTreeAtLevel(level + 1);
                 }
             }
         }
     }
 
     public void printTree() {
-        printTree_aux(0);
+        printTreeAtLevel(0);
     }
 
     public int computeSize() {
