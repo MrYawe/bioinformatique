@@ -17,11 +17,24 @@ public class MainFrameAcryl extends JFrame {
 
     public static JPanel backgroundPanel;
     private JScrollPane westPanel;
+    private ConsolePanel pnlConsole;
+
+    private static MainFrameAcryl instance;
+    public static MainFrameAcryl getInstance() {
+        if(instance==null) {
+            instance = new MainFrameAcryl();
+        }
+        return instance;
+    }
+
+    public ConsolePanel getConsole() {
+        return this.pnlConsole;
+    }
+
 
     public static void addProgress() {
         backgroundPanel.setLocation((int)backgroundPanel.getLocation().getX()+1,0);
     }
-
 
     public MainFrameAcryl() {
         super("Bioinformatique");
@@ -46,9 +59,10 @@ public class MainFrameAcryl extends JFrame {
         //JTree
         //new JScrollPane(buildJTree(tree));
         westPanel = new JScrollPane(getDefaultTree());
-        JEditorPane editor = new JEditorPane("text/plain", "BioInformatique");
-        JScrollPane eastPanel = new JScrollPane(editor);
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, westPanel,eastPanel);
+        pnlConsole = new ConsolePanel();
+        pnlConsole.println("Bonjour yannis", Color.RED);
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, westPanel,pnlConsole);
         splitPane.setDividerLocation(148);
         contentPanel.add(splitPane, BorderLayout.CENTER);
         setContentPane(contentPanel);

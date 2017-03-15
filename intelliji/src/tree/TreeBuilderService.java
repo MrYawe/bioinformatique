@@ -24,6 +24,7 @@ import com.google.common.io.Resources;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
 import com.google.common.util.concurrent.AbstractService;
 import view.MainFrameAcryl;
+import view.UIManager;
 
 // import ui.UIManager;
 
@@ -88,7 +89,7 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
                 System.exit(1);
             }
             // UIManager.log(this.type.toString()+ " page : "+this.currentPage);
-            System.out.println(this.type.toString()+ " page : "+this.currentPage);
+            UIManager.writeLog(this.type.toString()+ " page : "+this.currentPage);
             // UIManager.addProgress(1);
             MainFrameAcryl.addProgress();
             currentPage ++;
@@ -187,10 +188,10 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
     @Override
     protected void run() throws Exception {
         // UIManager.log(this.type.toString()+ " Starting");
-        System.out.println(this.type.toString()+ " Starting");
+        UIManager.writeLog(this.type.toString()+ " Starting");
         this.readAllPages();
         // UIManager.log(this.type.toString() + " DONE !");
-        System.out.println(this.type.toString() + " DONE !");
+        UIManager.writeLog(this.type.toString() + " DONE !");
 
     }
 }
