@@ -120,6 +120,7 @@ public class TreatFile {
                         // On vérifie que le CDS récupéré n'existe pas déjà
                         boolean exit = true;
                         int j = 0;
+                        int index = listCDS.size();
                         // On s'arrête à la fin de la liste ou dès qu'on a trouvé un CDS identique
                         while (exit && j < listCDS.size())
                         {
@@ -132,6 +133,10 @@ public class TreatFile {
                                 CDS c = l.get(i);
                                 CDS cdsToTest = lcds.get(i);
                                 // Il faut que les deux bornes soient identiques
+                                /*if (i == 0 && cdsToTest.getStart() > c.getStart())
+                                {
+                                    index = j;
+                                }*/
                                 if (c.getStart() == cdsToTest.getStart() && c.getEnd() == cdsToTest.getEnd())
                                 {
                                     i++;
@@ -172,19 +177,20 @@ public class TreatFile {
                     String sousChaine = ""; //sous-chaine extraite grâce aux cds
 
                     int finDuCDS=0; //fin du CDS courant, pour savoir quand arrêter d'extraire du contenu d'origin
-
                     //on parcours la liste des CDS et on récupère les sous-chaines
                     for(ArrayList<CDS> cds : listCDS)
                     {
 
-                        if(cds.get(0).getStart() > finDuCDS && finDuCDS != 0) // on vérifie la borne du CDS précédent
+                        if(cds.get(0).getStart() - 60 > finDuCDS && finDuCDS != 0) // on vérifie la borne du CDS précédent (-60 pour garder la ligne courante)
                         {
                             startIndex += currentOrigin.length(); // on met à jour le nouveau start
                             currentOrigin = new StringBuilder(); //on vide le bloc origin
-
                         }
 
-                        finDuCDS = cds.get(cds.size()-1).getEnd(); //on récupère (mise à jour) la dernière borne du CDS
+                        if(cds.get(cds.size()-1).getEnd() > finDuCDS)
+                        {
+                            finDuCDS = cds.get(cds.size()-1).getEnd(); //on récupère (mise à jour) la dernière borne du CDS
+                        }
 
                         String buffer = ""; //buffer temporaire qui récupère le traitement de la ligne
 
@@ -198,9 +204,11 @@ public class TreatFile {
                             nowLine = sc.nextLine();
 
                         }
-
+                        System.out.println("Start "+ cds.get(0).getStart());
+                        System.out.println("End " + cds.get(cds.size()-1).getEnd());
+                        System.out.println("Start index " + startIndex);
+                        System.out.println("Stop index " + stopIndex);
                         sousChaine = getSousChaine(currentOrigin, cds, startIndex); //on récupère la sous-chaine grâce aux CDS
-
 
 
                         if (Chain.isLengthMultipleOf3(sousChaine) && Chain.isChainValid(sousChaine) && Chain.startEnd(sousChaine))
