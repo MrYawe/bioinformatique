@@ -32,7 +32,7 @@ public class Main {
             //Apply acryl theme
             UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
             //Start application
-            jfMain = new MainFrameAcryl();
+            jfMain = MainFrameAcryl.getInstance();
             jfMain.setVisible(true);
 
 
