@@ -2,10 +2,10 @@ import models.CDSResult;
 import models.TreatFile;
 import models.XlsExport;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
+import java.io.InputStream;
 
 
 public class TemplateTest
@@ -19,8 +19,8 @@ public class TemplateTest
         XlsExport.createResultsDirectory();
         try
         {
-            java.io.File file = new java.io.File("tests/test.gbk");
-            CDSResult results = TreatFile.processFile(file);
+            InputStream is = new FileInputStream("tests/sequence.gb");
+            CDSResult results = TreatFile.processFile(is);
             results.setChromosomeName("NC_12");
             results.setSpecies("test");
             // Appelée une seule fois

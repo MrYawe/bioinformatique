@@ -1,7 +1,7 @@
 package models;
 
-import javax.swing.text.html.CSS;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -15,7 +15,7 @@ public class TreatFile {
      * Permet d'initialiser un HashMap pour les statistiques des trinucléotides
      * @return Un HashMap initialisé
      */
-    public static HashMap<String, Integer> initializationHmap() {
+    private static HashMap<String, Integer> initializationHmap() {
 
       /*Adding elements to HashMap*/
         HashMap<String, Integer> hmap = new HashMap<>();
@@ -46,7 +46,7 @@ public class TreatFile {
      * Permet d'initialiser un HashMap pour les statistiques des dinucléotides
      * @return Un HashMap initialisé
      */
-    public static HashMap<String, Integer> initializationHmapDi()
+    private static HashMap<String, Integer> initializationHmapDi()
     {
         HashMap<String, Integer> hash = new HashMap<>();
         hash.put("AA", 0);
@@ -68,12 +68,11 @@ public class TreatFile {
         return hash;
     }
 
-    public static CDSResult processFile(java.io.File file) throws FileNotFoundException {
+    public static CDSResult processFile(InputStream file) throws FileNotFoundException {
 
         //Initialiser l' hashmap
         CDSResult res = new CDSResult();
 
-        //TODO : clarifier l'initialisation des hmap
         HashMap<String, Integer> hmapTriPhase0 = initializationHmap();
         HashMap<String, Integer> hmapTriPhase1 = initializationHmap();
         HashMap<String, Integer> hmapTriPhase2 = initializationHmap();
@@ -121,6 +120,7 @@ public class TreatFile {
                         boolean exit = true;
                         int j = 0;
                         int index = listCDS.size();
+                        // TODO Trier les CDS dans cette boucle
                         // On s'arrête à la fin de la liste ou dès qu'on a trouvé un CDS identique
                         while (exit && j < listCDS.size())
                         {
@@ -204,10 +204,10 @@ public class TreatFile {
                             nowLine = sc.nextLine();
 
                         }
-                        System.out.println("Start "+ cds.get(0).getStart());
+                        /*System.out.println("Start "+ cds.get(0).getStart());
                         System.out.println("End " + cds.get(cds.size()-1).getEnd());
                         System.out.println("Start index " + startIndex);
-                        System.out.println("Stop index " + stopIndex);
+                        System.out.println("Stop index " + stopIndex);*/
                         sousChaine = getSousChaine(currentOrigin, cds, startIndex); //on récupère la sous-chaine grâce aux CDS
 
 
@@ -256,8 +256,8 @@ public class TreatFile {
                         else
                         {
                             cdsInvalides++;
-                            System.out.println(sousChaine);
-                            System.out.println(sousChaine.length());
+                            /*System.out.println(sousChaine);
+                            System.out.println(sousChaine.length());*/
                         }
                     }
                 }
