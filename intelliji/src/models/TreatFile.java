@@ -208,7 +208,7 @@ public class TreatFile {
                             // STATS
 
                             // Trinucléotides
-                            for (int i = 0; i<sousChaine.length()-3; i+=3)
+                            for (int i = 0; i<sousChaine.length()-6; i+=3)
                             {
                                 String s1 = sousChaine.substring(i, i+3);
                                 hmapTriPhase0.put(s1, hmapTriPhase0.get(s1)+1);
@@ -219,14 +219,30 @@ public class TreatFile {
                                 String s3 = sousChaine.substring(i+2, i+5);
                                 hmapTriPhase2.put(s3, hmapTriPhase2.get(s3)+1);
                             }
-                            // Dinucléotides
-                            for (int i = 0; i<sousChaine.length()-2; i+=2)
-                            {
-                                String s1 = sousChaine.substring(i, i+2);
-                                hmapDiPhase0.put(s1, hmapDiPhase0.get(s1)+1);
 
-                                String s2 = sousChaine.substring(i+1, i+3);
-                                hmapDiPhase1.put(s2, hmapDiPhase1.get(s2)+1);
+                            if (sousChaine.length() % 2 == 0)
+                            {
+                                // Dinucléotides
+                                for (int i = 0; i<sousChaine.length()-6; i+=2)
+                                {
+                                    String s1 = sousChaine.substring(i, i+2);
+                                    hmapDiPhase0.put(s1, hmapDiPhase0.get(s1)+1);
+
+                                    String s2 = sousChaine.substring(i+1, i+3);
+                                    hmapDiPhase1.put(s2, hmapDiPhase1.get(s2)+1);
+                                }
+                            }
+                            else
+                            {
+                                // Dinucléotides
+                                for (int i = 0; i<sousChaine.length()-5; i+=2)
+                                {
+                                    String s1 = sousChaine.substring(i, i+2);
+                                    hmapDiPhase0.put(s1, hmapDiPhase0.get(s1)+1);
+
+                                    String s2 = sousChaine.substring(i+1, i+3);
+                                    hmapDiPhase1.put(s2, hmapDiPhase1.get(s2)+1);
+                                }
                             }
                         }
                         else
@@ -235,10 +251,6 @@ public class TreatFile {
                             System.out.println(sousChaine);
                             System.out.println(sousChaine.length());
                         }
-
-
-
-
                     }
                 }
                 if(sc.hasNextLine())
@@ -277,7 +289,7 @@ public class TreatFile {
             res+=(origin.substring(borne.getStart() - startIndex   ,borne.getEnd() - startIndex + 1));
         }
 
-        if(bornes.get(0).getType()=="cj" || bornes.get(0).getType()=="c")
+        if(bornes.get(0).getType().equals("cj") || bornes.get(0).getType().equals("c"))
         {
             res = Chain.complement(res);
         }

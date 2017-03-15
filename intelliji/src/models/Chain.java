@@ -20,8 +20,8 @@ public class Chain
                 || chain.startsWith("TTG") || chain.startsWith("GTG")
                 || chain.startsWith("ATA") || chain.startsWith("ATC")
                 || chain.startsWith("ATT") || chain.startsWith("TTA"))
-                && ((chain.endsWith("TAA") || chain.endsWith("TAG")/*Codon Stop*/
-                || chain.endsWith("TGA") || chain.endsWith("TTA")));
+                && (chain.endsWith("TAA") || chain.endsWith("TAG")/*Codon Stop*/
+                || chain.endsWith("TGA") || chain.endsWith("TTA"));
     }
 
     /**
