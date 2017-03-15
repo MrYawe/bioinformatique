@@ -19,7 +19,7 @@ public class TemplateTest
         XlsExport.createResultsDirectory();
         try
         {
-            java.io.File file = new java.io.File("tests/test.gbk");
+            java.io.File file = new java.io.File("tests/test7.gbk");
             CDSResult results = TreatFile.processFile(file);
             results.setChromosomeName("NC_12");
             results.setSpecies("test");
