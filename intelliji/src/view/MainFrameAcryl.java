@@ -42,8 +42,8 @@ public class MainFrameAcryl extends JFrame {
 
         // setup menu
         JMenuBar menuBar = new JMenuBar();
-        JMenu menu = new JMenu("File");
-        JMenuItem menuItem = new JMenuItem("Exit");
+        JMenu menu = new JMenu("Menu");
+        JMenuItem menuItem = new JMenuItem("Quitter");
         menuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.exit(0);
@@ -63,7 +63,7 @@ public class MainFrameAcryl extends JFrame {
         pnlConsole.println("Bonjour yannis", Color.RED);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, westPanel,pnlConsole);
-        splitPane.setDividerLocation(148);
+
         contentPanel.add(splitPane, BorderLayout.CENTER);
         setContentPane(contentPanel);
 
@@ -74,9 +74,19 @@ public class MainFrameAcryl extends JFrame {
             }
         });
 
-        // show application
-        setLocation(32, 32);
-        setSize(800, 600);
+        // 75% de la taille de l'écran, centré
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(screenSize.width * 3/4, screenSize.height * 3/4);
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+        this.setLocation(x, y);
+
+        //JTree de largeur 1/4 de l'écran
+        splitPane.setDividerLocation(screenSize.width / 4);
+
+        //Redim westPanel
+
 
         //add gif
         try
