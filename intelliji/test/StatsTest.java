@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 /**
@@ -14,10 +15,10 @@ public class StatsTest
     @Test
     public void verifyStatsTest()
     {
-        java.io.File file = new java.io.File("tests/test4.gbk");
         try
         {
-            CDSResult results = TreatFile.processFile(file);
+            FileInputStream is = new FileInputStream("tests/test4.gbk");
+            CDSResult results = TreatFile.processFile(is);
         }
         catch (FileNotFoundException e)
         {
