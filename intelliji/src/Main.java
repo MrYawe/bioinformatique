@@ -40,7 +40,7 @@ public class Main {
 
             jfMain.updateDisplayedTree(tree);
 
-            tree.downloadAllOrganisms();
+            //tree.downloadAllOrganisms();
         }
         catch (Exception ex) {
             ex.printStackTrace();

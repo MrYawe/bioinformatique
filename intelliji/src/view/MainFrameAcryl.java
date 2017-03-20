@@ -15,11 +15,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public class MainFrameAcryl extends JFrame {
 
-    public static JPanel backgroundPanel;
+    //private JPanel backgroundPanel;
     private JScrollPane westPanel;
     private ConsolePanel pnlConsole;
+    private LoadingTreePanel pnlLoading;
 
     private static MainFrameAcryl instance;
+
     public static MainFrameAcryl getInstance() {
         if(instance==null) {
             instance = new MainFrameAcryl();
@@ -31,14 +33,13 @@ public class MainFrameAcryl extends JFrame {
         return this.pnlConsole;
     }
 
-
-    public static void addProgress() {
-        backgroundPanel.setLocation((int)backgroundPanel.getLocation().getX()+1,0);
+    public JPanel getBackgroundPanel() {
+        return this.pnlLoading.getBackgroundPanel();
     }
 
     public MainFrameAcryl() {
         super("Bioinformatique");
-        backgroundPanel = new JPanel();
+        //backgroundPanel = new JPanel();
 
         // setup menu
         JMenuBar menuBar = new JMenuBar();
@@ -60,7 +61,6 @@ public class MainFrameAcryl extends JFrame {
         //new JScrollPane(buildJTree(tree));
         westPanel = new JScrollPane(getDefaultTree());
         pnlConsole = new ConsolePanel();
-        pnlConsole.println("Bonjour yannis", Color.RED);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, westPanel,pnlConsole);
         splitPane.setDividerLocation(148);
@@ -78,35 +78,8 @@ public class MainFrameAcryl extends JFrame {
         setLocation(32, 32);
         setSize(800, 600);
 
-        //add gif
-        try
-        {
-            URL path = MainFrameAcryl.class.getClass().getResource("/img/brinFinal.gif");
-            Icon icon = new ImageIcon(path);
-            JLabel label = new JLabel(icon);
-
-            JLayeredPane jlpGIF = new JLayeredPane();
-            jlpGIF.setPreferredSize(label.getPreferredSize());
-            contentPanel.add(jlpGIF, BorderLayout.SOUTH);
-
-            backgroundPanel.setBackground(Color.LIGHT_GRAY);
-            backgroundPanel.setLocation(0, 0);
-            backgroundPanel.setSize(label.getPreferredSize());
-            jlpGIF.add(backgroundPanel, new Integer(1));
-
-            label.setLocation(0,0);
-            label.setSize(label.getPreferredSize());
-            jlpGIF.add(label,new Integer(0));
-
-            //Fenster too large (Germain - Win10)
-            //this.pack();
-            this.setVisible(true);
-
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        pnlLoading = new LoadingTreePanel();
+        contentPanel.add(pnlLoading, BorderLayout.SOUTH);
     }
 
     public void updateDisplayedTree(Tree tree)

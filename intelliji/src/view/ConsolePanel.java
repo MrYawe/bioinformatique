@@ -45,7 +45,7 @@ class ConsolePanel extends JPanel {
         jtpOutput.setEditable(false);
         jtpOutput.setFont(new Font("Courrier New", Font.PLAIN, 14));
 
-        jspOutput.setMinimumSize(new Dimension(600,100));
+        jspOutput.setMinimumSize(new Dimension(200,100));
         jspOutput.setPreferredSize(new Dimension(600,300));
 
     }
