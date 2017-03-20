@@ -3,6 +3,7 @@ import models.TreatFile;
 import models.XlsExport;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -19,7 +20,7 @@ public class TemplateTest
         XlsExport.createResultsDirectory();
         try
         {
-            InputStream is = new FileInputStream("tests/sequence.gb");
+            InputStream is = new FileInputStream("tests/test7.gbk");
             CDSResult results = TreatFile.processFile(is);
             results.setChromosomeName("NC_12");
             results.setSpecies("test");

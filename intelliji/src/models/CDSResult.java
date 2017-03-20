@@ -47,15 +47,6 @@ public class CDSResult
 	private HashMap<String, Integer> diPhase1;
 
 	/**
-	 * Table de hachage associant la phase préférentielle 0 à un nombre de dinucléotides
-	 */
-	private HashMap<String, Integer> diPrefPhase0;
-	/**
-	 * Table de hachage associant la phase préférentielle 1 à un nombre de dinucléotides
-	 */
-	private HashMap<String, Integer> diPrefPhase1;
-
-	/**
 	 * Nom de l'espèce
 	 */
 	private String species;
@@ -218,42 +209,6 @@ public class CDSResult
 	}
 
 	/**
-	 * Permet de récupérer le nombre de dinucléotides ayant comme phase préférentielle la phase 0
-	 * @return Une table de hachage associant la phase préférentielle 0 à un nombre de dinucléotides
-	 */
-	public HashMap<String, Integer> getDiPrefPhase0()
-	{
-		return diPrefPhase0;
-	}
-
-	/**
-	 * Permet d'assigner le HashMap des dinucléotides ayant comme phase préférentielle la phase 0
-	 * @param diPrefPhase0 Table de hachage associant la phase préférentielle 0 à un nombre de dinucléotides
-	 */
-	public void setDiPrefPhase0(HashMap<String, Integer> diPrefPhase0)
-	{
-		this.diPrefPhase0 = diPrefPhase0;
-	}
-
-	/**
-	 * Permet de récupérer le nombre de dinucléotides ayant comme phase préférentielle la phase 1
-	 * @return Une table de hachage associant la phase préférentielle 1 à un nombre de dinucléotides
-	 */
-	public HashMap<String, Integer> getDiPrefPhase1()
-	{
-		return diPrefPhase1;
-	}
-
-	/**
-	 * Permet d'assigner le HashMap des dinucléotides ayant comme phase préférentielle la phase 1
-	 * @param diPrefPhase1 Table de hachage associant la phase préférentielle 1 à un nombre de dinucléotides
-	 */
-	public void setDiPrefPhase1(HashMap<String, Integer> diPrefPhase1)
-	{
-		this.diPrefPhase1 = diPrefPhase1;
-	}
-
-	/**
 	 * Permet d'accéder au nom de l'espèce traitée
 	 * @return Le nom de l'espèce
 	 */
@@ -336,8 +291,6 @@ public class CDSResult
 
 		this.diPhase0 = new HashMap<>();
 		this.diPhase1 = new HashMap<>();
-		this.diPrefPhase0 = new HashMap<>();
-		this.diPrefPhase1 = new HashMap<>();
 
 		this.chromosomeName = "";
 		this.species = "";

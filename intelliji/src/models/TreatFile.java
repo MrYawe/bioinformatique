@@ -216,7 +216,7 @@ public class TreatFile {
                             // STATS
 
                             // Trinucléotides
-                            for (int i = 0; i<sousChaine.length()-6; i+=3)
+                            for (int i = 0; i<sousChaine.length()-3; i+=3)
                             {
                                 String s1 = sousChaine.substring(i, i+3);
                                 hmapTriPhase0.put(s1, hmapTriPhase0.get(s1)+1);
@@ -231,7 +231,7 @@ public class TreatFile {
                             if (sousChaine.length() % 2 == 0)
                             {
                                 // Dinucléotides
-                                for (int i = 0; i<sousChaine.length()-6; i+=2)
+                                for (int i = 0; i<sousChaine.length()-4; i+=2)
                                 {
                                     String s1 = sousChaine.substring(i, i+2);
                                     hmapDiPhase0.put(s1, hmapDiPhase0.get(s1)+1);
@@ -243,7 +243,7 @@ public class TreatFile {
                             else
                             {
                                 // Dinucléotides
-                                for (int i = 0; i<sousChaine.length()-5; i+=2)
+                                for (int i = 0; i<sousChaine.length()-3; i+=2)
                                 {
                                     String s1 = sousChaine.substring(i, i+2);
                                     hmapDiPhase0.put(s1, hmapDiPhase0.get(s1)+1);
