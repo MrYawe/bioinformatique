@@ -18,14 +18,22 @@ public class LoadingTreePanel extends JPanel {
     public LoadingTreePanel() {
         backgroundPanel = new JPanel();
         this.setLayout(new BorderLayout());
-        //this.setPreferredSize(new Dimension(800,190));
         try
         {
             URL path = MainFrameAcryl.class.getClass().getResource("/img/brinFinal.gif");
-            Icon icon = new ImageIcon(path);
-            JLabel label = new JLabel(icon);
+            ImageIcon image = new ImageIcon(path);
+            int width = image.getIconWidth()/2;
+            int height = image.getIconHeight()/2;
+            image.setImage(image.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+            this.setPreferredSize(new Dimension(350,height));
+
+
+
+            JLabel label = new JLabel(image);
 
             JLayeredPane jlpGIF = new JLayeredPane();
+
+            //label.setPreferredSize(new Dimension(500,100));
             jlpGIF.setPreferredSize(label.getPreferredSize());
             this.add(jlpGIF, BorderLayout.CENTER);
 

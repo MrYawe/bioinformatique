@@ -86,10 +86,13 @@ public class MainFrameAcryl extends JFrame {
         splitPane.setDividerLocation(screenSize.width / 4);
 
         //Redim westPanel
+        JPanel pnlSouth = new JPanel(new BorderLayout());
+        //pnlSouth.setPreferredSize(new Dimension(100,100));
 
+        contentPanel.add(pnlSouth, BorderLayout.SOUTH);
 
         pnlLoading = new LoadingTreePanel();
-        contentPanel.add(pnlLoading, BorderLayout.SOUTH);
+        pnlSouth.add(pnlLoading, BorderLayout.WEST);
     }
 
     public void updateDisplayedTree(Tree tree)
