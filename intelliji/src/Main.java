@@ -22,8 +22,8 @@ public class Main {
     public static void main(String[] args) {
         //BuildTree
         ConfigManager.setConfig(new ProductionConfig());
-        ExampleTree.setup();
-        Tree tree = ExampleTree.getTree();
+        //ExampleTree.setup();
+        //Tree tree = ExampleTree.getTree();
         // tree.printTree();
 
         //Main view
@@ -36,7 +36,7 @@ public class Main {
             jfMain.setVisible(true);
 
 
-            //OrganismTree tree = OrganismTree.fromGenBank();
+            OrganismTree tree = OrganismTree.fromGenBank();
 
             jfMain.updateDisplayedTree(tree);
 

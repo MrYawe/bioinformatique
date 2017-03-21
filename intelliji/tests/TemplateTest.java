@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 
 public class TemplateTest
@@ -20,16 +21,21 @@ public class TemplateTest
         XlsExport.createResultsDirectory();
         try
         {
+            /// UNE FOIS PAR ORGANISME ///
+            XSSFWorkbook workbook = XlsExport.getWorkbookFromTemplate();
+            CDSResult speciesResults = new CDSResult();
+
+            /// UNE FOIS POUR CHAQUE CHROMOSOME D'UN ORGANISME ///
             InputStream is = new FileInputStream("tests/sequence.gbk");
             CDSResult results = TreatFile.processFile(is);
             results.setChromosomeName("NC_12");
             results.setSpecies("test");
-            // Appelée une seule fois
-            XSSFWorkbook workbook = XlsExport.getWorkbookFromTemplate();
-            // Appelée pour chaque fichier récupéré de la base
-            XlsExport.exportStats(workbook, results);
-            // Appelée une seule fois
-            XlsExport.exportExcelFile(workbook, results);
+            XlsExport.exportStats(workbook, results, speciesResults);
+
+
+            /// UNE FOIS PAR ORGANISME ///
+            speciesResults.setSpecies("test");
+            XlsExport.exportExcelFile(workbook, speciesResults);
         }
         catch (FileNotFoundException e)
         {
