@@ -66,8 +66,12 @@ public class OrganismTree<T> extends Tree {
         Organism org = walker.next();
         System.out.println("Download "+org.getName()+" ...");
 
-        while(org != null){
+        int max = ConfigManager.getConfig().getNbThreads();
+        int i = 0;
+        List<OrganismFetcherService> services = new ArrayList<OrganismFetcherService>();
 
+        while(org != null && i < max){
+            /*
             String basePath = ConfigManager.getConfig().getResFolder()+"/organisms/"+org.getName();
             System.out.println(basePath);
             (new File(basePath)).mkdirs();
@@ -84,6 +88,12 @@ public class OrganismTree<T> extends Tree {
 
             }
             org = walker.next();
+            */
+
+            services.add(new OrganismFetcherService(org));
+            i++;
         }
+        ServiceManager sm = new ServiceManager(services);
+        sm.startAsync();
     }
 }
