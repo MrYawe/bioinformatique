@@ -25,9 +25,6 @@ public class UIManager {
     }
 
     public static void writeLog(String text) {
-        System.out.println(frame);
-        System.out.println(frame.getConsole());
-
         frame.getConsole().println(text);
     }
 

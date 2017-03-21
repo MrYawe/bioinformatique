@@ -113,7 +113,7 @@ public class MainFrameAcryl extends JFrame {
         btnLoadTree.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OrganismTree tree = OrganismTree.fromGenBank();
+                //OrganismTree tree = OrganismTree.fromGenBank();
 
             }
         });
