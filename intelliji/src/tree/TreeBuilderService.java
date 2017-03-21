@@ -83,15 +83,16 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
                     cont = false;
                 } else {
                     this.organismList.addAll(result);
+                    UIManager.writeLog(this.type.toString()+ " page : "+this.currentPage);
+                    // UIManager.addProgress(1);
+                    UIManager.addProgressTree(this.type);
                 }
             }catch(Exception e){
                 e.printStackTrace();
                 System.exit(1);
             }
             // UIManager.log(this.type.toString()+ " page : "+this.currentPage);
-            UIManager.writeLog(this.type.toString()+ " page : "+this.currentPage);
-            // UIManager.addProgress(1);
-            UIManager.addProgress();
+
             currentPage ++;
         }
     }

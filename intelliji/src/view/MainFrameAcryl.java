@@ -4,21 +4,21 @@ package view;
  * Created by germain on 05/02/2017.
  **/
 import tree.Tree;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Array;
-import java.net.URL;
 import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import tree.TreeBuilderService.OrganismType;
 
 public class MainFrameAcryl extends JFrame {
 
     //private JPanel backgroundPanel;
     private JScrollPane westPanel;
     private ConsolePanel pnlConsole;
-    private LoadingTreePanel pnlLoading;
+    private LoadingTreePanel pnlLoadingEukaryote;
+    private LoadingTreePanel pnlLoadingProkaryote;
+    private LoadingTreePanel pnlLoadingVirus;
 
     private static MainFrameAcryl instance;
 
@@ -33,8 +33,16 @@ public class MainFrameAcryl extends JFrame {
         return this.pnlConsole;
     }
 
-    public JPanel getBackgroundPanel() {
-        return this.pnlLoading.getBackgroundPanel();
+    public LoadingTreePanel getLoadingPanel(OrganismType type) {
+        LoadingTreePanel res=null;
+        if(type.equals(pnlLoadingEukaryote.getType())){
+            res=pnlLoadingEukaryote;
+        } else if(type.equals(pnlLoadingProkaryote.getType())){
+            res=pnlLoadingProkaryote;
+        } else if(type.equals(pnlLoadingVirus.getType())){
+            res=pnlLoadingVirus;
+        }
+        return res;
     }
 
     public MainFrameAcryl() {
@@ -91,8 +99,16 @@ public class MainFrameAcryl extends JFrame {
 
         contentPanel.add(pnlSouth, BorderLayout.SOUTH);
 
-        pnlLoading = new LoadingTreePanel();
-        pnlSouth.add(pnlLoading, BorderLayout.WEST);
+        pnlLoadingEukaryote = new LoadingTreePanel(OrganismType.EUKARYOTES);
+        pnlLoadingProkaryote = new LoadingTreePanel(OrganismType.PROKARYOTES);
+        pnlLoadingVirus = new LoadingTreePanel(OrganismType.VIRUSES);
+
+        JPanel pnlWest = new JPanel(new BorderLayout());
+        pnlSouth.add(pnlWest, BorderLayout.WEST);
+
+        pnlWest.add(pnlLoadingEukaryote, BorderLayout.NORTH);
+        pnlWest.add(pnlLoadingVirus, BorderLayout.CENTER);
+        pnlWest.add(pnlLoadingProkaryote, BorderLayout.SOUTH);
     }
 
     public void updateDisplayedTree(Tree tree)
