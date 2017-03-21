@@ -39,6 +39,7 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '19.0' // Google Core Libraries for Java
     compile "com.github.rholder:guava-retrying:2.0.0" // extension de guava
     compile 'org.jsoup:jsoup:1.10.2' // un parser HTML
+    compile 'org.scijava:swing-checkbox-tree:1.0.1'
 }
 
 sourceSets {

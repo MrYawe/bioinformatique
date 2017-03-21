@@ -12,11 +12,12 @@ import java.net.URL;
 import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import static view.TreePanel.buildJTree;
 
 public class MainFrameAcryl extends JFrame {
 
     //private JPanel backgroundPanel;
-    private JScrollPane westPanel;
+    private TreePanel pnlTree;
     private ConsolePanel pnlConsole;
     private LoadingTreePanel pnlLoading;
 
@@ -58,11 +59,10 @@ public class MainFrameAcryl extends JFrame {
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 4, 4, 4));
         //JTree
-        //new JScrollPane(buildJTree(tree));
-        westPanel = new JScrollPane(getDefaultTree());
+        pnlTree = new TreePanel();
         pnlConsole = new ConsolePanel();
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, westPanel,pnlConsole);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, pnlTree, pnlConsole);
 
         contentPanel.add(splitPane, BorderLayout.CENTER);
         setContentPane(contentPanel);
@@ -95,50 +95,7 @@ public class MainFrameAcryl extends JFrame {
         pnlSouth.add(pnlLoading, BorderLayout.WEST);
     }
 
-    public void updateDisplayedTree(Tree tree)
-    {
-        this.westPanel.setViewportView(buildJTree(tree));
-    }
-
-    private static JTree getDefaultTree(){
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Chargement ...");
-        return new JTree(root);
-    }
-
-    private static JTree buildJTree(Tree mainTree) {
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Type");
-        Object[] nodes = mainTree.nodes();
-        Arrays.sort(nodes);
-        for(Object nodeName : nodes)
-        {
-            root = buildTreeAux(root, nodeName, mainTree);
-        }
-        JTree res = new JTree(root);
-        return new JTree(root);
-    }
-
-    private static DefaultMutableTreeNode buildTreeAux(DefaultMutableTreeNode cur, Object nodeName, Tree tree)
-    {
-        //Récupère l'objet associé au String du noeud
-        Object nodeObj = tree.get((String) nodeName);
-        //S'il c'est un arbre qui contient des nodes, on les ajoute récursivement
-        if (nodeObj != null && nodeObj instanceof Tree) {
-            Tree subTree = (Tree<?>) nodeObj;
-            Object[] nodes = subTree.nodes();
-            Arrays.sort(nodes);
-            DefaultMutableTreeNode newTree = new DefaultMutableTreeNode(nodeName);
-            for(Object it : nodes)
-            {
-                newTree = buildTreeAux(newTree, it, subTree);
-            }
-            cur.add(newTree);
-            return cur;
-        }
-        //Si ce n'est pas un noeud, on l'ajoute et on retourne le tout
-        else
-        {
-            cur.add(new DefaultMutableTreeNode(nodeName));
-            return cur;
-        }
+    public void updateDisplayedTree(Tree tree){
+        pnlTree.updateDisplayedTree(tree);
     }
 }
