@@ -74,15 +74,22 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
     }
 
     public void readAllPages(){
+
         this.currentPage = 1;
         boolean cont = true;
         while(cont) {
             try{
+
                 List<Organism> result = retryer.call(this.pageCallable);
                 if(result == null){
                     cont = false;
+                    System.out.println("result = null");
+
                 } else {
+
                     this.organismList.addAll(result);
+                    System.out.println("result != null");
+
                     UIManager.writeLog(this.type.toString()+ " page : "+this.currentPage);
                     // UIManager.addProgress(1);
                     UIManager.addProgressTree(this.type);

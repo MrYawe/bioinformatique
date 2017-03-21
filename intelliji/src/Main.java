@@ -36,9 +36,9 @@ public class Main {
             jfMain.setVisible(true);
 
 
-            OrganismTree tree = OrganismTree.fromGenBank();
+            //OrganismTree tree = OrganismTree.fromGenBank();
 
-            jfMain.updateDisplayedTree(tree);
+            //jfMain.updateDisplayedTree(tree);
 
             //tree.downloadAllOrganisms();
         }
