@@ -3,6 +3,7 @@ package view;
 /**
  * Created by germain on 05/02/2017.
  **/
+import tree.OrganismTree;
 import tree.Tree;
 
 import java.awt.*;
@@ -102,11 +103,22 @@ public class MainFrameAcryl extends JFrame {
         pnlLoadingVirus = new LoadingTreePanel(OrganismType.VIRUSES);
 
         JPanel pnlWest = new JPanel(new BorderLayout());
-        pnlSouth.add(pnlWest, BorderLayout.WEST);
-
         pnlWest.add(pnlLoadingEukaryote, BorderLayout.NORTH);
         pnlWest.add(pnlLoadingVirus, BorderLayout.CENTER);
         pnlWest.add(pnlLoadingProkaryote, BorderLayout.SOUTH);
+
+        pnlSouth.add(pnlWest, BorderLayout.WEST);
+
+        JButton btnLoadTree = new JButton("Load Tree");
+        btnLoadTree.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //OrganismTree tree = OrganismTree.fromGenBank();
+
+            }
+        });
+        pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
+
     }
 
     public void updateDisplayedTree(Tree tree){
