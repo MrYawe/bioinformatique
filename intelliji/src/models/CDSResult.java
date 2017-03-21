@@ -55,12 +55,19 @@ public class CDSResult
 	 */
 	private String chromosomeName;
 
+
 	/**
-	 * Nombre de CDS au total
+	 * Nombre total de CDS dans le fichier
 	 */
 	private int nbCDS;
+
 	/**
-	 * Nombre de CDS invalides, donc jetés
+	 * Nombre de CDS mal formés, donc jetés dès la première lecture
+	 */
+	private int nbMalformedCDS;
+
+	/**
+	 * Nombre de CDS bien formés mais invalides, donc jetés lors des statistiques
 	 */
 	private int nbInvalidCDS;
 
@@ -245,8 +252,8 @@ public class CDSResult
 	}
 
 	/**
-	 * Permet d'accéder au nombre total de CDS
-	 * @return Le nombre total de CDS
+	 * Permet d'accéder au nombre total de CDS dans le fichier
+	 * @return Le nombre total de CDS contenus dans le fichier
 	 */
 	public int getNbCDS()
 	{
@@ -254,8 +261,8 @@ public class CDSResult
 	}
 
 	/**
-	 * Permet d'assigner le nombre total de CDS
-	 * @param nbCDS Nombre total de CDS
+	 * Permet d'assigner le nombre total de CDS du fichier
+	 * @param nbCDS Nombre total de CDS contenus dans le fichier
 	 */
 	public void setNbCDS(int nbCDS)
 	{
@@ -263,8 +270,26 @@ public class CDSResult
 	}
 
 	/**
-	 * Permet d'accéder au nombre de CDS invalides et donc jetés pour le chromose en cours de traitement
-	 * @return Le nombre de CDS invalides
+	 * Permet d'accéder au nombre de CDS mal formés donc jetés dès la première lecture du fichier
+	 * @return Le nombre de CDS mal formés
+	 */
+	public int getNbMalformedCDS()
+	{
+		return nbMalformedCDS;
+	}
+
+	/**
+	 * Permet d'assigner le nombre de CDS mal formés dans le fichier
+	 * @param nbMalformedCDS Nombre de CDS mal formés
+	 */
+	public void setNbMalformedCDS(int nbMalformedCDS)
+	{
+		this.nbMalformedCDS = nbMalformedCDS;
+	}
+
+	/**
+	 * Permet d'accéder au nombre de CDS bien formés mais invalides et donc jetés pour le chromosome en cours de traitement
+	 * @return Le nombre de CDS bien formés mais invalides
 	 */
 	public int getNbInvalidCDS()
 	{
@@ -272,8 +297,8 @@ public class CDSResult
 	}
 
 	/**
-	 * Permet d'assigner le nombre de CDS invalides
-	 * @param nbInvalidCDS Nombre de CDS invalides
+	 * Permet d'assigner le nombre de CDS bien formés mais invalides
+	 * @param nbInvalidCDS Nombre de CDS bien formés mais invalides
 	 */
 	public void setNbInvalidCDS(int nbInvalidCDS)
 	{
@@ -295,6 +320,7 @@ public class CDSResult
 		this.chromosomeName = "";
 		this.species = "";
 		this.nbCDS = 0;
+		this.nbMalformedCDS = 0;
 		this.nbInvalidCDS = 0;
 	}
 }

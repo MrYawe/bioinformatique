@@ -22,7 +22,7 @@ public class XlsExport
     /**
      * Indice de la ligne de début des stats
      */
-    private final static int START_ROW = 6;
+    private final static int START_ROW = 11;
     /**
      * Indice de la colonne de début des stats pour les trinucléotides
      */
@@ -85,7 +85,8 @@ public class XlsExport
         Sheet sheet = workbook.getSheet(results.getChromosomeName());
         sheet.getRow(0).getCell(1).setCellValue(results.getSpecies());
         sheet.getRow(1).getCell(1).setCellValue(results.getNbCDS());
-        sheet.getRow(3).getCell(1).setCellValue(results.getNbInvalidCDS());
+        sheet.getRow(2).getCell(1).setCellValue(results.getNbMalformedCDS());
+        sheet.getRow(4).getCell(1).setCellValue(results.getNbInvalidCDS());
         for (int i = START_ROW; i < START_ROW + results.getTriPhase0().size(); i++)
         {
             Row r = sheet.getRow(i);

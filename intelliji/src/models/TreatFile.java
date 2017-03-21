@@ -87,6 +87,8 @@ public class TreatFile {
 
         //on récupère la première ligne du fichier
         String nowLine = sc.nextLine();
+        int nbCDS = 0;
+        int nbMalformedCDS = 0;
 
         //On initialise la liste de CDS
         // Liste de listes de CDS
@@ -113,6 +115,7 @@ public class TreatFile {
                     }
 
                     ArrayList<CDS> lcds = CDS.processCDS(CDS.format(current_CDS));
+                    nbCDS++;
 
                     if (!lcds.isEmpty())
                     {
@@ -155,6 +158,14 @@ public class TreatFile {
                         {
                             listCDS.add(lcds);
                         }
+                        else
+                        {
+                            nbMalformedCDS++;
+                        }
+                    }
+                    else
+                    {
+                        nbMalformedCDS++;
                     }
                 }
 
@@ -264,7 +275,6 @@ public class TreatFile {
                 if(sc.hasNextLine())
                 {
                     sc.nextLine();
-
                 }
 
             }
@@ -276,7 +286,8 @@ public class TreatFile {
         res.setTriPhase0(hmapTriPhase0);
         res.setTriPhase1(hmapTriPhase1);
         res.setTriPhase2(hmapTriPhase2);
-        res.setNbCDS(listCDS.size());
+        res.setNbCDS(nbCDS);
+        res.setNbMalformedCDS(nbMalformedCDS);
         res.setNbInvalidCDS(cdsInvalides);
 
         return res;

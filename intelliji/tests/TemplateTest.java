@@ -20,7 +20,7 @@ public class TemplateTest
         XlsExport.createResultsDirectory();
         try
         {
-            InputStream is = new FileInputStream("tests/test7.gbk");
+            InputStream is = new FileInputStream("tests/sequence.gbk");
             CDSResult results = TreatFile.processFile(is);
             results.setChromosomeName("NC_12");
             results.setSpecies("test");
