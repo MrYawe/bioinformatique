@@ -49,7 +49,7 @@ public class TreePanel extends JPanel {
             root = buildTreeAux(root, nodeName, mainTree);
         }
         JTree res = new JTree(root);
-        return new JTree(root);
+        return createCheckboxTree(root);
     }
 
     private static DefaultMutableTreeNode buildTreeAux(DefaultMutableTreeNode cur, Object nodeName, Tree tree)
@@ -61,40 +61,26 @@ public class TreePanel extends JPanel {
             Tree subTree = (Tree<?>) nodeObj;
             Object[] nodes = subTree.nodes();
             Arrays.sort(nodes);
-            DefaultMutableTreeNode newTree = new DefaultMutableTreeNode(nodeName);
+            //DefaultMutableTreeNode newTree = new DefaultMutableTreeNode(nodeName);
+            DefaultMutableTreeNode newTree = addToCheckBoxTree(cur, nodeName.toString(), true);
+
             for(Object it : nodes)
             {
                 newTree = buildTreeAux(newTree, it, subTree);
             }
-            cur.add(newTree);
+            //cur.addToCheckBoxTree(newTree);
             return cur;
         }
         //Si ce n'est pas un noeud, on l'ajoute et on retourne le tout
         else
         {
-            cur.add(new DefaultMutableTreeNode(nodeName));
+            //cur.addToCheckBoxTree(new DefaultMutableTreeNode(nodeName));
+            addToCheckBoxTree(cur, nodeName.toString(), true);
             return cur;
         }
     }
 
-    /*
-    public static void test_main(final String args[]) {
-        final DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-
-        final DefaultMutableTreeNode accessibility =
-                add(root, "Accessibility", true);
-        add(accessibility, "Move system caret with focus/selection changes", false);
-        add(accessibility, "Always expand alt text for images", true);
-        root.add(accessibility);
-
-        final DefaultMutableTreeNode browsing =
-                new DefaultMutableTreeNode("Browsing");
-        add(browsing, "Notify when downloads complete", true);
-        add(browsing, "Disable script debugging", true);
-        add(browsing, "Use AutoComplete", true);
-        add(browsing, "Browse in a new process", false);
-        root.add(browsing);
-
+    public static JTree createCheckboxTree(DefaultMutableTreeNode root) {
         final DefaultTreeModel treeModel = new DefaultTreeModel(root);
         final JTree tree = new JTree(treeModel);
 
@@ -110,7 +96,7 @@ public class TreePanel extends JPanel {
 
             @Override
             public void valueChanged(final TreeSelectionEvent e) {
-                System.out.println(System.currentTimeMillis() + ": selection changed");
+                UIManager.writeLog(System.currentTimeMillis() + ": selection changed");
             }
         });
 
@@ -119,37 +105,40 @@ public class TreePanel extends JPanel {
 
             @Override
             public void treeNodesChanged(final TreeModelEvent e) {
-                System.out.println(System.currentTimeMillis() + ": nodes changed");
+                //Repercuter les modifs sur les enfants
+                //DefaultMutableTreeNode test = (DefaultMutableTreeNode)fils;
+                //test.setChecked(false);
+                UIManager.writeLog("" + e.getChildren().length);
             }
 
             @Override
             public void treeNodesInserted(final TreeModelEvent e) {
-                System.out.println(System.currentTimeMillis() + ": nodes inserted");
+                UIManager.writeLog(System.currentTimeMillis() + ": nodes inserted");
             }
 
             @Override
             public void treeNodesRemoved(final TreeModelEvent e) {
-                System.out.println(System.currentTimeMillis() + ": nodes removed");
+                UIManager.writeLog(System.currentTimeMillis() + ": nodes removed");
             }
 
             @Override
             public void treeStructureChanged(final TreeModelEvent e) {
-                System.out.println(System.currentTimeMillis() + ": structure changed");
+                UIManager.writeLog(System.currentTimeMillis() + ": structure changed");
             }
         });
 
-        // show the tree onscreen
-        final JScrollPane scrollPane = new JScrollPane(tree);
+        return tree;
     }
 
-    private static DefaultMutableTreeNode add(
-            final DefaultMutableTreeNode parent, final String text,
-            final boolean checked)
+    private static DefaultMutableTreeNode addToCheckBoxTree(
+        final DefaultMutableTreeNode parent,
+        final String text,
+        final boolean checked
+    )
     {
         final CheckBoxNodeData data = new CheckBoxNodeData(text, checked);
         final DefaultMutableTreeNode node = new DefaultMutableTreeNode(data);
         parent.add(node);
         return node;
     }
-    */
 }
