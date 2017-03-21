@@ -7,11 +7,8 @@ import tree.Tree;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Arrays;
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 import tree.TreeBuilderService.OrganismType;
-import static view.TreePanel.buildJTree;
 
 public class MainFrameAcryl extends JFrame {
 
