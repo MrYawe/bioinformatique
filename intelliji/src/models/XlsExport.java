@@ -32,6 +32,27 @@ public class XlsExport
      */
     private final static int DINUCLEOTIDES_START_COLUMN = 11;
 
+
+    /**
+     * Nom de l'onglet contenant la somme des stats des chromosomes
+     */
+    private final static String SUM_CHROMOSOMES_SHEET = "Sum_Chromosomes";
+
+    /**
+     * Nom de l'onglet contenant la somme des stats des mitochondrions
+     */
+    private final static String SUM_MITOCHONDRIONS_SHEET = "Sum_Mitochondrions";
+
+    /**
+     * Nom de l'onglet contenant la somme des stats des ADN
+     */
+    private final static String SUM_DNA_SHEET = "Sum_DNA";
+
+    /**
+     * Nom de l'onglet contenant la somme des stats des chloroplastes
+     */
+    private final static String SUM_CHLOROPLASTS_SHEET = "Sum_Chloroplasts";
+
 	/**
      * Permet de créer le dossier qui contiendra tous les résultats
      */
@@ -54,6 +75,9 @@ public class XlsExport
         try
 		{
             workbook = (XSSFWorkbook) WorkbookFactory.create(is);
+            createNewSheet(workbook, XlsExport.SUM_MITOCHONDRIONS_SHEET);
+            createNewSheet(workbook, XlsExport.SUM_DNA_SHEET);
+            createNewSheet(workbook, XlsExport.SUM_CHLOROPLASTS_SHEET);
             is.close();
         }
         catch (Exception e)
@@ -75,21 +99,98 @@ public class XlsExport
     }
 
     /**
+     * Permet d'incrémenter les compteurs de CDS des sommes
+     * @param results Objet contenant les stats du locus actuel
+     * @param sum Objet contenant les compteurs à incrémenter
+     */
+    private static void incrementSumCDSNumbers(CDSResult results, CDSResult sum)
+    {
+        sum.setNbMalformedCDS(sum.getNbMalformedCDS() + results.getNbMalformedCDS());
+        sum.setNbInvalidCDS(sum.getNbInvalidCDS() + results.getNbInvalidCDS());
+        sum.setNbCDS(sum.getNbCDS() + results.getNbCDS());
+    }
+
+    /**
+     * Permet d'incrémenter les stats des trinucléotides
+     * @param sum Objet contenant les HashMap des trinucléotides à incrémenter
+     * @param key Clé du HashMap à incrémenter
+     * @param nbTriPhase0 Nombre de trinucléotides en phase 0
+     * @param nbTriPhase1 Nombre de trinucléotides en phase 1
+     * @param nbTriPhase2 Nombre de trinucléotides en phase 2
+     */
+    private static void incrementSumTrinucleotides(CDSResult sum, String key, int nbTriPhase0, int nbTriPhase1, int nbTriPhase2)
+    {
+        sum.getTriPhase0().put(key, sum.getTriPhase0().get(key) + nbTriPhase0);
+        sum.getTriPhase1().put(key, sum.getTriPhase1().get(key) + nbTriPhase1);
+        sum.getTriPhase2().put(key, sum.getTriPhase2().get(key) + nbTriPhase2);
+    }
+
+    /**
+     * Permet d'incrémenter les stats des phases préférentielles
+     * @param sum Objet contenant les HashMap des phases préférentielles à incrémenter
+     * @param key Clé du HashMap à incrémenter
+     * @param nbTriPrefPhase0 Nombre de CDS dans lequel la phase 0 est la phase préférentielle de la clé
+     * @param nbTriPrefPhase1 Nombre de CDS dans lequel la phase 1 est la phase préférentielle de la clé
+     * @param nbTriPrefPhase2 Nombre de CDS dans lequel la phase 2 est la phase préférentielle de la clé
+     */
+    private static void incrementSumPhasePref(CDSResult sum, String key, int nbTriPrefPhase0, int nbTriPrefPhase1, int nbTriPrefPhase2)
+    {
+        sum.getTriPrefPhase0().put(key, sum.getTriPrefPhase0().get(key) + nbTriPrefPhase0);
+        sum.getTriPrefPhase1().put(key, sum.getTriPrefPhase1().get(key) + nbTriPrefPhase1);
+        sum.getTriPrefPhase2().put(key, sum.getTriPrefPhase2().get(key) + nbTriPrefPhase2);
+    }
+
+    /**
+     * Permet d'incrémenter les stats des dinucléotides
+     * @param sum Objet contenant les HashMap des dinucléotides à incrémenter
+     * @param key Clé du HashMap à incrémenter
+     * @param nbDiPhase0 Nombre de dinucléotides en phase 0
+     * @param nbDiPhase1 Nombre de dinucléotides en phase 1
+     */
+    private static void incrementSumDinucleotides(CDSResult sum, String key, int nbDiPhase0, int nbDiPhase1)
+    {
+        sum.getDiPhase0().put(key, sum.getDiPhase0().get(key) + nbDiPhase0);
+        sum.getDiPhase1().put(key, sum.getDiPhase1().get(key) + nbDiPhase1);
+    }
+
+    /**
      * Permet d'exporter les statistiques dans un onglet d'un fichier Excel
      * @param workbook Fichier excel dans lequel on souhaite insérer les statistiques
      * @param results Objet contenant les résultats des statistiques effectuées
+     * @param sumResults Object contenant les résultats des sommes des statistiques
      */
-    public static void exportStats(XSSFWorkbook workbook, CDSResult results, CDSResult speciesResults)
+    public static void exportStats(XSSFWorkbook workbook, CDSResult results, SumResults sumResults)
     {
-        XlsExport.createNewSheet(workbook, results.getChromosomeName());
-        Sheet sheet = workbook.getSheet(results.getChromosomeName());
-        sheet.getRow(0).getCell(1).setCellValue(results.getSpecies());
+        XlsExport.createNewSheet(workbook, results.getLocusName());
+        Sheet sheet = workbook.getSheet(results.getLocusName());
+        sheet.getRow(0).getCell(1).setCellValue(results.getOrganism());
         sheet.getRow(1).getCell(1).setCellValue(results.getNbCDS());
         sheet.getRow(2).getCell(1).setCellValue(results.getNbMalformedCDS());
         sheet.getRow(4).getCell(1).setCellValue(results.getNbInvalidCDS());
-        speciesResults.setNbMalformedCDS(speciesResults.getNbMalformedCDS() + results.getNbMalformedCDS());
-        speciesResults.setNbInvalidCDS(speciesResults.getNbInvalidCDS() + results.getNbInvalidCDS());
-        speciesResults.setNbCDS(speciesResults.getNbCDS() + results.getNbCDS());
+        CDSResult.Type type = results.getType();
+        switch (type)
+        {
+            case CHROMOSOME:
+                sumResults.setNbChromosomes(sumResults.getNbChromosomes() + 1);
+                incrementSumCDSNumbers(results, sumResults.getSumChromosomes());
+                break;
+
+            case MITOCHONDRION:
+                sumResults.setNbMitochondrions(sumResults.getNbMitochondrions() + 1);
+                incrementSumCDSNumbers(results, sumResults.getSumMitochondrions());
+                break;
+
+            case DNA:
+                sumResults.setNbDNA(sumResults.getNbDNA() + 1);
+                incrementSumCDSNumbers(results, sumResults.getSumDNA());
+                break;
+
+            default:
+                sumResults.setNbChloroplasts(sumResults.getNbChloroplasts() + 1);
+                incrementSumCDSNumbers(results, sumResults.getSumChloroplasts());
+                break;
+        }
+
         for (int i = START_ROW; i < START_ROW + results.getTriPhase0().size(); i++)
         {
             Row r = sheet.getRow(i);
@@ -97,19 +198,62 @@ public class XlsExport
             int nbTriPhase0 = results.getTriPhase0().get(key);
             int nbTriPhase1 = results.getTriPhase1().get(key);
             int nbTriPhase2 = results.getTriPhase2().get(key);
-            speciesResults.getTriPhase0().put(key, speciesResults.getTriPhase0().get(key) + nbTriPhase0);
-            speciesResults.getTriPhase1().put(key, speciesResults.getTriPhase1().get(key) + nbTriPhase1);
-            speciesResults.getTriPhase2().put(key, speciesResults.getTriPhase2().get(key) + nbTriPhase2);
+            int nbTriPrefPhase0 = results.getTriPrefPhase0().get(key);
+            int nbTriPrefPhase1 = results.getTriPrefPhase1().get(key);
+            int nbTriPrefPhase2 = results.getTriPrefPhase2().get(key);
+            switch (type)
+            {
+                case CHROMOSOME:
+                    incrementSumTrinucleotides(sumResults.getSumChromosomes(), key, nbTriPhase0, nbTriPhase1, nbTriPhase2);
+                    incrementSumPhasePref(sumResults.getSumChromosomes(), key, nbTriPrefPhase0, nbTriPrefPhase1, nbTriPrefPhase2);
+                    break;
+
+                case MITOCHONDRION:
+                    incrementSumTrinucleotides(sumResults.getSumMitochondrions(), key, nbTriPhase0, nbTriPhase1, nbTriPhase2);
+                    incrementSumPhasePref(sumResults.getSumMitochondrions(), key, nbTriPrefPhase0, nbTriPrefPhase1, nbTriPrefPhase2);
+                    break;
+
+                case DNA:
+                    incrementSumTrinucleotides(sumResults.getSumDNA(), key, nbTriPhase0, nbTriPhase1, nbTriPhase2);
+                    incrementSumPhasePref(sumResults.getSumDNA(), key, nbTriPrefPhase0, nbTriPrefPhase1, nbTriPrefPhase2);
+                    break;
+
+                default:
+                    incrementSumTrinucleotides(sumResults.getSumChloroplasts(), key, nbTriPhase0, nbTriPhase1, nbTriPhase2);
+                    incrementSumPhasePref(sumResults.getSumChloroplasts(), key, nbTriPrefPhase0, nbTriPrefPhase1, nbTriPrefPhase2);
+                    break;
+            }
             r.getCell(TRINUCLEOTIDES_START_COLUMN + 1).setCellValue(nbTriPhase0);
             r.getCell(TRINUCLEOTIDES_START_COLUMN + 3).setCellValue(nbTriPhase1);
             r.getCell(TRINUCLEOTIDES_START_COLUMN + 5).setCellValue(nbTriPhase2);
+
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 7).setCellValue(nbTriPrefPhase0);
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 8).setCellValue(nbTriPrefPhase1);
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 9).setCellValue(nbTriPrefPhase2);
+
             if (i < START_ROW + results.getDiPhase0().size())
             {
                 key = r.getCell(DINUCLEOTIDES_START_COLUMN).getStringCellValue();
                 int nbDiPhase0 = results.getDiPhase0().get(key);
                 int nbDiPhase1 = results.getDiPhase1().get(key);
-                speciesResults.getDiPhase0().put(key, speciesResults.getDiPhase0().get(key) + nbDiPhase0);
-                speciesResults.getDiPhase1().put(key, speciesResults.getDiPhase1().get(key) + nbDiPhase1);
+                switch (type)
+                {
+                    case CHROMOSOME:
+                        incrementSumDinucleotides(sumResults.getSumChromosomes(), key, nbDiPhase0, nbDiPhase1);
+                        break;
+
+                    case MITOCHONDRION:
+                        incrementSumDinucleotides(sumResults.getSumMitochondrions(), key, nbDiPhase0, nbDiPhase1);
+                        break;
+
+                    case DNA:
+                        incrementSumDinucleotides(sumResults.getSumDNA(), key, nbDiPhase0, nbDiPhase1);
+                        break;
+
+                    default:
+                        incrementSumDinucleotides(sumResults.getSumChloroplasts(), key, nbDiPhase0, nbDiPhase1);
+                        break;
+                }
                 r.getCell(DINUCLEOTIDES_START_COLUMN + 1).setCellValue(nbDiPhase0);
                 r.getCell(DINUCLEOTIDES_START_COLUMN + 3).setCellValue(nbDiPhase1);
             }
@@ -118,49 +262,76 @@ public class XlsExport
 
     /**
      * Permet d'exporter les statistiques correspondant à la somme de tous les onglets des chromosomes
-     * @param workbook Fichier excel dans lequel on souhaite insérer les statistiques
-     * @param speciesResults Objet contenant les statistiques correspondant à la somme de tous les onglets des chromosomes
+     * @param sumResults Objet contenant les statistiques correspondant à la somme de tous les onglets des chromosomes
+     * @param sheet Onglet dans lequel on souhaite insérer les stats
+     * @param organism Nom de l'organisme traité actuellement
      */
-    private static void exportSumChromosomesStats(XSSFWorkbook workbook, CDSResult speciesResults)
+    private static void exportSumStats(CDSResult sumResults, Sheet sheet, String organism)
     {
-        Sheet sheet = workbook.getSheet("Sum_Chromosomes");
-        sheet.getRow(0).getCell(1).setCellValue(speciesResults.getSpecies());
-        sheet.getRow(1).getCell(1).setCellValue(speciesResults.getNbCDS());
-        sheet.getRow(2).getCell(1).setCellValue(speciesResults.getNbMalformedCDS());
-        sheet.getRow(4).getCell(1).setCellValue(speciesResults.getNbInvalidCDS());
-        for (int i = START_ROW; i < START_ROW + speciesResults.getTriPhase0().size(); i++)
+        sheet.getRow(0).getCell(1).setCellValue(organism);
+        sheet.getRow(1).getCell(1).setCellValue(sumResults.getNbCDS());
+        sheet.getRow(2).getCell(1).setCellValue(sumResults.getNbMalformedCDS());
+        sheet.getRow(4).getCell(1).setCellValue(sumResults.getNbInvalidCDS());
+        for (int i = START_ROW; i < START_ROW + sumResults.getTriPhase0().size(); i++)
         {
             Row r = sheet.getRow(i);
             String key = r.getCell(TRINUCLEOTIDES_START_COLUMN).getStringCellValue();
-            r.getCell(TRINUCLEOTIDES_START_COLUMN + 1).setCellValue(speciesResults.getTriPhase0().get(key));
-            r.getCell(TRINUCLEOTIDES_START_COLUMN + 3).setCellValue(speciesResults.getTriPhase1().get(key));
-            r.getCell(TRINUCLEOTIDES_START_COLUMN + 5).setCellValue(speciesResults.getTriPhase2().get(key));
-            if (i < START_ROW + speciesResults.getDiPhase0().size())
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 1).setCellValue(sumResults.getTriPhase0().get(key));
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 3).setCellValue(sumResults.getTriPhase1().get(key));
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 5).setCellValue(sumResults.getTriPhase2().get(key));
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 7).setCellValue(sumResults.getTriPrefPhase0().get(key));
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 8).setCellValue(sumResults.getTriPrefPhase1().get(key));
+            r.getCell(TRINUCLEOTIDES_START_COLUMN + 9).setCellValue(sumResults.getTriPrefPhase2().get(key));
+            if (i < START_ROW + sumResults.getDiPhase0().size())
             {
                 key = r.getCell(DINUCLEOTIDES_START_COLUMN).getStringCellValue();
-                r.getCell(DINUCLEOTIDES_START_COLUMN + 1).setCellValue(speciesResults.getDiPhase0().get(key));
-                r.getCell(DINUCLEOTIDES_START_COLUMN + 3).setCellValue(speciesResults.getDiPhase1().get(key));
+                r.getCell(DINUCLEOTIDES_START_COLUMN + 1).setCellValue(sumResults.getDiPhase0().get(key));
+                r.getCell(DINUCLEOTIDES_START_COLUMN + 3).setCellValue(sumResults.getDiPhase1().get(key));
             }
         }
     }
 
     /**
-     * Permet d'exporter le fichier excel correspondant au workbook passé en paramètre
-     * @param workbook Workbook à exporter
-     * @param speciesResults Objet contenant les résultats des statistiques effectuées pour un organisme complet
+     * Permet d'exporter les stats sur la feuille "General_Information"
+     * @param workbook Fichier Excel dans lequel on souhaite insérer les stats
+     * @param sumResults Objet contenant les résultats des sommes
      */
-    public static void exportExcelFile(XSSFWorkbook workbook, CDSResult speciesResults)
+    private static void exportGeneralSheet(XSSFWorkbook workbook, SumResults sumResults)
     {
+        Sheet sheet = workbook.getSheetAt(0);
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-YYYY HH:mm");
-        workbook.getSheetAt(0).getRow(2).createCell(1).setCellValue(speciesResults.getSpecies());
-        workbook.getSheetAt(0).getRow(4).createCell(1).setCellValue(format.format(cal.getTime()));
 
-        exportSumChromosomesStats(workbook, speciesResults);
+        Row r2 = sheet.getRow(2);
+        Row r3 = sheet.getRow(3);
+        Row r4 = sheet.getRow(4);
+        Row r5 = sheet.getRow(5);
+        Row r6 = sheet.getRow(6);
+        r2.createCell(1).setCellValue(sumResults.getOrganism());
+        r3.createCell(5).setCellValue(sumResults.getNbChromosomes());
+        r4.createCell(1).setCellValue(format.format(cal.getTime()));
+        r4.createCell(5).setCellValue(sumResults.getNbMitochondrions());
+        r5.createCell(5).setCellValue(sumResults.getNbDNA());
+        r6.createCell(1).setCellValue(1);
+        r6.createCell(5).setCellValue(sumResults.getNbChloroplasts());
+    }
+
+    /**
+     * Permet d'exporter le fichier excel correspondant au workbook passé en paramètre
+     * @param workbook Workbook à exporter
+     * @param sumResults Objet contenant les résultats des statistiques effectuées pour un organisme complet (contient toutes les sommes)
+     * @param path Chemin du fichier exporté
+     */
+    public static void exportExcelFile(XSSFWorkbook workbook, SumResults sumResults, String path)
+    {
+        exportSumStats(sumResults.getSumChromosomes(), workbook.getSheet(XlsExport.SUM_CHROMOSOMES_SHEET), sumResults.getOrganism());
+        exportSumStats(sumResults.getSumMitochondrions(), workbook.getSheet(XlsExport.SUM_MITOCHONDRIONS_SHEET), sumResults.getOrganism());
+        exportSumStats(sumResults.getSumDNA(), workbook.getSheet(XlsExport.SUM_DNA_SHEET), sumResults.getOrganism());
+        exportSumStats(sumResults.getSumChloroplasts(), workbook.getSheet(XlsExport.SUM_CHLOROPLASTS_SHEET), sumResults.getOrganism());
+
+        exportGeneralSheet(workbook, sumResults);
 
         XSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
-
-        String path = System.getProperty("user.dir") + File.separator + "results" + File.separator + speciesResults.getSpecies() + ".xlsx";
 
         try
         {

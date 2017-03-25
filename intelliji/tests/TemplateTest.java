@@ -1,4 +1,5 @@
 import models.CDSResult;
+import models.SumResults;
 import models.TreatFile;
 import models.XlsExport;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -23,19 +24,20 @@ public class TemplateTest
         {
             /// UNE FOIS PAR ORGANISME ///
             XSSFWorkbook workbook = XlsExport.getWorkbookFromTemplate();
-            CDSResult speciesResults = new CDSResult();
+            SumResults sumResults = new SumResults();
+            sumResults.setOrganism("test");
 
-            /// UNE FOIS POUR CHAQUE CHROMOSOME D'UN ORGANISME ///
+            /// UNE FOIS POUR CHAQUE NC D'UN ORGANISME ///
             InputStream is = new FileInputStream("tests/sequence.gbk");
             CDSResult results = TreatFile.processFile(is);
-            results.setChromosomeName("NC_12");
-            results.setSpecies("test");
-            XlsExport.exportStats(workbook, results, speciesResults);
+            results.setLocusName("NC_12");
+            results.setOrganism("test");
+            XlsExport.exportStats(workbook, results, sumResults);
 
 
             /// UNE FOIS PAR ORGANISME ///
-            speciesResults.setSpecies("test");
-            XlsExport.exportExcelFile(workbook, speciesResults);
+            String path = System.getProperty("user.dir") + File.separator + "results" + File.separator + sumResults.getOrganism() + ".xlsx";
+            XlsExport.exportExcelFile(workbook, sumResults, path);
         }
         catch (FileNotFoundException e)
         {
