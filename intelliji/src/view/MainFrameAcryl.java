@@ -3,6 +3,7 @@ package view;
 /**
  * Created by germain on 05/02/2017.
  **/
+import tree.OrganismTree;
 import tree.Tree;
 
 import java.awt.*;
@@ -110,10 +111,9 @@ public class MainFrameAcryl extends JFrame {
 
         JButton btnLoadTree = new JButton("Load Tree");
         btnLoadTree.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
-                //OrganismTree tree = OrganismTree.fromGenBank();
-
+                // Executing the Tree
+                new Thread(() -> MainFrameAcryl.getInstance().updateDisplayedTree(OrganismTree.getInstance())).start();
             }
         });
         pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
