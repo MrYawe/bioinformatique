@@ -3,11 +3,23 @@ package models;
 import java.util.HashMap;
 
 /**
- * Class which represents a CDS result
+ * Class représentant les résultats des statistiques
+ * @author brice
+ * @version 1.0
  */
 
 public class CDSResult
 {
+	/**
+	 * Enumération des types des stats
+	 */
+	public enum Type {CHROMOSOME, MITOCHONDRION, DNA, CHLOROPLAST};
+
+	/**
+	 * Type des stats courantes (type CHROMOSOME par défaut)
+	 */
+	private Type type;
+
 	/////// HashMap pour les statistiques des trinucléotides //////
 	/**
 	 * Table de hachage associant un trinucléotide à un nombre d'occurences en phase 0
@@ -47,13 +59,13 @@ public class CDSResult
 	private HashMap<String, Integer> diPhase1;
 
 	/**
-	 * Nom de l'espèce
+	 * Nom de l'organisme
 	 */
-	private String species;
+	private String organism;
 	/**
-	 * Nom du chromosome (NC_...)
+	 * Nom du locus (NC_...)
 	 */
-	private String chromosomeName;
+	private String locusName;
 
 
 	/**
@@ -70,6 +82,26 @@ public class CDSResult
 	 * Nombre de CDS bien formés mais invalides, donc jetés lors des statistiques
 	 */
 	private int nbInvalidCDS;
+
+    /**
+     * Permet d'accéder au type des résultats du fichier courant
+     * @return Le type des résultats du fichier courant
+     * @see Type
+     */
+	public Type getType()
+    {
+        return this.type;
+    }
+
+    /**
+     * Permet d'assigner le type des résultats du fichier courant
+     * @param type Type des résultats du fichier courant
+     * @see Type
+     */
+    public void setType(Type type)
+    {
+        this.type = type;
+    }
 
 	/**
 	 * Permet de récupérer le HashMap de la phase 0 des trinucléotides
@@ -216,39 +248,39 @@ public class CDSResult
 	}
 
 	/**
-	 * Permet d'accéder au nom de l'espèce traitée
-	 * @return Le nom de l'espèce
+	 * Permet d'accéder au nom de l'organisme traité
+	 * @return Le nom de l'organisme
 	 */
-	public String getSpecies()
+	public String getOrganism()
 	{
-		return species;
+		return organism;
 	}
 
 	/**
-	 * Permet d'assigner le nom de l'espèce traitée
-	 * @param species Nom de l'espèce
+	 * Permet d'assigner le nom de l'organisme traité
+	 * @param organism Nom de l'organisme
 	 */
-	public void setSpecies(String species)
+	public void setOrganism(String organism)
 	{
-		this.species = species;
+		this.organism = organism;
 	}
 
 	/**
-	 * Permet d'accéder au nom du chromosome
-	 * @return Le nom du chromosome traité (NC_...)
+	 * Permet d'accéder au nom du locus
+	 * @return Le nom du locus traité (NC_...)
 	 */
-	public String getChromosomeName()
+	public String getLocusName()
 	{
-		return chromosomeName;
+		return locusName;
 	}
 
 	/**
-	 * Permet d'assigner le nom du chromosome
-	 * @param chromosomeName Nom du chromosome traité (NC_...)
+	 * Permet d'assigner le nom du locus
+	 * @param locusName Nom du locus traité (NC_...)
 	 */
-	public void setChromosomeName(String chromosomeName)
+	public void setLocusName(String locusName)
 	{
-		this.chromosomeName = chromosomeName;
+		this.locusName = locusName;
 	}
 
 	/**
@@ -305,8 +337,13 @@ public class CDSResult
 		this.nbInvalidCDS = nbInvalidCDS;
 	}
 
+	/**
+	 * Constructeur de la classe CDSResult
+	 */
 	public CDSResult()
 	{
+		this.type = Type.CHROMOSOME;
+
 		this.triPhase0 = this.initializationHmap();
 		this.triPhase1 = this.initializationHmap();
 		this.triPhase2 = this.initializationHmap();
@@ -317,8 +354,8 @@ public class CDSResult
 		this.diPhase0 = this.initializationHmapDi();
 		this.diPhase1 = this.initializationHmapDi();
 
-		this.chromosomeName = "";
-		this.species = "";
+		this.locusName = "";
+		this.organism = "";
 		this.nbCDS = 0;
 		this.nbMalformedCDS = 0;
 		this.nbInvalidCDS = 0;
