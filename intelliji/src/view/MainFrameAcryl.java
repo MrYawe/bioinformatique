@@ -3,7 +3,6 @@ package view;
 /**
  * Created by germain on 05/02/2017.
  **/
-import tree.OrganismTree;
 import tree.Tree;
 
 import java.awt.*;
@@ -118,6 +117,13 @@ public class MainFrameAcryl extends JFrame {
             }
         });
         pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
+        JButton btnSelectedOrganisms = new JButton("Get selected organisms");
+        btnSelectedOrganisms.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                UIManager.writeLog("Noeuds selectionnés : " + pnlTree.getSelectedOrganisms().toString());
+            }
+        });
+        pnlSouth.add(btnSelectedOrganisms, BorderLayout.EAST);
 
     }
 

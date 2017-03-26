@@ -2,10 +2,13 @@ package view;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+
 import tree.Organism;
 import tree.Tree;
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -14,7 +17,7 @@ import java.util.stream.Collectors;
 public class TreePanel extends JPanel {
 
     private JScrollPane panel;
-    private HashMap<Organism, Boolean> organisms = new HashMap<Organism, Boolean>();
+    private JCheckBoxTree currentTree = null;
 
     public TreePanel()
     {
@@ -25,20 +28,40 @@ public class TreePanel extends JPanel {
     }
 
     public void updateDisplayedTree(Tree tree){
-        panel.setViewportView(buildJTree(tree));
+        currentTree = buildJTree(tree);
+        panel.setViewportView(currentTree);
     }
 
-    public Set<Organism> getOrganisms()
+    public List<Organism> getSelectedOrganisms()
     {
-        return getKeysByValue(organisms, true);
+        List<Organism> organisms = new ArrayList<Organism>();
+        if(currentTree == null)
+        {
+            UIManager.writeError("L'arbre n'a pas été initialisé");
+        }
+        else
+        {
+            DefaultMutableTreeNode root = (DefaultMutableTreeNode) currentTree.getModel().getRoot();
+            organisms = walkTroughTree(organisms, root);
+        }
+        return organisms;
     }
 
-    public static <T, E> Set<T> getKeysByValue(Map<T, E> map, E value) {
-        return map.entrySet()
-                .stream()
-                .filter(entry -> Objects.equals(entry.getValue(), value))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toSet());
+    private List<Organism> walkTroughTree(List<Organism> organisms, DefaultMutableTreeNode currentNode)
+    {
+
+        if(currentNode.isLeaf())
+        {
+            if(currentTree.isChecked(currentNode))
+            {
+                organisms.add((Organism) currentNode.getUserObject());
+            }
+        }
+        for(int i = 0 ; i < currentNode.getChildCount() ; i++)
+        {
+            organisms = walkTroughTree(organisms, (DefaultMutableTreeNode)currentNode.getChildAt(i));
+        }
+        return organisms;
     }
 
     private JTree getDefaultTree(){
@@ -46,7 +69,7 @@ public class TreePanel extends JPanel {
         return new JTree(root);
     }
 
-    private JTree buildJTree(Tree mainTree) {
+    private JCheckBoxTree buildJTree(Tree mainTree) {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Organismes");
         Object[] nodes = mainTree.nodes();
         Arrays.sort(nodes);
@@ -78,10 +101,8 @@ public class TreePanel extends JPanel {
         //Si ce n'est pas un noeud, on l'ajoute et on retourne le tout
         else
         {
-            //TODO: Peut etre true par defaut & trouvé le nom organisme (tostring ou getName) & update les check
             Organism org = (Organism)nodeObj;
-            organisms.put(org, false);
-            cur.add(new DefaultMutableTreeNode(nodeName));
+            cur.add(new DefaultMutableTreeNode(org));
             return cur;
         }
     }

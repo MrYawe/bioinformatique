@@ -91,6 +91,11 @@ public class JCheckBoxTree extends JTree {
         return cn.isSelected && cn.hasChildren && !cn.allChildrenSelected;
     }
 
+    public boolean isChecked(DefaultMutableTreeNode node)
+    {
+        return nodesCheckingState.get( new TreePath(node.getPath())).isSelected;
+    }
+
     private void resetCheckingState() {
         nodesCheckingState = new HashMap<TreePath, CheckedNode>();
         checkedPaths = new HashSet<TreePath>();
