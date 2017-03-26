@@ -1,20 +1,12 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.event.TreeModelEvent;
-import javax.swing.event.TreeModelListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-
-import org.scijava.swing.checkboxtree.CheckBoxNodeData;
-import org.scijava.swing.checkboxtree.CheckBoxNodeEditor;
-import org.scijava.swing.checkboxtree.CheckBoxNodeRenderer;
+import tree.Organism;
 import tree.Tree;
-
 import java.awt.*;
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by germain on 21/03/17.
@@ -22,6 +14,7 @@ import java.util.Arrays;
 public class TreePanel extends JPanel {
 
     private JScrollPane panel;
+    private HashMap<Organism, Boolean> organisms = new HashMap<Organism, Boolean>();
 
     public TreePanel()
     {
@@ -35,24 +28,37 @@ public class TreePanel extends JPanel {
         panel.setViewportView(buildJTree(tree));
     }
 
-    private static JTree getDefaultTree(){
+    public Set<Organism> getOrganisms()
+    {
+        return getKeysByValue(organisms, true);
+    }
+
+    public static <T, E> Set<T> getKeysByValue(Map<T, E> map, E value) {
+        return map.entrySet()
+                .stream()
+                .filter(entry -> Objects.equals(entry.getValue(), value))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+    }
+
+    private JTree getDefaultTree(){
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Chargement ...");
         return new JTree(root);
     }
 
-    private static JTree buildJTree(Tree mainTree) {
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Type");
+    private JTree buildJTree(Tree mainTree) {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Organismes");
         Object[] nodes = mainTree.nodes();
         Arrays.sort(nodes);
         for(Object nodeName : nodes)
         {
             root = buildTreeAux(root, nodeName, mainTree);
         }
-        JTree res = new JTree(root);
-        return createCheckboxTree(root);
+        JCheckBoxTree res = new JCheckBoxTree(root);
+        return res;
     }
 
-    private static DefaultMutableTreeNode buildTreeAux(DefaultMutableTreeNode cur, Object nodeName, Tree tree)
+    private DefaultMutableTreeNode buildTreeAux(DefaultMutableTreeNode cur, Object nodeName, Tree tree)
     {
         //Récupère l'objet associé au String du noeud
         Object nodeObj = tree.get((String) nodeName);
@@ -61,84 +67,22 @@ public class TreePanel extends JPanel {
             Tree subTree = (Tree<?>) nodeObj;
             Object[] nodes = subTree.nodes();
             Arrays.sort(nodes);
-            //DefaultMutableTreeNode newTree = new DefaultMutableTreeNode(nodeName);
-            DefaultMutableTreeNode newTree = addToCheckBoxTree(cur, nodeName.toString(), true);
-
+            DefaultMutableTreeNode newTree = new DefaultMutableTreeNode(nodeName);
             for(Object it : nodes)
             {
                 newTree = buildTreeAux(newTree, it, subTree);
             }
-            //cur.addToCheckBoxTree(newTree);
+            cur.add(newTree);
             return cur;
         }
         //Si ce n'est pas un noeud, on l'ajoute et on retourne le tout
         else
         {
-            //cur.addToCheckBoxTree(new DefaultMutableTreeNode(nodeName));
-            addToCheckBoxTree(cur, nodeName.toString(), true);
+            //TODO: Peut etre true par defaut & trouvé le nom organisme (tostring ou getName) & update les check
+            Organism org = (Organism)nodeObj;
+            organisms.put(org, false);
+            cur.add(new DefaultMutableTreeNode(nodeName));
             return cur;
         }
-    }
-
-    public static JTree createCheckboxTree(DefaultMutableTreeNode root) {
-        final DefaultTreeModel treeModel = new DefaultTreeModel(root);
-        final JTree tree = new JTree(treeModel);
-
-        final CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
-        tree.setCellRenderer(renderer);
-
-        final CheckBoxNodeEditor editor = new CheckBoxNodeEditor(tree);
-        tree.setCellEditor(editor);
-        tree.setEditable(true);
-
-        // listen for changes in the selection
-        tree.addTreeSelectionListener(new TreeSelectionListener() {
-
-            @Override
-            public void valueChanged(final TreeSelectionEvent e) {
-                UIManager.writeLog(System.currentTimeMillis() + ": selection changed");
-            }
-        });
-
-        // listen for changes in the model (including check box toggles)
-        treeModel.addTreeModelListener(new TreeModelListener() {
-
-            @Override
-            public void treeNodesChanged(final TreeModelEvent e) {
-                //Repercuter les modifs sur les enfants
-                //DefaultMutableTreeNode test = (DefaultMutableTreeNode)fils;
-                //test.setChecked(false);
-                UIManager.writeLog("" + e.getChildren().length);
-            }
-
-            @Override
-            public void treeNodesInserted(final TreeModelEvent e) {
-                UIManager.writeLog(System.currentTimeMillis() + ": nodes inserted");
-            }
-
-            @Override
-            public void treeNodesRemoved(final TreeModelEvent e) {
-                UIManager.writeLog(System.currentTimeMillis() + ": nodes removed");
-            }
-
-            @Override
-            public void treeStructureChanged(final TreeModelEvent e) {
-                UIManager.writeLog(System.currentTimeMillis() + ": structure changed");
-            }
-        });
-
-        return tree;
-    }
-
-    private static DefaultMutableTreeNode addToCheckBoxTree(
-        final DefaultMutableTreeNode parent,
-        final String text,
-        final boolean checked
-    )
-    {
-        final CheckBoxNodeData data = new CheckBoxNodeData(text, checked);
-        final DefaultMutableTreeNode node = new DefaultMutableTreeNode(data);
-        parent.add(node);
-        return node;
     }
 }
