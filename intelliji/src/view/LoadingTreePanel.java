@@ -12,78 +12,63 @@ import java.net.URL;
  */
 public class LoadingTreePanel extends JPanel {
 
-    private JPanel backgroundPanel;
-    private int widthGif;
-    private int heightGif;
+    //////////////////////////////////////////
+    //     INSTANCE MEMBER DECLARATION      //
+    //////////////////////////////////////////
+    //private JPanel pnlBackground;
+    //private int widthGif;
+    //private int heightGif;
+    private LoadingPanel pnlLoadingTree;
+
     private OrganismType type;
     private int percent;
-    JLabel jlbTypePercent;
+    JLabel lblTypePercent;
 
-    public OrganismType getType() {
-        return this.type;
+    //////////////////////////////////////////
+    //          GETTERS AND SETTERS         //
+    //////////////////////////////////////////
+    public OrganismType getType() { return this.type; }
+
+    JPanel getPnlForeground() {
+        return pnlLoadingTree.getPnlForeground();
     }
 
-    public void setPercent(int p) {
-        this.percent = p;
-    }
+    int getWidthGif() { return pnlLoadingTree.getWidthGif(); }
 
-    public void updatePercent() {
-        jlbTypePercent.setText(this.type.toString().toLowerCase() + " : "+ percent + "%");
-    }
+    void setPercent(int p) { this.percent = p; }
 
-    public JPanel getBackgroundPanel() {
-        return backgroundPanel;
-    }
+    //////////////////////////////////////////
+    //              CONSTRUCTOR             //
+    //////////////////////////////////////////
+    LoadingTreePanel(OrganismType type) {
+        //////////////////////////////////////////
+        //              DECLARATION             //
+        //////////////////////////////////////////
+        JPanel pnlMain;         //Panel that will get
 
-    public int getWidthGif() { return this.widthGif; }
+        //////////////////////////////////////////
+        //             INSTANTIATION            //
+        //////////////////////////////////////////
+        this.type = type;       //type referring to the OrganismType of the loading Panel
+        pnlLoadingTree = new LoadingPanel();
+        pnlMain = new JPanel(new BorderLayout());
+        lblTypePercent = new JLabel(this.type.toString().toLowerCase() + " : "+ percent + "%");
 
-    public LoadingTreePanel(OrganismType type) {
-        this.type = type;
-        JPanel pnlMain = new JPanel(new BorderLayout());
-        backgroundPanel = new JPanel();
-
+        //////////////////////////////////////////
+        //                 LAYOUT               //
+        //////////////////////////////////////////
         this.setLayout(new BorderLayout());
-        try
-        {
-            URL path = MainFrameAcryl.class.getClass().getResource("/img/brinFinal.gif");
-            ImageIcon image = new ImageIcon(path);
-            this.widthGif = image.getIconWidth()/3;
-            this.heightGif = image.getIconHeight()/3;
-            image.setImage(image.getImage().getScaledInstance(widthGif, heightGif, Image.SCALE_DEFAULT));
-            this.widthGif = 350;
-            /////////this.setPreferredSize(new Dimension(widthGif,heightGif));
-
-            JLabel label = new JLabel(image);
-            JLayeredPane jlpGIF = new JLayeredPane();
-            jlpGIF.setPreferredSize(new Dimension(widthGif,heightGif));
-
-
-
-            label.setPreferredSize(new Dimension(widthGif,heightGif));
-            jlpGIF.setPreferredSize(label.getPreferredSize());
-            pnlMain.add(jlpGIF, BorderLayout.CENTER);
-
-            backgroundPanel.setBackground(Color.LIGHT_GRAY);
-            backgroundPanel.setLocation(0, 0);
-            backgroundPanel.setSize(new Dimension(widthGif,heightGif));
-            jlpGIF.add(backgroundPanel, new Integer(1));
-
-            label.setLocation(0,0);
-            label.setSize(label.getPreferredSize());
-            jlpGIF.add(label,new Integer(0));
-            //jlpGIF.setPreferredSize(new Dimension(800,190));
-
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-
-        jlbTypePercent = new JLabel(this.type.toString().toLowerCase() + " : "+ percent + "%");
-        pnlMain.add(jlbTypePercent, BorderLayout.NORTH);
-
+        pnlMain.add(lblTypePercent, BorderLayout.NORTH);
+        pnlMain.add(pnlLoadingTree, BorderLayout.CENTER);
         this.add(pnlMain, BorderLayout.CENTER);
     }
 
+    //Fonction used to update the text of the label referring to the current loading tree
+    public void updatePercent() {
+        if(percent==100)
+            lblTypePercent.setText(getType().toString().toLowerCase() + " : DONE");
+        else
+            lblTypePercent.setText(getType().toString().toLowerCase() + " : "+ percent + "%");
+    }
 
 }

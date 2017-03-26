@@ -74,10 +74,12 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
     }
 
     public void readAllPages(){
+
         this.currentPage = 1;
         boolean cont = true;
         while(cont) {
             try{
+
                 List<Organism> result = retryer.call(this.pageCallable);
                 if(result == null){
                     cont = false;
