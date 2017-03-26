@@ -21,6 +21,7 @@ public interface Config {
     String getIdSearchUrl();
 
     // Tree Configuration
+    boolean getLoadTreeFromGenbank();
     String getTreeUrl();
     String getTreeEukaryotesUrl();
     String getTreeProkaryotesUrl();

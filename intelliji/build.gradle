@@ -36,10 +36,18 @@ dependencies {
     compile 'junit:junit:4.12'
     compile 'org.apache.poi:poi-ooxml:3.15'
     compile 'com.jtattoo:JTattoo:1.6.7'
-    compile group: 'com.google.guava', name: 'guava', version: '19.0' // Google Core Libraries for Java
-    compile "com.github.rholder:guava-retrying:2.0.0" // extension de guava
-    compile 'org.jsoup:jsoup:1.10.2' // un parser HTML
+
+    // Google Core Libraries for Java
+    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+    // extension de guava
+    compile "com.github.rholder:guava-retrying:2.0.0"
+
+    // un parser HTML
+    compile 'org.jsoup:jsoup:1.10.2'
     compile 'org.scijava:swing-checkbox-tree:1.0.1'
+
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    compile group: 'com.google.code.gson', name: 'gson', version: '1.7.2'
 }
 
 sourceSets {

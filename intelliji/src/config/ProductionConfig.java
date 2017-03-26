@@ -62,6 +62,11 @@ public class ProductionConfig implements Config {
 
     // Tree Configuration
     @Override
+    public boolean getLoadTreeFromGenbank() {
+        return true;
+    }
+
+    @Override
     public String getTreeUrl() {
         return "http://www.ncbi.nlm.nih.gov/genomes/Genome2BE/genome2srv.cgi?action=GetGenomeList4Grid&filterText=%7CAll&page=";
     }
