@@ -61,5 +61,9 @@ public class CDSTest {
         //test avec paranthèse manquante à la fin
         ArrayList<CDS> testCDS8 = CDS.processCDS("join(35005.35807,36024..36160");
         Assert.assertEquals(testCDS8.size(),0);
+
+        //test avec paranthèse manquante à la fin
+        ArrayList<CDS> testCDS9 = CDS.processCDS("join(35005..35807)");
+        Assert.assertEquals(testCDS9.size(),1);
     }
 }

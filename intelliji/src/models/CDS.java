@@ -75,19 +75,19 @@ public class CDS {
         String DATA_TYPE="";
         
         //complement(join))
-        if (current_CDS.matches( "(^complement\\(join\\()([0-9]+(\\.\\.)[0-9]+,)+([0-9]+(\\.\\.)[0-9]+)(\\)){2}"))
+        if (current_CDS.matches( "(^complement\\(join\\([0-9]+\\.\\.[0-9]+((\\,([0-9]+\\.\\.[0-9]+))+)?\\)\\))"))
         {
             DATA_TO_REMOVE = "complement(join(";
             DATA_TYPE="cj";
         }
         //complement()
-        if (current_CDS.matches("(^complement\\()([0-9]+(\\.\\.)[0-9]+,)+([0-9]+(\\.\\.)[0-9]+)(\\)){1}"))
+        if (current_CDS.matches("(^complement\\([0-9]+\\.\\.[0-9]+((\\,([0-9]+\\.\\.[0-9]+))+)?\\))"))
         {
             DATA_TO_REMOVE="complement(";
             DATA_TYPE="c";
         }
         //join()
-        if (current_CDS.matches("(^join\\()([0-9]+(\\.\\.)[0-9]+,)+([0-9]+(\\.\\.)[0-9]+)(\\)){1}"))
+        if (current_CDS.matches("(^join\\([0-9]+\\.\\.[0-9]+((\\,([0-9]+\\.\\.[0-9]+))+)?\\))"))
         {
             DATA_TO_REMOVE="join(";
             DATA_TYPE="j";

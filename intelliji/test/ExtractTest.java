@@ -1,20 +1,53 @@
-package models;
+import models.*;
+import org.jcp.xml.dsig.internal.SignerOutputStream;
+import org.junit.Assert;
+import org.junit.Test;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
-/**
- * Created by mourse on 20/02/17.
- */
-public class TreatFile {
+public class ExtractTest {
 
-    public static CDSResult processFile(InputStream file) throws FileNotFoundException {
+    @Test
+    public void testExtraction() throws Exception
+    {
+        FileInputStream is = new FileInputStream("tests/testExtraction.gbk");
+        ArrayList<String> res = ExtractTest.processFile(is);
+
+        Assert.assertEquals(res.get(0).toUpperCase(),"tttgaattataacaattcttacga".toUpperCase());
+
+        Assert.assertEquals(res.get(1).toUpperCase(),"aattcttacgattacgtttttcgattcacattggattttaacgctcgttgt".toUpperCase() +
+                "ttttgtcgtttagttgtcaatgacttttaaggtaactttcctagttttgaaaatgtaatc".toUpperCase() +
+                "ttcaggcctcagttgttcaa".toUpperCase());
+
+        Assert.assertEquals(res.get(2).toUpperCase(), "aattcttacgattacgtttttcgattcacattggattttaacgctcgttgt".toUpperCase() +
+                "ttttgtcgtttagttgtcaatgacttttaaggtaactttcctagttttgaaaatgtaatc".toUpperCase() +
+                "ttcaggcctcagttgttcaaagggtgggtaagtgctgtccgctggataaatcactatcca".toUpperCase() +
+                "gtggacgagtgctatcgaaatcatttgcgttacccagtgg".toUpperCase());
+
+        Assert.assertEquals(res.get(3).toUpperCase(), "attacgtttttcgattcacattggattttaacgctcgttgt".toUpperCase() +
+                "ttttgtcgtttagttgtcaatgacttttaaggtaactttcctagttttgaaaatgtaatc".toUpperCase()+
+                "ttcaggcctcagttgttcaaagggtgggtaagtgctgtccgctggataaatcactatcca".toUpperCase() +
+                "gtggacgagt".toUpperCase());
+        Assert.assertEquals(res.get(4).toUpperCase(),"ttggattttaacgctcgttgt".toUpperCase() +
+                "ttttgtcgttaggtaactttcctagttttgaaaatgtaatcaagggtgggtaagtgctgtcc".toUpperCase());
+
+
+
+
+
+
+
+
+    }
+
+    public static ArrayList<String> processFile(InputStream file) throws FileNotFoundException {
 
         //Initialiser l' hashmap
-        CDSResult res = new CDSResult();
+        ArrayList<String> res = new ArrayList<String>();
 
         int cdsInvalides = 0;
 
@@ -155,57 +188,12 @@ public class TreatFile {
                         System.out.println("End " + cds.get(cds.size()-1).getEnd());
                         System.out.println("Start index " + startIndex);
                         System.out.println("Stop index " + stopIndex);*/
-                        sousChaine = getSousChaine(currentOrigin, cds, startIndex); //on récupère la sous-chaine grâce aux CDS
+                        sousChaine = TreatFile.getSousChaine(currentOrigin, cds, startIndex); //on récupère la sous-chaine grâce aux CDS
+
+                        res.add(sousChaine);
+                        System.out.println(sousChaine);
 
 
-                        if (Chain.isLengthMultipleOf3(sousChaine) && Chain.isChainValid(sousChaine) && Chain.startEnd(sousChaine))
-                        {
-                            // STATS
-
-                            // Trinucléotides
-                            for (int i = 0; i<sousChaine.length()-3; i+=3)
-                            {
-                                String s1 = sousChaine.substring(i, i+3);
-                                res.getTriPhase0().put(s1, res.getTriPhase0().get(s1)+1);
-
-                                String s2 = sousChaine.substring(i+1, i+4);
-                                res.getTriPhase1().put(s2, res.getTriPhase1().get(s2)+1);
-
-                                String s3 = sousChaine.substring(i+2, i+5);
-                                res.getTriPhase2().put(s3, res.getTriPhase2().get(s3)+1);
-                            }
-
-                            if (sousChaine.length() % 2 == 0)
-                            {
-                                // Dinucléotides
-                                for (int i = 0; i<sousChaine.length()-4; i+=2)
-                                {
-                                    String s1 = sousChaine.substring(i, i+2);
-                                    res.getDiPhase0().put(s1, res.getDiPhase0().get(s1)+1);
-
-                                    String s2 = sousChaine.substring(i+1, i+3);
-                                    res.getDiPhase1().put(s2, res.getDiPhase1().get(s2)+1);
-                                }
-                            }
-                            else
-                            {
-                                // Dinucléotides
-                                for (int i = 0; i<sousChaine.length()-3; i+=2)
-                                {
-                                    String s1 = sousChaine.substring(i, i+2);
-                                    res.getDiPhase0().put(s1, res.getDiPhase0().get(s1)+1);
-
-                                    String s2 = sousChaine.substring(i+1, i+3);
-                                    res.getDiPhase1().put(s2, res.getDiPhase1().get(s2)+1);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            cdsInvalides++;
-                            /*System.out.println(sousChaine);
-                            System.out.println(sousChaine.length());*/
-                        }
                     }
                 }
                 if(sc.hasNextLine())
@@ -216,34 +204,9 @@ public class TreatFile {
             }
         }
 
-        //Renvoi l'hashtable
-        res.setNbCDS(nbCDS);
-        res.setNbMalformedCDS(nbMalformedCDS);
-        res.setNbInvalidCDS(cdsInvalides);
+
 
         return res;
     }
 
-    /**
-     * Fonction d'extraction d'une sous chaine de CDS dans une séquence ORIGIN
-     * @param origin
-     * @param bornes
-     * @return
-     */
-    public static String getSousChaine(StringBuilder origin, ArrayList<CDS> bornes, int startIndex)
-    {
-        String res = "";
-
-        for(CDS borne : bornes)
-        {
-            res+=(origin.substring(borne.getStart() - startIndex   ,borne.getEnd() - startIndex + 1));
-        }
-
-        if(bornes.get(0).getType().equals("cj") || bornes.get(0).getType().equals("c"))
-        {
-            res = Chain.complement(res);
-        }
-
-        return res;
-    }
 }
