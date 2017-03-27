@@ -1,23 +1,8 @@
-import com.google.common.collect.ImmutableList;
-import com.google.common.io.Files;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import config.ConfigManager;
 import config.DevelopmentConfig;
-import config.ProductionConfig;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import tree.*;
 import view.MainFrameAcryl;
-
-import com.google.common.io.Resources;
-
-import javax.annotation.Resource;
 import javax.swing.*;
-import java.io.*;
-
-import static java.io.FileDescriptor.in;
 
 public class Main {
 
