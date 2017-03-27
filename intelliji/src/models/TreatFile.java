@@ -11,74 +11,10 @@ import java.util.Scanner;
  */
 public class TreatFile {
 
-    /**
-     * Permet d'initialiser un HashMap pour les statistiques des trinucléotides
-     * @return Un HashMap initialisé
-     */
-    private static HashMap<String, Integer> initializationHmap() {
-
-      /*Adding elements to HashMap*/
-        HashMap<String, Integer> hmap = new HashMap<>();
-        hmap.put("TTT", 0);hmap.put("TCT", 0);hmap.put("TAT", 0);hmap.put("TGT", 0);
-        hmap.put("TTC", 0);hmap.put("TCC", 0);hmap.put("TAC", 0);hmap.put("TGC", 0);
-        hmap.put("TTA", 0);hmap.put("TCA", 0);hmap.put("TAA", 0);hmap.put("TGA", 0);
-        hmap.put("TTG", 0);hmap.put("TCG", 0);hmap.put("TAG", 0);hmap.put("TGG", 0);
-
-        hmap.put("CTT", 0);hmap.put("CCT", 0);hmap.put("CAT", 0);hmap.put("CGT", 0);
-        hmap.put("CTC", 0);hmap.put("CCC", 0);hmap.put("CAC", 0);hmap.put("CGC", 0);
-        hmap.put("CTA", 0);hmap.put("CCA", 0);hmap.put("CAA", 0);hmap.put("CGA", 0);
-        hmap.put("CTG", 0);hmap.put("CCG", 0);hmap.put("CAG", 0);hmap.put("CGG", 0);
-
-        hmap.put("ATT", 0);hmap.put("ACT", 0);hmap.put("AAT", 0);hmap.put("AGT", 0);
-        hmap.put("ATC", 0);hmap.put("ACC", 0);hmap.put("AAC", 0);hmap.put("AGC", 0);
-        hmap.put("ATA", 0);hmap.put("ACA", 0);hmap.put("AAA", 0);hmap.put("AGA", 0);
-        hmap.put("ATG", 0);hmap.put("ACG", 0);hmap.put("AAG", 0);hmap.put("AGG", 0);
-
-        hmap.put("GTT", 0);hmap.put("GCT", 0);hmap.put("GAT", 0);hmap.put("GGT", 0);
-        hmap.put("GTC", 0);hmap.put("GCC", 0);hmap.put("GAC", 0);hmap.put("GGC", 0);
-        hmap.put("GTA", 0);hmap.put("GCA", 0);hmap.put("GAA", 0);hmap.put("GGA", 0);
-        hmap.put("GTG", 0);hmap.put("GCG", 0);hmap.put("GAG", 0);hmap.put("GGG", 0);
-
-        return hmap;
-    }
-
-    /**
-     * Permet d'initialiser un HashMap pour les statistiques des dinucléotides
-     * @return Un HashMap initialisé
-     */
-    private static HashMap<String, Integer> initializationHmapDi()
-    {
-        HashMap<String, Integer> hash = new HashMap<>();
-        hash.put("AA", 0);
-        hash.put("AC", 0);
-        hash.put("AG", 0);
-        hash.put("AT", 0);
-        hash.put("CA", 0);
-        hash.put("CC", 0);
-        hash.put("CG", 0);
-        hash.put("CT", 0);
-        hash.put("GA", 0);
-        hash.put("GC", 0);
-        hash.put("GG", 0);
-        hash.put("GT", 0);
-        hash.put("TA", 0);
-        hash.put("TC", 0);
-        hash.put("TG", 0);
-        hash.put("TT", 0);
-        return hash;
-    }
-
     public static CDSResult processFile(InputStream file) throws FileNotFoundException {
 
         //Initialiser l' hashmap
         CDSResult res = new CDSResult();
-
-        HashMap<String, Integer> hmapTriPhase0 = initializationHmap();
-        HashMap<String, Integer> hmapTriPhase1 = initializationHmap();
-        HashMap<String, Integer> hmapTriPhase2 = initializationHmap();
-
-        HashMap<String, Integer> hmapDiPhase0 = initializationHmapDi();
-        HashMap<String, Integer> hmapDiPhase1 = initializationHmapDi();
 
         int cdsInvalides = 0;
 
@@ -230,13 +166,13 @@ public class TreatFile {
                             for (int i = 0; i<sousChaine.length()-3; i+=3)
                             {
                                 String s1 = sousChaine.substring(i, i+3);
-                                hmapTriPhase0.put(s1, hmapTriPhase0.get(s1)+1);
+                                res.getTriPhase0().put(s1, res.getTriPhase0().get(s1)+1);
 
                                 String s2 = sousChaine.substring(i+1, i+4);
-                                hmapTriPhase1.put(s2, hmapTriPhase1.get(s2)+1);
+                                res.getTriPhase1().put(s2, res.getTriPhase1().get(s2)+1);
 
                                 String s3 = sousChaine.substring(i+2, i+5);
-                                hmapTriPhase2.put(s3, hmapTriPhase2.get(s3)+1);
+                                res.getTriPhase2().put(s3, res.getTriPhase2().get(s3)+1);
                             }
 
                             if (sousChaine.length() % 2 == 0)
@@ -245,10 +181,10 @@ public class TreatFile {
                                 for (int i = 0; i<sousChaine.length()-4; i+=2)
                                 {
                                     String s1 = sousChaine.substring(i, i+2);
-                                    hmapDiPhase0.put(s1, hmapDiPhase0.get(s1)+1);
+                                    res.getDiPhase0().put(s1, res.getDiPhase0().get(s1)+1);
 
                                     String s2 = sousChaine.substring(i+1, i+3);
-                                    hmapDiPhase1.put(s2, hmapDiPhase1.get(s2)+1);
+                                    res.getDiPhase1().put(s2, res.getDiPhase1().get(s2)+1);
                                 }
                             }
                             else
@@ -257,10 +193,10 @@ public class TreatFile {
                                 for (int i = 0; i<sousChaine.length()-3; i+=2)
                                 {
                                     String s1 = sousChaine.substring(i, i+2);
-                                    hmapDiPhase0.put(s1, hmapDiPhase0.get(s1)+1);
+                                    res.getDiPhase0().put(s1, res.getDiPhase0().get(s1)+1);
 
                                     String s2 = sousChaine.substring(i+1, i+3);
-                                    hmapDiPhase1.put(s2, hmapDiPhase1.get(s2)+1);
+                                    res.getDiPhase1().put(s2, res.getDiPhase1().get(s2)+1);
                                 }
                             }
                         }
@@ -281,11 +217,6 @@ public class TreatFile {
         }
 
         //Renvoi l'hashtable
-        res.setDiPhase0(hmapDiPhase0);
-        res.setDiPhase1(hmapDiPhase1);
-        res.setTriPhase0(hmapTriPhase0);
-        res.setTriPhase1(hmapTriPhase1);
-        res.setTriPhase2(hmapTriPhase2);
         res.setNbCDS(nbCDS);
         res.setNbMalformedCDS(nbMalformedCDS);
         res.setNbInvalidCDS(cdsInvalides);

@@ -86,13 +86,17 @@ public class Organism implements Serializable {
 
     @Override
     public String toString(){
-
+        /*
         String str = this.kingdom+"/"+this.group+"/"+this.subgroup+"/"+this.name+"("+this.bioproject+")";
         str += "\nReplicons :";
         for(String name : this.replicons.keySet()){
             str += "\n - "+name+" - "+this.replicons.get(name);
         }
         return str;
+        */
+
+        //On renvoie juste le nom (affichage JTREE)
+        return this.getName();
     }
 
     public void readObject(ObjectInputStream inputstream) throws IOException, ClassNotFoundException

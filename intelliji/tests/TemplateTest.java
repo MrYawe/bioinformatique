@@ -1,4 +1,5 @@
 import models.CDSResult;
+import models.SumResults;
 import models.TreatFile;
 import models.XlsExport;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -7,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 
 public class TemplateTest
@@ -20,16 +22,22 @@ public class TemplateTest
         XlsExport.createResultsDirectory();
         try
         {
+            /// UNE FOIS PAR ORGANISME ///
+            XSSFWorkbook workbook = XlsExport.getWorkbookFromTemplate();
+            SumResults sumResults = new SumResults();
+            sumResults.setOrganism("test");
+
+            /// UNE FOIS POUR CHAQUE NC D'UN ORGANISME ///
             InputStream is = new FileInputStream("tests/sequence.gbk");
             CDSResult results = TreatFile.processFile(is);
-            results.setChromosomeName("NC_12");
-            results.setSpecies("test");
-            // Appelée une seule fois
-            XSSFWorkbook workbook = XlsExport.getWorkbookFromTemplate();
-            // Appelée pour chaque fichier récupéré de la base
-            XlsExport.exportStats(workbook, results);
-            // Appelée une seule fois
-            XlsExport.exportExcelFile(workbook, results);
+            results.setLocusName("NC_12");
+            results.setOrganism("test");
+            XlsExport.exportStats(workbook, results, sumResults);
+
+
+            /// UNE FOIS PAR ORGANISME ///
+            String path = System.getProperty("user.dir") + File.separator + "results" + File.separator + sumResults.getOrganism() + ".xlsx";
+            XlsExport.exportExcelFile(workbook, sumResults, path);
         }
         catch (FileNotFoundException e)
         {

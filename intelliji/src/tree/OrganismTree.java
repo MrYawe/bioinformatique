@@ -1,7 +1,6 @@
 package tree;
 
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,6 +10,9 @@ import java.util.List;
 import com.google.common.io.Resources;
 import com.google.common.util.concurrent.ServiceManager;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 import com.sun.org.apache.xpath.internal.operations.Or;
 import config.ConfigManager;
 import tree.TreeBuilderService.OrganismType;
@@ -19,9 +21,60 @@ import tree.TreeBuilderService.OrganismType;
 /**
  * Created by yannis on 29/01/17.
  */
-public class OrganismTree<T> extends Tree {
+public class OrganismTree {
 
-    public static OrganismTree fromGenBank() {
+    private static Tree<Tree> tree;
+
+    public static Tree getInstance() {
+        if(OrganismTree.tree == null) {
+            OrganismTree.load();
+        }
+        return OrganismTree.tree;
+    }
+
+    public static void load() {
+        if(ConfigManager.getConfig().getLoadTreeFromGenbank()) {
+            loadFromGenBank();
+        } else {
+            loadFromLocalResource();
+        }
+    }
+
+    private static void loadFromLocalResource() {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.registerTypeAdapter(Tree.class, new TreeSerializer());
+            builder.registerTypeAdapter(Tree.class, new TreeDeserializer());
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+
+            File initialFile = new File(ConfigManager.getConfig().getResFolder()+"/organismTree.json");
+            InputStream stream = com.google.common.io.Files.asByteSource(initialFile).openStream();
+            Reader reader = new InputStreamReader(stream, "UTF-8");
+            JsonReader jsonReader = new JsonReader(reader);
+            jsonReader.setLenient(true);
+            OrganismTree.tree = gson.fromJson(jsonReader, Tree.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void saveToLocalResource() {
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Tree.class, new TreeSerializer());
+        builder.registerTypeAdapter(Tree.class, new TreeDeserializer());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String treeJson = gson.toJson(OrganismTree.tree, Tree.class);
+        try (PrintStream out = new PrintStream(new File(ConfigManager.getConfig().getResFolder()+"/organismTree.json"), "UTF-8")) {
+            out.println(treeJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadFromGenBank() {
 
         // UIManager.setMaxProgress(37+72+60+10);
 
@@ -50,7 +103,7 @@ public class OrganismTree<T> extends Tree {
         organisms.addAll(prokaryotes.organisms());
         organisms.addAll(viruses.organisms());
 
-        OrganismTree mainTree = new OrganismTree<Tree>();
+        Tree mainTree = new Tree<Tree>();
 
         for (Organism o : organisms) {
             o.updateTree(mainTree);
@@ -58,13 +111,13 @@ public class OrganismTree<T> extends Tree {
 
         // UIManager.log("End of tree build !");
         System.out.println("End of tree build !");
-        return mainTree;
+        OrganismTree.tree = mainTree;
     }
 
     public void downloadAllOrganisms() {
-        TreeWalker walker = new TreeWalker(this);
+        TreeWalker walker = new TreeWalker(OrganismTree.tree);
         Organism org = walker.next();
-        System.out.println("Download "+org.getName()+" ...");
+        System.out.println("Download " + org.getName() + " ...");
 
         int max = ConfigManager.getConfig().getNbThreads();
         int i = 0;
@@ -76,12 +129,12 @@ public class OrganismTree<T> extends Tree {
             System.out.println(basePath);
             (new File(basePath)).mkdirs();
 
-            for(String replicon : org.getReplicons().keySet()){
+            for (String replicon : org.getReplicons().keySet()) {
                 try {
-                    System.out.println("Download "+replicon+" of "+org.getName()+ "...");
+                    System.out.println("Download " + replicon + " of " + org.getName() + "...");
                     String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", org.getReplicons().get(replicon));
                     InputStream stream = Resources.asByteSource(new URL(url)).openBufferedStream();
-                    Files.copy(stream, Paths.get(basePath+"/"+replicon+".txt"));
+                    Files.copy(stream, Paths.get(basePath + "/" + replicon + ".txt"));
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

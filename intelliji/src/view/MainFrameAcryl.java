@@ -3,6 +3,7 @@ package view;
 /**
  * Created by germain on 05/02/2017.
  **/
+import tree.OrganismTree;
 import tree.Tree;
 
 import java.awt.*;
@@ -102,11 +103,28 @@ public class MainFrameAcryl extends JFrame {
         pnlLoadingVirus = new LoadingTreePanel(OrganismType.VIRUSES);
 
         JPanel pnlWest = new JPanel(new BorderLayout());
-        pnlSouth.add(pnlWest, BorderLayout.WEST);
-
         pnlWest.add(pnlLoadingEukaryote, BorderLayout.NORTH);
         pnlWest.add(pnlLoadingVirus, BorderLayout.CENTER);
         pnlWest.add(pnlLoadingProkaryote, BorderLayout.SOUTH);
+
+        pnlSouth.add(pnlWest, BorderLayout.WEST);
+
+        JButton btnLoadTree = new JButton("Load Tree");
+        btnLoadTree.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Executing the Tree
+                new Thread(() -> MainFrameAcryl.getInstance().updateDisplayedTree(OrganismTree.getInstance())).start();
+            }
+        });
+        pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
+        JButton btnSelectedOrganisms = new JButton("Get selected organisms");
+        btnSelectedOrganisms.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                UIManager.writeLog("Noeuds selectionnés : " + pnlTree.getSelectedOrganisms().toString());
+            }
+        });
+        pnlSouth.add(btnSelectedOrganisms, BorderLayout.EAST);
+
     }
 
     public void updateDisplayedTree(Tree tree){
