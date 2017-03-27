@@ -342,7 +342,7 @@ public class CDSResult
 	 */
 	public CDSResult()
 	{
-		this.type = Type.CHROMOSOME;
+		this.type = Type.DNA;
 
 		this.triPhase0 = this.initializationHmap();
 		this.triPhase1 = this.initializationHmap();

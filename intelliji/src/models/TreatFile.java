@@ -38,9 +38,22 @@ public class TreatFile {
             //Detection des CDS, tant que le fichier contient une ligne
             while(sc.hasNextLine() && !nowLine.startsWith("ORIGIN"))
             {
-
-                //TODO: expression régulière sur le nombre d'espaces avant le mot clé 'CDS'
-                if (nowLine.startsWith("     CDS"))
+                if (nowLine.contains("/organelle="))
+                {
+                    if (nowLine.contains("plastid"))
+                    {
+                        res.setType(CDSResult.Type.CHLOROPLAST);
+                    }
+                    else
+                    {
+                        res.setType(CDSResult.Type.MITOCHONDRION);
+                    }
+                }
+                else if (nowLine.contains("/chromosome="))
+                {
+                    res.setType(CDSResult.Type.CHROMOSOME);
+                }
+                else if (nowLine.matches("^([\\s\\t]+(CDS).*$)"))
                 {
                     //Récupérer le CDS complet
                     String current_CDS="";
