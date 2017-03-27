@@ -23,8 +23,6 @@ public class Main {
 
             OrganismTree.load();
             jfMain.updateDisplayedTree(OrganismTree.getInstance());
-
-            // OrganismTree.downloadSelectedOrganisms();
         }
         catch (Exception ex) {
             ex.printStackTrace();
