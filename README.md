@@ -1,5 +1,7 @@
 # Bioinformatique
 
+[![Build Status](https://travis-ci.com/MrYawe/bioinformatique.svg?token=myunT8SfHEtn7iq7AQoi&branch=master)](https://travis-ci.com/MrYawe/bioinformatique)
+
 ## Development
 
 ### Set up
