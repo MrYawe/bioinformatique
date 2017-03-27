@@ -117,6 +117,7 @@ public class MainFrameAcryl extends JFrame {
             }
         });
         pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
+
         JButton btnSelectedOrganisms = new JButton("Get selected organisms");
         btnSelectedOrganisms.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -124,6 +125,15 @@ public class MainFrameAcryl extends JFrame {
             }
         });
         pnlSouth.add(btnSelectedOrganisms, BorderLayout.EAST);
+
+        JButton btnDownloadSelected = new JButton("Download selected organisms");
+        btnDownloadSelected.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Executing the Tree
+                new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();
+            }
+        });
+        pnlSouth.add(btnDownloadSelected, BorderLayout.WEST);
 
     }
 

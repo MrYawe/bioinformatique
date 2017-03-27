@@ -65,15 +65,28 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
         if (organism != null){
 
             String basePath = ConfigManager.getConfig().getResFolder()+"/organisms/"+organism.getName();
-            System.out.println(basePath);
-            (new File(basePath)).mkdirs();
+            File dir = new File(basePath);
 
+            if(Files.exists(Paths.get(basePath))) {
+                if(dir.list().length >= organism.getReplicons().size() ) {
+                    UIManager.writeLog("All replicons of "+organism.getName()+" are already downloaded.");
+                    return;
+                }
+            } else {
+                dir.mkdirs();
+            }
+
+            UIManager.writeLog("Download "+organism.getName()+ "...");
             for(String replicon : organism.getReplicons().keySet()){
                 try {
-                    System.out.println("Download "+replicon+" of "+organism.getName()+ "...");
-                    String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", organism.getReplicons().get(replicon));
-                    InputStream stream = Resources.asByteSource(new URL(url)).openBufferedStream();
-                    Files.copy(stream, Paths.get(basePath+"/"+replicon+".txt"));
+                    String repliconPath = basePath+"/"+replicon+".txt";
+                    if(!Files.exists(Paths.get(repliconPath))) {
+                        UIManager.writeLog("--- Download replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
+                        String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", organism.getReplicons().get(replicon));
+                        InputStream stream = Resources.asByteSource(new URL(url)).openBufferedStream();
+                        Files.copy(stream, Paths.get(repliconPath));
+                        UIManager.writeLog("--- Download of replicon \""+replicon+"\" ended.");
+                    }
                 } catch (Exception ex) {
 
                     ex.printStackTrace();
@@ -87,11 +100,6 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
 
     @Override
     protected void run() throws Exception {
-        // UIManager.log(this.type.toString()+ " Starting");
-        UIManager.writeLog(this.organism.getName()+ " Starting");
         this.fetchOrganism();
-        // UIManager.log(this.type.toString() + " DONE !");
-        UIManager.writeLog(this.organism.getName() + " DONE !");
-
     }
 }

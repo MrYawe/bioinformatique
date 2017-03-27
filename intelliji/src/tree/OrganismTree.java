@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.google.common.io.Resources;
 import com.google.common.util.concurrent.ServiceManager;
@@ -114,39 +117,20 @@ public class OrganismTree {
         OrganismTree.tree = mainTree;
     }
 
-    public void downloadAllOrganisms() {
+    public static void downloadSelectedOrganisms() {
         TreeWalker walker = new TreeWalker(OrganismTree.tree);
         Organism org = walker.next();
-        System.out.println("Download " + org.getName() + " ...");
 
-        int max = ConfigManager.getConfig().getNbThreads();
-        int i = 0;
-        List<OrganismFetcherService> services = new ArrayList<OrganismFetcherService>();
-
-        while(org != null && i < max){
-            /*
-            String basePath = ConfigManager.getConfig().getResFolder()+"/organisms/"+org.getName();
-            System.out.println(basePath);
-            (new File(basePath)).mkdirs();
-
-            for (String replicon : org.getReplicons().keySet()) {
-                try {
-                    System.out.println("Download " + replicon + " of " + org.getName() + "...");
-                    String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", org.getReplicons().get(replicon));
-                    InputStream stream = Resources.asByteSource(new URL(url)).openBufferedStream();
-                    Files.copy(stream, Paths.get(basePath + "/" + replicon + ".txt"));
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+        ExecutorService executor = Executors.newFixedThreadPool(ConfigManager.getConfig().getNbThreads());
+        while(org != null && walker.hasNext()){
+            OrganismFetcherService fs = new OrganismFetcherService(org);
+            executor.submit(() -> {
+                try{fs.run();}
+                catch (Exception e ) {
+                    e.printStackTrace();
                 }
-
-            }
+            });
             org = walker.next();
-            */
-
-            services.add(new OrganismFetcherService(org));
-            i++;
         }
-        ServiceManager sm = new ServiceManager(services);
-        sm.startAsync();
     }
 }
