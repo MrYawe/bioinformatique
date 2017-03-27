@@ -1,5 +1,4 @@
 import models.*;
-import org.jcp.xml.dsig.internal.SignerOutputStream;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -34,14 +33,6 @@ public class ExtractTest {
                 "gtggacgagt".toUpperCase());
         Assert.assertEquals(res.get(4).toUpperCase(),"ttggattttaacgctcgttgt".toUpperCase() +
                 "ttttgtcgttaggtaactttcctagttttgaaaatgtaatcaagggtgggtaagtgctgtcc".toUpperCase());
-
-
-
-
-
-
-
-
     }
 
     public static ArrayList<String> processFile(InputStream file) throws FileNotFoundException {
@@ -191,7 +182,7 @@ public class ExtractTest {
                         sousChaine = TreatFile.getSousChaine(currentOrigin, cds, startIndex); //on récupère la sous-chaine grâce aux CDS
 
                         res.add(sousChaine);
-                        System.out.println(sousChaine);
+                        //System.out.println(sousChaine);
 
 
                     }
