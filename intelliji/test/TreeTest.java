@@ -1,7 +1,12 @@
+import config.ConfigManager;
+import config.DevelopmentConfig;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Before;
+import tree.Organism;
+import tree.OrganismTree;
 import tree.Tree;
+import tree.TreeWalker;
 
 /**
  * Created by yannis on 28/01/17.
@@ -47,6 +52,10 @@ public class TreeTest {
         kingdomTree.add("Viruses", null);
 
         this.tree = kingdomTree;
+
+        //Setup
+        ConfigManager.setConfig(new DevelopmentConfig());
+        OrganismTree.load();
     }
 
     @Test
@@ -60,5 +69,20 @@ public class TreeTest {
                 .nodes();
         Assert.assertEquals("Geothrix fermentans", nodes[0]);
         Assert.assertEquals("Holophaga foetida", nodes[1]);
+    }
+
+    @Test
+    public void testNbActivated()
+    {
+        Assert.assertEquals(0, OrganismTree.getInstance().activatedNodes().length);
+    }
+
+    @Test
+    public void testNbActivated2()
+    {
+        Organism org = new Organism("bla", "bla", "bla", "bla", "bla", "bla", "bla");
+        org.setActivated(true);
+        OrganismTree.getInstance().add("bla", org);
+        Assert.assertEquals(1, OrganismTree.getInstance().activatedNodes().length);
     }
 }
