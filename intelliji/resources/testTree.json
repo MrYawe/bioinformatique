@@ -1,0 +1,265 @@
+{
+  "nodes": {
+    "EUKARYOTES": {
+      "nodes": {
+        "Fungi": {
+          "nodes": {
+            "Other_Fungi": {
+              "nodes": {
+                "Encephalitozoon_cuniculi_GB-M1": {
+                  "kingdom": "EUKARYOTES",
+                  "group": "Fungi",
+                  "subgroup": "Other_Fungi",
+                  "name": "Encephalitozoon_cuniculi_GB-M1",
+                  "bioproject": "PRJNA13833",
+                  "creation_date": "2001/02/05",
+                  "modification_date": "2015/02/27",
+                  "activated": true,
+                  "replicons": {
+                    "chromosome_VIII_NC_003235.1": "NC_003235.1",
+                    "chromosome_XI_NC_003237.1": "NC_003237.1",
+                    "chromosome_III_NC_003230.1": "NC_003230.1",
+                    "chromosome_IX_NC_003238.2": "NC_003238.2",
+                    "chromosome_I_NC_003242.2": "NC_003242.2",
+                    "chromosome_II_NC_003229.1": "NC_003229.1",
+                    "chromosome_VI_NC_003233.1": "NC_003233.1",
+                    "chromosome_V_NC_003232.1": "NC_003232.1",
+                    "chromosome_VII_NC_003234.1": "NC_003234.1",
+                    "chromosome_X_NC_003236.1": "NC_003236.1",
+                    "chromosome_IV_NC_003231.1": "NC_003231.1"
+                  },
+                  "processed_replicons": []
+                }
+              }
+            }
+          }
+        },
+        "Plants": {
+          "nodes": {
+            "Land_Plants": {
+              "nodes": {
+                "Brassica_oleracea_var._oleracea": {
+                  "kingdom": "EUKARYOTES",
+                  "group": "Plants",
+                  "subgroup": "Land_Plants",
+                  "name": "Brassica_oleracea_var._oleracea",
+                  "bioproject": "PRJNA293438",
+                  "creation_date": "2014/05/22",
+                  "modification_date": "2014/05/27",
+                  "activated": true,
+                  "replicons": {
+                    "chromosome_C2_NC_027749.1": "NC_027749.1",
+                    "chromosome_C6_NC_027753.1": "NC_027753.1",
+                    "chromosome_C1_NC_027748.1": "NC_027748.1",
+                    "chromosome_C7_NC_027754.1": "NC_027754.1",
+                    "chromosome_C8_NC_027755.1": "NC_027755.1",
+                    "chromosome_C5_NC_027752.1": "NC_027752.1",
+                    "chromosome_C4_NC_027751.1": "NC_027751.1",
+                    "mitochondrion_MT_NC_016118.1": "NC_016118.1",
+                    "chromosome_C3_NC_027750.1": "NC_027750.1",
+                    "chromosome_C9_NC_027756.1": "NC_027756.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Setaria_italica": {
+                  "kingdom": "EUKARYOTES",
+                  "group": "Plants",
+                  "subgroup": "Land_Plants",
+                  "name": "Setaria_italica",
+                  "bioproject": "PRJNA32913",
+                  "creation_date": "2012/05/11",
+                  "modification_date": "2015/10/30",
+                  "activated": true,
+                  "replicons": {
+                    "chromosome_II_NC_028451.1": "NC_028451.1",
+                    "chromosome_I_NC_028450.1": "NC_028450.1",
+                    "chromosome_VI_NC_028455.1": "NC_028455.1",
+                    "chromosome_VIII_NC_028457.1": "NC_028457.1",
+                    "chromosome_IV_NC_028453.1": "NC_028453.1",
+                    "chromosome_IX_NC_028458.1": "NC_028458.1",
+                    "chromosome_III_NC_028452.1": "NC_028452.1",
+                    "chromosome_VII_NC_028456.1": "NC_028456.1",
+                    "plastid_Pltd_NC_022850.1": "NC_022850.1",
+                    "chromosome_V_NC_028454.1": "NC_028454.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Brassica_napus": {
+                  "kingdom": "EUKARYOTES",
+                  "group": "Plants",
+                  "subgroup": "Land_Plants",
+                  "name": "Brassica_napus",
+                  "bioproject": "PRJNA293435",
+                  "creation_date": "2014/05/05",
+                  "modification_date": "2014/05/15",
+                  "activated": true,
+                  "replicons": {
+                    "chromosome_A1_NC_027757.1": "NC_027757.1",
+                    "chromosome_C2_NC_027768.1": "NC_027768.1",
+                    "chromosome_C3_NC_027769.1": "NC_027769.1",
+                    "mitochondrion_MT_NC_008285.1": "NC_008285.1",
+                    "plasmid_linear_plasmid_NC_004946.1": "NC_004946.1",
+                    "chloroplast_Pltd_NC_016734.1": "NC_016734.1",
+                    "chromosome_A9_NC_027765.1": "NC_027765.1",
+                    "chromosome_C9_NC_027775.1": "NC_027775.1",
+                    "chromosome_A7_NC_027763.1": "NC_027763.1",
+                    "chromosome_A8_NC_027764.1": "NC_027764.1",
+                    "chromosome_C1_NC_027767.1": "NC_027767.1",
+                    "chromosome_A4_NC_027760.1": "NC_027760.1",
+                    "chromosome_C4_NC_027770.1": "NC_027770.1",
+                    "chromosome_A6_NC_027762.1": "NC_027762.1",
+                    "chromosome_C5_NC_027771.1": "NC_027771.1",
+                    "chromosome_C8_NC_027774.1": "NC_027774.1",
+                    "chromosome_A2_NC_027758.1": "NC_027758.1",
+                    "chromosome_C7_NC_027773.1": "NC_027773.1",
+                    "chromosome_A10_NC_027766.1": "NC_027766.1",
+                    "chromosome_C6_NC_027772.1": "NC_027772.1",
+                    "chromosome_A3_NC_027759.1": "NC_027759.1",
+                    "chromosome_A5_NC_027761.1": "NC_027761.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Fragaria_vesca_subsp._vesca": {
+                  "kingdom": "EUKARYOTES",
+                  "group": "Plants",
+                  "subgroup": "Land_Plants",
+                  "name": "Fragaria_vesca_subsp._vesca",
+                  "bioproject": "PRJNA60037",
+                  "creation_date": "2010/12/22",
+                  "modification_date": "2014/05/27",
+                  "activated": true,
+                  "replicons": {
+                    "linkage_group_LG1_NC_020491.1": "NC_020491.1",
+                    "linkage_group_LG3_NC_020493.1": "NC_020493.1",
+                    "chloroplast_Pltd_NC_015206.1": "NC_015206.1",
+                    "linkage_group_LG5_NC_020495.1": "NC_020495.1",
+                    "linkage_group_LG2_NC_020492.1": "NC_020492.1",
+                    "linkage_group_LG6_NC_020496.1": "NC_020496.1",
+                    "linkage_group_LG4_NC_020494.1": "NC_020494.1",
+                    "linkage_group_LG7_NC_020497.1": "NC_020497.1"
+                  },
+                  "processed_replicons": []
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "PROKARYOTES": {
+      "nodes": {
+        "Euryarchaeota": {
+          "nodes": {
+            "Methanomicrobia": {
+              "nodes": {
+                "Methanomethylovorans_hollandica_DSM_15978": {
+                  "kingdom": "PROKARYOTES",
+                  "group": "Euryarchaeota",
+                  "subgroup": "Methanomicrobia",
+                  "name": "Methanomethylovorans_hollandica_DSM_15978",
+                  "bioproject": "PRJNA50749",
+                  "creation_date": "2012/12/28",
+                  "modification_date": "2015/08/18",
+                  "activated": true,
+                  "replicons": {
+                    "chromosome_NC_019977.1": "NC_019977.1",
+                    "plasmid_pMETHO01_NC_019972.1": "NC_019972.1"
+                  },
+                  "processed_replicons": []
+                }
+              }
+            }
+          }
+        },
+        "Proteobacteria": {
+          "nodes": {
+            "Acidithiobacillia": {
+              "nodes": {
+                "Acidithiobacillus_caldus_SM-1": {
+                  "kingdom": "PROKARYOTES",
+                  "group": "Proteobacteria",
+                  "subgroup": "Acidithiobacillia",
+                  "name": "Acidithiobacillus_caldus_SM-1",
+                  "bioproject": "PRJNA63223",
+                  "creation_date": "2011/07/20",
+                  "modification_date": "2015/07/30",
+                  "activated": true,
+                  "replicons": {
+                    "plasmid_megaplasmid_NC_015851.1": "NC_015851.1",
+                    "plasmid_pLAtc1_NC_015852.1": "NC_015852.1",
+                    "plasmid_pLAtc2_NC_015853.1": "NC_015853.1",
+                    "chromosome_NC_015850.1": "NC_015850.1",
+                    "plasmid_pLAtc3_NC_015854.1": "NC_015854.1"
+                  },
+                  "processed_replicons": []
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "VIRUSES": {
+      "nodes": {
+        "Other": {
+          "nodes": {
+            "Other": {
+              "nodes": {
+                "Beihai_anemone_virus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "Other",
+                  "subgroup": "Other",
+                  "name": "Beihai_anemone_virus_1",
+                  "bioproject": "PRJNA359245",
+                  "creation_date": "2016/12/10",
+                  "modification_date": "2017/01/03",
+                  "activated": true,
+                  "replicons": {
+                    "NC_032437.1": "NC_032437.1"
+                  },
+                  "processed_replicons": []
+                }
+              }
+            }
+          }
+        },
+        "dsDNA_viruses,_no_RNA_stage": {
+          "nodes": {
+            "Siphoviridae": {
+              "nodes": {
+                "Staphylococcus_phage_StB27": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsDNA_viruses,_no_RNA_stage",
+                  "subgroup": "Siphoviridae",
+                  "name": "Staphylococcus_phage_StB27",
+                  "bioproject": "PRJNA184157",
+                  "creation_date": "2012/02/18",
+                  "modification_date": "2012/12/19",
+                  "activated": true,
+                  "replicons": {
+                    "NC_019914.1": "NC_019914.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Edwardsiella_phage_eiAU-183": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsDNA_viruses,_no_RNA_stage",
+                  "subgroup": "Myoviridae",
+                  "name": "Edwardsiella_phage_eiAU-183",
+                  "bioproject": "PRJNA240025",
+                  "creation_date": "2014/01/19",
+                  "modification_date": "2014/03/04",
+                  "activated": true,
+                  "replicons": {
+                    "NC_023555.1": "NC_023555.1"
+                  },
+                  "processed_replicons": []
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
