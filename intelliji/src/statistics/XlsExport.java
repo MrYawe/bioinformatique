@@ -1,4 +1,4 @@
-package models;
+package statistics;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -22,7 +22,7 @@ public class XlsExport
     /**
      * Indice de la ligne de début des stats
      */
-    private final static int START_ROW = 11;
+    private final static int START_ROW = 12;
     /**
      * Indice de la colonne de début des stats pour les trinucléotides
      */
@@ -49,11 +49,21 @@ public class XlsExport
     private final static String SUM_DNA_SHEET = "Sum_DNA";
 
     /**
-     * Nom de l'onglet contenant la somme des stats des chloroplastes
+     * Nom de l'onglet contenant la somme des stats des plasmides
      */
-    private final static String SUM_CHLOROPLASTS_SHEET = "Sum_Chloroplasts";
+    private final static String SUM_PLASMIDS_SHEET = "Sum_Plasmids";
 
-	/**
+    /**
+     * Nom de l'onglet contenant la somme des stats des plastes
+     */
+    private final static String SUM_PLASTS_SHEET = "Sum_Plastids";
+
+    /**
+     * Nom de l'onglet contenant la somme des stats des liens génétiques
+     */
+    private final static String SUM_LINKAGES_SHEET = "Sum_Linkages";
+
+    /**
      * Permet de créer le dossier qui contiendra tous les résultats
      */
     public static void createResultsDirectory()
@@ -75,9 +85,11 @@ public class XlsExport
         try
 		{
             workbook = (XSSFWorkbook) WorkbookFactory.create(is);
-            createNewSheet(workbook, XlsExport.SUM_MITOCHONDRIONS_SHEET);
-            createNewSheet(workbook, XlsExport.SUM_DNA_SHEET);
-            createNewSheet(workbook, XlsExport.SUM_CHLOROPLASTS_SHEET);
+            workbook.cloneSheet(1, SUM_MITOCHONDRIONS_SHEET);
+            workbook.cloneSheet(1, SUM_DNA_SHEET);
+            workbook.cloneSheet(1, SUM_PLASMIDS_SHEET);
+            workbook.cloneSheet(1, SUM_PLASTS_SHEET);
+            workbook.cloneSheet(1, SUM_LINKAGES_SHEET);
             is.close();
         }
         catch (Exception e)
@@ -107,6 +119,7 @@ public class XlsExport
     {
         sum.setNbMalformedCDS(sum.getNbMalformedCDS() + results.getNbMalformedCDS());
         sum.setNbInvalidCDS(sum.getNbInvalidCDS() + results.getNbInvalidCDS());
+        sum.setNbIdenticalCDS(sum.getNbIdenticalCDS() + results.getNbIdenticalCDS());
         sum.setNbCDS(sum.getNbCDS() + results.getNbCDS());
     }
 
@@ -166,7 +179,8 @@ public class XlsExport
         sheet.getRow(0).getCell(1).setCellValue(results.getOrganism());
         sheet.getRow(1).getCell(1).setCellValue(results.getNbCDS());
         sheet.getRow(2).getCell(1).setCellValue(results.getNbMalformedCDS());
-        sheet.getRow(4).getCell(1).setCellValue(results.getNbInvalidCDS());
+        sheet.getRow(3).getCell(1).setCellValue(results.getNbIdenticalCDS());
+        sheet.getRow(5).getCell(1).setCellValue(results.getNbInvalidCDS());
         CDSResult.Type type = results.getType();
         switch (type)
         {
@@ -185,9 +199,19 @@ public class XlsExport
                 incrementSumCDSNumbers(results, sumResults.getSumDNA());
                 break;
 
+            case PLASMID:
+                sumResults.setNbPlasmids(sumResults.getNbPlasmids() + 1);
+                incrementSumCDSNumbers(results, sumResults.getSumPlasmids());
+                break;
+
+            case PLAST:
+                sumResults.setNbPlasts(sumResults.getNbPlasts() + 1);
+                incrementSumCDSNumbers(results, sumResults.getSumPlasts());
+                break;
+
             default:
-                sumResults.setNbChloroplasts(sumResults.getNbChloroplasts() + 1);
-                incrementSumCDSNumbers(results, sumResults.getSumChloroplasts());
+                sumResults.setNbLinkages(sumResults.getNbLinkages() + 1);
+                incrementSumCDSNumbers(results, sumResults.getSumLinkages());
                 break;
         }
 
@@ -218,9 +242,19 @@ public class XlsExport
                     incrementSumPhasePref(sumResults.getSumDNA(), key, nbTriPrefPhase0, nbTriPrefPhase1, nbTriPrefPhase2);
                     break;
 
+                case PLASMID:
+                    incrementSumTrinucleotides(sumResults.getSumPlasmids(), key, nbTriPhase0, nbTriPhase1, nbTriPhase2);
+                    incrementSumPhasePref(sumResults.getSumPlasmids(), key, nbTriPrefPhase0, nbTriPrefPhase1, nbTriPrefPhase2);
+                    break;
+
+                case PLAST:
+                    incrementSumTrinucleotides(sumResults.getSumPlasts(), key, nbTriPhase0, nbTriPhase1, nbTriPhase2);
+                    incrementSumPhasePref(sumResults.getSumPlasts(), key, nbTriPrefPhase0, nbTriPrefPhase1, nbTriPrefPhase2);
+                    break;
+
                 default:
-                    incrementSumTrinucleotides(sumResults.getSumChloroplasts(), key, nbTriPhase0, nbTriPhase1, nbTriPhase2);
-                    incrementSumPhasePref(sumResults.getSumChloroplasts(), key, nbTriPrefPhase0, nbTriPrefPhase1, nbTriPrefPhase2);
+                    incrementSumTrinucleotides(sumResults.getSumLinkages(), key, nbTriPhase0, nbTriPhase1, nbTriPhase2);
+                    incrementSumPhasePref(sumResults.getSumLinkages(), key, nbTriPrefPhase0, nbTriPrefPhase1, nbTriPrefPhase2);
                     break;
             }
             r.getCell(TRINUCLEOTIDES_START_COLUMN + 1).setCellValue(nbTriPhase0);
@@ -250,8 +284,16 @@ public class XlsExport
                         incrementSumDinucleotides(sumResults.getSumDNA(), key, nbDiPhase0, nbDiPhase1);
                         break;
 
+                    case PLASMID:
+                        incrementSumDinucleotides(sumResults.getSumPlasmids(), key, nbDiPhase0, nbDiPhase1);
+                        break;
+
+                    case PLAST:
+                        incrementSumDinucleotides(sumResults.getSumPlasts(), key, nbDiPhase0, nbDiPhase1);
+                        break;
+
                     default:
-                        incrementSumDinucleotides(sumResults.getSumChloroplasts(), key, nbDiPhase0, nbDiPhase1);
+                        incrementSumDinucleotides(sumResults.getSumLinkages(), key, nbDiPhase0, nbDiPhase1);
                         break;
                 }
                 r.getCell(DINUCLEOTIDES_START_COLUMN + 1).setCellValue(nbDiPhase0);
@@ -271,7 +313,8 @@ public class XlsExport
         sheet.getRow(0).getCell(1).setCellValue(organism);
         sheet.getRow(1).getCell(1).setCellValue(sumResults.getNbCDS());
         sheet.getRow(2).getCell(1).setCellValue(sumResults.getNbMalformedCDS());
-        sheet.getRow(4).getCell(1).setCellValue(sumResults.getNbInvalidCDS());
+        sheet.getRow(3).getCell(1).setCellValue(sumResults.getNbIdenticalCDS());
+        sheet.getRow(5).getCell(1).setCellValue(sumResults.getNbInvalidCDS());
         for (int i = START_ROW; i < START_ROW + sumResults.getTriPhase0().size(); i++)
         {
             Row r = sheet.getRow(i);
@@ -307,13 +350,17 @@ public class XlsExport
         Row r4 = sheet.getRow(4);
         Row r5 = sheet.getRow(5);
         Row r6 = sheet.getRow(6);
+        Row r7 = sheet.getRow(7);
+        Row r8 = sheet.getRow(8);
         r2.createCell(1).setCellValue(sumResults.getOrganism());
         r3.createCell(5).setCellValue(sumResults.getNbChromosomes());
         r4.createCell(1).setCellValue(format.format(cal.getTime()));
         r4.createCell(5).setCellValue(sumResults.getNbMitochondrions());
         r5.createCell(5).setCellValue(sumResults.getNbDNA());
         r6.createCell(1).setCellValue(1);
-        r6.createCell(5).setCellValue(sumResults.getNbChloroplasts());
+        r6.createCell(5).setCellValue(sumResults.getNbPlasmids());
+        r7.createCell(5).setCellValue(sumResults.getNbPlasts());
+        r8.createCell(5).setCellValue(sumResults.getNbLinkages());
     }
 
     /**
@@ -327,7 +374,9 @@ public class XlsExport
         exportSumStats(sumResults.getSumChromosomes(), workbook.getSheet(XlsExport.SUM_CHROMOSOMES_SHEET), sumResults.getOrganism());
         exportSumStats(sumResults.getSumMitochondrions(), workbook.getSheet(XlsExport.SUM_MITOCHONDRIONS_SHEET), sumResults.getOrganism());
         exportSumStats(sumResults.getSumDNA(), workbook.getSheet(XlsExport.SUM_DNA_SHEET), sumResults.getOrganism());
-        exportSumStats(sumResults.getSumChloroplasts(), workbook.getSheet(XlsExport.SUM_CHLOROPLASTS_SHEET), sumResults.getOrganism());
+        exportSumStats(sumResults.getSumPlasmids(), workbook.getSheet(XlsExport.SUM_PLASMIDS_SHEET), sumResults.getOrganism());
+        exportSumStats(sumResults.getSumPlasts(), workbook.getSheet(XlsExport.SUM_PLASTS_SHEET), sumResults.getOrganism());
+        exportSumStats(sumResults.getSumLinkages(), workbook.getSheet(XlsExport.SUM_LINKAGES_SHEET), sumResults.getOrganism());
 
         exportGeneralSheet(workbook, sumResults);
 

@@ -142,6 +142,11 @@ public class CDS {
                     return res;
                 }
 
+                if (res.size() == 1 && res.get(0).getType().equals("j"))
+                {
+                    res.get(0).setType("b");
+                }
+
                 //On test maintenant si les coordonnées des séquences ne se chevauchent pas
                 if(res.size()>1)
                 {
@@ -166,7 +171,45 @@ public class CDS {
         return res;
     }
 
+    /**
+     * Fonction permettant de vérifier que le CDS est bien unique
+     * @param lcds CDS à tester, contenant toutes les bornes
+     * @param listCDS Liste des CDS dans laquelle vérifier que le CDS n'existe pas déjà
+     * @return Vrai si le CDS n'existe pas encore dans la liste de CDS, faux sinon
+     */
+    public static boolean isUnique(ArrayList<CDS> lcds, ArrayList<ArrayList<CDS>> listCDS)
+    {
+        boolean exit = true;
+        int j = 0;
 
+        // On s'arrête à la fin de la liste ou dès qu'on a trouvé un CDS identique
+        while (exit && j < listCDS.size())
+        {
+            ArrayList<CDS> l = listCDS.get(j);
 
+            if (l.size() == lcds.size() && l.get(0).getType().equals(lcds.get(0).getType()))
+            {
+                int i = 0;
+                exit = false;
+                // On sort de la boucle des bornes dès qu'une des bornes est différente du CDS à tester
+                while (!exit && i < l.size() && i < lcds.size())
+                {
+                    CDS c = l.get(i);
+                    CDS cdsToTest = lcds.get(i);
 
+                    // Il faut que les deux bornes soient identiques
+                    if (c.getStart() == cdsToTest.getStart() && c.getEnd() == cdsToTest.getEnd())
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        exit = true;
+                    }
+                }
+            }
+            j++;
+        }
+        return exit;
+    }
 }
