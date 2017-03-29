@@ -41,9 +41,9 @@ public class Tree<T> {
             if(curr.getClass().equals(Organism.class) && ((Organism) curr).getActivated()) {
                 res.add(key);
             }
-            else if(!curr.getClass().equals(Organism.class)) {
+            /*else if(!curr.getClass().equals(Organism.class)) {
                 res.add(key);
-            }
+            }*/
         }
         return res.toArray();
     }

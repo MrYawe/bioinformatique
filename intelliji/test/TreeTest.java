@@ -13,6 +13,7 @@ import tree.TreeWalker;
  */
 public class TreeTest {
     private Tree tree;
+    Organism org = new Organism("bla", "bla", "bla", "bla", "bla", "bla", "bla");
 
     @Before
     public void setup() {
@@ -78,11 +79,12 @@ public class TreeTest {
     }
 
     @Test
-    public void testNbActivated2()
+    public void testUpdateNode()
     {
-        Organism org = new Organism("bla", "bla", "bla", "bla", "bla", "bla", "bla");
         org.setActivated(true);
         OrganismTree.getInstance().add("bla", org);
         Assert.assertEquals(1, OrganismTree.getInstance().activatedNodes().length);
+        org.setActivated(false);
+        Assert.assertEquals(0, OrganismTree.getInstance().activatedNodes().length);
     }
 }

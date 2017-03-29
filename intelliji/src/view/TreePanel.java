@@ -32,9 +32,8 @@ public class TreePanel extends JPanel {
         panel.setViewportView(currentTree);
     }
 
-    public List<Organism> getSelectedOrganisms()
+    public void updateSelectedOrganisms()
     {
-        List<Organism> organisms = new ArrayList<Organism>();
         if(currentTree == null)
         {
             UIManager.writeError("L'arbre n'a pas été initialisé");
@@ -42,26 +41,22 @@ public class TreePanel extends JPanel {
         else
         {
             DefaultMutableTreeNode root = (DefaultMutableTreeNode) currentTree.getModel().getRoot();
-            organisms = walkTroughTree(organisms, root);
+            walkTroughTree(root);
         }
-        return organisms;
     }
 
-    private List<Organism> walkTroughTree(List<Organism> organisms, DefaultMutableTreeNode currentNode)
+    private void walkTroughTree(DefaultMutableTreeNode currentNode)
     {
 
         if(currentNode.isLeaf())
         {
-            if(currentTree.isChecked(currentNode))
-            {
-                organisms.add((Organism) currentNode.getUserObject());
-            }
+            Organism org = (Organism) currentNode.getUserObject();
+            org.setActivated(currentTree.isChecked(currentNode));
         }
         for(int i = 0 ; i < currentNode.getChildCount() ; i++)
         {
-            organisms = walkTroughTree(organisms, (DefaultMutableTreeNode)currentNode.getChildAt(i));
+            walkTroughTree((DefaultMutableTreeNode)currentNode.getChildAt(i));
         }
-        return organisms;
     }
 
     private JTree getDefaultTree(){
