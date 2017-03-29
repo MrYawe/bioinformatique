@@ -1,4 +1,4 @@
-package models;
+package statistics;
 
 /**
  * Classe permettant de stocker les résultats pour un organisme complet (pour faire les sommes)
@@ -9,22 +9,36 @@ public class SumResults
      * Nom de l'organisme traité
      */
     private String organism;
+
     /**
      * Objet contenant les statistiques correspondant à la somme des chromosomes
      */
     private CDSResult sumChromosomes;
+
     /**
      * Objet contenant les statistiques correspondant à la somme des mitochondrions
      */
     private CDSResult sumMitochondrions;
+
     /**
      * Objet contenant les statistiques correspondant à la somme des ADN
      */
     private CDSResult sumDNA;
+
     /**
-     * Objet contenant les statistiques correspondant à la somme des chloroplastes
+     * Objet contenant les statistiques correspondant à la somme des plasmides
      */
-    private CDSResult sumChloroplasts;
+    private CDSResult sumPlasmids;
+
+    /**
+     * Objet contenant les statistiques correspondant à la somme des plastes
+     */
+    private CDSResult sumPlasts;
+
+    /**
+     * Objet contenant les statistiques correspondant à la somme des liens génétiques
+     */
+    private CDSResult sumLinkages;
 
     /**
      * Nombre de chromosomes de l'organisme
@@ -42,9 +56,19 @@ public class SumResults
     private int nbDNA;
 
     /**
+     * Nombre de plasmides de l'organisme
+     */
+    private int nbPlasmids;
+
+    /**
      * Nombre de chloroplastes de l'organisme
      */
-    private int nbChloroplasts;
+    private int nbPlasts;
+
+    /**
+     * Nombre de liens génétiques de l'organisme
+     */
+    private int nbLinkages;
 
     /**
      * Permet d'accéder au nom de l'organisme traité
@@ -119,21 +143,57 @@ public class SumResults
     }
 
     /**
-     * Permet d'accéder à l'objet contenant les statistiques correspondant à la somme des chloroplastes
-     * @return L'objet contenant les statistiques correspondant à la somme des chloroplastes
+     * Permet d'accéder à l'objet contenant les statistiques correspondant à la somme des plasmides
+     * @return L'objet contenant les statistiques correspondant à la somme des plasmides
      */
-    public CDSResult getSumChloroplasts()
+    public CDSResult getSumPlasmids()
     {
-        return sumChloroplasts;
+        return sumPlasmids;
     }
 
     /**
-     * Permet d'assigner l'objet contenant les statistiques correspondant à la somme des chloroplastes
-     * @param sumChloroplasts Objet contenant les statistiques correspondant à la somme des chloroplastes
+     * Permet d'assigner l'objet contenant les statistiques correspondant à la somme des plasmides
+     * @param sumPlasmids Objet contenant les statistiques correspondant à la somme des plasmides
      */
-    public void setSumChloroplasts(CDSResult sumChloroplasts)
+    public void setSumPlasmids(CDSResult sumPlasmids)
     {
-        this.sumChloroplasts = sumChloroplasts;
+        this.sumPlasmids = sumPlasmids;
+    }
+
+    /**
+     * Permet d'accéder à l'objet contenant les statistiques correspondant à la somme des plastes
+     * @return L'objet contenant les statistiques correspondant à la somme des plastes
+     */
+    public CDSResult getSumPlasts()
+    {
+        return sumPlasts;
+    }
+
+    /**
+     * Permet d'assigner l'objet contenant les statistiques correspondant à la somme des plastes
+     * @param sumPlasts Objet contenant les statistiques correspondant à la somme des plastes
+     */
+    public void setSumPlasts(CDSResult sumPlasts)
+    {
+        this.sumPlasts = sumPlasts;
+    }
+
+    /**
+     * Permet d'accéder à l'objet contenant les statistiques correspondant à la somme des liens génétiques
+     * @return L'objet contenant les statistiques correspondant à la somme des liens génétiques
+     */
+    public CDSResult getSumLinkages()
+    {
+        return sumLinkages;
+    }
+
+    /**
+     * Permet d'assigner l'objet contenant les statistiques correspondant à la somme des liens génétiques
+     * @param sumLinkages Objet contenant les statistiques correspondant à la somme des liens génétiques
+     */
+    public void setSumLinkages(CDSResult sumLinkages)
+    {
+        this.sumLinkages = sumLinkages;
     }
 
     /**
@@ -191,21 +251,57 @@ public class SumResults
     }
 
     /**
+     * Permet d'accéder au nombre de plasmides de l'organisme
+     * @return Le nombre de plasmides de l'organisme
+     */
+    public int getNbPlasmids()
+    {
+        return nbPlasmids;
+    }
+
+    /**
+     * Permet d'assigner le nombre de plasmides de l'organisme
+     * @param nbPlasmids Nombre de plasmides de l'organisme
+     */
+    public void setNbPlasmids(int nbPlasmids)
+    {
+        this.nbPlasmids = nbPlasmids;
+    }
+
+    /**
      * Permet d'accéder au nombre de chloroplastes de l'organisme
      * @return Le nombre de chloroplastes de l'organisme
      */
-    public int getNbChloroplasts()
+    public int getNbPlasts()
     {
-        return nbChloroplasts;
+        return nbPlasts;
     }
 
     /**
      * Permet d'assigner le nombre de chloroplastes de l'organisme
-     * @param nbChloroplasts Nombre de chloroplastes de l'organisme
+     * @param nbPlasts Nombre de chloroplastes de l'organisme
      */
-    public void setNbChloroplasts(int nbChloroplasts)
+    public void setNbPlasts(int nbPlasts)
     {
-        this.nbChloroplasts = nbChloroplasts;
+        this.nbPlasts = nbPlasts;
+    }
+
+    /**
+     * Permet d'accéder au nombre de liens génétiques de l'organisme
+     * @return Le nombre de liens génétiques de l'organisme
+     */
+    public int getNbLinkages()
+    {
+        return nbLinkages;
+    }
+
+    /**
+     * Permet d'assigner le nombre de liens génétiques de l'organisme
+     * @param nbLinkages Nombre de liens génétiques de l'organisme
+     */
+    public void setNbLinkages(int nbLinkages)
+    {
+        this.nbLinkages = nbLinkages;
     }
 
     /**
@@ -214,14 +310,19 @@ public class SumResults
     public SumResults()
     {
         this.organism = "";
+        
         this.sumChromosomes = new CDSResult();
         this.sumMitochondrions = new CDSResult();
         this.sumDNA = new CDSResult();
-        this.sumChloroplasts = new CDSResult();
+        this.sumPlasmids = new CDSResult();
+        this.sumPlasts = new CDSResult();
+        this.sumLinkages = new CDSResult();
 
         this.nbChromosomes = 0;
         this.nbMitochondrions = 0;
         this.nbDNA = 0;
-        this.nbChloroplasts = 0;
+        this.nbPlasmids = 0;
+        this.nbPlasts = 0;
+        this.nbLinkages = 0;
     }
 }

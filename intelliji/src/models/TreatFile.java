@@ -1,9 +1,10 @@
 package models;
 
+import statistics.CDSResult;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -25,6 +26,7 @@ public class TreatFile {
         String nowLine = sc.nextLine();
         int nbCDS = 0;
         int nbMalformedCDS = 0;
+        int nbIdenticalCDS = 0;
 
         //On initialise la liste de CDS
         // Liste de listes de CDS
@@ -34,7 +36,7 @@ public class TreatFile {
         while(sc.hasNextLine())
         {
             listCDS.clear();
-            int k = 0;
+
             //Detection des CDS, tant que le fichier contient une ligne
             while(sc.hasNextLine() && !nowLine.startsWith("ORIGIN"))
             {
@@ -42,7 +44,7 @@ public class TreatFile {
                 {
                     if (nowLine.contains("plastid"))
                     {
-                        res.setType(CDSResult.Type.CHLOROPLAST);
+                        res.setType(CDSResult.Type.PLAST);
                     }
                     else
                     {
@@ -53,7 +55,15 @@ public class TreatFile {
                 {
                     res.setType(CDSResult.Type.CHROMOSOME);
                 }
-                else if (nowLine.matches("^([\\s\\t]+(CDS).*$)"))
+                else if (nowLine.contains("/linkage_group="))
+                {
+                    res.setType(CDSResult.Type.LINKAGE);
+                }
+                else if (nowLine.contains("/plasmid="))
+                {
+                    res.setType(CDSResult.Type.PLASMID);
+                }
+                else if (nowLine.matches("^([\\s\\t]+(CDS)([\\s\\t]){1,}.*$)"))
                 {
                     //Récupérer le CDS complet
                     String current_CDS="";
@@ -68,48 +78,14 @@ public class TreatFile {
 
                     if (!lcds.isEmpty())
                     {
-                        // On vérifie que le CDS récupéré n'existe pas déjà
-                        boolean exit = true;
-                        int j = 0;
-                        int index = listCDS.size();
-                        // TODO Trier les CDS dans cette boucle
-                        // On s'arrête à la fin de la liste ou dès qu'on a trouvé un CDS identique
-                        while (exit && j < listCDS.size())
-                        {
-                            ArrayList<CDS> l = listCDS.get(j);
-                            int i = 0;
-                            exit = false;
-                            // On sort de la boucle des bornes dès qu'une des bornes est différente du CDS à tester
-                            while (!exit && i < l.size() && i < lcds.size())
-                            {
-                                CDS c = l.get(i);
-                                CDS cdsToTest = lcds.get(i);
-                                // Il faut que les deux bornes soient identiques
-                                /*if (i == 0 && cdsToTest.getStart() > c.getStart())
-                                {
-                                    index = j;
-                                }*/
-                                if (c.getStart() == cdsToTest.getStart() && c.getEnd() == cdsToTest.getEnd())
-                                {
-                                    i++;
-                                }
-                                else
-                                {
-                                    exit = true;
-                                }
-                            }
-                            j++;
-                        }
-
-
                         // On ajoute le CDS récupéré seulement s'il est unique
-                        if (exit)
+                        if (CDS.isUnique(lcds, listCDS))
                         {
                             listCDS.add(lcds);
                         }
                         else
                         {
-                            nbMalformedCDS++;
+                            nbIdenticalCDS++;
                         }
                     }
                     else
@@ -232,6 +208,7 @@ public class TreatFile {
         //Renvoi l'hashtable
         res.setNbCDS(nbCDS);
         res.setNbMalformedCDS(nbMalformedCDS);
+        res.setNbIdenticalCDS(nbIdenticalCDS);
         res.setNbInvalidCDS(cdsInvalides);
 
         return res;

@@ -1,4 +1,4 @@
-import models.CDSResult;
+import statistics.CDSResult;
 import models.TreatFile;
 import org.junit.Test;
 

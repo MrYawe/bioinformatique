@@ -16,23 +16,23 @@ public class ExtractTest {
         FileInputStream is = new FileInputStream("tests/testExtraction.gbk");
         ArrayList<String> res = ExtractTest.processFile(is);
 
-        Assert.assertEquals(res.get(0).toUpperCase(),"tttgaattataacaattcttacga".toUpperCase());
+        Assert.assertEquals("tttgaattataacaattcttacga".toUpperCase(), res.get(0).toUpperCase());
 
-        Assert.assertEquals(res.get(1).toUpperCase(),"aattcttacgattacgtttttcgattcacattggattttaacgctcgttgt".toUpperCase() +
+        Assert.assertEquals("aattcttacgattacgtttttcgattcacattggattttaacgctcgttgt".toUpperCase() +
                 "ttttgtcgtttagttgtcaatgacttttaaggtaactttcctagttttgaaaatgtaatc".toUpperCase() +
-                "ttcaggcctcagttgttcaa".toUpperCase());
+                "ttcaggcctcagttgttcaa".toUpperCase(), res.get(1).toUpperCase());
 
-        Assert.assertEquals(res.get(2).toUpperCase(), "aattcttacgattacgtttttcgattcacattggattttaacgctcgttgt".toUpperCase() +
+        Assert.assertEquals("aattcttacgattacgtttttcgattcacattggattttaacgctcgttgt".toUpperCase() +
                 "ttttgtcgtttagttgtcaatgacttttaaggtaactttcctagttttgaaaatgtaatc".toUpperCase() +
                 "ttcaggcctcagttgttcaaagggtgggtaagtgctgtccgctggataaatcactatcca".toUpperCase() +
-                "gtggacgagtgctatcgaaatcatttgcgttacccagtgg".toUpperCase());
+                "gtggacgagtgctatcgaaatcatttgcgttacccagtgg".toUpperCase(), res.get(2).toUpperCase());
 
-        Assert.assertEquals(res.get(3).toUpperCase(), "attacgtttttcgattcacattggattttaacgctcgttgt".toUpperCase() +
+        Assert.assertEquals("attacgtttttcgattcacattggattttaacgctcgttgt".toUpperCase() +
                 "ttttgtcgtttagttgtcaatgacttttaaggtaactttcctagttttgaaaatgtaatc".toUpperCase()+
                 "ttcaggcctcagttgttcaaagggtgggtaagtgctgtccgctggataaatcactatcca".toUpperCase() +
-                "gtggacgagt".toUpperCase());
-        Assert.assertEquals(res.get(4).toUpperCase(),"ttggattttaacgctcgttgt".toUpperCase() +
-                "ttttgtcgttaggtaactttcctagttttgaaaatgtaatcaagggtgggtaagtgctgtcc".toUpperCase());
+                "gtggacgagt".toUpperCase(), res.get(3).toUpperCase());
+        Assert.assertEquals("ttggattttaacgctcgttgt".toUpperCase() +
+                "ttttgtcgttaggtaactttcctagttttgaaaatgtaatcaagggtgggtaagtgctgtcc".toUpperCase(), res.get(4).toUpperCase());
     }
 
     public static ArrayList<String> processFile(InputStream file) throws FileNotFoundException {
