@@ -7,12 +7,17 @@ import tree.Organism;
 import tree.OrganismTree;
 import tree.Tree;
 import tree.TreeWalker;
+import view.JCheckBoxTree;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Created by yannis on 28/01/17.
  */
 public class TreeTest {
     private Tree tree;
+    private JCheckBoxTree jtree;
     Organism org = new Organism("bla", "bla", "bla", "bla", "bla", "bla", "bla");
 
     @Before
@@ -85,6 +90,19 @@ public class TreeTest {
         OrganismTree.getInstance().add("bla", org);
         Assert.assertEquals(1, OrganismTree.getInstance().activatedNodes().length);
         org.setActivated(false);
+        Assert.assertEquals(0, OrganismTree.getInstance().activatedNodes().length);
+    }
+
+    @Test
+    public void testJTree()
+    {
+        jtree = new JCheckBoxTree(new DefaultMutableTreeNode(org));
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) jtree.getModel().getRoot();
+        Organism org_jtree = (Organism) root.getUserObject();
+        Assert.assertEquals(org, org_jtree);
+        org_jtree.setActivated(true);
+        Assert.assertEquals(1, OrganismTree.getInstance().activatedNodes().length);
+        org_jtree.setActivated(false);
         Assert.assertEquals(0, OrganismTree.getInstance().activatedNodes().length);
     }
 }
