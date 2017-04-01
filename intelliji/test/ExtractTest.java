@@ -63,7 +63,6 @@ public class ExtractTest {
             while(sc.hasNextLine() && !nowLine.startsWith("ORIGIN"))
             {
 
-                //TODO: expression régulière sur le nombre d'espaces avant le mot clé 'CDS'
                 if (nowLine.startsWith("     CDS"))
                 {
                     //Récupérer le CDS complet
@@ -83,7 +82,6 @@ public class ExtractTest {
                         boolean exit = true;
                         int j = 0;
                         int index = listCDS.size();
-                        // TODO Trier les CDS dans cette boucle
                         // On s'arrête à la fin de la liste ou dès qu'on a trouvé un CDS identique
                         while (exit && j < listCDS.size())
                         {

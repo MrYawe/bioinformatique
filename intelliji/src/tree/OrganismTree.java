@@ -44,8 +44,7 @@ public class OrganismTree {
             builder.setPrettyPrinting();
             Gson gson = builder.create();
 
-            File initialFile = new File(ConfigManager.getConfig().getResFolder()+"/organismTree.json");
-            InputStream stream = com.google.common.io.Files.asByteSource(initialFile).openStream();
+            InputStream stream = OrganismTree.class.getClass().getResourceAsStream("/testTree.json");
             Reader reader = new InputStreamReader(stream, "UTF-8");
             JsonReader jsonReader = new JsonReader(reader);
             jsonReader.setLenient(true);

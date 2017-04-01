@@ -32,6 +32,10 @@ public class XlsExport
      */
     private final static int DINUCLEOTIDES_START_COLUMN = 11;
 
+    /**
+     * Nombre de colonnes de la template
+     */
+    private final static int COLUMNS_NUMBER = 16;
 
     /**
      * Nom de l'onglet contenant la somme des stats des chromosomes
@@ -68,7 +72,7 @@ public class XlsExport
      */
     public static void createResultsDirectory()
     {
-        new File(System.getProperty("user.dir") + "/results").mkdir();
+        new File(System.getProperty("user.dir") + "/Results").mkdir();
     }
 
     /**
@@ -174,6 +178,10 @@ public class XlsExport
      */
     public static void exportStats(XSSFWorkbook workbook, CDSResult results, SumResults sumResults)
     {
+		if (results.getLocusName().length() > 31)
+		{
+			results.setLocusName(results.getLocusName().substring(0, 30));
+		}
         XlsExport.createNewSheet(workbook, results.getLocusName());
         Sheet sheet = workbook.getSheet(results.getLocusName());
         sheet.getRow(0).getCell(1).setCellValue(results.getOrganism());
@@ -300,6 +308,14 @@ public class XlsExport
                 r.getCell(DINUCLEOTIDES_START_COLUMN + 3).setCellValue(nbDiPhase1);
             }
         }
+
+        for (int i = 0; i < COLUMNS_NUMBER; i++)
+		{
+			if (i != TRINUCLEOTIDES_START_COLUMN+1 && i != TRINUCLEOTIDES_START_COLUMN+3 && i != TRINUCLEOTIDES_START_COLUMN+5 && i != DINUCLEOTIDES_START_COLUMN+1 && i != DINUCLEOTIDES_START_COLUMN+3)
+			{
+				sheet.autoSizeColumn(i);
+			}
+		}
     }
 
     /**
@@ -307,31 +323,48 @@ public class XlsExport
      * @param sumResults Objet contenant les statistiques correspondant à la somme de tous les onglets des chromosomes
      * @param sheet Onglet dans lequel on souhaite insérer les stats
      * @param organism Nom de l'organisme traité actuellement
-     */
-    private static void exportSumStats(CDSResult sumResults, Sheet sheet, String organism)
+     * @param workbook Fichier excel dans lequel on insère les stats
+	 */
+    private static void exportSumStats(CDSResult sumResults, Sheet sheet, String organism, XSSFWorkbook workbook)
     {
-        sheet.getRow(0).getCell(1).setCellValue(organism);
-        sheet.getRow(1).getCell(1).setCellValue(sumResults.getNbCDS());
-        sheet.getRow(2).getCell(1).setCellValue(sumResults.getNbMalformedCDS());
-        sheet.getRow(3).getCell(1).setCellValue(sumResults.getNbIdenticalCDS());
-        sheet.getRow(5).getCell(1).setCellValue(sumResults.getNbInvalidCDS());
-        for (int i = START_ROW; i < START_ROW + sumResults.getTriPhase0().size(); i++)
-        {
-            Row r = sheet.getRow(i);
-            String key = r.getCell(TRINUCLEOTIDES_START_COLUMN).getStringCellValue();
-            r.getCell(TRINUCLEOTIDES_START_COLUMN + 1).setCellValue(sumResults.getTriPhase0().get(key));
-            r.getCell(TRINUCLEOTIDES_START_COLUMN + 3).setCellValue(sumResults.getTriPhase1().get(key));
-            r.getCell(TRINUCLEOTIDES_START_COLUMN + 5).setCellValue(sumResults.getTriPhase2().get(key));
-            r.getCell(TRINUCLEOTIDES_START_COLUMN + 7).setCellValue(sumResults.getTriPrefPhase0().get(key));
-            r.getCell(TRINUCLEOTIDES_START_COLUMN + 8).setCellValue(sumResults.getTriPrefPhase1().get(key));
-            r.getCell(TRINUCLEOTIDES_START_COLUMN + 9).setCellValue(sumResults.getTriPrefPhase2().get(key));
-            if (i < START_ROW + sumResults.getDiPhase0().size())
-            {
-                key = r.getCell(DINUCLEOTIDES_START_COLUMN).getStringCellValue();
-                r.getCell(DINUCLEOTIDES_START_COLUMN + 1).setCellValue(sumResults.getDiPhase0().get(key));
-                r.getCell(DINUCLEOTIDES_START_COLUMN + 3).setCellValue(sumResults.getDiPhase1().get(key));
-            }
-        }
+		if (sumResults.getNbCDS() == 0)
+		{
+			int index = workbook.getSheetIndex(sheet);
+			workbook.removeSheetAt(index);
+		}
+		else
+		{
+			sheet.getRow(0).getCell(1).setCellValue(organism);
+			sheet.getRow(1).getCell(1).setCellValue(sumResults.getNbCDS());
+			sheet.getRow(2).getCell(1).setCellValue(sumResults.getNbMalformedCDS());
+			sheet.getRow(3).getCell(1).setCellValue(sumResults.getNbIdenticalCDS());
+			sheet.getRow(5).getCell(1).setCellValue(sumResults.getNbInvalidCDS());
+			for (int i = START_ROW; i < START_ROW + sumResults.getTriPhase0().size(); i++)
+			{
+				Row r = sheet.getRow(i);
+				String key = r.getCell(TRINUCLEOTIDES_START_COLUMN).getStringCellValue();
+				r.getCell(TRINUCLEOTIDES_START_COLUMN + 1).setCellValue(sumResults.getTriPhase0().get(key));
+				r.getCell(TRINUCLEOTIDES_START_COLUMN + 3).setCellValue(sumResults.getTriPhase1().get(key));
+				r.getCell(TRINUCLEOTIDES_START_COLUMN + 5).setCellValue(sumResults.getTriPhase2().get(key));
+				r.getCell(TRINUCLEOTIDES_START_COLUMN + 7).setCellValue(sumResults.getTriPrefPhase0().get(key));
+				r.getCell(TRINUCLEOTIDES_START_COLUMN + 8).setCellValue(sumResults.getTriPrefPhase1().get(key));
+				r.getCell(TRINUCLEOTIDES_START_COLUMN + 9).setCellValue(sumResults.getTriPrefPhase2().get(key));
+				if (i < START_ROW + sumResults.getDiPhase0().size())
+				{
+					key = r.getCell(DINUCLEOTIDES_START_COLUMN).getStringCellValue();
+					r.getCell(DINUCLEOTIDES_START_COLUMN + 1).setCellValue(sumResults.getDiPhase0().get(key));
+					r.getCell(DINUCLEOTIDES_START_COLUMN + 3).setCellValue(sumResults.getDiPhase1().get(key));
+				}
+			}
+
+			for (int i = 0; i < COLUMNS_NUMBER; i++)
+			{
+				if (i != TRINUCLEOTIDES_START_COLUMN+1 && i != TRINUCLEOTIDES_START_COLUMN+3 && i != TRINUCLEOTIDES_START_COLUMN+5 && i != DINUCLEOTIDES_START_COLUMN+1 && i != DINUCLEOTIDES_START_COLUMN+3)
+				{
+					sheet.autoSizeColumn(i);
+				}
+			}
+		}
     }
 
     /**
@@ -361,6 +394,8 @@ public class XlsExport
         r6.createCell(5).setCellValue(sumResults.getNbPlasmids());
         r7.createCell(5).setCellValue(sumResults.getNbPlasts());
         r8.createCell(5).setCellValue(sumResults.getNbLinkages());
+
+		sheet.autoSizeColumn(1);
     }
 
     /**
@@ -371,12 +406,12 @@ public class XlsExport
      */
     public static void exportExcelFile(XSSFWorkbook workbook, SumResults sumResults, String path)
     {
-        exportSumStats(sumResults.getSumChromosomes(), workbook.getSheet(XlsExport.SUM_CHROMOSOMES_SHEET), sumResults.getOrganism());
-        exportSumStats(sumResults.getSumMitochondrions(), workbook.getSheet(XlsExport.SUM_MITOCHONDRIONS_SHEET), sumResults.getOrganism());
-        exportSumStats(sumResults.getSumDNA(), workbook.getSheet(XlsExport.SUM_DNA_SHEET), sumResults.getOrganism());
-        exportSumStats(sumResults.getSumPlasmids(), workbook.getSheet(XlsExport.SUM_PLASMIDS_SHEET), sumResults.getOrganism());
-        exportSumStats(sumResults.getSumPlasts(), workbook.getSheet(XlsExport.SUM_PLASTS_SHEET), sumResults.getOrganism());
-        exportSumStats(sumResults.getSumLinkages(), workbook.getSheet(XlsExport.SUM_LINKAGES_SHEET), sumResults.getOrganism());
+        exportSumStats(sumResults.getSumChromosomes(), workbook.getSheet(XlsExport.SUM_CHROMOSOMES_SHEET), sumResults.getOrganism(), workbook);
+        exportSumStats(sumResults.getSumMitochondrions(), workbook.getSheet(XlsExport.SUM_MITOCHONDRIONS_SHEET), sumResults.getOrganism(), workbook);
+        exportSumStats(sumResults.getSumDNA(), workbook.getSheet(XlsExport.SUM_DNA_SHEET), sumResults.getOrganism(), workbook);
+        exportSumStats(sumResults.getSumPlasmids(), workbook.getSheet(XlsExport.SUM_PLASMIDS_SHEET), sumResults.getOrganism(), workbook);
+        exportSumStats(sumResults.getSumPlasts(), workbook.getSheet(XlsExport.SUM_PLASTS_SHEET), sumResults.getOrganism(), workbook);
+        exportSumStats(sumResults.getSumLinkages(), workbook.getSheet(XlsExport.SUM_LINKAGES_SHEET), sumResults.getOrganism(), workbook);
 
         exportGeneralSheet(workbook, sumResults);
 
@@ -384,7 +419,7 @@ public class XlsExport
 
         try
         {
-            FileOutputStream fileOut = new FileOutputStream(path);
+            FileOutputStream fileOut = new FileOutputStream(path + File.separator + sumResults.getOrganism() + ".xlsx");
             workbook.write(fileOut);
             System.out.println("XLSX generated: " + path);
             fileOut.close();

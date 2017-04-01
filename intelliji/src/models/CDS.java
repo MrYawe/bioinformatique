@@ -3,17 +3,17 @@ package models;
 import java.util.ArrayList;
 
 /**
- * Created by mourse on 20/02/17.
+ * Classe représentant un CDS
  */
 public class CDS {
 
-    //TODO: ENUM pour le type
-    private String type = "none";
+    public enum Type {NONE, JOIN, COMPLEMENT, COMPLEMENT_JOIN, BASIC}
+    private Type type = Type.NONE;
     private int start = 0;
     private int end = 0;
 
     //constructeur de la class CDS
-    public CDS(String type, int start, int end)
+    public CDS(Type type, int start, int end)
     {
         this.type = type;
         this.start = start;
@@ -29,11 +29,11 @@ public class CDS {
         this.end = end;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -56,47 +56,43 @@ public class CDS {
     {
         return CDS.replace(" ","").replace("CDS","");
     }
-    
 
-    //// TODO: 20/02/17 améliorer la regex de processCDS
     /**
      * Traite un CDS en paramètre, permet d'extraire dans un tableau l'ensemble des séquences
      * à extraire dans la partie ORIGIN qui suivra la partie des CDS.
-     * @param current_CDS
+     * @param current_CDS CDS à traiter
      * @return Le tableau de toutes les séquences du CDS
      */
     public static ArrayList<CDS> processCDS(String current_CDS){
 
         ArrayList<CDS> res = new ArrayList<>();
 
-        String result="";
-
         String DATA_TO_REMOVE="";
-        String DATA_TYPE="";
+        Type DATA_TYPE= Type.NONE;
         
         //complement(join))
         if (current_CDS.matches( "(^complement\\(join\\([0-9]+\\.\\.[0-9]+((\\,([0-9]+\\.\\.[0-9]+))+)?\\)\\))"))
         {
             DATA_TO_REMOVE = "complement(join(";
-            DATA_TYPE="cj";
+            DATA_TYPE=Type.COMPLEMENT_JOIN;
         }
         //complement()
         if (current_CDS.matches("(^complement\\([0-9]+\\.\\.[0-9]+((\\,([0-9]+\\.\\.[0-9]+))+)?\\))"))
         {
             DATA_TO_REMOVE="complement(";
-            DATA_TYPE="c";
+            DATA_TYPE=Type.COMPLEMENT;
         }
         //join()
         if (current_CDS.matches("(^join\\([0-9]+\\.\\.[0-9]+((\\,([0-9]+\\.\\.[0-9]+))+)?\\))"))
         {
             DATA_TO_REMOVE="join(";
-            DATA_TYPE="j";
+            DATA_TYPE=Type.JOIN;
 
         }
         //basic case
         if (current_CDS.matches("([0-9]+(\\.\\.)[0-9]+)"))
         {
-            DATA_TYPE="b";
+            DATA_TYPE=Type.BASIC;
         }
 
 
@@ -113,7 +109,7 @@ public class CDS {
 
         String[] index;
 
-        if(!DATA_TYPE.equals(""))
+        if(DATA_TYPE != Type.NONE)
         {
             //on parcours les codons
             for (String word : codon) {
@@ -142,9 +138,9 @@ public class CDS {
                     return res;
                 }
 
-                if (res.size() == 1 && res.get(0).getType().equals("j"))
+                if (res.size() == 1 && res.get(0).getType() == Type.JOIN)
                 {
-                    res.get(0).setType("b");
+                    res.get(0).setType(Type.BASIC);
                 }
 
                 //On test maintenant si les coordonnées des séquences ne se chevauchent pas
@@ -154,7 +150,7 @@ public class CDS {
                     {
                         int data = res.get(i).getEnd();
 
-                        //on vérifie qu'il n'y ai pas de outOfRange
+                        //on vérifie qu'il n'y ait pas de outOfRange
                         if((i+1)!=res.size() && res.get(i+1).getStart()<data)
                         {
                             //CDS INVALIDE
@@ -175,19 +171,24 @@ public class CDS {
      * Fonction permettant de vérifier que le CDS est bien unique
      * @param lcds CDS à tester, contenant toutes les bornes
      * @param listCDS Liste des CDS dans laquelle vérifier que le CDS n'existe pas déjà
-     * @return Vrai si le CDS n'existe pas encore dans la liste de CDS, faux sinon
+     * @return L'index auquel il faut insérer le CDS s'il n'existe pas encore dans la liste de CDS, -1 sinon
      */
-    public static boolean isUnique(ArrayList<CDS> lcds, ArrayList<ArrayList<CDS>> listCDS)
+    public static int getIndex(ArrayList<CDS> lcds, ArrayList<ArrayList<CDS>> listCDS)
     {
         boolean exit = true;
         int j = 0;
+		int res = listCDS.size();
 
         // On s'arrête à la fin de la liste ou dès qu'on a trouvé un CDS identique
         while (exit && j < listCDS.size())
         {
             ArrayList<CDS> l = listCDS.get(j);
 
-            if (l.size() == lcds.size() && l.get(0).getType().equals(lcds.get(0).getType()))
+			if (lcds.get(0).getStart() > l.get(0).getStart())
+			{
+				res = j+1;
+			}
+            if (l.size() == lcds.size() && l.get(0).getType() == lcds.get(0).getType())
             {
                 int i = 0;
                 exit = false;
@@ -210,6 +211,10 @@ public class CDS {
             }
             j++;
         }
-        return exit;
+        if (!exit)
+		{
+			res = -1;
+		}
+        return res;
     }
 }

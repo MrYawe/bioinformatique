@@ -1,5 +1,7 @@
 package statistics;
 
+import tree.Organism;
+
 /**
  * Classe permettant de stocker les résultats pour un organisme complet (pour faire les sommes)
  */
@@ -324,5 +326,15 @@ public class SumResults
         this.nbPlasmids = 0;
         this.nbPlasts = 0;
         this.nbLinkages = 0;
+    }
+
+    /**
+     * Constructeur prenant en paramètre un organisme
+     * @param organism Organisme en cours de traitement
+     */
+    public SumResults(Organism organism)
+    {
+        this();
+        this.organism = organism.getName();
     }
 }

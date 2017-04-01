@@ -17,6 +17,8 @@ import com.github.rholder.retry.StopStrategies;
 import com.github.rholder.retry.WaitStrategies;
 import com.google.common.io.Resources;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
+
+import statistics.StatsExport;
 import view.UIManager;
 
 /**
@@ -52,8 +54,8 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
         System.out.println("Download "+organism.getName()+" ...");
 
         if (organism != null){
-
-            String basePath = ConfigManager.getConfig().getResFolder()+"/organisms/"+organism.getName();
+            StatsExport export = new StatsExport(this.organism);
+            String basePath = System.getProperty("user.dir") + "/organisms/"+organism.getName();
             File dir = new File(basePath);
 
             if(Files.exists(Paths.get(basePath))) {
@@ -75,6 +77,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                         InputStream stream = Resources.asByteSource(new URL(url)).openBufferedStream();
                         Files.copy(stream, Paths.get(repliconPath));
                         UIManager.writeLog("--- Download of replicon \""+replicon+"\" ended.");
+                        export.treatReplicon(repliconPath, replicon);
                     }
                 } catch (Exception ex) {
 
@@ -82,6 +85,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                 }
 
             }
+            export.exportOrganism(basePath);
         }
     }
 

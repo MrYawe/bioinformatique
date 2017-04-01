@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
@@ -19,8 +19,8 @@ public class StatsTest
     {
         try
         {
-            FileInputStream is = new FileInputStream("tests/test7.gbk");
-            this.results = TreatFile.processFile(is);
+            File file = new File("tests/test7.gbk");
+            this.results = TreatFile.processFile(file);
         }
         catch (FileNotFoundException e)
         {

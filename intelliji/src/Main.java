@@ -20,7 +20,9 @@ public class Main {
             //Start application
             jfMain = MainFrameAcryl.getInstance();
             jfMain.setVisible(true);
+
             OrganismTree.load();
+            jfMain.updateDisplayedTree(OrganismTree.getInstance());
         }
         catch (Exception ex) {
             ex.printStackTrace();

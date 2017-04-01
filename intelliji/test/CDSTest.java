@@ -73,34 +73,41 @@ public class CDSTest {
         ArrayList<ArrayList<CDS>> listCDS = new ArrayList<>();
 
         ArrayList<CDS> testCDS = CDS.processCDS ("join(26901..26902,35005..35024,35807..36160,36799..36945)");
-        Assert.assertTrue(CDS.isUnique(testCDS, listCDS));
+        Assert.assertEquals(0, CDS.getIndex(testCDS, listCDS));
         listCDS.add(testCDS);
 
         ArrayList<CDS> testCDS2 = CDS.processCDS("join(26901..26902,35005..35024,35807..36160,36799..36946)");
-        Assert.assertTrue(CDS.isUnique(testCDS2, listCDS));
+        Assert.assertEquals(1, CDS.getIndex(testCDS2, listCDS));
         listCDS.add(testCDS2);
 
         ArrayList<CDS> testCDS3 = CDS.processCDS("join(26901..26902,35005..35024,35807..36160,36799..36945,36975..36985)");
-        Assert.assertTrue(CDS.isUnique(testCDS3, listCDS));
+        Assert.assertEquals(2, CDS.getIndex(testCDS3, listCDS));
         listCDS.add(testCDS3);
 
         ArrayList<CDS> testCDS4 = CDS.processCDS("join(26901..26902,35005..35024,35807..36160,36799..36945)");
-        Assert.assertFalse(CDS.isUnique(testCDS4, listCDS));
+        Assert.assertEquals(-1, CDS.getIndex(testCDS4, listCDS));
 
         ArrayList<CDS> testCDS5 = CDS.processCDS("join(26901..26902,35005..35024,35807..36160)");
-        Assert.assertTrue(CDS.isUnique(testCDS5, listCDS));
+        Assert.assertEquals(3, CDS.getIndex(testCDS5, listCDS));
         listCDS.add(testCDS5);
 
         ArrayList<CDS> testCDS6 = CDS.processCDS("complement(join(26901..26902,35005..35024,35807..36160,36799..36945,36975..36985))");
-        Assert.assertTrue(CDS.isUnique(testCDS6, listCDS));
+        Assert.assertEquals(4, CDS.getIndex(testCDS6, listCDS));
         listCDS.add(testCDS6);
 
         ArrayList<CDS> testCDS7 = CDS.processCDS("26901..26902");
-        Assert.assertTrue(CDS.isUnique(testCDS7, listCDS));
+        Assert.assertEquals(5, CDS.getIndex(testCDS7, listCDS));
         listCDS.add(testCDS7);
 
         ArrayList<CDS> testCDS8 = CDS.processCDS("join(26901..26902)");
-        Assert.assertFalse(CDS.isUnique(testCDS8, listCDS));
+        Assert.assertEquals(-1, CDS.getIndex(testCDS8, listCDS));
         listCDS.add(testCDS8);
+
+        ArrayList<CDS> testCDS9 = CDS.processCDS("join(26904..29400,30000..31245)");
+        Assert.assertEquals(6, CDS.getIndex(testCDS9, listCDS));
+        listCDS.add(testCDS9);
+
+        ArrayList<CDS> testCDS10 = CDS.processCDS("join(26902..27145)");
+        Assert.assertEquals(6, CDS.getIndex(testCDS10, listCDS));
     }
 }

@@ -2,17 +2,17 @@ package models;
 
 import statistics.CDSResult;
 
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Created by mourse on 20/02/17.
+ * Classe permettant de traiter un fichier complet
  */
 public class TreatFile {
 
-    public static CDSResult processFile(InputStream file) throws FileNotFoundException {
+    public static CDSResult processFile(File file) throws FileNotFoundException {
 
         //Initialiser l' hashmap
         CDSResult res = new CDSResult();
@@ -63,7 +63,7 @@ public class TreatFile {
                 {
                     res.setType(CDSResult.Type.PLASMID);
                 }
-                else if (nowLine.matches("^([\\s\\t]+(CDS)([\\s\\t]){1,}.*$)"))
+                else if (nowLine.matches("^([\\s\\t]+(CDS)([\\s\\t])+.*$)"))
                 {
                     //Récupérer le CDS complet
                     String current_CDS="";
@@ -78,10 +78,11 @@ public class TreatFile {
 
                     if (!lcds.isEmpty())
                     {
+                        int index = CDS.getIndex(lcds, listCDS);
                         // On ajoute le CDS récupéré seulement s'il est unique
-                        if (CDS.isUnique(lcds, listCDS))
+                        if (index != -1)
                         {
-                            listCDS.add(lcds);
+                            listCDS.add(index, lcds);
                         }
                         else
                         {
@@ -108,34 +109,31 @@ public class TreatFile {
                     nowLine = sc.nextLine();
 
                     int startIndex = 1; // index courant de début de la séquence origine courante
-                    int stopIndex = 0 ; // index courant de fin de la séquence origine courante
+                    int stopIndex = 0; // index courant de fin de la séquence origine courante
 
-                    String sousChaine = ""; //sous-chaine extraite grâce aux cds
-
-                    int finDuCDS=0; //fin du CDS courant, pour savoir quand arrêter d'extraire du contenu d'origin
+                    int finDuCDS = 0; //fin du CDS courant, pour savoir quand arrêter d'extraire du contenu d'origin
                     //on parcours la liste des CDS et on récupère les sous-chaines
-                    for(ArrayList<CDS> cds : listCDS)
+                    for (ArrayList<CDS> cds : listCDS)
                     {
-
-                        if(cds.get(0).getStart() - 60 > finDuCDS && finDuCDS != 0) // on vérifie la borne du CDS précédent (-60 pour garder la ligne courante)
+                        if (cds.get(0).getStart() - 60 > finDuCDS && finDuCDS != 0) // on vérifie la borne du CDS précédent (-60 pour garder la ligne courante)
                         {
                             startIndex += currentOrigin.length(); // on met à jour le nouveau start
                             currentOrigin = new StringBuilder(); //on vide le bloc origin
                         }
 
-                        if(cds.get(cds.size()-1).getEnd() > finDuCDS)
+                        if (cds.get(cds.size() - 1).getEnd() > finDuCDS)
                         {
-                            finDuCDS = cds.get(cds.size()-1).getEnd(); //on récupère (mise à jour) la dernière borne du CDS
+                            finDuCDS = cds.get(cds.size() - 1).getEnd(); //on récupère (mise à jour) la dernière borne du CDS
                         }
 
-                        String buffer = ""; //buffer temporaire qui récupère le traitement de la ligne
+                        String buffer; //buffer temporaire qui récupère le traitement de la ligne
 
-                        while(stopIndex<=finDuCDS) //on rempli le ORIGIN nécessaire
+                        while (stopIndex <= finDuCDS) //on rempli le ORIGIN nécessaire
                         {
                             buffer = Origin.formatOriginLine(nowLine); //on format la ligne
 
-                            currentOrigin.append(buffer) ; //on ajoute le buffer au bloc origin qu'on construit
-                            stopIndex+=buffer.length(); //on met à jour l'index de fin du bloc origin récupéré
+                            currentOrigin.append(buffer); //on ajoute le buffer au bloc origin qu'on construit
+                            stopIndex += buffer.length(); //on met à jour l'index de fin du bloc origin récupéré
 
                             nowLine = sc.nextLine();
 
@@ -144,7 +142,7 @@ public class TreatFile {
                         System.out.println("End " + cds.get(cds.size()-1).getEnd());
                         System.out.println("Start index " + startIndex);
                         System.out.println("Stop index " + stopIndex);*/
-                        sousChaine = getSousChaine(currentOrigin, cds, startIndex); //on récupère la sous-chaine grâce aux CDS
+                        String sousChaine = getSousChaine(currentOrigin, cds, startIndex); //on récupère la sous-chaine grâce aux CDS
 
 
                         if (Chain.isLengthMultipleOf3(sousChaine) && Chain.isChainValid(sousChaine) && Chain.startEnd(sousChaine))
@@ -152,40 +150,40 @@ public class TreatFile {
                             // STATS
 
                             // Trinucléotides
-                            for (int i = 0; i<sousChaine.length()-3; i+=3)
+                            for (int i = 0; i < sousChaine.length() - 3; i += 3)
                             {
-                                String s1 = sousChaine.substring(i, i+3);
-                                res.getTriPhase0().put(s1, res.getTriPhase0().get(s1)+1);
+                                String s1 = sousChaine.substring(i, i + 3);
+                                res.getTriPhase0().put(s1, res.getTriPhase0().get(s1) + 1);
 
-                                String s2 = sousChaine.substring(i+1, i+4);
-                                res.getTriPhase1().put(s2, res.getTriPhase1().get(s2)+1);
+                                String s2 = sousChaine.substring(i + 1, i + 4);
+                                res.getTriPhase1().put(s2, res.getTriPhase1().get(s2) + 1);
 
-                                String s3 = sousChaine.substring(i+2, i+5);
-                                res.getTriPhase2().put(s3, res.getTriPhase2().get(s3)+1);
+                                String s3 = sousChaine.substring(i + 2, i + 5);
+                                res.getTriPhase2().put(s3, res.getTriPhase2().get(s3) + 1);
                             }
 
                             if (sousChaine.length() % 2 == 0)
                             {
                                 // Dinucléotides
-                                for (int i = 0; i<sousChaine.length()-4; i+=2)
+                                for (int i = 0; i < sousChaine.length() - 4; i += 2)
                                 {
-                                    String s1 = sousChaine.substring(i, i+2);
-                                    res.getDiPhase0().put(s1, res.getDiPhase0().get(s1)+1);
+                                    String s1 = sousChaine.substring(i, i + 2);
+                                    res.getDiPhase0().put(s1, res.getDiPhase0().get(s1) + 1);
 
-                                    String s2 = sousChaine.substring(i+1, i+3);
-                                    res.getDiPhase1().put(s2, res.getDiPhase1().get(s2)+1);
+                                    String s2 = sousChaine.substring(i + 1, i + 3);
+                                    res.getDiPhase1().put(s2, res.getDiPhase1().get(s2) + 1);
                                 }
                             }
                             else
                             {
                                 // Dinucléotides
-                                for (int i = 0; i<sousChaine.length()-3; i+=2)
+                                for (int i = 0; i < sousChaine.length() - 3; i += 2)
                                 {
-                                    String s1 = sousChaine.substring(i, i+2);
-                                    res.getDiPhase0().put(s1, res.getDiPhase0().get(s1)+1);
+                                    String s1 = sousChaine.substring(i, i + 2);
+                                    res.getDiPhase0().put(s1, res.getDiPhase0().get(s1) + 1);
 
-                                    String s2 = sousChaine.substring(i+1, i+3);
-                                    res.getDiPhase1().put(s2, res.getDiPhase1().get(s2)+1);
+                                    String s2 = sousChaine.substring(i + 1, i + 3);
+                                    res.getDiPhase1().put(s2, res.getDiPhase1().get(s2) + 1);
                                 }
                             }
                         }
@@ -197,7 +195,7 @@ public class TreatFile {
                         }
                     }
                 }
-                if(sc.hasNextLine())
+                if (sc.hasNextLine())
                 {
                     sc.nextLine();
                 }
@@ -216,9 +214,9 @@ public class TreatFile {
 
     /**
      * Fonction d'extraction d'une sous chaine de CDS dans une séquence ORIGIN
-     * @param origin
-     * @param bornes
-     * @return
+     * @param origin Séquence dans laquelle on souhaite extraire la chaîne correspondant au CDS
+     * @param bornes Liste des bornes du CDS
+     * @return La sous-séquence du CDS
      */
     public static String getSousChaine(StringBuilder origin, ArrayList<CDS> bornes, int startIndex)
     {
@@ -229,7 +227,7 @@ public class TreatFile {
             res+=(origin.substring(borne.getStart() - startIndex   ,borne.getEnd() - startIndex + 1));
         }
 
-        if(bornes.get(0).getType().equals("cj") || bornes.get(0).getType().equals("c"))
+        if(bornes.get(0).getType() == CDS.Type.COMPLEMENT_JOIN || bornes.get(0).getType() == CDS.Type.COMPLEMENT)
         {
             res = Chain.complement(res);
         }

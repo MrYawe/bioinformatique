@@ -27,15 +27,15 @@ public class TemplateTest
             sumResults.setOrganism("test");
 
             /// UNE FOIS POUR CHAQUE NC D'UN ORGANISME ///
-            InputStream is = new FileInputStream("tests/test.gbk");
-            CDSResult results = TreatFile.processFile(is);
+            File file = new File("tests/test.gbk");
+            CDSResult results = TreatFile.processFile(file);
             results.setLocusName("NC_12");
             results.setOrganism("test");
             XlsExport.exportStats(workbook, results, sumResults);
 
 
             /// UNE FOIS PAR ORGANISME ///
-            String path = System.getProperty("user.dir") + File.separator + "results" + File.separator + sumResults.getOrganism() + ".xlsx";
+            String path = System.getProperty("user.dir") + File.separator + "results";
             XlsExport.exportExcelFile(workbook, sumResults, path);
         }
         catch (FileNotFoundException e)
