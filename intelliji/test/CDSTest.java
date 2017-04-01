@@ -101,7 +101,6 @@ public class CDSTest {
 
         ArrayList<CDS> testCDS8 = CDS.processCDS("join(26901..26902)");
         Assert.assertEquals(-1, CDS.getIndex(testCDS8, listCDS));
-        listCDS.add(testCDS8);
 
         ArrayList<CDS> testCDS9 = CDS.processCDS("join(26904..29400,30000..31245)");
         Assert.assertEquals(6, CDS.getIndex(testCDS9, listCDS));

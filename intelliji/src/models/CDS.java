@@ -184,9 +184,9 @@ public class CDS {
         {
             ArrayList<CDS> l = listCDS.get(j);
 
-			if (lcds.get(0).getStart() > l.get(0).getStart())
+			if (lcds.get(0).getStart() < l.get(0).getStart())
 			{
-				res = j+1;
+				res = j;
 			}
             if (l.size() == lcds.size() && l.get(0).getType() == lcds.get(0).getType())
             {
