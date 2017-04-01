@@ -121,7 +121,8 @@ public class MainFrameAcryl extends JFrame {
         JButton btnSelectedOrganisms = new JButton("Get selected organisms");
         btnSelectedOrganisms.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                UIManager.writeLog("Noeuds selectionnés : " + pnlTree.getSelectedOrganisms().toString());
+                pnlTree.updateSelectedOrganisms();
+                UIManager.writeLog("Nombre noeuds selectionnés : " + OrganismTree.getInstance().activatedNodes().length);
             }
         });
         pnlSouth.add(btnSelectedOrganisms, BorderLayout.EAST);

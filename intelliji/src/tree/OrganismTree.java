@@ -112,10 +112,11 @@ public class OrganismTree {
 
     public static void downloadSelectedOrganisms() {
         TreeWalker walker = new TreeWalker(OrganismTree.tree);
-        Organism org = walker.next();
+        Organism org;
 
         ExecutorService executor = Executors.newFixedThreadPool(ConfigManager.getConfig().getNbThreads());
-        while(org != null && walker.hasNext()){
+        while(walker.hasNext()){
+            org = walker.next();
             OrganismFetcherService fs = new OrganismFetcherService(org);
             executor.submit(() -> {
                 try{fs.run();}
@@ -123,7 +124,6 @@ public class OrganismTree {
                     e.printStackTrace();
                 }
             });
-            org = walker.next();
         }
     }
 }

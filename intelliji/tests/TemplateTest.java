@@ -1,14 +1,13 @@
-import models.CDSResult;
-import models.SumResults;
+import statistics.CDSResult;
+import statistics.SumResults;
 import models.TreatFile;
-import models.XlsExport;
+import statistics.XlsExport;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashMap;
 
 
 public class TemplateTest
@@ -28,7 +27,7 @@ public class TemplateTest
             sumResults.setOrganism("test");
 
             /// UNE FOIS POUR CHAQUE NC D'UN ORGANISME ///
-            InputStream is = new FileInputStream("tests/sequence.gbk");
+            InputStream is = new FileInputStream("tests/test.gbk");
             CDSResult results = TreatFile.processFile(is);
             results.setLocusName("NC_12");
             results.setOrganism("test");

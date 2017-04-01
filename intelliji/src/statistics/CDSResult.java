@@ -1,4 +1,4 @@
-package models;
+package statistics;
 
 import java.util.HashMap;
 
@@ -13,7 +13,7 @@ public class CDSResult
 	/**
 	 * Enumération des types des stats
 	 */
-	public enum Type {CHROMOSOME, MITOCHONDRION, DNA, CHLOROPLAST};
+	public enum Type {CHROMOSOME, MITOCHONDRION, DNA, PLASMID, PLAST, LINKAGE};
 
 	/**
 	 * Type des stats courantes (type CHROMOSOME par défaut)
@@ -77,6 +77,11 @@ public class CDSResult
 	 * Nombre de CDS mal formés, donc jetés dès la première lecture
 	 */
 	private int nbMalformedCDS;
+
+	/**
+	 * Nombre de CDS identiques à d'autres, donc non traités
+	 */
+	private int nbIdenticalCDS;
 
 	/**
 	 * Nombre de CDS bien formés mais invalides, donc jetés lors des statistiques
@@ -320,6 +325,24 @@ public class CDSResult
 	}
 
 	/**
+	 * Permet d'accéder au nombre de CDS identiques à d'autres
+	 * @return Le nombre de CDS bien identiqeus à d'autres
+	 */
+	public int getNbIdenticalCDS()
+	{
+		return nbIdenticalCDS;
+	}
+
+	/**
+	 * Permet d'assigner le nombre de CDS identiques à d'autres
+	 * @param nbIdenticalCDS Nombre de CDS bien identiques à d'autres
+	 */
+	public void setNbIdenticalCDS(int nbIdenticalCDS)
+	{
+		this.nbIdenticalCDS = nbIdenticalCDS;
+	}
+
+	/**
 	 * Permet d'accéder au nombre de CDS bien formés mais invalides et donc jetés pour le chromosome en cours de traitement
 	 * @return Le nombre de CDS bien formés mais invalides
 	 */
@@ -342,7 +365,7 @@ public class CDSResult
 	 */
 	public CDSResult()
 	{
-		this.type = Type.CHROMOSOME;
+		this.type = Type.DNA;
 
 		this.triPhase0 = this.initializationHmap();
 		this.triPhase1 = this.initializationHmap();
@@ -358,6 +381,7 @@ public class CDSResult
 		this.organism = "";
 		this.nbCDS = 0;
 		this.nbMalformedCDS = 0;
+		this.nbIdenticalCDS = 0;
 		this.nbInvalidCDS = 0;
 	}
 

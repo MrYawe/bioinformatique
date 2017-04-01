@@ -207,6 +207,7 @@ public class JCheckBoxTree extends JTree {
         DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) parentPath.getLastPathComponent();
         parentCheckedNode.allChildrenSelected = true;
         parentCheckedNode.isSelected = false;
+        int nbChecked = 0;
         for (int i = 0 ; i < parentNode.getChildCount() ; i++) {
             TreePath childPath = parentPath.pathByAddingChild(parentNode.getChildAt(i));
             CheckedNode childCheckedNode = nodesCheckingState.get(childPath);
@@ -215,10 +216,17 @@ public class JCheckBoxTree extends JTree {
             if (! childCheckedNode.allChildrenSelected) {
                 parentCheckedNode.allChildrenSelected = false;
             }
-            // If at least one child is selected, selecting also the parent
-            if (childCheckedNode.isSelected) {
-                parentCheckedNode.isSelected = true;
+            else
+            {
+                nbChecked++;
             }
+            // If at least one child is selected, selecting also the parent
+            /*if (childCheckedNode.isSelected) {
+                parentCheckedNode.isSelected = true;
+            }*/
+        }
+        if(nbChecked == parentNode.getChildCount()) {
+            parentCheckedNode.isSelected = true;
         }
         if (parentCheckedNode.isSelected) {
             checkedPaths.add(parentPath);

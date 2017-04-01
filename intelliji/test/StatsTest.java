@@ -1,4 +1,4 @@
-import models.CDSResult;
+import statistics.CDSResult;
 import models.TreatFile;
 import org.junit.Test;
 
@@ -37,8 +37,7 @@ public class StatsTest
         }
         assertEquals("Number of CDS has to be equal to 1", 1, this.results.getNbCDS());
         assertEquals("Number of invalid CDS has to be equal to 0", 0, this.results.getNbInvalidCDS());
-        assertEquals("Organism has to be equal to Acropora digitifera", "Acropora digitifera", this.results.getOrganism());
-        assertEquals("Locus name has to be equal to NW_015441057", "NW_015441057", this.results.getLocusName());
+        assertEquals("Number of malformed CDS has to be equal to 0", 0, this.results.getNbMalformedCDS());
     }
 
     @Test
