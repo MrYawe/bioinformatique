@@ -1,22 +1,15 @@
 package tree;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import com.google.common.io.Resources;
 import com.google.common.util.concurrent.ServiceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import config.ConfigManager;
 import tree.TreeBuilderService.OrganismType;
 // import ui.UIManager;
