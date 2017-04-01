@@ -118,19 +118,10 @@ public class MainFrameAcryl extends JFrame {
         });
         pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
 
-        JButton btnSelectedOrganisms = new JButton("Get selected organisms");
-        btnSelectedOrganisms.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                pnlTree.updateSelectedOrganisms();
-                UIManager.writeLog("Nombre noeuds selectionnés : " + OrganismTree.getInstance().activatedNodes().length);
-            }
-        });
-        pnlSouth.add(btnSelectedOrganisms, BorderLayout.EAST);
-
         JButton btnDownloadSelected = new JButton("Download selected organisms");
         btnDownloadSelected.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Executing the Tree
+                pnlTree.updateSelectedOrganisms();
                 new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();
             }
         });

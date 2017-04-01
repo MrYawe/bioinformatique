@@ -78,7 +78,7 @@ public class TreeTest {
     @Test
     public void testNbActivated()
     {
-        Assert.assertEquals(0, OrganismTree.getInstance().activatedNodes().length);
+        Assert.assertEquals(3, OrganismTree.getInstance().activatedNodes().length);
     }
 
     @Test
@@ -88,9 +88,9 @@ public class TreeTest {
 
         org.setActivated(true);
         OrganismTree.getInstance().add("bla", org);
-        Assert.assertEquals(1, OrganismTree.getInstance().activatedNodes().length);
+        Assert.assertEquals(4, OrganismTree.getInstance().activatedNodes().length);
         org.setActivated(false);
-        Assert.assertEquals(0, OrganismTree.getInstance().activatedNodes().length);
+        Assert.assertEquals(3, OrganismTree.getInstance().activatedNodes().length);
     }
 
     @Test
@@ -107,10 +107,10 @@ public class TreeTest {
 
         orgJtree.setActivated(true);
         Assert.assertTrue(org.getActivated());
-        Assert.assertEquals(1, OrganismTree.getInstance().activatedNodes().length);
+        Assert.assertEquals(4, OrganismTree.getInstance().activatedNodes().length);
 
         orgJtree.setActivated(false);
         Assert.assertFalse(org.getActivated());
-        Assert.assertEquals(0, OrganismTree.getInstance().activatedNodes().length);
+        Assert.assertEquals(3, OrganismTree.getInstance().activatedNodes().length);
     }
 }
