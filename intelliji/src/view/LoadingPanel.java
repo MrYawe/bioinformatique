@@ -77,4 +77,7 @@ public class LoadingPanel extends JPanel {
             System.out.println(e.getMessage());
         }
     }
+    public void reset() {
+        pnlForeground.setLocation(0,0);
+    }
 }

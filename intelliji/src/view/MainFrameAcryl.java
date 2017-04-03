@@ -19,6 +19,19 @@ public class MainFrameAcryl extends JFrame {
     private LoadingTreePanel pnlLoadingEukaryote;
     private LoadingTreePanel pnlLoadingProkaryote;
     private LoadingTreePanel pnlLoadingVirus;
+    private JButton btnLoadTree;
+    private JButton btnRun;
+
+    public JButton[] getBtn() {
+        JButton[] res = {btnRun,btnLoadTree};
+        return res;
+    }
+
+    public LoadingTreePanel[] getLoadingTrees() {
+        LoadingTreePanel[] res = {pnlLoadingEukaryote,pnlLoadingVirus,pnlLoadingProkaryote};
+        return res;
+    }
+
 
     private static MainFrameAcryl instance;
 
@@ -109,23 +122,50 @@ public class MainFrameAcryl extends JFrame {
 
         pnlSouth.add(pnlWest, BorderLayout.WEST);
 
-        JButton btnLoadTree = new JButton("Load Tree");
+        btnLoadTree = new JButton("Load Tree");
+        btnRun = new JButton("Download selected organisms");
+
         btnLoadTree.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Executing the Tree
-                new Thread(() -> MainFrameAcryl.getInstance().updateDisplayedTree(OrganismTree.getInstance())).start();
+                if(UIManager.unlock0==0) {
+                    UIManager.lockOn(3);
+                    UIManager.resetLoadingTreePanel();
+                    new Thread(() -> MainFrameAcryl.getInstance().updateDisplayedTree(OrganismTree.getInstance())).start();
+                } else {
+                    UIManager.writeError("Button is currently locked");
+                }
             }
         });
-        pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
+        //pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
+        JPanel pnlTest = new JPanel(new GridLayout(2,1));
+        pnlTest.setAlignmentY(JComponent.LEFT_ALIGNMENT);
+        JCheckBox box1 = new JCheckBox("Download selected items");
+        JCheckBox box2 = new JCheckBox("Compute stats on selected items");
+        pnlTest.add(box1);
+        pnlTest.add(box2);
 
-        JButton btnDownloadSelected = new JButton("Download selected organisms");
-        btnDownloadSelected.addActionListener(new ActionListener() {
+        JPanel pnlTest2 = new JPanel(new BorderLayout());
+        pnlTest2.add(pnlTest, BorderLayout.NORTH);
+        pnlTest2.add(btnRun, BorderLayout.CENTER);
+
+
+        pnlSouth.add(pnlTest2, BorderLayout.CENTER);
+
+
+        btnRun.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                pnlTree.updateSelectedOrganisms();
-                new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();
+                if(UIManager.unlock0==0) {
+                    //UIManager.lockOn(1);
+                    pnlTree.updateSelectedOrganisms();
+                    new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();
+                } else {
+                    UIManager.writeError("Button is currently locked");
+                }
+
             }
         });
-        pnlSouth.add(btnDownloadSelected, BorderLayout.EAST);
+        pnlSouth.add(btnLoadTree, BorderLayout.EAST);
 
     }
 

@@ -12,7 +12,9 @@ import java.awt.*;
 public class UIManager {
     public static MainFrameAcryl frame = MainFrameAcryl.getInstance();
 
-    public static int nbProkaryote = 84;
+    public static int unlock0 = 0;
+
+    public static int nbProkaryote = 85;
     public static int nbVirus = 72;
     public static int nbEukaryote = 41;
 
@@ -26,6 +28,35 @@ public class UIManager {
 
     public static void writeLog(String text) {
         frame.getConsole().println(text);
+    }
+
+    public static void lockOn(int value) {
+        unlock0=-value;
+        JButton[] btns = frame.getBtn();
+        for(int i=0;i<btns.length;i++){
+            btns[i].setEnabled(false);
+        }
+    }
+
+    public static void lockOff() {
+        if(unlock0!=0) {
+            unlock0+=1;
+            if(unlock0==0) {
+                JButton[] btns = frame.getBtn();
+                for(int i=0;i<btns.length;i++){
+                    btns[i].setEnabled(true);
+                }
+            }
+        } else {
+            UIManager.writeError("lock value already null");
+        }
+    }
+
+    public static void resetLoadingTreePanel() {
+        LoadingTreePanel[] panels = frame.getLoadingTrees();
+        for(LoadingTreePanel p:panels) {
+            p.reset();
+        }
     }
 
     public static void addProgressTree(OrganismType type) {

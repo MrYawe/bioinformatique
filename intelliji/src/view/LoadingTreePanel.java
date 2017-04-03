@@ -65,10 +65,16 @@ public class LoadingTreePanel extends JPanel {
 
     //Fonction used to update the text of the label referring to the current loading tree
     public void updatePercent() {
-        if(percent==100)
+        if(percent>=100)
             lblTypePercent.setText(getType().toString().toLowerCase() + " : DONE");
         else
             lblTypePercent.setText(getType().toString().toLowerCase() + " : "+ percent + "%");
+    }
+
+    public void reset() {
+        percent=0;
+        lblTypePercent.setText(getType().toString().toLowerCase() + " : "+ percent + "%");
+        pnlLoadingTree.reset();
     }
 
 }
