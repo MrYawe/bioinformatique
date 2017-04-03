@@ -53,6 +53,9 @@ public class UIManager {
     }
 
     public static void resetLoadingTreePanel() {
+        currentVirus=0;
+        currentEukaryote=0;
+        currentProkaryote=0;
         LoadingTreePanel[] panels = frame.getLoadingTrees();
         for(LoadingTreePanel p:panels) {
             p.reset();
