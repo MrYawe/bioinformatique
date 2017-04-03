@@ -131,7 +131,10 @@ public class MainFrameAcryl extends JFrame {
                 if(UIManager.unlock0==0) {
                     UIManager.lockOn(3);
                     UIManager.resetLoadingTreePanel();
-                    new Thread(() -> MainFrameAcryl.getInstance().updateDisplayedTree(OrganismTree.getInstance())).start();
+                    new Thread(() -> {
+                        OrganismTree.load();
+                        MainFrameAcryl.getInstance().updateDisplayedTree(OrganismTree.getInstance());
+                    }).start();
                 } else {
                     UIManager.writeError("Button is currently locked");
                 }
