@@ -1,5 +1,6 @@
 import config.ConfigManager;
 import config.DevelopmentConfig;
+import config.ProductionConfig;
 import tree.*;
 import view.MainFrameAcryl;
 import javax.swing.*;
@@ -10,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         // Use "new ProductionConfig()" to load the organism tree from Genbank
         // or "new DevelopementConfig()" to load it from the local file "organismeTree.json"
-        ConfigManager.setConfig(new DevelopmentConfig());
+        ConfigManager.setConfig(new ProductionConfig());
 
         //Main view
         MainFrameAcryl jfMain;
@@ -21,8 +22,8 @@ public class Main {
             jfMain = MainFrameAcryl.getInstance();
             jfMain.setVisible(true);
 
-            OrganismTree.load();
-            jfMain.updateDisplayedTree(OrganismTree.getInstance());
+            //OrganismTree.load();
+            //jfMain.updateDisplayedTree(OrganismTree.getInstance());
         }
         catch (Exception ex) {
             ex.printStackTrace();

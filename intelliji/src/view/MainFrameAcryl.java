@@ -125,7 +125,7 @@ public class MainFrameAcryl extends JFrame {
                 new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();
             }
         });
-        pnlSouth.add(btnDownloadSelected, BorderLayout.WEST);
+        pnlSouth.add(btnDownloadSelected, BorderLayout.EAST);
 
     }
 
