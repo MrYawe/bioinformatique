@@ -60,6 +60,10 @@ public class StatsExport
 			}
 			XlsExport.exportStats(this.workbook, result, this.sumResults);
 			UIManager.writeLog("--- [STATS] Replicon \"" + replicon + "\" of \"" + this.organism.getName() + "\" treated");
+			if (!this.organism.getActivated())
+			{
+				f.delete();
+			}
 		}
 		catch (FileNotFoundException e)
 		{
@@ -69,11 +73,17 @@ public class StatsExport
 
 	/**
 	 * Permet d'exporter le fichier excel d'un organisme complet
-	 * @param path Chemin d'export du fichier excel
+	 * @param resultPath Chemin d'export du fichier excel
+	 * @param organismPath Chemin du dossier contenant les fichiers téléchargés de l'organisme
 	 */
-	public void exportOrganism(String path)
+	public void exportOrganism(String resultPath, String organismPath)
 	{
-		XlsExport.exportExcelFile(this.workbook, this.sumResults, path);
+		XlsExport.exportExcelFile(this.workbook, this.sumResults, resultPath);
 		UIManager.writeLog("--- [EXCEL] Excel file of organism \"" + this.organism.getName() + "\" created");
+		File f = new File(organismPath);
+		if (f.exists() && !this.organism.getActivated())
+		{
+			f.delete();
+		}
 	}
 }

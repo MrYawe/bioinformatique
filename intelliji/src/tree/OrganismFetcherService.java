@@ -89,7 +89,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                 }
 
             }
-            export.exportOrganism(resultsPath);
+            export.exportOrganism(resultsPath, basePath);
         }
     }
 

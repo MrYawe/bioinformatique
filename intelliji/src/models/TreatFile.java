@@ -234,6 +234,8 @@ public class TreatFile {
             }
         }
 
+        sc.close();
+
         //Renvoi l'hashtable
         res.setNbCDS(nbCDS);
         res.setNbMalformedCDS(nbMalformedCDS);

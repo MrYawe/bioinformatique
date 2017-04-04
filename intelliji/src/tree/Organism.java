@@ -249,7 +249,7 @@ public class Organism implements Serializable {
     public String getOrganismPath()
     {
         Config config = ConfigManager.getConfig();
-        return config.getOrganismsFolder() + this.getPath() + config.getFolderSeparator() + this.getName();
+        return config.getOrganismsFolder() + config.getFolderSeparator() + this.getName();
     }
 
     public String getResultsPath()
