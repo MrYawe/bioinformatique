@@ -284,6 +284,228 @@ public class StatsTest
     }
 
     @Test
+    public void triPrefPhase0Test()
+    {
+        if (this.results == null)
+        {
+            init();
+        }
+        HashMap<String, Integer> triPrefPhase0 = this.results.getTriPrefPhase0();
+        assertEquals("Pref Phase 0 of AAA has to be equal to 1", 1, (long)triPrefPhase0.get("AAA"));
+        assertEquals("Pref Phase 0 of AAC has to be equal to 0", 0, (long)triPrefPhase0.get("AAC"));
+        assertEquals("Pref Phase 0 of AAG has to be equal to 0", 0, (long)triPrefPhase0.get("AAG"));
+        assertEquals("Pref Phase 0 of AAT has to be equal to 1", 1, (long)triPrefPhase0.get("AAT"));
+        assertEquals("Pref Phase 0 of ACA has to be equal to 1", 1, (long)triPrefPhase0.get("ACA"));
+        assertEquals("Pref Phase 0 of ACC has to be equal to 0", 0, (long)triPrefPhase0.get("ACC"));
+        assertEquals("Pref Phase 0 of ACG has to be equal to 0", 0, (long)triPrefPhase0.get("ACG"));
+        assertEquals("Pref Phase 0 of ACT has to be equal to 0", 0, (long)triPrefPhase0.get("ACT"));
+        assertEquals("Pref Phase 0 of AGA has to be equal to 0", 0, (long)triPrefPhase0.get("AGA"));
+        assertEquals("Pref Phase 0 of AGC has to be equal to 1", 1, (long)triPrefPhase0.get("AGC"));
+        assertEquals("Pref Phase 0 of AGG has to be equal to 0", 0, (long)triPrefPhase0.get("AGG"));
+        assertEquals("Pref Phase 0 of AGT has to be equal to 0", 0, (long)triPrefPhase0.get("AGT"));
+        assertEquals("Pref Phase 0 of ATA has to be equal to 0", 0, (long)triPrefPhase0.get("ATA"));
+        assertEquals("Pref Phase 0 of ATC has to be equal to 1", 1, (long)triPrefPhase0.get("ATC"));
+        assertEquals("Pref Phase 0 of ATG has to be equal to 0", 0, (long)triPrefPhase0.get("ATG"));
+        assertEquals("Pref Phase 0 of ATT has to be equal to 1", 1, (long)triPrefPhase0.get("ATT"));
+        assertEquals("Pref Phase 0 of CAA has to be equal to 0", 0, (long)triPrefPhase0.get("CAA"));
+        assertEquals("Pref Phase 0 of CAC has to be equal to 0", 0, (long)triPrefPhase0.get("CAC"));
+        assertEquals("Pref Phase 0 of CAG has to be equal to 0", 0, (long)triPrefPhase0.get("CAG"));
+        assertEquals("Pref Phase 0 of CAT has to be equal to 0", 0, (long)triPrefPhase0.get("CAT"));
+        assertEquals("Pref Phase 0 of CCA has to be equal to 1", 1, (long)triPrefPhase0.get("CCA"));
+        assertEquals("Pref Phase 0 of CCC has to be equal to 0", 0, (long)triPrefPhase0.get("CCC"));
+        assertEquals("Pref Phase 0 of CCG has to be equal to 1", 1, (long)triPrefPhase0.get("CCG"));
+        assertEquals("Pref Phase 0 of CCT has to be equal to 1", 1, (long)triPrefPhase0.get("CCT"));
+        assertEquals("Pref Phase 0 of CGA has to be equal to 0", 0, (long)triPrefPhase0.get("CGA"));
+        assertEquals("Pref Phase 0 of CGC has to be equal to 0", 0, (long)triPrefPhase0.get("CGC"));
+        assertEquals("Pref Phase 0 of CGG has to be equal to 0", 0, (long)triPrefPhase0.get("CGG"));
+        assertEquals("Pref Phase 0 of CGT has to be equal to 0", 0, (long)triPrefPhase0.get("CGT"));
+        assertEquals("Pref Phase 0 of CTA has to be equal to 0", 0, (long)triPrefPhase0.get("CTA"));
+        assertEquals("Pref Phase 0 of CTC has to be equal to 0", 0, (long)triPrefPhase0.get("CTC"));
+        assertEquals("Pref Phase 0 of CTG has to be equal to 1", 1, (long)triPrefPhase0.get("CTG"));
+        assertEquals("Pref Phase 0 of CTT has to be equal to 1", 1, (long)triPrefPhase0.get("CTT"));
+        assertEquals("Pref Phase 0 of GAA has to be equal to 1", 1, (long)triPrefPhase0.get("GAA"));
+        assertEquals("Pref Phase 0 of GAC has to be equal to 1", 1, (long)triPrefPhase0.get("GAC"));
+        assertEquals("Pref Phase 0 of GAG has to be equal to 1", 1, (long)triPrefPhase0.get("GAG"));
+        assertEquals("Pref Phase 0 of GAT has to be equal to 1", 1, (long)triPrefPhase0.get("GAT"));
+        assertEquals("Pref Phase 0 of GCA has to be equal to 1", 1, (long)triPrefPhase0.get("GCA"));
+        assertEquals("Pref Phase 0 of GCC has to be equal to 0", 0, (long)triPrefPhase0.get("GCC"));
+        assertEquals("Pref Phase 0 of GCG has to be equal to 0", 0, (long)triPrefPhase0.get("GCG"));
+        assertEquals("Pref Phase 0 of GCT has to be equal to 1", 1, (long)triPrefPhase0.get("GCT"));
+        assertEquals("Pref Phase 0 of GGA has to be equal to 0", 0, (long)triPrefPhase0.get("GGA"));
+        assertEquals("Pref Phase 0 of GGC has to be equal to 0", 0, (long)triPrefPhase0.get("GGC"));
+        assertEquals("Pref Phase 0 of GGG has to be equal to 0", 0, (long)triPrefPhase0.get("GGG"));
+        assertEquals("Pref Phase 0 of GGT has to be equal to 0", 0, (long)triPrefPhase0.get("GGT"));
+        assertEquals("Pref Phase 0 of GTA has to be equal to 1", 1, (long)triPrefPhase0.get("GTA"));
+        assertEquals("Pref Phase 0 of GTC has to be equal to 1", 1, (long)triPrefPhase0.get("GTC"));
+        assertEquals("Pref Phase 0 of GTG has to be equal to 1", 1, (long)triPrefPhase0.get("GTG"));
+        assertEquals("Pref Phase 0 of GTT has to be equal to 1", 1, (long)triPrefPhase0.get("GTT"));
+        assertEquals("Pref Phase 0 of TAA has to be equal to 0", 0, (long)triPrefPhase0.get("TAA"));
+        assertEquals("Pref Phase 0 of TAC has to be equal to 0", 0, (long)triPrefPhase0.get("TAC"));
+        assertEquals("Pref Phase 0 of TAG has to be equal to 0", 0, (long)triPrefPhase0.get("TAG"));
+        assertEquals("Pref Phase 0 of TAT has to be equal to 0", 0, (long)triPrefPhase0.get("TAT"));
+        assertEquals("Pref Phase 0 of TCA has to be equal to 0", 0, (long)triPrefPhase0.get("TCA"));
+        assertEquals("Pref Phase 0 of TCC has to be equal to 0", 0, (long)triPrefPhase0.get("TCC"));
+        assertEquals("Pref Phase 0 of TCG has to be equal to 1", 1, (long)triPrefPhase0.get("TCG"));
+        assertEquals("Pref Phase 0 of TCT has to be equal to 0", 0, (long)triPrefPhase0.get("TCT"));
+        assertEquals("Pref Phase 0 of TGA has to be equal to 0", 0, (long)triPrefPhase0.get("TGA"));
+        assertEquals("Pref Phase 0 of TGC has to be equal to 0", 0, (long)triPrefPhase0.get("TGC"));
+        assertEquals("Pref Phase 0 of TGG has to be equal to 0", 0, (long)triPrefPhase0.get("TGG"));
+        assertEquals("Pref Phase 0 of TGT has to be equal to 0", 0, (long)triPrefPhase0.get("TGT"));
+        assertEquals("Pref Phase 0 of TTA has to be equal to 0", 0, (long)triPrefPhase0.get("TTA"));
+        assertEquals("Pref Phase 0 of TTC has to be equal to 0", 0, (long)triPrefPhase0.get("TTC"));
+        assertEquals("Pref Phase 0 of TTG has to be equal to 0", 0, (long)triPrefPhase0.get("TTG"));
+        assertEquals("Pref Phase 0 of TTT has to be equal to 1", 1, (long)triPrefPhase0.get("TTT"));
+    }
+
+    @Test
+    public void triPrefPhase1Test()
+    {
+        if (this.results == null)
+        {
+            init();
+        }
+        HashMap<String, Integer> triPrefPhase1 = this.results.getTriPrefPhase1();
+        assertEquals("Pref Phase 1 of AAA has to be equal to 0", 0, (long)triPrefPhase1.get("AAA"));
+        assertEquals("Pref Phase 1 of AAC has to be equal to 1", 1, (long)triPrefPhase1.get("AAC"));
+        assertEquals("Pref Phase 1 of AAG has to be equal to 1", 1, (long)triPrefPhase1.get("AAG"));
+        assertEquals("Pref Phase 1 of AAT has to be equal to 0", 0, (long)triPrefPhase1.get("AAT"));
+        assertEquals("Pref Phase 1 of ACA has to be equal to 0", 0, (long)triPrefPhase1.get("ACA"));
+        assertEquals("Pref Phase 1 of ACC has to be equal to 0", 0, (long)triPrefPhase1.get("ACC"));
+        assertEquals("Pref Phase 1 of ACG has to be equal to 1", 1, (long)triPrefPhase1.get("ACG"));
+        assertEquals("Pref Phase 1 of ACT has to be equal to 0", 0, (long)triPrefPhase1.get("ACT"));
+        assertEquals("Pref Phase 1 of AGA has to be equal to 0", 0, (long)triPrefPhase1.get("AGA"));
+        assertEquals("Pref Phase 1 of AGC has to be equal to 0", 0, (long)triPrefPhase1.get("AGC"));
+        assertEquals("Pref Phase 1 of AGG has to be equal to 1", 1, (long)triPrefPhase1.get("AGG"));
+        assertEquals("Pref Phase 1 of AGT has to be equal to 0", 0, (long)triPrefPhase1.get("AGT"));
+        assertEquals("Pref Phase 1 of ATA has to be equal to 1", 1, (long)triPrefPhase1.get("ATA"));
+        assertEquals("Pref Phase 1 of ATC has to be equal to 0", 0, (long)triPrefPhase1.get("ATC"));
+        assertEquals("Pref Phase 1 of ATG has to be equal to 1", 1, (long)triPrefPhase1.get("ATG"));
+        assertEquals("Pref Phase 1 of ATT has to be equal to 0", 0, (long)triPrefPhase1.get("ATT"));
+        assertEquals("Pref Phase 1 of CAA has to be equal to 1", 1, (long)triPrefPhase1.get("CAA"));
+        assertEquals("Pref Phase 1 of CAC has to be equal to 0", 0, (long)triPrefPhase1.get("CAC"));
+        assertEquals("Pref Phase 1 of CAG has to be equal to 0", 0, (long)triPrefPhase1.get("CAG"));
+        assertEquals("Pref Phase 1 of CAT has to be equal to 0", 0, (long)triPrefPhase1.get("CAT"));
+        assertEquals("Pref Phase 1 of CCA has to be equal to 0", 0, (long)triPrefPhase1.get("CCA"));
+        assertEquals("Pref Phase 1 of CCC has to be equal to 0", 0, (long)triPrefPhase1.get("CCC"));
+        assertEquals("Pref Phase 1 of CCG has to be equal to 0", 0, (long)triPrefPhase1.get("CCG"));
+        assertEquals("Pref Phase 1 of CCT has to be equal to 0", 0, (long)triPrefPhase1.get("CCT"));
+        assertEquals("Pref Phase 1 of CGA has to be equal to 0", 0, (long)triPrefPhase1.get("CGA"));
+        assertEquals("Pref Phase 1 of CGC has to be equal to 1", 1, (long)triPrefPhase1.get("CGC"));
+        assertEquals("Pref Phase 1 of CGG has to be equal to 0", 0, (long)triPrefPhase1.get("CGG"));
+        assertEquals("Pref Phase 1 of CGT has to be equal to 1", 1, (long)triPrefPhase1.get("CGT"));
+        assertEquals("Pref Phase 1 of CTA has to be equal to 0", 0, (long)triPrefPhase1.get("CTA"));
+        assertEquals("Pref Phase 1 of CTC has to be equal to 1", 1, (long)triPrefPhase1.get("CTC"));
+        assertEquals("Pref Phase 1 of CTG has to be equal to 1", 1, (long)triPrefPhase1.get("CTG"));
+        assertEquals("Pref Phase 1 of CTT has to be equal to 1", 1, (long)triPrefPhase1.get("CTT"));
+        assertEquals("Pref Phase 1 of GAA has to be equal to 0", 0, (long)triPrefPhase1.get("GAA"));
+        assertEquals("Pref Phase 1 of GAC has to be equal to 0", 0, (long)triPrefPhase1.get("GAC"));
+        assertEquals("Pref Phase 1 of GAG has to be equal to 0", 0, (long)triPrefPhase1.get("GAG"));
+        assertEquals("Pref Phase 1 of GAT has to be equal to 0", 0, (long)triPrefPhase1.get("GAT"));
+        assertEquals("Pref Phase 1 of GCA has to be equal to 1", 1, (long)triPrefPhase1.get("GCA"));
+        assertEquals("Pref Phase 1 of GCC has to be equal to 0", 0, (long)triPrefPhase1.get("GCC"));
+        assertEquals("Pref Phase 1 of GCG has to be equal to 0", 0, (long)triPrefPhase1.get("GCG"));
+        assertEquals("Pref Phase 1 of GCT has to be equal to 0", 0, (long)triPrefPhase1.get("GCT"));
+        assertEquals("Pref Phase 1 of GGA has to be equal to 0", 0, (long)triPrefPhase1.get("GGA"));
+        assertEquals("Pref Phase 1 of GGC has to be equal to 0", 0, (long)triPrefPhase1.get("GGC"));
+        assertEquals("Pref Phase 1 of GGG has to be equal to 1", 1, (long)triPrefPhase1.get("GGG"));
+        assertEquals("Pref Phase 1 of GGT has to be equal to 0", 0, (long)triPrefPhase1.get("GGT"));
+        assertEquals("Pref Phase 1 of GTA has to be equal to 0", 0, (long)triPrefPhase1.get("GTA"));
+        assertEquals("Pref Phase 1 of GTC has to be equal to 0", 0, (long)triPrefPhase1.get("GTC"));
+        assertEquals("Pref Phase 1 of GTG has to be equal to 0", 0, (long)triPrefPhase1.get("GTG"));
+        assertEquals("Pref Phase 1 of GTT has to be equal to 0", 0, (long)triPrefPhase1.get("GTT"));
+        assertEquals("Pref Phase 1 of TAA has to be equal to 1", 1, (long)triPrefPhase1.get("TAA"));
+        assertEquals("Pref Phase 1 of TAC has to be equal to 1", 1, (long)triPrefPhase1.get("TAC"));
+        assertEquals("Pref Phase 1 of TAG has to be equal to 1", 1, (long)triPrefPhase1.get("TAG"));
+        assertEquals("Pref Phase 1 of TAT has to be equal to 0", 0, (long)triPrefPhase1.get("TAT"));
+        assertEquals("Pref Phase 1 of TCA has to be equal to 1", 1, (long)triPrefPhase1.get("TCA"));
+        assertEquals("Pref Phase 1 of TCC has to be equal to 0", 0, (long)triPrefPhase1.get("TCC"));
+        assertEquals("Pref Phase 1 of TCG has to be equal to 0", 0, (long)triPrefPhase1.get("TCG"));
+        assertEquals("Pref Phase 1 of TCT has to be equal to 0", 0, (long)triPrefPhase1.get("TCT"));
+        assertEquals("Pref Phase 1 of TGA has to be equal to 0", 0, (long)triPrefPhase1.get("TGA"));
+        assertEquals("Pref Phase 1 of TGC has to be equal to 0", 0, (long)triPrefPhase1.get("TGC"));
+        assertEquals("Pref Phase 1 of TGG has to be equal to 1", 1, (long)triPrefPhase1.get("TGG"));
+        assertEquals("Pref Phase 1 of TGT has to be equal to 0", 0, (long)triPrefPhase1.get("TGT"));
+        assertEquals("Pref Phase 1 of TTA has to be equal to 1", 1, (long)triPrefPhase1.get("TTA"));
+        assertEquals("Pref Phase 1 of TTC has to be equal to 1", 1, (long)triPrefPhase1.get("TTC"));
+        assertEquals("Pref Phase 1 of TTG has to be equal to 1", 1, (long)triPrefPhase1.get("TTG"));
+        assertEquals("Pref Phase 1 of TTT has to be equal to 0", 0, (long)triPrefPhase1.get("TTT"));
+    }
+
+    @Test
+    public void triPrefPhase2Test()
+    {
+        if (this.results == null)
+        {
+            init();
+        }
+        HashMap<String, Integer> triPrefPhase2 = this.results.getTriPrefPhase2();
+        assertEquals("Pref Phase 2 of AAA has to be equal to 0", 0, (long)triPrefPhase2.get("AAA"));
+        assertEquals("Pref Phase 2 of AAC has to be equal to 0", 0, (long)triPrefPhase2.get("AAC"));
+        assertEquals("Pref Phase 2 of AAG has to be equal to 0", 0, (long)triPrefPhase2.get("AAG"));
+        assertEquals("Pref Phase 2 of AAT has to be equal to 1", 1, (long)triPrefPhase2.get("AAT"));
+        assertEquals("Pref Phase 2 of ACA has to be equal to 0", 0, (long)triPrefPhase2.get("ACA"));
+        assertEquals("Pref Phase 2 of ACC has to be equal to 1", 1, (long)triPrefPhase2.get("ACC"));
+        assertEquals("Pref Phase 2 of ACG has to be equal to 0", 0, (long)triPrefPhase2.get("ACG"));
+        assertEquals("Pref Phase 2 of ACT has to be equal to 1", 1, (long)triPrefPhase2.get("ACT"));
+        assertEquals("Pref Phase 2 of AGA has to be equal to 1", 1, (long)triPrefPhase2.get("AGA"));
+        assertEquals("Pref Phase 2 of AGC has to be equal to 0", 0, (long)triPrefPhase2.get("AGC"));
+        assertEquals("Pref Phase 2 of AGG has to be equal to 0", 0, (long)triPrefPhase2.get("AGG"));
+        assertEquals("Pref Phase 2 of AGT has to be equal to 1", 1, (long)triPrefPhase2.get("AGT"));
+        assertEquals("Pref Phase 2 of ATA has to be equal to 0", 0, (long)triPrefPhase2.get("ATA"));
+        assertEquals("Pref Phase 2 of ATC has to be equal to 0", 0, (long)triPrefPhase2.get("ATC"));
+        assertEquals("Pref Phase 2 of ATG has to be equal to 0", 0, (long)triPrefPhase2.get("ATG"));
+        assertEquals("Pref Phase 2 of ATT has to be equal to 0", 0, (long)triPrefPhase2.get("ATT"));
+        assertEquals("Pref Phase 2 of CAA has to be equal to 0", 0, (long)triPrefPhase2.get("CAA"));
+        assertEquals("Pref Phase 2 of CAC has to be equal to 1", 1, (long)triPrefPhase2.get("CAC"));
+        assertEquals("Pref Phase 2 of CAG has to be equal to 1", 1, (long)triPrefPhase2.get("CAG"));
+        assertEquals("Pref Phase 2 of CAT has to be equal to 1", 1, (long)triPrefPhase2.get("CAT"));
+        assertEquals("Pref Phase 2 of CCA has to be equal to 0", 0, (long)triPrefPhase2.get("CCA"));
+        assertEquals("Pref Phase 2 of CCC has to be equal to 1", 1, (long)triPrefPhase2.get("CCC"));
+        assertEquals("Pref Phase 2 of CCG has to be equal to 0", 0, (long)triPrefPhase2.get("CCG"));
+        assertEquals("Pref Phase 2 of CCT has to be equal to 0", 0, (long)triPrefPhase2.get("CCT"));
+        assertEquals("Pref Phase 2 of CGA has to be equal to 1", 1, (long)triPrefPhase2.get("CGA"));
+        assertEquals("Pref Phase 2 of CGC has to be equal to 0", 0, (long)triPrefPhase2.get("CGC"));
+        assertEquals("Pref Phase 2 of CGG has to be equal to 0", 0, (long)triPrefPhase2.get("CGG"));
+        assertEquals("Pref Phase 2 of CGT has to be equal to 0", 0, (long)triPrefPhase2.get("CGT"));
+        assertEquals("Pref Phase 2 of CTA has to be equal to 0", 0, (long)triPrefPhase2.get("CTA"));
+        assertEquals("Pref Phase 2 of CTC has to be equal to 0", 0, (long)triPrefPhase2.get("CTC"));
+        assertEquals("Pref Phase 2 of CTG has to be equal to 0", 0, (long)triPrefPhase2.get("CTG"));
+        assertEquals("Pref Phase 2 of CTT has to be equal to 0", 0, (long)triPrefPhase2.get("CTT"));
+        assertEquals("Pref Phase 2 of GAA has to be equal to 0", 0, (long)triPrefPhase2.get("GAA"));
+        assertEquals("Pref Phase 2 of GAC has to be equal to 0", 0, (long)triPrefPhase2.get("GAC"));
+        assertEquals("Pref Phase 2 of GAG has to be equal to 0", 0, (long)triPrefPhase2.get("GAG"));
+        assertEquals("Pref Phase 2 of GAT has to be equal to 0", 0, (long)triPrefPhase2.get("GAT"));
+        assertEquals("Pref Phase 2 of GCA has to be equal to 0", 0, (long)triPrefPhase2.get("GCA"));
+        assertEquals("Pref Phase 2 of GCC has to be equal to 1", 1, (long)triPrefPhase2.get("GCC"));
+        assertEquals("Pref Phase 2 of GCG has to be equal to 1", 1, (long)triPrefPhase2.get("GCG"));
+        assertEquals("Pref Phase 2 of GCT has to be equal to 0", 0, (long)triPrefPhase2.get("GCT"));
+        assertEquals("Pref Phase 2 of GGA has to be equal to 1", 1, (long)triPrefPhase2.get("GGA"));
+        assertEquals("Pref Phase 2 of GGC has to be equal to 0", 0, (long)triPrefPhase2.get("GGC"));
+        assertEquals("Pref Phase 2 of GGG has to be equal to 0", 0, (long)triPrefPhase2.get("GGG"));
+        assertEquals("Pref Phase 2 of GGT has to be equal to 1", 1, (long)triPrefPhase2.get("GGT"));
+        assertEquals("Pref Phase 2 of GTA has to be equal to 0", 0, (long)triPrefPhase2.get("GTA"));
+        assertEquals("Pref Phase 2 of GTC has to be equal to 0", 0, (long)triPrefPhase2.get("GTC"));
+        assertEquals("Pref Phase 2 of GTG has to be equal to 0", 0, (long)triPrefPhase2.get("GTG"));
+        assertEquals("Pref Phase 2 of GTT has to be equal to 0", 0, (long)triPrefPhase2.get("GTT"));
+        assertEquals("Pref Phase 2 of TAA has to be equal to 0", 0, (long)triPrefPhase2.get("TAA"));
+        assertEquals("Pref Phase 2 of TAC has to be equal to 0", 0, (long)triPrefPhase2.get("TAC"));
+        assertEquals("Pref Phase 2 of TAG has to be equal to 0", 0, (long)triPrefPhase2.get("TAG"));
+        assertEquals("Pref Phase 2 of TAT has to be equal to 1", 1, (long)triPrefPhase2.get("TAT"));
+        assertEquals("Pref Phase 2 of TCA has to be equal to 0", 0, (long)triPrefPhase2.get("TCA"));
+        assertEquals("Pref Phase 2 of TCC has to be equal to 1", 1, (long)triPrefPhase2.get("TCC"));
+        assertEquals("Pref Phase 2 of TCG has to be equal to 1", 1, (long)triPrefPhase2.get("TCG"));
+        assertEquals("Pref Phase 2 of TCT has to be equal to 1", 1, (long)triPrefPhase2.get("TCT"));
+        assertEquals("Pref Phase 2 of TGA has to be equal to 1", 1, (long)triPrefPhase2.get("TGA"));
+        assertEquals("Pref Phase 2 of TGC has to be equal to 1", 1, (long)triPrefPhase2.get("TGC"));
+        assertEquals("Pref Phase 2 of TGG has to be equal to 0", 0, (long)triPrefPhase2.get("TGG"));
+        assertEquals("Pref Phase 2 of TGT has to be equal to 1", 1, (long)triPrefPhase2.get("TGT"));
+        assertEquals("Pref Phase 2 of TTA has to be equal to 0", 0, (long)triPrefPhase2.get("TTA"));
+        assertEquals("Pref Phase 2 of TTC has to be equal to 0", 0, (long)triPrefPhase2.get("TTC"));
+        assertEquals("Pref Phase 2 of TTG has to be equal to 0", 0, (long)triPrefPhase2.get("TTG"));
+        assertEquals("Pref Phase 2 of TTT has to be equal to 0", 0, (long)triPrefPhase2.get("TTT"));
+    }
+
+    @Test
     public void diPhase0Test()
     {
         if (this.results == null)

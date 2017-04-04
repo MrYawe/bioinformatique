@@ -35,7 +35,7 @@ public class TemplateTest
 
 
             /// UNE FOIS PAR ORGANISME ///
-            String path = System.getProperty("user.dir") + File.separator + "results";
+            String path = System.getProperty("user.dir") + File.separator + "Results";
             XlsExport.exportExcelFile(workbook, sumResults, path);
         }
         catch (FileNotFoundException e)
