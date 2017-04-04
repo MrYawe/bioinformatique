@@ -159,15 +159,12 @@ public class TreatFile {
                             for (int i = 0; i < sousChaine.length() - 3; i += 3)
                             {
                                 String s1 = sousChaine.substring(i, i + 3);
-                                res.getTriPhase0().put(s1, res.getTriPhase0().get(s1) + 1);
                                 currentNumber0.put(s1, currentNumber0.get(s1) + 1);
 
                                 String s2 = sousChaine.substring(i + 1, i + 4);
-                                res.getTriPhase1().put(s2, res.getTriPhase1().get(s2) + 1);
                                 currentNumber1.put(s2, currentNumber1.get(s2) + 1);
 
                                 String s3 = sousChaine.substring(i + 2, i + 5);
-                                res.getTriPhase2().put(s3, res.getTriPhase2().get(s3) + 1);
                                 currentNumber2.put(s3, currentNumber2.get(s3) + 1);
                             }
 
@@ -211,6 +208,10 @@ public class TreatFile {
                             Integer cur0 = currentNumber0.get(key);
                             Integer cur1 = currentNumber1.get(key);
                             Integer cur2 = currentNumber2.get(key);
+
+                            res.getTriPhase0().put(key, res.getTriPhase0().get(key) + cur0);
+                            res.getTriPhase1().put(key, res.getTriPhase1().get(key) + cur1);
+                            res.getTriPhase2().put(key, res.getTriPhase2().get(key) + cur2);
 
                             Integer curMax = Math.max(cur0, Math.max(cur1, cur2));
                             if (curMax > 0)

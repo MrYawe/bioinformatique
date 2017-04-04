@@ -7,7 +7,8 @@ public interface Config {
 
     // General Configuration
     String getFolderSeparator();
-    String getBaseFolder();
+    String getOrganismsFolder();
+    String getResultsFolder();
     String getResFolder();
     boolean useGui();
 

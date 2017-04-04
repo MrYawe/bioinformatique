@@ -421,7 +421,7 @@ public class XlsExport
         {
             FileOutputStream fileOut = new FileOutputStream(path + File.separator + sumResults.getOrganism() + ".xlsx");
             workbook.write(fileOut);
-            System.out.println("XLSX generated: " + path);
+            System.out.println("XLSX generated: " + path + "/" + sumResults.getOrganism());
             fileOut.close();
             workbook.close();
         }

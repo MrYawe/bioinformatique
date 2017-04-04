@@ -238,12 +238,24 @@ public class Organism implements Serializable {
     public String getPath(){
         Config config = ConfigManager.getConfig();
         // Construction de la chaine de charactere
-        String cur = config.getBaseFolder();
+        String cur = "";
         cur += config.getFolderSeparator()+this.getKingdom();
         cur += config.getFolderSeparator()+this.getGroup();
         cur += config.getFolderSeparator()+this.getSubgroup();
 
         return cur;
+    }
+
+    public String getOrganismPath()
+    {
+        Config config = ConfigManager.getConfig();
+        return config.getOrganismsFolder() + this.getPath() + config.getFolderSeparator() + this.getName();
+    }
+
+    public String getResultsPath()
+    {
+        Config config = ConfigManager.getConfig();
+        return config.getResultsFolder() + this.getPath();
     }
 
     /*

@@ -15,8 +15,13 @@ public class ProductionConfig implements Config {
     }
 
     @Override
-    public String getBaseFolder() {
-        return "/tmp/results/";
+    public String getResultsFolder() {
+        return System.getProperty("user.dir") + "/Results";
+    }
+
+    @Override
+    public String getOrganismsFolder() {
+        return System.getProperty("user.dir") + "/organisms";
     }
 
     @Override

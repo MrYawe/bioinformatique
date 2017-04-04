@@ -55,7 +55,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
 
         if (organism != null){
             StatsExport export = new StatsExport(this.organism);
-            String basePath = System.getProperty("user.dir") + "/organisms/"+organism.getName();
+            String basePath = organism.getOrganismPath();
             File dir = new File(basePath);
 
             if(Files.exists(Paths.get(basePath))) {
@@ -66,6 +66,10 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
             } else {
                 dir.mkdirs();
             }
+
+            String resultsPath = organism.getResultsPath();
+            File resultsDir = new File(resultsPath);
+            resultsDir.mkdirs();
 
             UIManager.writeLog("Download "+organism.getName()+ "...");
             for(String replicon : organism.getReplicons().keySet()){
@@ -85,7 +89,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                 }
 
             }
-            export.exportOrganism(basePath);
+            export.exportOrganism(resultsPath);
         }
     }
 
