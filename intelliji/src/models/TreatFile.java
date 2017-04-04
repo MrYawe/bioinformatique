@@ -117,9 +117,9 @@ public class TreatFile {
                     //on parcours la liste des CDS et on récupère les sous-chaines
                     for (ArrayList<CDS> cds : listCDS)
                     {
-                        HashMap<String, Integer> currentNumber0 = res.initializationHmap();
-                        HashMap<String, Integer> currentNumber1 = res.initializationHmap();
-                        HashMap<String, Integer> currentNumber2 = res.initializationHmap();
+                        HashMap<String, Integer> currentNumber0 = CDSResult.initializationHmap();
+                        HashMap<String, Integer> currentNumber1 = CDSResult.initializationHmap();
+                        HashMap<String, Integer> currentNumber2 = CDSResult.initializationHmap();
 
                         if (cds.get(0).getStart() - 60 > finDuCDS && finDuCDS != 0) // on vérifie la borne du CDS précédent (-60 pour garder la ligne courante)
                         {

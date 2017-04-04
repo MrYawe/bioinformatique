@@ -367,15 +367,15 @@ public class CDSResult
 	{
 		this.type = Type.DNA;
 
-		this.triPhase0 = this.initializationHmap();
-		this.triPhase1 = this.initializationHmap();
-		this.triPhase2 = this.initializationHmap();
-		this.triPrefPhase0 = this.initializationHmap();
-		this.triPrefPhase1 = this.initializationHmap();
-		this.triPrefPhase2 = this.initializationHmap();
+		this.triPhase0 = initializationHmap();
+		this.triPhase1 = initializationHmap();
+		this.triPhase2 = initializationHmap();
+		this.triPrefPhase0 = initializationHmap();
+		this.triPrefPhase1 = initializationHmap();
+		this.triPrefPhase2 = initializationHmap();
 
-		this.diPhase0 = this.initializationHmapDi();
-		this.diPhase1 = this.initializationHmapDi();
+		this.diPhase0 = initializationHmapDi();
+		this.diPhase1 = initializationHmapDi();
 
 		this.locusName = "";
 		this.organism = "";
@@ -389,7 +389,7 @@ public class CDSResult
      * Permet d'initialiser un HashMap pour les statistiques des trinucléotides
      * @return Un HashMap initialisé
      */
-    public HashMap<String, Integer> initializationHmap() {
+    public static HashMap<String, Integer> initializationHmap() {
 
       /*Adding elements to HashMap*/
         HashMap<String, Integer> hmap = new HashMap<>();
@@ -420,7 +420,7 @@ public class CDSResult
      * Permet d'initialiser un HashMap pour les statistiques des dinucléotides
      * @return Un HashMap initialisé
      */
-    public HashMap<String, Integer> initializationHmapDi()
+    public static HashMap<String, Integer> initializationHmapDi()
     {
         HashMap<String, Integer> hash = new HashMap<>();
         hash.put("AA", 0);

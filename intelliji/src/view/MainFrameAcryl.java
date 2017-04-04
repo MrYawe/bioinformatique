@@ -123,7 +123,7 @@ public class MainFrameAcryl extends JFrame {
         pnlSouth.add(pnlWest, BorderLayout.WEST);
 
         btnLoadTree = new JButton("Load Tree");
-        btnRun = new JButton("Download selected organisms");
+        btnRun = new JButton("Download and compute statistics");
 
         btnLoadTree.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -143,8 +143,8 @@ public class MainFrameAcryl extends JFrame {
         //pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
         JPanel pnlTest = new JPanel(new GridLayout(2,1));
         pnlTest.setAlignmentY(JComponent.LEFT_ALIGNMENT);
-        JCheckBox box1 = new JCheckBox("Download selected items");
-        JCheckBox box2 = new JCheckBox("Compute stats on selected items");
+        JCheckBox box1 = new JCheckBox("Keep genomes of selected organisms");
+        JCheckBox box2 = new JCheckBox("Compute stats on selected organisms");
         pnlTest.add(box1);
         pnlTest.add(box2);
 
