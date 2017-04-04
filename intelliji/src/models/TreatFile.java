@@ -5,6 +5,8 @@ import statistics.CDSResult;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -14,7 +16,7 @@ public class TreatFile {
 
     public static CDSResult processFile(File file) throws FileNotFoundException {
 
-        //Initialiser l' hashmap
+        //Initialiser l'hashmap
         CDSResult res = new CDSResult();
 
         int cdsInvalides = 0;
@@ -115,6 +117,10 @@ public class TreatFile {
                     //on parcours la liste des CDS et on récupère les sous-chaines
                     for (ArrayList<CDS> cds : listCDS)
                     {
+                        HashMap<String, Integer> currentNumber0 = res.initializationHmap();
+                        HashMap<String, Integer> currentNumber1 = res.initializationHmap();
+                        HashMap<String, Integer> currentNumber2 = res.initializationHmap();
+
                         if (cds.get(0).getStart() - 60 > finDuCDS && finDuCDS != 0) // on vérifie la borne du CDS précédent (-60 pour garder la ligne courante)
                         {
                             startIndex += currentOrigin.length(); // on met à jour le nouveau start
@@ -154,12 +160,15 @@ public class TreatFile {
                             {
                                 String s1 = sousChaine.substring(i, i + 3);
                                 res.getTriPhase0().put(s1, res.getTriPhase0().get(s1) + 1);
+                                currentNumber0.put(s1, currentNumber0.get(s1) + 1);
 
                                 String s2 = sousChaine.substring(i + 1, i + 4);
                                 res.getTriPhase1().put(s2, res.getTriPhase1().get(s2) + 1);
+                                currentNumber1.put(s2, currentNumber1.get(s2) + 1);
 
                                 String s3 = sousChaine.substring(i + 2, i + 5);
                                 res.getTriPhase2().put(s3, res.getTriPhase2().get(s3) + 1);
+                                currentNumber2.put(s3, currentNumber2.get(s3) + 1);
                             }
 
                             if (sousChaine.length() % 2 == 0)
@@ -192,6 +201,27 @@ public class TreatFile {
                             cdsInvalides++;
                             /*System.out.println(sousChaine);
                             System.out.println(sousChaine.length());*/
+                        }
+
+                        // Phase pref
+                        for(Map.Entry<String, Integer> e : res.getTriPrefPhase0().entrySet())
+                        {
+                            String key = e.getKey();
+
+                            Integer cur0 = currentNumber0.get(key);
+                            Integer cur1 = currentNumber1.get(key);
+                            Integer cur2 = currentNumber2.get(key);
+
+                            Integer curMax = Math.max(cur0, Math.max(cur1, cur2));
+                            if (curMax > 0)
+                            {
+                                if (Integer.compare(cur0, curMax) == 0)
+                                    res.getTriPrefPhase0().put(key, res.getTriPrefPhase0().get(key) + 1);
+                                if (Integer.compare(cur1, curMax) == 0)
+                                    res.getTriPrefPhase1().put(key, res.getTriPrefPhase1().get(key) + 1);
+                                if (Integer.compare(cur2, curMax) == 0)
+                                    res.getTriPrefPhase2().put(key, res.getTriPrefPhase2().get(key) + 1);
+                            }
                         }
                     }
                 }
