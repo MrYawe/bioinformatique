@@ -61,7 +61,7 @@ public class StatsExport
 			}
 			XlsExport.exportStats(this.workbook, result, this.sumResults);
 			UIManager.writeLog("--- [STATS] Replicon \"" + replicon + "\" of \"" + this.organism.getName() + "\" treated");
-			if (!this.organism.getActivated() || !MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled())
+			if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled())
 			{
 				f.delete();
 			}
@@ -82,7 +82,7 @@ public class StatsExport
 		XlsExport.exportExcelFile(this.workbook, this.sumResults, resultPath);
 		UIManager.writeLog("--- [EXCEL] Excel file of organism \"" + this.organism.getName() + "\" created");
 		File f = new File(organismPath);
-		if (f.exists() && (!this.organism.getActivated() || !MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled()))
+		if (f.exists() && !MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled())
 		{
 			f.delete();
 		}

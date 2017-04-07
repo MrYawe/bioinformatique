@@ -169,26 +169,42 @@ public class MainFrameAcryl extends JFrame {
             }
         });
         //pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
-        JPanel pnlTest = new JPanel(new GridLayout(2,1));
-        pnlTest.setAlignmentY(JComponent.LEFT_ALIGNMENT);
-        JCheckBox box1 = new JCheckBox("Keep genomes of selected organisms");
-        JCheckBox box2 = new JCheckBox("Compute stats on selected organisms");
-        pnlTest.add(box1);
-        pnlTest.add(box2);
+        JPanel pnlTest = new JPanel(new GridLayout(6,1));
+        //pnlTest.setAlignmentY(JComponent.LEFT_ALIGNMENT);
+        JLabel labelDownloadBehavior = new JLabel("Download behavior :");
+        JRadioButton rdbKeepAll = new JRadioButton("Download missing genomes and keep them for further usage", false);
+        JRadioButton rdbNoKeep = new JRadioButton("Download missing genomes and delete them after computation", true);
+        JLabel labelComputeBehavior = new JLabel("Compute behavior :");
+        JRadioButton rdbCompute = new JRadioButton("Compute statistics on selected organisms", true);
+        JRadioButton rdbDownloadOnly = new JRadioButton("Only download the selected organisms' genomes", false);
+        rdbDownloadOnly.setEnabled(false);
+
+        ButtonGroup groupDownload = new ButtonGroup();
+        groupDownload.add(rdbKeepAll);
+        groupDownload.add(rdbNoKeep);
+        ButtonGroup groupBehavior = new ButtonGroup();
+        groupBehavior.add(rdbCompute);
+        groupBehavior.add(rdbDownloadOnly);
+
+        pnlTest.add(labelDownloadBehavior);
+        pnlTest.add(rdbKeepAll);
+        pnlTest.add(rdbNoKeep);
+        pnlTest.add(labelComputeBehavior);
+        pnlTest.add(rdbCompute);
+        pnlTest.add(rdbDownloadOnly);
 
         JPanel pnlTest2 = new JPanel(new BorderLayout());
         pnlTest2.add(pnlTest, BorderLayout.NORTH);
         pnlTest2.add(btnRun, BorderLayout.CENTER);
 
-
         pnlSouth.add(pnlTest2, BorderLayout.CENTER);
 
-        box1.addActionListener(new ActionListener()
+        rdbKeepAll.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (box1.isSelected())
+                if (rdbKeepAll.isSelected())
                 {
                     JOptionPane.showMessageDialog(MainFrameAcryl.getInstance(),
                             "Be careful, genome files are quite heavy (up to 150MB per file).\nPlease make sure you have enough space left on your hard drive.",
@@ -198,11 +214,47 @@ public class MainFrameAcryl extends JFrame {
             }
         });
 
+        rdbNoKeep.addChangeListener(new ChangeListener()
+        {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent)
+            {
+                if (rdbNoKeep.isSelected())
+                {
+                    rdbDownloadOnly.setSelected(false);
+                    rdbDownloadOnly.setEnabled(false);
+                    rdbCompute.setSelected(true);
+                }
+                else
+                {
+                    rdbDownloadOnly.setEnabled(true);
+                }
+            }
+        });
+
+        rdbDownloadOnly.addChangeListener(new ChangeListener()
+        {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent)
+            {
+                if (rdbDownloadOnly.isSelected())
+                {
+                    rdbNoKeep.setSelected(false);
+                    rdbNoKeep.setEnabled(false);
+                    rdbKeepAll.setSelected(true);
+                }
+                else
+                {
+                    rdbNoKeep.setEnabled(true);
+                }
+            }
+        });
+
 
         btnRun.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(UIManager.getUnlock0()==0) {
-                    if (box1.isSelected())
+                    if (rdbKeepAll.isSelected())
                     {
                         MainFrameAcryl.getInstance().setKeepFilesOfSelectedOrganisms(true);
                     }
@@ -210,7 +262,7 @@ public class MainFrameAcryl extends JFrame {
                     {
                         MainFrameAcryl.getInstance().setKeepFilesOfSelectedOrganisms(false);
                     }
-                    if (box2.isSelected())
+                    if (rdbCompute.isSelected())
                     {
                         MainFrameAcryl.getInstance().setComputeStatsOnSelectedOrganisms(true);
                     }
@@ -220,8 +272,20 @@ public class MainFrameAcryl extends JFrame {
                     }
                     //UIManager.lockOn(1);
                     pnlTree.updateSelectedOrganisms();
-                    new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();
-                } else {
+
+                    if (OrganismTree.getInstance().countAllActivatedNodes() == 0)
+                    {
+                        JOptionPane.showMessageDialog(MainFrameAcryl.getInstance(),
+                                "Please select at least one organism in the tree",
+                                "No organism selected",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                    else
+                    {
+                        new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();
+                    }
+                }
+                else {
                     UIManager.writeError("Button is currently locked");
                 }
 

@@ -19,6 +19,7 @@ import com.google.common.io.Resources;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
 
 import statistics.StatsExport;
+import view.MainFrameAcryl;
 import view.UIManager;
 
 /**
@@ -71,9 +72,13 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                 UIManager.writeLog("Download "+organism.getName()+ "...");
             }
 
-            String resultsPath = organism.getResultsPath();
-            File resultsDir = new File(resultsPath);
-            resultsDir.mkdirs();
+            String resultsPath = "";
+            if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled())
+            {
+                resultsPath = organism.getResultsPath();
+                File resultsDir = new File(resultsPath);
+                resultsDir.mkdirs();
+            }
 
             for(String replicon : organism.getReplicons().keySet()){
                 try {
@@ -85,14 +90,20 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                         Files.copy(stream, Paths.get(repliconPath));
                         UIManager.writeLog("--- Download of replicon \""+replicon+"\" of \"" + organism.getName() + "\" ended.");
                     }
-                    export.treatReplicon(repliconPath, replicon);
+                    if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled())
+                    {
+                        export.treatReplicon(repliconPath, replicon);
+                    }
                 } catch (Exception ex) {
 
                     ex.printStackTrace();
                 }
 
             }
-            export.exportOrganism(resultsPath, basePath);
+            if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled())
+            {
+                export.exportOrganism(resultsPath, basePath);
+            }
         }
     }
 

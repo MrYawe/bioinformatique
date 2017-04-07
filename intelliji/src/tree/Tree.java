@@ -48,6 +48,21 @@ public class Tree<T> {
         return res.toArray();
     }
 
+    public int countAllActivatedNodes() {
+        int res = 0;
+        for(String key : nodes.keySet()) {
+            Object curr = nodes.get(key);
+            if(curr.getClass().equals(Organism.class) && ((Organism) curr).getActivated()) {
+                res += 1;
+            }
+            else if (!curr.getClass().equals(Organism.class)) {
+                Tree t = (Tree) curr;
+                res += t.countAllActivatedNodes();
+            }
+        }
+        return res;
+    }
+
     public void printTreeAtLevel(int level) {
         if (this != null) {
             Object[] nodess = this.nodes();

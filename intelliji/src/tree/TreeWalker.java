@@ -11,6 +11,16 @@ public class TreeWalker {
     private Queue<Organism> organisms;
     private static Lock mainLock;
 
+    public Queue<Organism> getOrganisms()
+    {
+        return organisms;
+    }
+
+    public void setOrganisms(Queue<Organism> organisms)
+    {
+        this.organisms = organisms;
+    }
+
     public TreeWalker(Tree t){
         mainLock = new ReentrantLock();
         mainLock.lock();
@@ -20,32 +30,15 @@ public class TreeWalker {
     }
 
     private void toQueue(Tree t){
-        if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled())
+        for (Object o : t.activatedNodes())
         {
-            for (Object o : t.activatedNodes())
+            if (t.isLeaf((String) o))
             {
-                if (t.isLeaf((String) o))
-                {
-                    this.organisms.add((Organism) t.get((String) o));
-                }
-                else
-                {
-                    toQueue((Tree) t.get((String) o));
-                }
+                this.organisms.add((Organism) t.get((String) o));
             }
-        }
-        else
-        {
-            for (Object o : t.nodes())
+            else
             {
-                if (t.isLeaf((String) o))
-                {
-                    this.organisms.add((Organism) t.get((String) o));
-                }
-                else
-                {
-                    toQueue((Tree) t.get((String) o));
-                }
+                toQueue((Tree) t.get((String) o));
             }
         }
     }
