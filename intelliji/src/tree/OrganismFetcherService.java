@@ -61,17 +61,20 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
             if(Files.exists(Paths.get(basePath))) {
                 if(dir.list().length >= organism.getReplicons().size() ) {
                     UIManager.writeLog("All replicons of "+organism.getName()+" are already downloaded.");
-                    return;
+                }
+                else
+                {
+                    UIManager.writeLog("Download "+organism.getName()+ "...");
                 }
             } else {
                 dir.mkdirs();
+                UIManager.writeLog("Download "+organism.getName()+ "...");
             }
 
             String resultsPath = organism.getResultsPath();
             File resultsDir = new File(resultsPath);
             resultsDir.mkdirs();
 
-            UIManager.writeLog("Download "+organism.getName()+ "...");
             for(String replicon : organism.getReplicons().keySet()){
                 try {
                     String repliconPath = basePath+"/"+replicon+".txt";
@@ -80,9 +83,9 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                         String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", organism.getReplicons().get(replicon));
                         InputStream stream = Resources.asByteSource(new URL(url)).openBufferedStream();
                         Files.copy(stream, Paths.get(repliconPath));
-                        UIManager.writeLog("--- Download of replicon \""+replicon+"\" ended.");
-                        export.treatReplicon(repliconPath, replicon);
+                        UIManager.writeLog("--- Download of replicon \""+replicon+"\" of \"" + organism.getName() + "\" ended.");
                     }
+                    export.treatReplicon(repliconPath, replicon);
                 } catch (Exception ex) {
 
                     ex.printStackTrace();

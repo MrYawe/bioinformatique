@@ -3,12 +3,17 @@ package view;
 /**
  * Created by germain on 05/02/2017.
  **/
+import sun.applet.Main;
+import tree.Organism;
 import tree.OrganismTree;
 import tree.Tree;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import tree.TreeBuilderService.OrganismType;
 
 public class MainFrameAcryl extends JFrame {
@@ -21,6 +26,29 @@ public class MainFrameAcryl extends JFrame {
     private LoadingTreePanel pnlLoadingVirus;
     private JButton btnLoadTree;
     private JButton btnRun;
+
+    private boolean computeStatsOnSelectedOrganisms = false;
+    private boolean keepFilesOfSelectedOrganisms = false;
+
+    public boolean isComputeStatsOnSelectedOrganismsEnabled()
+    {
+        return computeStatsOnSelectedOrganisms;
+    }
+
+    public void setComputeStatsOnSelectedOrganisms(boolean computeStatsOnSelectedOrganisms)
+    {
+        this.computeStatsOnSelectedOrganisms = computeStatsOnSelectedOrganisms;
+    }
+
+    public boolean isKeepFilesOfSelectedOrganismsEnabled()
+    {
+        return keepFilesOfSelectedOrganisms;
+    }
+
+    public void setKeepFilesOfSelectedOrganisms(boolean keepFilesOfSelectedOrganisms)
+    {
+        this.keepFilesOfSelectedOrganisms = keepFilesOfSelectedOrganisms;
+    }
 
     public JButton[] getBtn() {
         JButton[] res = {btnRun,btnLoadTree};
@@ -128,7 +156,7 @@ public class MainFrameAcryl extends JFrame {
         btnLoadTree.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Executing the Tree
-                if(UIManager.unlock0==0) {
+                if(UIManager.getUnlock0()==0) {
                     UIManager.lockOn(3);
                     UIManager.resetLoadingTreePanel();
                     new Thread(() -> {
@@ -155,10 +183,41 @@ public class MainFrameAcryl extends JFrame {
 
         pnlSouth.add(pnlTest2, BorderLayout.CENTER);
 
+        box1.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if (box1.isSelected())
+                {
+                    JOptionPane.showMessageDialog(MainFrameAcryl.getInstance(),
+                            "Be careful, genome files are quite heavy (up to 150MB per file).\nPlease make sure you have enough space left on your hard drive.",
+                            "Download warning",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+
 
         btnRun.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(UIManager.unlock0==0) {
+                if(UIManager.getUnlock0()==0) {
+                    if (box1.isSelected())
+                    {
+                        MainFrameAcryl.getInstance().setKeepFilesOfSelectedOrganisms(true);
+                    }
+                    else
+                    {
+                        MainFrameAcryl.getInstance().setKeepFilesOfSelectedOrganisms(false);
+                    }
+                    if (box2.isSelected())
+                    {
+                        MainFrameAcryl.getInstance().setComputeStatsOnSelectedOrganisms(true);
+                    }
+                    else
+                    {
+                        MainFrameAcryl.getInstance().setComputeStatsOnSelectedOrganisms(false);
+                    }
                     //UIManager.lockOn(1);
                     pnlTree.updateSelectedOrganisms();
                     new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();

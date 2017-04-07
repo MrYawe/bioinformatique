@@ -10,17 +10,27 @@ import java.awt.*;
  * Created by saetlan on 15/03/17.
  */
 public class UIManager {
-    public static MainFrameAcryl frame = MainFrameAcryl.getInstance();
+    private static MainFrameAcryl frame = MainFrameAcryl.getInstance();
 
-    public static int unlock0 = 0;
+    private static int unlock0 = 0;
 
-    public static int nbProkaryote = 85;
-    public static int nbVirus = 72;
-    public static int nbEukaryote = 41;
+    public static int getUnlock0()
+    {
+        return unlock0;
+    }
 
-    public static int currentProkaryote = 0;
-    public static int currentVirus = 0;
-    public static int currentEukaryote = 0;
+    public static void setUnlock0(int unlock0)
+    {
+        UIManager.unlock0 = unlock0;
+    }
+
+    private static int nbProkaryote = 85;
+    private static int nbVirus = 72;
+    private static int nbEukaryote = 41;
+
+    private static int currentProkaryote = 0;
+    private static int currentVirus = 0;
+    private static int currentEukaryote = 0;
 
     public static void writeError(String text) {
         frame.getConsole().println(text, Color.RED);

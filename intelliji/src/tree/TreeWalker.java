@@ -1,5 +1,7 @@
 package tree;
 
+import view.MainFrameAcryl;
+
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.Lock;
@@ -12,17 +14,38 @@ public class TreeWalker {
     public TreeWalker(Tree t){
         mainLock = new ReentrantLock();
         mainLock.lock();
-        this.organisms = new ConcurrentLinkedDeque<Organism>();
+        this.organisms = new ConcurrentLinkedDeque<>();
         this.toQueue(t);
         mainLock.unlock();
     }
 
     private void toQueue(Tree t){
-        for(Object o : t.activatedNodes()){
-            if(t.isLeaf((String)o)){
-                this.organisms.add((Organism)t.get((String)o));
-            } else {
-                toQueue((Tree) t.get((String)o));
+        if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled())
+        {
+            for (Object o : t.activatedNodes())
+            {
+                if (t.isLeaf((String) o))
+                {
+                    this.organisms.add((Organism) t.get((String) o));
+                }
+                else
+                {
+                    toQueue((Tree) t.get((String) o));
+                }
+            }
+        }
+        else
+        {
+            for (Object o : t.nodes())
+            {
+                if (t.isLeaf((String) o))
+                {
+                    this.organisms.add((Organism) t.get((String) o));
+                }
+                else
+                {
+                    toQueue((Tree) t.get((String) o));
+                }
             }
         }
     }

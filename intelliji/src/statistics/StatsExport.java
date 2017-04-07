@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 
 import models.TreatFile;
 import tree.Organism;
+import view.MainFrameAcryl;
 import view.UIManager;
 
 /**
@@ -60,7 +61,7 @@ public class StatsExport
 			}
 			XlsExport.exportStats(this.workbook, result, this.sumResults);
 			UIManager.writeLog("--- [STATS] Replicon \"" + replicon + "\" of \"" + this.organism.getName() + "\" treated");
-			if (!this.organism.getActivated())
+			if (!this.organism.getActivated() || !MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled())
 			{
 				f.delete();
 			}
@@ -81,7 +82,7 @@ public class StatsExport
 		XlsExport.exportExcelFile(this.workbook, this.sumResults, resultPath);
 		UIManager.writeLog("--- [EXCEL] Excel file of organism \"" + this.organism.getName() + "\" created");
 		File f = new File(organismPath);
-		if (f.exists() && !this.organism.getActivated())
+		if (f.exists() && (!this.organism.getActivated() || !MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled()))
 		{
 			f.delete();
 		}
