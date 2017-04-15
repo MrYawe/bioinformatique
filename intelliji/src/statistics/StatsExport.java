@@ -40,6 +40,7 @@ public class StatsExport
 		this.workbook = XlsExport.getWorkbookFromTemplate();
 		this.organism = organism;
 		this.sumResults = new SumResults(this.organism);
+		this.sumResults.setNbOrganisms(1);
 	}
 
 	/**
