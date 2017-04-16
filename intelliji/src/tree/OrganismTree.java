@@ -110,7 +110,7 @@ public class OrganismTree {
     }
 
     public static void downloadSelectedOrganisms() {
-        TreeWalker walker = new TreeWalker(OrganismTree.tree);
+        SelectedTreeWalker walker = new SelectedTreeWalker(OrganismTree.tree);
         Organism org;
 
         ExecutorService executor = Executors.newFixedThreadPool(ConfigManager.getConfig().getNbThreads());

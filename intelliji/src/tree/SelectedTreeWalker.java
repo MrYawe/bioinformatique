@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class TreeWalker {
+public class SelectedTreeWalker {
     private Queue<Organism> organisms;
     private static Lock mainLock;
 
@@ -21,7 +21,7 @@ public class TreeWalker {
         this.organisms = organisms;
     }
 
-    public TreeWalker(Tree t){
+    public SelectedTreeWalker(Tree t){
         mainLock = new ReentrantLock();
         mainLock.lock();
         this.organisms = new ConcurrentLinkedDeque<>();

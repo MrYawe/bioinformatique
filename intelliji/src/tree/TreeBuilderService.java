@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import config.Config;
 import config.ConfigManager;
@@ -193,6 +195,7 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
         // UIManager.log(this.type.toString()+ " Starting");
         UIManager.writeLog(this.type.toString()+ " Starting");
         this.readAllPages();
+
         // UIManager.log(this.type.toString() + " DONE !");
         UIManager.writeLog(this.type.toString() + " DONE !");
         UIManager.lockOff();

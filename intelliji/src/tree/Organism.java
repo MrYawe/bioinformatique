@@ -7,9 +7,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import config.Config;
 import config.ConfigManager;
+import sun.java2d.pipe.SpanShapeRenderer;
 // import manager.AccessManager;
 
 public class Organism implements Serializable {
@@ -80,7 +83,19 @@ public class Organism implements Serializable {
             groupT.add(this.subgroup, subgroupT);
         }
 
-        subgroupT.add(this.name, this);
+        SimpleTreeWalker walker = new SimpleTreeWalker(subgroupT);
+        Organism currentOrg;
+        boolean isDuplicated = false;
+        while(walker.hasNext()){
+            currentOrg = walker.next();
+            if(currentOrg.isDuplicatedOrganism(this)) {
+                isDuplicated = true;
+            }
+        }
+
+        if(!isDuplicated) {
+            subgroupT.add(this.name, this);
+        }
     }
 
     @Override
@@ -257,6 +272,25 @@ public class Organism implements Serializable {
         Config config = ConfigManager.getConfig();
         return config.getResultsFolder() + this.getPath();
     }
+
+     public boolean isDuplicatedOrganism(Organism org) {
+         Pattern globalPattern = Pattern.compile(".+?(?=[_][0-9A-Z(])");
+         Matcher globalMatcher;
+         Pattern localPattern;
+
+         globalMatcher = globalPattern.matcher(this.getName());
+         if(!globalMatcher.find()) {
+             return false;
+         }
+         String localString = globalMatcher.group(0);
+         localPattern = Pattern.compile(Pattern.quote(localString));
+
+         return  localPattern.matcher(org.getName()).find()
+                 && !this.getName().equals(org.getName())
+                 && this.getKingdom().equals(org.getKingdom())
+                 && this.getGroup().equals(org.getGroup())
+                 && this.getSubgroup().equals(org.getSubgroup());
+     }
 
     /*
     public boolean createPath(){
