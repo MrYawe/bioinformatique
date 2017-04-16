@@ -390,7 +390,7 @@ public class XlsExport
         r4.createCell(1).setCellValue(format.format(cal.getTime()));
         r4.createCell(5).setCellValue(sumResults.getNbMitochondrions());
         r5.createCell(5).setCellValue(sumResults.getNbDNA());
-        r6.createCell(1).setCellValue(1);
+        r6.createCell(1).setCellValue(sumResults.getNbOrganisms());
         r6.createCell(5).setCellValue(sumResults.getNbPlasmids());
         r7.createCell(5).setCellValue(sumResults.getNbPlasts());
         r8.createCell(5).setCellValue(sumResults.getNbLinkages());
@@ -419,9 +419,10 @@ public class XlsExport
 
         try
         {
-            FileOutputStream fileOut = new FileOutputStream(path + File.separator + sumResults.getOrganism() + ".xlsx");
+            String finalPath = path + File.separator + sumResults.getOrganism() + ".xlsx";
+            FileOutputStream fileOut = new FileOutputStream(finalPath);
             workbook.write(fileOut);
-            System.out.println("XLSX generated: " + path + "/" + sumResults.getOrganism());
+            System.out.println("XLSX generated: " + finalPath);
             fileOut.close();
             workbook.close();
         }

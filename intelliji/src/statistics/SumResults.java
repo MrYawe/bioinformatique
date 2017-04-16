@@ -43,6 +43,11 @@ public class SumResults
     private CDSResult sumLinkages;
 
     /**
+     * Nombre d'organismes contenus dans les stats (1 par défaut, mais est utile pour les stats des groupes et sous-groupes)
+     */
+    private int nbOrganisms;
+
+    /**
      * Nombre de chromosomes de l'organisme
      */
     private int nbChromosomes;
@@ -199,6 +204,24 @@ public class SumResults
     }
 
     /**
+     * Permet d'accéder au nombre d'organismes contenus dans les stats
+     * @return Le nombre d'organismes contenus dans les stats
+     */
+    public int getNbOrganisms()
+    {
+        return nbOrganisms;
+    }
+
+    /**
+     * Permet d'assigner le nombre d'organismes contenus dans les stats
+     * @param nbOrganisms Nombre d'organismes contenus dans les stats
+     */
+    public void setNbOrganisms(int nbOrganisms)
+    {
+        this.nbOrganisms = nbOrganisms;
+    }
+
+    /**
      * Permet d'accéder au nombre de chromosomes de l'organisme
      * @return Le nombre de chromosomes de l'organisme
      */
@@ -320,6 +343,7 @@ public class SumResults
         this.sumPlasts = new CDSResult();
         this.sumLinkages = new CDSResult();
 
+        this.nbOrganisms = 0;
         this.nbChromosomes = 0;
         this.nbMitochondrions = 0;
         this.nbDNA = 0;
