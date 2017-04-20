@@ -40,7 +40,7 @@ public class LoadingTreePanel extends JPanel {
     //////////////////////////////////////////
     //              CONSTRUCTOR             //
     //////////////////////////////////////////
-    LoadingTreePanel(OrganismType type) {
+    LoadingTreePanel() {
         //////////////////////////////////////////
         //              DECLARATION             //
         //////////////////////////////////////////
@@ -49,10 +49,10 @@ public class LoadingTreePanel extends JPanel {
         //////////////////////////////////////////
         //             INSTANTIATION            //
         //////////////////////////////////////////
-        this.type = type;       //type referring to the OrganismType of the loading Panel
         pnlLoadingTree = new LoadingPanel();
         pnlMain = new JPanel(new BorderLayout());
-        lblTypePercent = new JLabel(this.type.toString().toLowerCase() + " : "+ percent + "%");
+        String base = getType()!=null?getType().toString().toLowerCase():"Computing stats";
+        lblTypePercent = new JLabel(base + " : "+ percent + "%");
 
         //////////////////////////////////////////
         //                 LAYOUT               //
@@ -63,17 +63,24 @@ public class LoadingTreePanel extends JPanel {
         this.add(pnlMain, BorderLayout.CENTER);
     }
 
+    LoadingTreePanel(OrganismType type) {
+        this();
+        this.type = type;
+    }
+
     //Fonction used to update the text of the label referring to the current loading tree
     public void updatePercent() {
+        String base = getType()!=null?getType().toString().toLowerCase():"Computing stats";
         if(percent>=100)
-            lblTypePercent.setText(getType().toString().toLowerCase() + " : DONE");
+            lblTypePercent.setText(base + " : DONE");
         else
-            lblTypePercent.setText(getType().toString().toLowerCase() + " : "+ percent + "%");
+            lblTypePercent.setText(base + " : "+ percent + "%");
     }
 
     public void reset() {
+        String base = getType()!=null?getType().toString().toLowerCase():"Computing stats";
         percent=0;
-        lblTypePercent.setText(getType().toString().toLowerCase() + " : "+ percent + "%");
+        lblTypePercent.setText(base + " : "+ percent + "%");
         pnlLoadingTree.reset();
     }
 

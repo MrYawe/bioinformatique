@@ -27,10 +27,13 @@ public class UIManager {
     private static int nbProkaryote = 85;
     private static int nbVirus = 72;
     private static int nbEukaryote = 41;
+    private static int nbReplicons = -1;
 
     private static int currentProkaryote = 0;
     private static int currentVirus = 0;
     private static int currentEukaryote = 0;
+
+    private static int currentStats = 0;
 
     public static void writeError(String text) {
         frame.getConsole().println(text, Color.RED);
@@ -46,6 +49,11 @@ public class UIManager {
         for(int i=0;i<btns.length;i++){
             btns[i].setEnabled(false);
         }
+    }
+
+    public static void setNbReplicons(int nbReplicons){
+        UIManager.nbReplicons=nbReplicons;
+        System.out.println(nbReplicons);
     }
 
     public static void lockOff() {
@@ -70,6 +78,15 @@ public class UIManager {
         for(LoadingTreePanel p:panels) {
             p.reset();
         }
+    }
+
+    public static void addProgressTree() {
+        LoadingTreePanel loadingStatsPanel = frame.getLoadingPanel(null);
+        currentStats++;
+
+        loadingStatsPanel.setPercent(currentStats*100/nbReplicons);
+        loadingStatsPanel.updatePercent();
+        loadingStatsPanel.getPnlForeground().setLocation(currentStats*loadingStatsPanel.getWidthGif()/nbReplicons,0);
     }
 
     public static void addProgressTree(OrganismType type) {

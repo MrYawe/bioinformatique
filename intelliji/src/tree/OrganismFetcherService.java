@@ -112,6 +112,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
+                UIManager.addProgressTree();
             }
 
             if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled() && willDowloadAndComputeStats) {
@@ -125,5 +126,6 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
     @Override
     protected void run() throws Exception {
         this.fetchOrganism();
+
     }
 }

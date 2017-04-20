@@ -125,4 +125,17 @@ public class OrganismTree {
             });
         }
     }
+
+    //Function used to get the total amount of replicons that will be downloaded or getting stats updated
+    public static int countReplicons() {
+        Organism org;
+        int res =0;
+
+        SelectedTreeWalker walker = new SelectedTreeWalker(OrganismTree.tree);
+        while(walker.hasNext()){
+            org = walker.next();
+            res+=org.getReplicons().keySet().size();
+        }
+        return res;
+    }
 }

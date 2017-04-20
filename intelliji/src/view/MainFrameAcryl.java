@@ -6,6 +6,7 @@ package view;
 import sun.applet.Main;
 import tree.Organism;
 import tree.OrganismTree;
+import tree.SelectedTreeWalker;
 import tree.Tree;
 
 import java.awt.*;
@@ -21,9 +22,13 @@ public class MainFrameAcryl extends JFrame {
     //private JPanel backgroundPanel;
     private TreePanel pnlTree;
     private ConsolePanel pnlConsole;
+
+    private LoadingTreePanel pnlLoadingMain;
     private LoadingTreePanel pnlLoadingEukaryote;
     private LoadingTreePanel pnlLoadingProkaryote;
     private LoadingTreePanel pnlLoadingVirus;
+    private LoadingTreePanel pnlRun;
+
     private JButton btnLoadTree;
     private JButton btnRun;
 
@@ -76,7 +81,9 @@ public class MainFrameAcryl extends JFrame {
 
     public LoadingTreePanel getLoadingPanel(OrganismType type) {
         LoadingTreePanel res=null;
-        if(type.equals(pnlLoadingEukaryote.getType())){
+        if(type==null){
+            res=pnlLoadingMain;
+        } else if(type.equals(pnlLoadingEukaryote.getType())){
             res=pnlLoadingEukaryote;
         } else if(type.equals(pnlLoadingProkaryote.getType())){
             res=pnlLoadingProkaryote;
@@ -142,6 +149,7 @@ public class MainFrameAcryl extends JFrame {
         pnlLoadingEukaryote = new LoadingTreePanel(OrganismType.EUKARYOTES);
         pnlLoadingProkaryote = new LoadingTreePanel(OrganismType.PROKARYOTES);
         pnlLoadingVirus = new LoadingTreePanel(OrganismType.VIRUSES);
+        pnlRun = new LoadingTreePanel();
 
         JPanel pnlWest = new JPanel(new BorderLayout());
         pnlWest.add(pnlLoadingEukaryote, BorderLayout.NORTH);
@@ -196,6 +204,9 @@ public class MainFrameAcryl extends JFrame {
         JPanel pnlTest2 = new JPanel(new BorderLayout());
         pnlTest2.add(pnlTest, BorderLayout.NORTH);
         pnlTest2.add(btnRun, BorderLayout.CENTER);
+
+        pnlLoadingMain = new LoadingTreePanel();
+        pnlTest2.add(pnlLoadingMain, BorderLayout.SOUTH);
 
         pnlSouth.add(pnlTest2, BorderLayout.CENTER);
 
@@ -282,6 +293,9 @@ public class MainFrameAcryl extends JFrame {
                     }
                     else
                     {
+                        //pnlTest2.remove(btnRun);
+                        //pnlTest2.add(pnlRun, BorderLayout.CENTER);
+                        UIManager.setNbReplicons(OrganismTree.countReplicons());
                         new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();
                     }
                 }
@@ -294,6 +308,8 @@ public class MainFrameAcryl extends JFrame {
         pnlSouth.add(btnLoadTree, BorderLayout.EAST);
 
     }
+
+
 
     public void updateDisplayedTree(Tree tree){
         pnlTree.updateDisplayedTree(tree);
