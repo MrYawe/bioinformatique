@@ -1,10 +1,11 @@
 package tree;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -12,8 +13,8 @@ import java.util.regex.Pattern;
 
 import config.Config;
 import config.ConfigManager;
-import sun.java2d.pipe.SpanShapeRenderer;
-// import manager.AccessManager;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Organism implements Serializable {
     private static final long serialVersionUID = -2867789287775171672L;
@@ -207,8 +208,15 @@ public class Organism implements Serializable {
         this.creation_date = creation_date;
     }
 
-    public String getModificationDate() {
-        return modification_date;
+    public Date getModificationDate() {
+       Date date = null;
+       try {
+           SimpleDateFormat parser = new SimpleDateFormat("YYYY/MM/dd");
+           return parser.parse(this.modification_date);
+       } catch (Exception ex) {
+           ex.printStackTrace();
+       }
+       return date;
     }
 
     public void setModificationDate(String modification_date) {
@@ -290,6 +298,27 @@ public class Organism implements Serializable {
                  && this.getKingdom().equals(org.getKingdom())
                  && this.getGroup().equals(org.getGroup())
                  && this.getSubgroup().equals(org.getSubgroup());
+     }
+
+     public Date getLastStatsDate() {
+         String resultPath = this.getResultsPath() + File.separator + this.getName() + ".xlsx";
+         if(!Files.exists(Paths.get(resultPath))) {
+            return null;
+         }
+
+         Date date = null;
+         try {
+             XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(resultPath));
+             XSSFSheet sheet = wb.getSheetAt(0);
+
+             String sDate = sheet.getRow(4).getCell(1).toString();
+             SimpleDateFormat parser = new SimpleDateFormat("dd-MM-YYYY HH:mm");
+             date = parser.parse(sDate);
+
+         } catch(Exception ex) {
+             ex.printStackTrace();
+         }
+         return date;
      }
 
     /*

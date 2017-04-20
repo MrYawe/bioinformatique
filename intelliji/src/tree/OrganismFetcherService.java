@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 
 import config.Config;
@@ -62,9 +63,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
             if(Files.exists(Paths.get(basePath))) {
                 if(dir.list().length >= organism.getReplicons().size() ) {
                     UIManager.writeLog("All replicons of "+organism.getName()+" are already downloaded.");
-                }
-                else
-                {
+                } else {
                     UIManager.writeLog("Download "+organism.getName()+ "...");
                 }
             } else {
@@ -73,35 +72,49 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
             }
 
             String resultsPath = "";
-            if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled())
-            {
+            if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
                 resultsPath = organism.getResultsPath();
                 File resultsDir = new File(resultsPath);
                 resultsDir.mkdirs();
             }
 
+            Date lastStatsDate = organism.getLastStatsDate();
+            Boolean willDowloadAndComputeStats = lastStatsDate == null || organism.getModificationDate().compareTo(lastStatsDate) > 0;
             for(String replicon : organism.getReplicons().keySet()){
                 try {
                     String repliconPath = basePath+"/"+replicon+".txt";
-                    if(!Files.exists(Paths.get(repliconPath))) {
+
+                    if(willDowloadAndComputeStats) {
+                        if(Files.exists(Paths.get(repliconPath))) {
+                            UIManager.writeLog("--- Older stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" found ...");
+                            File repliconFile = new File(repliconPath);
+                            repliconFile.delete();
+                        }
+
                         UIManager.writeLog("--- Download replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
                         String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", organism.getReplicons().get(replicon));
                         InputStream stream = Resources.asByteSource(new URL(url)).openBufferedStream();
                         Files.copy(stream, Paths.get(repliconPath));
                         UIManager.writeLog("--- Download of replicon \""+replicon+"\" of \"" + organism.getName() + "\" ended.");
+
+                        if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
+                            export.treatReplicon(repliconPath, replicon);
+                        }
+                    } else {
+                        UIManager.writeLog("--- Newest stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" already found.");
                     }
-                    if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled())
-                    {
-                        export.treatReplicon(repliconPath, replicon);
+
+                    if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && Files.exists(Paths.get(repliconPath))) {
+                        UIManager.writeLog("--- Delete replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
+                        File repliconFile = new File(repliconPath);
+                        repliconFile.delete();
                     }
                 } catch (Exception ex) {
-
                     ex.printStackTrace();
                 }
-
             }
-            if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled())
-            {
+
+            if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled() && willDowloadAndComputeStats) {
                 export.exportOrganism(resultsPath, basePath);
             }
         }
