@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import com.google.common.util.concurrent.ServiceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import config.ConfigManager;
+import statistics.XlsExport;
 import tree.TreeBuilderService.OrganismType;
 // import ui.UIManager;
 
@@ -123,6 +126,16 @@ public class OrganismTree {
                     e.printStackTrace();
                 }
             });
+        }
+        executor.shutdown();
+
+        try {
+            // Wait until all organism are downloaded and stats computed
+            if(executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS)) {
+                XlsExport.computePartialSums(ConfigManager.getConfig().getResultsFolder());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

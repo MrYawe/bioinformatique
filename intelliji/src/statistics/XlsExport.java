@@ -1,12 +1,13 @@
 package statistics;
 
-import org.apache.poi.ss.usermodel.Cell;
+import config.Config;
+import config.ConfigManager;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import sun.applet.Main;
+import view.UIManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,8 +15,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import static java.lang.System.exit;
 
 /**
  * Classe permettant de gérer l'export Xls des statistiques
@@ -539,6 +538,9 @@ public class XlsExport
         File currentDir = new File(currentPath);
         // List all files and directories of the current one
         File[] filesList = currentDir.listFiles();
+        Config config = ConfigManager.getConfig();
+        String resultsPath = config.getResultsFolder();
+        String organism = currentPath.split(config.getFolderSeparator())[currentPath.split(config.getFolderSeparator()).length - 1];
 
         if (filesList != null)
         {
@@ -546,11 +548,23 @@ public class XlsExport
             XSSFWorkbook wb = XlsExport.getWorkbookFromTemplate();
 
             // For each file of the current dir
-            for(File f : filesList)
+            for (File f : filesList)
             {
                 if (f.isDirectory())
                 {
                     computePartialSums(f.getPath());
+                    try
+                    {
+                        String subTotal = currentPath + "/Total_" + f.getPath().split(config.getFolderSeparator())[f.getPath().split(config.getFolderSeparator()).length - 1] + ".xlsx";
+                        FileInputStream is = new FileInputStream(subTotal);
+                        XSSFWorkbook workbook = (XSSFWorkbook) WorkbookFactory.create(is);
+
+                        fillSumResultWithWorkbook(workbook, currentSum);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
                 else if (!f.getName().contains("Total") && f.getName().toLowerCase().endsWith(".xlsx"))
                 {
@@ -567,28 +581,20 @@ public class XlsExport
                     }
                 }
             }
-            // Check the direct subdirs' totals
-            for(File f : filesList)
+            // Export the file
+            try
             {
-                if (f.isDirectory())
+                if (!currentPath.equals(resultsPath))
                 {
-                    try
-                    {
-                        String subTotal  = f.getPath() + "/Total_" + f.getPath().split("/")[f.getPath().split("/").length-1] + ".xlsx";
-                        FileInputStream is = new FileInputStream(subTotal);
-                        XSSFWorkbook workbook = (XSSFWorkbook) WorkbookFactory.create(is);
-
-                        fillSumResultWithWorkbook(workbook, currentSum);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+                    currentSum.setOrganism("Total_" + organism);
+                    XlsExport.exportExcelFile(wb, currentSum, currentDir.getParent());
+                    UIManager.writeLog("--- [EXCEL] Excel file of group \"" + organism + "\" created");
                 }
             }
-            // Export the file
-            currentSum.setOrganism("Total_" + currentPath.split("/")[currentPath.split("/").length-1]);
-            XlsExport.exportExcelFile(wb, currentSum, currentPath);
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 }
