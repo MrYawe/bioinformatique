@@ -1,16 +1,21 @@
 package statistics;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import sun.applet.Main;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import static java.lang.System.exit;
 
 /**
  * Classe permettant de gérer l'export Xls des statistiques
@@ -429,6 +434,161 @@ public class XlsExport
         catch (Exception e)
         {
             System.out.println(e.getMessage());
+        }
+    }
+
+
+    /**
+     * Permet de sommer l'état actuel du CDSResult avec les valeurs contenues dans la feuille
+     * @param sheet Feuille d'un workbook dont les valeurs sont à ajouter
+     * @param sum Objet qui contient des valeurs et dans lequel on va sommer la feuille du workbook
+     */
+    private static void addSheetToSumResult(Sheet sheet, CDSResult sum)
+    {
+        sum.setNbCDS(sum.getNbCDS() + (int) sheet.getRow(1).getCell(1).getNumericCellValue());
+        sum.setNbMalformedCDS(sum.getNbMalformedCDS() + (int) sheet.getRow(2).getCell(1).getNumericCellValue());
+        sum.setNbIdenticalCDS(sum.getNbIdenticalCDS() + (int) sheet.getRow(3).getCell(1).getNumericCellValue());
+        sum.setNbInvalidCDS(sum.getNbInvalidCDS () + (int) sheet.getRow(5).getCell(1).getNumericCellValue());
+        for (int i = START_ROW; i < START_ROW + sum.getTriPhase0().size(); i++)
+        {
+            Row r = sheet.getRow(i);
+            String key = r.getCell(TRINUCLEOTIDES_START_COLUMN).getStringCellValue();
+
+            int nbPhase0 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 1).getNumericCellValue();
+            int nbPhase1 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 3).getNumericCellValue();
+            int nbPhase2 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 5).getNumericCellValue();
+            incrementSumTrinucleotides(sum, key, nbPhase0, nbPhase1, nbPhase2);
+
+            int nbPref0 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 7).getNumericCellValue();
+            int nbPref1 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 8).getNumericCellValue();
+            int nbPref2 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 9).getNumericCellValue();
+            incrementSumPhasePref(sum, key, nbPref0, nbPref1, nbPref2);
+
+            if (i < START_ROW + sum.getDiPhase0().size())
+            {
+                key = r.getCell(DINUCLEOTIDES_START_COLUMN).getStringCellValue();
+
+                int nbDiPhase0 = (int) r.getCell(DINUCLEOTIDES_START_COLUMN + 1).getNumericCellValue();
+                int nbDiPhase1 = (int) r.getCell(DINUCLEOTIDES_START_COLUMN + 3).getNumericCellValue();
+
+                incrementSumDinucleotides(sum, key, nbDiPhase0, nbDiPhase1);
+            }
+        }
+    }
+
+
+    /**
+     * Permet de sommer les valeurs d'un workbook dans un SumResult
+     * @param workbook Workbook à parcourir pour récuperer les données
+     * @param currentSum Objet dans lequel on va stocker les valeurs
+     */
+    private static void fillSumResultWithWorkbook(XSSFWorkbook workbook, SumResults currentSum)
+    {
+        // SUM GENERAL
+        Sheet sheet = workbook.getSheetAt(0);
+
+        int nbOrganisms = (int) sheet.getRow(6).getCell(1).getNumericCellValue();
+        int nbChromosomes = (int) sheet.getRow(3).getCell(5).getNumericCellValue();
+        int nbMito = (int) sheet.getRow(4).getCell(5).getNumericCellValue();
+        int nbADN = (int) sheet.getRow(5).getCell(5).getNumericCellValue();
+        int nbPlasmides = (int) sheet.getRow(6).getCell(5).getNumericCellValue();
+        int nbPlastes = (int) sheet.getRow(7).getCell(5).getNumericCellValue();
+        int nbLiens = (int) sheet.getRow(8).getCell(5).getNumericCellValue();
+
+        currentSum.setNbOrganisms( currentSum.getNbOrganisms() + nbOrganisms);
+        currentSum.setNbChromosomes( currentSum.getNbChromosomes() + nbChromosomes );
+        currentSum.setNbMitochondrions( currentSum.getNbMitochondrions() + nbMito );
+        currentSum.setNbDNA( currentSum.getNbDNA() + nbADN );
+        currentSum.setNbPlasmids( currentSum.getNbPlasmids() + nbPlasmides );
+        currentSum.setNbPlasts( currentSum.getNbPlasts() + nbPlastes );
+        currentSum.setNbLinkages( currentSum.getNbLinkages() + nbLiens );
+
+        // SUM STATS
+        // Chromosoms
+        sheet = workbook.getSheet(XlsExport.SUM_CHROMOSOMES_SHEET);
+        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumChromosomes()); }
+
+        // Mitochondrions
+        sheet = workbook.getSheet(XlsExport.SUM_MITOCHONDRIONS_SHEET);
+        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumMitochondrions()); }
+
+        // DNA
+        sheet = workbook.getSheet(XlsExport.SUM_DNA_SHEET);
+        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumDNA()); }
+
+        // Plasmids
+        sheet = workbook.getSheet(XlsExport.SUM_PLASMIDS_SHEET);
+        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumPlasmids()); }
+
+        // Plasts
+        sheet = workbook.getSheet(XlsExport.SUM_PLASTS_SHEET);
+        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumPlasts()); }
+
+        // Linkages
+        sheet = workbook.getSheet(XlsExport.SUM_LINKAGES_SHEET);
+        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumLinkages()); }
+    }
+
+
+    /**
+     * Permet de calculer tous les totaux intermédiaires
+     * @param currentPath Chemin du dossier à analyser
+     */
+    public static void computePartialSums (String currentPath)
+    {
+        File currentDir = new File(currentPath);
+        // List all files and directories of the current one
+        File[] filesList = currentDir.listFiles();
+
+        if (filesList != null)
+        {
+            SumResults currentSum = new SumResults();
+            XSSFWorkbook wb = XlsExport.getWorkbookFromTemplate();
+
+            // For each file of the current dir
+            for(File f : filesList)
+            {
+                if (f.isDirectory())
+                {
+                    computePartialSums(f.getPath());
+                }
+                else if (!f.getName().contains("Total") && f.getName().toLowerCase().endsWith(".xlsx"))
+                {
+                    try
+                    {
+                        FileInputStream is = new FileInputStream(f.getPath());
+                        XSSFWorkbook workbook = (XSSFWorkbook) WorkbookFactory.create(is);
+
+                        fillSumResultWithWorkbook(workbook, currentSum);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            // Check the direct subdirs' totals
+            for(File f : filesList)
+            {
+                if (f.isDirectory())
+                {
+                    try
+                    {
+                        String subTotal  = f.getPath() + "/Total_" + f.getPath().split("/")[f.getPath().split("/").length-1] + ".xlsx";
+                        FileInputStream is = new FileInputStream(subTotal);
+                        XSSFWorkbook workbook = (XSSFWorkbook) WorkbookFactory.create(is);
+
+                        fillSumResultWithWorkbook(workbook, currentSum);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            // Export the file
+            currentSum.setOrganism("Total_" + currentPath.split("/")[currentPath.split("/").length-1]);
+            XlsExport.exportExcelFile(wb, currentSum, currentPath);
         }
     }
 }
