@@ -1,14 +1,13 @@
 package statistics;
 
+import config.Config;
 import config.ConfigManager;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import sun.applet.Main;
-import sun.security.krb5.Config;
+import view.UIManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,8 +15,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import static java.lang.System.exit;
 
 /**
  * Classe permettant de gérer l'export Xls des statistiques
@@ -541,12 +538,14 @@ public class XlsExport
         File currentDir = new File(currentPath);
         // List all files and directories of the current one
         File[] filesList = currentDir.listFiles();
+        Config config = ConfigManager.getConfig();
+        String resultsPath = config.getResultsFolder();
+        String organism = currentPath.split(config.getFolderSeparator())[currentPath.split(config.getFolderSeparator()).length - 1];
 
         if (filesList != null)
         {
             SumResults currentSum = new SumResults();
             XSSFWorkbook wb = XlsExport.getWorkbookFromTemplate();
-            config.Config config = ConfigManager.getConfig();
 
             // For each file of the current dir
             for (File f : filesList)
@@ -556,7 +555,7 @@ public class XlsExport
                     computePartialSums(f.getPath());
                     try
                     {
-                        String subTotal = f.getPath() + "/Total_" + f.getPath().split(config.getFolderSeparator())[f.getPath().split(config.getFolderSeparator()).length - 1] + ".xlsx";
+                        String subTotal = currentPath + "/Total_" + f.getPath().split(config.getFolderSeparator())[f.getPath().split(config.getFolderSeparator()).length - 1] + ".xlsx";
                         FileInputStream is = new FileInputStream(subTotal);
                         XSSFWorkbook workbook = (XSSFWorkbook) WorkbookFactory.create(is);
 
@@ -585,8 +584,12 @@ public class XlsExport
             // Export the file
             try
             {
-                currentSum.setOrganism("Total_" + currentPath.split(config.getFolderSeparator())[currentPath.split(config.getFolderSeparator()).length - 1]);
-                XlsExport.exportExcelFile(wb, currentSum, currentPath);
+                if (!currentPath.equals(resultsPath))
+                {
+                    currentSum.setOrganism("Total_" + organism);
+                    XlsExport.exportExcelFile(wb, currentSum, currentDir.getParent());
+                    UIManager.writeLog("--- [EXCEL] Excel file of group \"" + organism + "\" created");
+                }
             }
             catch (Exception e)
             {
