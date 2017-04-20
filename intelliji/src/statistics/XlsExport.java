@@ -546,13 +546,26 @@ public class XlsExport
         {
             SumResults currentSum = new SumResults();
             XSSFWorkbook wb = XlsExport.getWorkbookFromTemplate();
+            config.Config config = ConfigManager.getConfig();
 
             // For each file of the current dir
-            for(File f : filesList)
+            for (File f : filesList)
             {
                 if (f.isDirectory())
                 {
                     computePartialSums(f.getPath());
+                    try
+                    {
+                        String subTotal = f.getPath() + "/Total_" + f.getPath().split(config.getFolderSeparator())[f.getPath().split(config.getFolderSeparator()).length - 1] + ".xlsx";
+                        FileInputStream is = new FileInputStream(subTotal);
+                        XSSFWorkbook workbook = (XSSFWorkbook) WorkbookFactory.create(is);
+
+                        fillSumResultWithWorkbook(workbook, currentSum);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
                 else if (!f.getName().contains("Total") && f.getName().toLowerCase().endsWith(".xlsx"))
                 {
@@ -569,37 +582,16 @@ public class XlsExport
                     }
                 }
             }
-            config.Config config = ConfigManager.getConfig();
-            // Check the direct subdirs' totals
-            for(File f : filesList)
-            {
-                if (f.isDirectory())
-                {
-                    try
-                    {
-                        String subTotal  = f.getPath() + "/Total_" + f.getPath().split(config.getFolderSeparator())[f.getPath().split(config.getFolderSeparator()).length-1] + ".xlsx";
-                        FileInputStream is = new FileInputStream(subTotal);
-                        XSSFWorkbook workbook = (XSSFWorkbook) WorkbookFactory.create(is);
-
-                        fillSumResultWithWorkbook(workbook, currentSum);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }
             // Export the file
             try
             {
-                currentSum.setOrganism("Total_" + currentPath.split(config.getFolderSeparator())[currentPath.split(config.getFolderSeparator()).length-1]);
+                currentSum.setOrganism("Total_" + currentPath.split(config.getFolderSeparator())[currentPath.split(config.getFolderSeparator()).length - 1]);
                 XlsExport.exportExcelFile(wb, currentSum, currentPath);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 e.printStackTrace();
             }
-
         }
     }
 }
