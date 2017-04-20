@@ -1,5 +1,6 @@
 package statistics;
 
+import config.ConfigManager;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -7,6 +8,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import sun.applet.Main;
+import sun.security.krb5.Config;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -567,6 +569,7 @@ public class XlsExport
                     }
                 }
             }
+            config.Config config = ConfigManager.getConfig();
             // Check the direct subdirs' totals
             for(File f : filesList)
             {
@@ -574,7 +577,7 @@ public class XlsExport
                 {
                     try
                     {
-                        String subTotal  = f.getPath() + "/Total_" + f.getPath().split("/")[f.getPath().split("/").length-1] + ".xlsx";
+                        String subTotal  = f.getPath() + "/Total_" + f.getPath().split(config.getFolderSeparator())[f.getPath().split(config.getFolderSeparator()).length-1] + ".xlsx";
                         FileInputStream is = new FileInputStream(subTotal);
                         XSSFWorkbook workbook = (XSSFWorkbook) WorkbookFactory.create(is);
 
@@ -587,8 +590,16 @@ public class XlsExport
                 }
             }
             // Export the file
-            currentSum.setOrganism("Total_" + currentPath.split("/")[currentPath.split("/").length-1]);
-            XlsExport.exportExcelFile(wb, currentSum, currentPath);
+            try
+            {
+                currentSum.setOrganism("Total_" + currentPath.split(config.getFolderSeparator())[currentPath.split(config.getFolderSeparator()).length-1]);
+                XlsExport.exportExcelFile(wb, currentSum, currentPath);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+
         }
     }
 }
