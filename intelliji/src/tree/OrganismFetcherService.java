@@ -101,7 +101,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                             export.treatReplicon(repliconPath, replicon);
                         }
                     } else {
-                        UIManager.writeLog("--- Newest stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" already found.");
+                        UIManager.writeLog("--- Latest stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" already found.");
                     }
 
                     if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && Files.exists(Paths.get(repliconPath))) {
