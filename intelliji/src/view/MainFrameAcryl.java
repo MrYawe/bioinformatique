@@ -65,6 +65,9 @@ public class MainFrameAcryl extends JFrame {
         return res;
     }
 
+    public LoadingTreePanel getPnlLoadingMain(){
+        return pnlLoadingMain;
+    }
 
     private static MainFrameAcryl instance;
 
@@ -295,7 +298,9 @@ public class MainFrameAcryl extends JFrame {
                     {
                         //pnlTest2.remove(btnRun);
                         //pnlTest2.add(pnlRun, BorderLayout.CENTER);
+                        UIManager.resetLoadingStatsPanel();
                         UIManager.setNbReplicons(OrganismTree.countReplicons());
+                        System.out.println("succes");
                         new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();
                     }
                 }

@@ -70,6 +70,11 @@ public class UIManager {
         }
     }
 
+    public static void resetLoadingStatsPanel() {
+        currentStats=0;
+        frame.getPnlLoadingMain().reset();
+    }
+
     public static void resetLoadingTreePanel() {
         currentVirus=0;
         currentEukaryote=0;
