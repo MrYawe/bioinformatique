@@ -15,8 +15,6 @@ import com.google.gson.stream.JsonReader;
 import config.ConfigManager;
 import statistics.XlsExport;
 import tree.TreeBuilderService.OrganismType;
-import view.MainFrameAcryl;
-import view.UIManager;
 // import ui.UIManager;
 
 /**
@@ -38,9 +36,6 @@ public class OrganismTree {
             loadFromGenBank();
         } else {
             loadFromLocalResource();
-            //Fix run button (prod)
-            MainFrameAcryl.getInstance().getBtn()[0].setEnabled(true);
-            UIManager.setUnlock0(0);
         }
     }
 
