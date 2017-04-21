@@ -163,6 +163,7 @@ public class MainFrameAcryl extends JFrame {
 
         btnLoadTree = new JButton("Load Tree");
         btnRun = new JButton("Download and compute statistics");
+        btnRun.setEnabled(false);
 
         btnLoadTree.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
