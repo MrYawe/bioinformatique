@@ -171,6 +171,7 @@ public class MainFrameAcryl extends JFrame {
                 if(UIManager.getUnlock0()==0) {
                     UIManager.lockOn(3);
                     UIManager.resetLoadingTreePanel();
+                    MainFrameAcryl.getInstance().updateDisplayedTree(TreePanel.getDefaultTree("Loading ..."));
                     new Thread(() -> {
                         OrganismTree.load();
                         btnRun.setEnabled(true);
@@ -320,6 +321,10 @@ public class MainFrameAcryl extends JFrame {
 
 
     public void updateDisplayedTree(Tree tree){
+        pnlTree.updateDisplayedTree(tree);
+    }
+
+    public void updateDisplayedTree(JTree tree){
         pnlTree.updateDisplayedTree(tree);
     }
 }

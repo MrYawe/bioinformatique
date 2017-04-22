@@ -22,7 +22,7 @@ public class TreePanel extends JPanel {
     public TreePanel()
     {
         super();
-        panel = new JScrollPane(getDefaultTree());
+        panel = new JScrollPane(getDefaultTree("Click on Load Tree..."));
         this.setLayout(new BorderLayout());
         this.add(panel, BorderLayout.CENTER);
     }
@@ -30,6 +30,15 @@ public class TreePanel extends JPanel {
     public void updateDisplayedTree(Tree tree){
         currentTree = buildJTree(tree);
         panel.setViewportView(currentTree);
+    }
+
+    public void updateDisplayedTree(JTree tree){
+        panel.setViewportView(tree);
+    }
+
+    public static JTree getDefaultTree(String text){
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(text);
+        return new JTree(root);
     }
 
     public void updateSelectedOrganisms()
@@ -57,11 +66,6 @@ public class TreePanel extends JPanel {
         {
             walkTroughTree((DefaultMutableTreeNode)currentNode.getChildAt(i));
         }
-    }
-
-    private JTree getDefaultTree(){
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Chargement ...");
-        return new JTree(root);
     }
 
     private JCheckBoxTree buildJTree(Tree mainTree) {
