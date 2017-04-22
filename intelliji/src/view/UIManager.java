@@ -24,7 +24,7 @@ public class UIManager {
         UIManager.unlock0 = unlock0;
     }
 
-    private static int nbProkaryote = 85;
+    private static int nbProkaryote = 87;
     private static int nbVirus = 72;
     private static int nbEukaryote = 41;
     private static int nbReplicons = -1;

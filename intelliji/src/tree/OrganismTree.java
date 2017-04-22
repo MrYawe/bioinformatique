@@ -15,6 +15,7 @@ import com.google.gson.stream.JsonReader;
 import config.ConfigManager;
 import statistics.XlsExport;
 import tree.TreeBuilderService.OrganismType;
+import view.MainFrameAcryl;
 // import ui.UIManager;
 
 /**
@@ -131,7 +132,7 @@ public class OrganismTree {
 
         try {
             // Wait until all organism are downloaded and stats computed
-            if(executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS)) {
+            if(executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS) && MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
                 XlsExport.computePartialSums(ConfigManager.getConfig().getResultsFolder());
             }
         } catch (Exception ex) {

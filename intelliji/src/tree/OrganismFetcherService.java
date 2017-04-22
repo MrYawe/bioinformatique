@@ -85,12 +85,14 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                     String repliconPath = basePath+"/"+replicon+".txt";
 
                     if(willDowloadAndComputeStats) {
-                        if(Files.exists(Paths.get(repliconPath))) {
-                            UIManager.writeLog("--- Older stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" found ...");
+                        UIManager.writeLog("--- Older stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" found ...");
+                        if (Files.exists(Paths.get(repliconPath))) {
                             File repliconFile = new File(repliconPath);
                             repliconFile.delete();
                         }
+                    }
 
+                    if (willDowloadAndComputeStats || (MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && !MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) && !Files.exists(Paths.get(repliconPath))) {
                         UIManager.writeLog("--- Download replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
                         String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", organism.getReplicons().get(replicon));
                         InputStream stream = Resources.asByteSource(new URL(url)).openBufferedStream();
@@ -102,8 +104,6 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                         }
                     } else {
                         UIManager.writeLog("--- Latest stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" already found.");
-                        File repliconFile = new File(repliconPath);
-                        repliconFile.delete();
                     }
 
                     if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && Files.exists(Paths.get(repliconPath))) {
@@ -120,6 +120,10 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
             if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled() && willDowloadAndComputeStats) {
                 export.exportOrganism(resultsPath, basePath);
             }
+
+            if ((!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() || !willDowloadAndComputeStats) && Files.exists(Paths.get(basePath))) {
+                dir.delete();
+            }
         }
     }
 
@@ -128,6 +132,5 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
     @Override
     protected void run() throws Exception {
         this.fetchOrganism();
-
     }
 }
