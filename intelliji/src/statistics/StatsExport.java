@@ -62,10 +62,6 @@ public class StatsExport
 			}
 			XlsExport.exportStats(this.workbook, result, this.sumResults);
 			UIManager.writeLog("--- [STATS] Replicon \"" + replicon + "\" of \"" + this.organism.getName() + "\" treated");
-			if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled())
-			{
-				f.delete();
-			}
 		}
 		catch (FileNotFoundException e)
 		{
@@ -82,10 +78,5 @@ public class StatsExport
 	{
 		XlsExport.exportExcelFile(this.workbook, this.sumResults, resultPath);
 		UIManager.writeLog("--- [EXCEL] Excel file of organism \"" + this.organism.getName() + "\" created");
-		File f = new File(organismPath);
-		if (f.exists() && !MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled())
-		{
-			f.delete();
-		}
 	}
 }

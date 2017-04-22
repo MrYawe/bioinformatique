@@ -444,33 +444,36 @@ public class XlsExport
      */
     private static void addSheetToSumResult(Sheet sheet, CDSResult sum)
     {
-        sum.setNbCDS(sum.getNbCDS() + (int) sheet.getRow(1).getCell(1).getNumericCellValue());
-        sum.setNbMalformedCDS(sum.getNbMalformedCDS() + (int) sheet.getRow(2).getCell(1).getNumericCellValue());
-        sum.setNbIdenticalCDS(sum.getNbIdenticalCDS() + (int) sheet.getRow(3).getCell(1).getNumericCellValue());
-        sum.setNbInvalidCDS(sum.getNbInvalidCDS () + (int) sheet.getRow(5).getCell(1).getNumericCellValue());
-        for (int i = START_ROW; i < START_ROW + sum.getTriPhase0().size(); i++)
+        if (sheet != null)
         {
-            Row r = sheet.getRow(i);
-            String key = r.getCell(TRINUCLEOTIDES_START_COLUMN).getStringCellValue();
-
-            int nbPhase0 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 1).getNumericCellValue();
-            int nbPhase1 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 3).getNumericCellValue();
-            int nbPhase2 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 5).getNumericCellValue();
-            incrementSumTrinucleotides(sum, key, nbPhase0, nbPhase1, nbPhase2);
-
-            int nbPref0 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 7).getNumericCellValue();
-            int nbPref1 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 8).getNumericCellValue();
-            int nbPref2 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 9).getNumericCellValue();
-            incrementSumPhasePref(sum, key, nbPref0, nbPref1, nbPref2);
-
-            if (i < START_ROW + sum.getDiPhase0().size())
+            sum.setNbCDS(sum.getNbCDS() + (int) sheet.getRow(1).getCell(1).getNumericCellValue());
+            sum.setNbMalformedCDS(sum.getNbMalformedCDS() + (int) sheet.getRow(2).getCell(1).getNumericCellValue());
+            sum.setNbIdenticalCDS(sum.getNbIdenticalCDS() + (int) sheet.getRow(3).getCell(1).getNumericCellValue());
+            sum.setNbInvalidCDS(sum.getNbInvalidCDS() + (int) sheet.getRow(5).getCell(1).getNumericCellValue());
+            for (int i = START_ROW; i < START_ROW + sum.getTriPhase0().size(); i++)
             {
-                key = r.getCell(DINUCLEOTIDES_START_COLUMN).getStringCellValue();
+                Row r = sheet.getRow(i);
+                String key = r.getCell(TRINUCLEOTIDES_START_COLUMN).getStringCellValue();
 
-                int nbDiPhase0 = (int) r.getCell(DINUCLEOTIDES_START_COLUMN + 1).getNumericCellValue();
-                int nbDiPhase1 = (int) r.getCell(DINUCLEOTIDES_START_COLUMN + 3).getNumericCellValue();
+                int nbPhase0 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 1).getNumericCellValue();
+                int nbPhase1 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 3).getNumericCellValue();
+                int nbPhase2 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 5).getNumericCellValue();
+                incrementSumTrinucleotides(sum, key, nbPhase0, nbPhase1, nbPhase2);
 
-                incrementSumDinucleotides(sum, key, nbDiPhase0, nbDiPhase1);
+                int nbPref0 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 7).getNumericCellValue();
+                int nbPref1 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 8).getNumericCellValue();
+                int nbPref2 = (int) r.getCell(TRINUCLEOTIDES_START_COLUMN + 9).getNumericCellValue();
+                incrementSumPhasePref(sum, key, nbPref0, nbPref1, nbPref2);
+
+                if (i < START_ROW + sum.getDiPhase0().size())
+                {
+                    key = r.getCell(DINUCLEOTIDES_START_COLUMN).getStringCellValue();
+
+                    int nbDiPhase0 = (int) r.getCell(DINUCLEOTIDES_START_COLUMN + 1).getNumericCellValue();
+                    int nbDiPhase1 = (int) r.getCell(DINUCLEOTIDES_START_COLUMN + 3).getNumericCellValue();
+
+                    incrementSumDinucleotides(sum, key, nbDiPhase0, nbDiPhase1);
+                }
             }
         }
     }
@@ -503,29 +506,23 @@ public class XlsExport
         currentSum.setNbLinkages( currentSum.getNbLinkages() + nbLiens );
 
         // SUM STATS
-        // Chromosoms
-        sheet = workbook.getSheet(XlsExport.SUM_CHROMOSOMES_SHEET);
-        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumChromosomes()); }
+        // Chromosomes
+        addSheetToSumResult(workbook.getSheet(XlsExport.SUM_CHROMOSOMES_SHEET), currentSum.getSumChromosomes());
 
         // Mitochondrions
-        sheet = workbook.getSheet(XlsExport.SUM_MITOCHONDRIONS_SHEET);
-        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumMitochondrions()); }
+        addSheetToSumResult(workbook.getSheet(XlsExport.SUM_MITOCHONDRIONS_SHEET), currentSum.getSumMitochondrions());
 
         // DNA
-        sheet = workbook.getSheet(XlsExport.SUM_DNA_SHEET);
-        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumDNA()); }
+        addSheetToSumResult(workbook.getSheet(XlsExport.SUM_DNA_SHEET), currentSum.getSumDNA());
 
         // Plasmids
-        sheet = workbook.getSheet(XlsExport.SUM_PLASMIDS_SHEET);
-        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumPlasmids()); }
+        addSheetToSumResult(workbook.getSheet(XlsExport.SUM_PLASMIDS_SHEET), currentSum.getSumPlasmids());
 
         // Plasts
-        sheet = workbook.getSheet(XlsExport.SUM_PLASTS_SHEET);
-        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumPlasts()); }
+        addSheetToSumResult(workbook.getSheet(XlsExport.SUM_PLASTS_SHEET), currentSum.getSumPlasts());
 
         // Linkages
-        sheet = workbook.getSheet(XlsExport.SUM_LINKAGES_SHEET);
-        if (sheet != null) { addSheetToSumResult(sheet, currentSum.getSumLinkages()); }
+        addSheetToSumResult(workbook.getSheet(XlsExport.SUM_LINKAGES_SHEET), currentSum.getSumLinkages());
     }
 
 
