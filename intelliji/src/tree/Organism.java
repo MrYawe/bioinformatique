@@ -316,7 +316,14 @@ public class Organism implements Serializable {
              date = parser.parse(sDate);
 
          } catch(Exception ex) {
-             ex.printStackTrace();
+             try {
+                 if (Files.exists(Paths.get(resultPath))) {
+                     Files.delete(Paths.get(resultPath));
+                 }
+             }
+             catch (Exception e) {
+                 ex.printStackTrace();
+             }
          }
          return date;
      }

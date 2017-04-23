@@ -16,6 +16,7 @@ import config.ConfigManager;
 import statistics.XlsExport;
 import tree.TreeBuilderService.OrganismType;
 import view.MainFrameAcryl;
+import view.UIManager;
 // import ui.UIManager;
 
 /**
@@ -95,7 +96,7 @@ public class OrganismTree {
 
         // UIManager.log("End of tree fetch !");
         System.out.println("End of tree fetch !");
-        // UIManager.log("Starting tree build.");
+        UIManager.writeLog("Starting tree build.");
         System.out.println("Starting tree build.");
         List<Organism> organisms = new ArrayList<Organism>();
         organisms.addAll(eukaryotes.organisms());
@@ -108,7 +109,7 @@ public class OrganismTree {
             o.updateTree(mainTree);
         }
 
-        // UIManager.log("End of tree build !");
+        UIManager.writeLog("End of tree build !");
         System.out.println("End of tree build !");
         OrganismTree.tree = mainTree;
     }
