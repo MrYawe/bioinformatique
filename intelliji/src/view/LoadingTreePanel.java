@@ -41,6 +41,11 @@ public class LoadingTreePanel extends JPanel {
     //              CONSTRUCTOR             //
     //////////////////////////////////////////
     LoadingTreePanel() {
+        this(null);
+    }
+
+    LoadingTreePanel(OrganismType type) {
+        this.type = type;
         //////////////////////////////////////////
         //              DECLARATION             //
         //////////////////////////////////////////
@@ -61,11 +66,6 @@ public class LoadingTreePanel extends JPanel {
         pnlMain.add(lblTypePercent, BorderLayout.NORTH);
         pnlMain.add(pnlLoadingTree, BorderLayout.CENTER);
         this.add(pnlMain, BorderLayout.CENTER);
-    }
-
-    LoadingTreePanel(OrganismType type) {
-        this();
-        this.type = type;
     }
 
     //Fonction used to update the text of the label referring to the current loading tree

@@ -552,7 +552,7 @@ public class XlsExport
                     computePartialSums(f.getPath());
                     try
                     {
-                        String subTotal = currentPath + "/Total_" + f.getPath().split(config.getFolderSeparator())[f.getPath().split(config.getFolderSeparator()).length - 1] + ".xlsx";
+                        String subTotal = currentPath + config.getFolderSeparator() + "Total_" + f.getPath().split(config.getFolderSeparator())[f.getPath().split(config.getFolderSeparator()).length - 1] + ".xlsx";
                         FileInputStream is = new FileInputStream(subTotal);
                         XSSFWorkbook workbook = (XSSFWorkbook) WorkbookFactory.create(is);
 
