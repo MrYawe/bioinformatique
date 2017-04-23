@@ -168,15 +168,14 @@ public class MainFrameAcryl extends JFrame {
         btnLoadTree.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Executing the Tree
-                if(UIManager.getUnlock0()==0) {
-                    UIManager.lockOn(3);
+                if(btnLoadTree.isEnabled()) {
+                    UIManager.lock();
                     UIManager.resetLoadingTreePanel();
                     MainFrameAcryl.getInstance().updateDisplayedTree(TreePanel.getDefaultTree("Loading ..."));
                     new Thread(() -> {
                         OrganismTree.load();
-                        btnRun.setEnabled(true);
-                        UIManager.setUnlock0(0);
                         MainFrameAcryl.getInstance().updateDisplayedTree(OrganismTree.getInstance());
+                        UIManager.unlock();
                     }).start();
                 } else {
                     UIManager.writeError("Button is currently locked");
@@ -271,7 +270,7 @@ public class MainFrameAcryl extends JFrame {
 
         btnRun.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(UIManager.getUnlock0()==0) {
+                if(btnRun.isEnabled()) {
                     if (rdbKeepAll.isSelected())
                     {
                         MainFrameAcryl.getInstance().setKeepFilesOfSelectedOrganisms(true);
@@ -300,28 +299,19 @@ public class MainFrameAcryl extends JFrame {
                     }
                     else
                     {
-                        if(UIManager.getUnlock0()==0) {
-                            UIManager.lockOn(1);
-                            UIManager.resetLoadingStatsPanel();
-                            UIManager.setNbReplicons(OrganismTree.countReplicons());
+                        UIManager.lock();
+                        UIManager.resetLoadingStatsPanel();
+                        UIManager.setNbReplicons(OrganismTree.countReplicons());
 
-                            new Thread(() -> {
-                                btnRun.setEnabled(false);
-                                OrganismTree.downloadSelectedOrganisms();
-                                UIManager.lockOff();
-                            }).start();
-                            System.out.println("succes");
-                        }
-                        else
-                        {
-                            UIManager.writeError("Button is currently locked");
-                        }
+                        new Thread(() -> {
+                            OrganismTree.downloadSelectedOrganisms();
+                            UIManager.unlock();
+                        }).start();
                     }
                 }
                 else {
                     UIManager.writeError("Button is currently locked");
                 }
-
             }
         });
         pnlSouth.add(btnLoadTree, BorderLayout.EAST);
