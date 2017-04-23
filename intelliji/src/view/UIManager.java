@@ -35,11 +35,11 @@ public class UIManager {
 
     private static int currentStats = 0;
 
-    public static void writeError(String text) {
+    public synchronized static void writeError(String text) {
         frame.getConsole().println(text, Color.RED);
     }
 
-    public static void writeLog(String text) {
+    public synchronized static void writeLog(String text) {
         frame.getConsole().println(text);
     }
 

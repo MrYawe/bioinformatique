@@ -92,8 +92,9 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
                     UIManager.addProgressTree(this.type);
                 }
             }catch(Exception e){
-                e.printStackTrace();
-                System.exit(1);
+                UIManager.writeError("[ERROR] An error occured while downloading the organism tree: Genbank is unreachable.");
+                System.out.println("[ERROR "+e.getClass()+"] An error occured while downloading the organism tree.");
+                //System.exit(1);
             }
             // UIManager.log(this.type.toString()+ " page : "+this.currentPage);
 

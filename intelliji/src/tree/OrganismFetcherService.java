@@ -3,11 +3,13 @@ package tree;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import config.Config;
 import config.ConfigManager;
@@ -31,20 +33,16 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
     private String baseURL;
     private Organism organism;
 
-    private Retryer<List<Organism>> retryer;
+    private Retryer<Void> retryer;
 
-    /*
-    private Callable<List<Organism>> pageCallable = new Callable<List<Organism>>(){
-        public List<Organism> call() throws MalformedURLException, IOException{
-            return parseCurrentPage();
-        }
+    private Callable<Void> fetchCallable = () -> {
+        return this.fetchOrganism();
     };
-    */
 
     OrganismFetcherService(Organism organism) {
         this.organism = organism;
         this.config = ConfigManager.getConfig();
-        this.retryer = RetryerBuilder.<List<Organism>>newBuilder()
+        this.retryer = RetryerBuilder.<Void>newBuilder()
                 .retryIfExceptionOfType(IOException.class)
                 .retryIfRuntimeException()
                 .withStopStrategy(StopStrategies.stopAfterAttempt(3))
@@ -52,7 +50,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                 .build();
     }
 
-    private void fetchOrganism() {
+    public Void fetchOrganism() {
         System.out.println("Download "+organism.getName()+" ...");
 
         if (organism != null){
@@ -125,12 +123,17 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                 dir.delete();
             }
         }
+        return null;
     }
-
 
 
     @Override
     protected void run() throws Exception {
-        this.fetchOrganism();
+        try {
+            this.retryer.call(this.fetchCallable);
+        } catch (Exception e) {
+            UIManager.writeError("[ERROR] An error occured while downloading the organism \""+this.organism.getName()+"\": Genbank is unreachable.");
+            System.out.println("[ERROR "+e.getClass()+"] An error occured while downloading the organism \"" + this.organism.getName() + "\". ");
+        }
     }
 }
