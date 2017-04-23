@@ -76,7 +76,7 @@ public class XlsExport
      */
     public static void createResultsDirectory()
     {
-        new File(System.getProperty("user.dir") + "/Results").mkdir();
+        new File(ConfigManager.getConfig().getResultsFolder()).mkdir();
     }
 
     /**
@@ -537,7 +537,7 @@ public class XlsExport
         File[] filesList = currentDir.listFiles();
         Config config = ConfigManager.getConfig();
         String resultsPath = config.getResultsFolder();
-        String organism = currentPath.split(config.getFolderSeparator())[currentPath.split(config.getFolderSeparator()).length - 1];
+        String group = currentDir.getName();
 
         if (filesList != null)
         {
@@ -552,7 +552,7 @@ public class XlsExport
                     computePartialSums(f.getPath());
                     try
                     {
-                        String subTotal = currentPath + "/Total_" + f.getPath().split(config.getFolderSeparator())[f.getPath().split(config.getFolderSeparator()).length - 1] + ".xlsx";
+                        String subTotal = currentPath + config.getFolderSeparator() + "Total_" + f.getName() + ".xlsx";
                         FileInputStream is = new FileInputStream(subTotal);
                         XSSFWorkbook workbook = (XSSFWorkbook) WorkbookFactory.create(is);
 
@@ -583,9 +583,9 @@ public class XlsExport
             {
                 if (!currentPath.equals(resultsPath))
                 {
-                    currentSum.setOrganism("Total_" + organism);
+                    currentSum.setOrganism("Total_" + group);
                     XlsExport.exportExcelFile(wb, currentSum, currentDir.getParent());
-                    UIManager.writeLog("--- [EXCEL] Excel file of group \"" + organism + "\" created");
+                    UIManager.writeLog("--- [EXCEL] Excel file of group \"" + group + "\" created");
                 }
             }
             catch (Exception e)

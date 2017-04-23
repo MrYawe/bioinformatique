@@ -199,6 +199,5 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
 
         // UIManager.log(this.type.toString() + " DONE !");
         UIManager.writeLog(this.type.toString() + " DONE !");
-        UIManager.lockOff();
     }
 }

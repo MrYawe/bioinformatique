@@ -12,18 +12,6 @@ import java.awt.*;
 public class UIManager {
     private static MainFrameAcryl frame = MainFrameAcryl.getInstance();
 
-    private static int unlock0 = 0;
-
-    public static int getUnlock0()
-    {
-        return unlock0;
-    }
-
-    public static void setUnlock0(int unlock0)
-    {
-        UIManager.unlock0 = unlock0;
-    }
-
     private static int nbProkaryote = 87;
     private static int nbVirus = 72;
     private static int nbEukaryote = 41;
@@ -43,31 +31,35 @@ public class UIManager {
         frame.getConsole().println(text);
     }
 
-    public static void lockOn(int value) {
+    /*public static void lockOn(int value) {
         unlock0=-value;
         JButton[] btns = frame.getBtn();
         for(int i=0;i<btns.length;i++){
             btns[i].setEnabled(false);
         }
+    }*/
+
+    public static void lock() {
+        JButton[] btns = frame.getBtn();
+        frame.setResizable(false);
+        for(int i=0;i<btns.length;i++){
+            btns[i].setEnabled(false);
+        }
     }
+
+    public static void unlock() {
+        JButton[] btns = frame.getBtn();
+        frame.setResizable(true);
+        for(int i=0;i<btns.length;i++){
+            btns[i].setEnabled(true);
+        }
+    }
+
+
 
     public static void setNbReplicons(int nbReplicons){
         UIManager.nbReplicons=nbReplicons;
         System.out.println(nbReplicons);
-    }
-
-    public static void lockOff() {
-        if(unlock0!=0) {
-            unlock0+=1;
-            if(unlock0==0) {
-                JButton[] btns = frame.getBtn();
-                for(int i=0;i<btns.length;i++){
-                    btns[i].setEnabled(true);
-                }
-            }
-        } else {
-            UIManager.writeError("lock value already null");
-        }
     }
 
     public static void resetLoadingStatsPanel() {

@@ -168,15 +168,14 @@ public class MainFrameAcryl extends JFrame {
         btnLoadTree.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Executing the Tree
-                if(UIManager.getUnlock0()==0) {
-                    UIManager.lockOn(3);
+                if(btnLoadTree.isEnabled()) {
+                    UIManager.lock();
                     UIManager.resetLoadingTreePanel();
                     MainFrameAcryl.getInstance().updateDisplayedTree(TreePanel.getDefaultTree("Loading ..."));
                     new Thread(() -> {
                         OrganismTree.load();
-                        btnRun.setEnabled(true);
-                        UIManager.setUnlock0(0);
                         MainFrameAcryl.getInstance().updateDisplayedTree(OrganismTree.getInstance());
+                        UIManager.unlock();
                     }).start();
                 } else {
                     UIManager.writeError("Button is currently locked");
@@ -186,10 +185,10 @@ public class MainFrameAcryl extends JFrame {
         //pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
         JPanel pnlTest = new JPanel(new GridLayout(6,1));
         //pnlTest.setAlignmentY(JComponent.LEFT_ALIGNMENT);
-        JLabel labelDownloadBehavior = new JLabel("Download behavior :");
-        JRadioButton rdbKeepAll = new JRadioButton("Download missing genomes and keep them for further usage", false);
-        JRadioButton rdbNoKeep = new JRadioButton("Download missing genomes and delete them after computation", true);
-        JLabel labelComputeBehavior = new JLabel("Compute behavior :");
+        JLabel labelDownloadBehavior = new JLabel("Keep genome files:");
+        JRadioButton rdbKeepAll = new JRadioButton("Yes", false);
+        JRadioButton rdbNoKeep = new JRadioButton("No", true);
+        JLabel labelComputeBehavior = new JLabel("Compute behavior:");
         JRadioButton rdbCompute = new JRadioButton("Compute statistics on selected organisms", true);
         JRadioButton rdbDownloadOnly = new JRadioButton("Only download the selected organisms' genomes", false);
         rdbDownloadOnly.setEnabled(false);
@@ -271,7 +270,7 @@ public class MainFrameAcryl extends JFrame {
 
         btnRun.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(UIManager.getUnlock0()==0) {
+                if(btnRun.isEnabled()) {
                     if (rdbKeepAll.isSelected())
                     {
                         MainFrameAcryl.getInstance().setKeepFilesOfSelectedOrganisms(true);
@@ -300,18 +299,19 @@ public class MainFrameAcryl extends JFrame {
                     }
                     else
                     {
-                        //pnlTest2.remove(btnRun);
-                        //pnlTest2.add(pnlRun, BorderLayout.CENTER);
+                        UIManager.lock();
                         UIManager.resetLoadingStatsPanel();
                         UIManager.setNbReplicons(OrganismTree.countReplicons());
-                        System.out.println("succes");
-                        new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();
+
+                        new Thread(() -> {
+                            OrganismTree.downloadSelectedOrganisms();
+                            UIManager.unlock();
+                        }).start();
                     }
                 }
                 else {
                     UIManager.writeError("Button is currently locked");
                 }
-
             }
         });
         pnlSouth.add(btnLoadTree, BorderLayout.EAST);

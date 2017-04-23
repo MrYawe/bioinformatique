@@ -1,0 +1,37 @@
+FEATURES             Location/Qualifiers
+     CDS             join(1..5,62..80)
+                     /gene="LOC107326863"
+                     /note="Derived by automated computational analysis using
+                     gene prediction method: Gnomon."
+                     /codon_start=1
+                     /product="protein still life, isoforms C/SIF type 2-like"
+                     /protein_id="XP_015754013.1"
+                     /db_xref="GI:1005418330"
+                     /db_xref="GeneID:107326863"
+     CDS             join(70..200)
+                      /gene="LOC107326863"
+                      /note="Derived by automated computational analysis using
+                      gene prediction method: Gnomon."
+                      /codon_start=1
+                      /product="protein still life, isoforms C/SIF type 2-like"
+                      /protein_id="XP_015754013.1"
+                      /db_xref="GI:1005418330"
+                      /db_xref="GeneID:107326863"
+     CDS             join(70..280)
+                     /gene="LOC107326863"
+     CDS             join(80..250)
+                     /gene="LOC107326863"
+     CDS             join(100..130, 150..180,200..220)
+                     /gene="LOC107326863"
+ORIGIN
+        1 tttgaaaact gctctaattg ctttggtttt ggtttttcga cagtcatttg aaaaccgctc
+       61 tattataaca attcttacga ttacgttttt cgattcacat tggattttaa cgctcgttgt
+      121 ttttgtcgtt tagttgtcaa tgacttttaa ggtaactttc ctagttttga aaatgtaatc
+      181 ttcaggcctc agttgttcaa agggtgggta agtgctgtcc gctggataaa tcactatcca
+      241 gtggacgagt gctatcgaaa tcatttgcgt tacccagtgg atagtgattt atccaatgga
+      301 tattgaacga ctggggccag aagtgttctg tagcatcttt taattggcta tttctccttg
+      361 tagacttacg cacctttacg ttagttaatc ggtgcaaagt ttgaatcgag tttcattttc
+      421 ttcaggtgtg atggtggggg atgaaatcat tgcagttaat gacattgatg taacagaagt
+      481 agagaatgct gtggaagatc tgagggaagc tttgaaaggt gaggatgcca tctagtgaat
+      541 caataatagc actggataca tttcatttcc agatttatga aggctcggag agaggttatt
+//

@@ -16,18 +16,18 @@ public class ProductionConfig implements Config {
 
     @Override
     public String getResultsFolder() {
-        return System.getProperty("user.dir") + "/Results";
+        return System.getProperty("user.dir") + getFolderSeparator() + "Results";
     }
 
     @Override
     public String getOrganismsFolder() {
-        return System.getProperty("user.dir") + "/organisms";
+        return System.getProperty("user.dir") + getFolderSeparator() + "organisms";
     }
 
     @Override
-    public String getResFolder()
+    public String getResourcesFolder()
     {
-        return System.getProperty("user.dir") + "/resources";
+        return System.getProperty("user.dir") + getFolderSeparator() + "resources";
     }
 
     @Override
