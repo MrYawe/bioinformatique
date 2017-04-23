@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         // Use "new ProductionConfig()" to load the organism tree from Genbank
         // or "new DevelopementConfig()" to load it from the local file "organismeTree.json"
-        ConfigManager.setConfig(new ProductionConfig());
+        ConfigManager.setConfig(new DevelopmentConfig());
 
         //Main view
         MainFrameAcryl jfMain;

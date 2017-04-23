@@ -300,12 +300,22 @@ public class MainFrameAcryl extends JFrame {
                     }
                     else
                     {
-                        //pnlTest2.remove(btnRun);
-                        //pnlTest2.add(pnlRun, BorderLayout.CENTER);
-                        UIManager.resetLoadingStatsPanel();
-                        UIManager.setNbReplicons(OrganismTree.countReplicons());
-                        System.out.println("succes");
-                        new Thread(() -> OrganismTree.downloadSelectedOrganisms()).start();
+                        if(UIManager.getUnlock0()==0) {
+                            UIManager.lockOn(1);
+                            UIManager.resetLoadingStatsPanel();
+                            UIManager.setNbReplicons(OrganismTree.countReplicons());
+
+                            new Thread(() -> {
+                                btnRun.setEnabled(false);
+                                OrganismTree.downloadSelectedOrganisms();
+                                UIManager.lockOff();
+                            }).start();
+                            System.out.println("succes");
+                        }
+                        else
+                        {
+                            UIManager.writeError("Button is currently locked");
+                        }
                     }
                 }
                 else {
