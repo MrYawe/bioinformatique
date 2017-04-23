@@ -79,4 +79,6 @@ gradle-app.setting
 # End of https://www.gitignore.io/api/gradle
 
 # Custom
-/resources/organisms
+/organisms
+/resources/**/*.xlsx
+/Results
