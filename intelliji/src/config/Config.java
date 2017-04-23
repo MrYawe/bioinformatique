@@ -9,7 +9,7 @@ public interface Config {
     String getFolderSeparator();
     String getOrganismsFolder();
     String getResultsFolder();
-    String getResFolder();
+    String getResourcesFolder();
     boolean useGui();
 
     // Net Configuration

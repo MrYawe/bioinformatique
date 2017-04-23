@@ -72,9 +72,8 @@ public class StatsExport
 	/**
 	 * Permet d'exporter le fichier excel d'un organisme complet
 	 * @param resultPath Chemin d'export du fichier excel
-	 * @param organismPath Chemin du dossier contenant les fichiers téléchargés de l'organisme
 	 */
-	public void exportOrganism(String resultPath, String organismPath)
+	public void exportOrganism(String resultPath)
 	{
 		XlsExport.exportExcelFile(this.workbook, this.sumResults, resultPath);
 		UIManager.writeLog("--- [EXCEL] Excel file of organism \"" + this.organism.getName() + "\" created");

@@ -186,10 +186,10 @@ public class MainFrameAcryl extends JFrame {
         //pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
         JPanel pnlTest = new JPanel(new GridLayout(6,1));
         //pnlTest.setAlignmentY(JComponent.LEFT_ALIGNMENT);
-        JLabel labelDownloadBehavior = new JLabel("Download behavior :");
-        JRadioButton rdbKeepAll = new JRadioButton("Download missing genomes and keep them for further usage", false);
-        JRadioButton rdbNoKeep = new JRadioButton("Download missing genomes and delete them after computation", true);
-        JLabel labelComputeBehavior = new JLabel("Compute behavior :");
+        JLabel labelDownloadBehavior = new JLabel("Keep genome files:");
+        JRadioButton rdbKeepAll = new JRadioButton("Yes", false);
+        JRadioButton rdbNoKeep = new JRadioButton("No", true);
+        JLabel labelComputeBehavior = new JLabel("Compute behavior:");
         JRadioButton rdbCompute = new JRadioButton("Compute statistics on selected organisms", true);
         JRadioButton rdbDownloadOnly = new JRadioButton("Only download the selected organisms' genomes", false);
         rdbDownloadOnly.setEnabled(false);

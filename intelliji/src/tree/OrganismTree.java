@@ -66,7 +66,7 @@ public class OrganismTree {
         Gson gson = builder.create();
 
         String treeJson = gson.toJson(OrganismTree.tree, Tree.class);
-        try (PrintStream out = new PrintStream(new File(ConfigManager.getConfig().getResFolder()+"/organismTree.json"), "UTF-8")) {
+        try (PrintStream out = new PrintStream(new File(ConfigManager.getConfig().getResourcesFolder()+"/organismTree.json"), "UTF-8")) {
             out.println(treeJson);
         } catch (Exception e) {
             e.printStackTrace();

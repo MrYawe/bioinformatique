@@ -1,5 +1,6 @@
 package view;
 
+import config.ConfigManager;
 import tree.TreeBuilderService;
 
 import javax.swing.*;

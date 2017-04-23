@@ -1,7 +1,6 @@
 import config.ConfigManager;
 import config.DevelopmentConfig;
 import config.ProductionConfig;
-import tree.*;
 import view.MainFrameAcryl;
 import javax.swing.*;
 

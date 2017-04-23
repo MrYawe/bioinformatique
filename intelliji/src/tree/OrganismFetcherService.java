@@ -82,7 +82,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
             Boolean willDowloadAndComputeStats = lastStatsDate == null || organism.getModificationDate().compareTo(lastStatsDate) > 0;
             for(String replicon : organism.getReplicons().keySet()){
                 try {
-                    String repliconPath = basePath+"/"+replicon+".txt";
+                    String repliconPath = basePath+config.getFolderSeparator()+replicon+".txt";
 
                     if(willDowloadAndComputeStats) {
                         UIManager.writeLog("--- Older stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" found ...");
@@ -118,7 +118,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
             }
 
             if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled() && willDowloadAndComputeStats) {
-                export.exportOrganism(resultsPath, basePath);
+                export.exportOrganism(resultsPath);
             }
 
             if ((!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() || !willDowloadAndComputeStats) && Files.exists(Paths.get(basePath))) {
