@@ -88,19 +88,4 @@ public class Net {
         }
         return null;
     }
-
-    public static void bufferedInputStremToFile(BufferedInputStream stream, String path) {
-        try {
-            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(path));
-            byte[] buff = new byte[32 * 1024];
-            int len = 0;
-            while ((len = stream.read(buff)) > 0) //If necessary readLine()
-                out.write(buff, 0, len);
-            stream.close();
-            out.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-    }
 }
