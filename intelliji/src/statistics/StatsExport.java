@@ -75,7 +75,15 @@ public class StatsExport
 	 */
 	public void exportOrganism(String resultPath)
 	{
-		XlsExport.exportExcelFile(this.workbook, this.sumResults, resultPath);
-		UIManager.writeLog("--- [EXCEL] Excel file of organism \"" + this.organism.getName() + "\" created");
+		SumResults sumres = this.sumResults;
+		if (sumres.getNbChromosomes() + sumres.getNbDNA() + sumres.getNbLinkages() + sumres.getNbMitochondrions() + sumres.getNbPlasmids() + sumres.getNbPlasts() == this.organism.size())
+		{
+			XlsExport.exportExcelFile(this.workbook, this.sumResults, resultPath);
+			UIManager.writeLog("--- [EXCEL] Excel file of organism \"" + this.organism.getName() + "\" created");
+		}
+		else
+		{
+			UIManager.writeError("--- [EXCEL] Missing replicon(s) for organism \"" + this.organism.getName() + "\"");
+		}
 	}
 }
