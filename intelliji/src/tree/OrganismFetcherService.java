@@ -1,10 +1,9 @@
 package tree;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
@@ -21,6 +20,7 @@ import com.github.rholder.retry.WaitStrategies;
 import com.google.common.io.Resources;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
 
+import io.Net;
 import statistics.StatsExport;
 import view.MainFrameAcryl;
 import view.UIManager;
@@ -79,39 +79,43 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
             Date lastStatsDate = organism.getLastStatsDate();
             Boolean willDowloadAndComputeStats = lastStatsDate == null || organism.getModificationDate().compareTo(lastStatsDate) > 0;
             for(String replicon : organism.getReplicons().keySet()){
-                try {
-                    String repliconPath = basePath+config.getFolderSeparator()+replicon+".txt";
 
-                    if(willDowloadAndComputeStats) {
-                        UIManager.writeLog("--- Older stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" found ...");
-                        if (Files.exists(Paths.get(repliconPath))) {
-                            File repliconFile = new File(repliconPath);
-                            repliconFile.delete();
-                        }
-                    }
+                String repliconPath = basePath+config.getFolderSeparator()+replicon+".txt";
 
-                    if (willDowloadAndComputeStats || (MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && !MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) && !Files.exists(Paths.get(repliconPath))) {
-                        UIManager.writeLog("--- Download replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
-                        String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", organism.getReplicons().get(replicon));
-                        InputStream stream = Resources.asByteSource(new URL(url)).openBufferedStream();
-                        Files.copy(stream, Paths.get(repliconPath));
-                        UIManager.writeLog("--- Download of replicon \""+replicon+"\" of \"" + organism.getName() + "\" ended.");
-
-                        if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
-                            export.treatReplicon(repliconPath, replicon);
-                        }
-                    } else {
-                        UIManager.writeLog("--- Latest stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" already found.");
-                    }
-
-                    if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && Files.exists(Paths.get(repliconPath))) {
-                        UIManager.writeLog("--- Delete replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
+                if(willDowloadAndComputeStats) {
+                    UIManager.writeLog("--- Older stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" found ...");
+                    if (Files.exists(Paths.get(repliconPath))) {
                         File repliconFile = new File(repliconPath);
                         repliconFile.delete();
                     }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
+
+                if (willDowloadAndComputeStats || (MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && !MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) && !Files.exists(Paths.get(repliconPath))) {
+                    UIManager.writeLog("--- Download replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
+                    String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", organism.getReplicons().get(replicon));
+                    ReadableByteChannel rbc = Net.getUrlAsByteChannel(url);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(repliconPath);
+                        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        throw new RuntimeException(); // will be catched in run()
+                    }
+                    UIManager.writeLog("--- Download of replicon \""+replicon+"\" of \"" + organism.getName() + "\" ended.");
+
+                    if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
+                        export.treatReplicon(repliconPath, replicon);
+                    }
+                } else {
+                    UIManager.writeLog("--- Latest stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" already found.");
+                }
+
+                if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && Files.exists(Paths.get(repliconPath))) {
+                    UIManager.writeLog("--- Delete replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
+                    File repliconFile = new File(repliconPath);
+                    repliconFile.delete();
+                }
+
                 UIManager.addProgressTree();
             }
 

@@ -1,13 +1,14 @@
 package io;
 
+import com.google.common.io.Resources;
 import config.Config;
 import config.ConfigManager;
 
-import java.io.Console;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.Scanner;
 
 public class Net {
@@ -52,5 +53,54 @@ public class Net {
             }
         }
         return null;
+    }
+
+    public static ReadableByteChannel getUrlAsByteChannel(String url){
+        Config config = ConfigManager.getConfig();
+        int nb_try = 0;
+        while(nb_try < config.getNetMaxDownloadTries()){
+            try {
+                URL netURL = new URL(url);
+                String redirect = netURL.openConnection().getHeaderField("Location");
+                if(redirect != null) {
+                    netURL = new URL(redirect);
+                }
+                ReadableByteChannel rbc = Channels.newChannel(netURL.openStream());
+                return rbc;
+
+            } catch (MalformedURLException e) {
+                return null;
+            } catch (IOException e) {
+                if(nb_try >= config.getNetMaxDownloadTries() - 2){
+                    System.out.println("Error while downloading : "+url+" (Try "+(nb_try + 1)+"/"+config.getNetMaxDownloadTries()+")");
+                }
+                nb_try ++;
+                if(nb_try == config.getNetMaxDownloadTries()){
+                    e.printStackTrace();
+                    throw new RuntimeException();
+                }
+                try {
+                    long sleep_time = (long)Math.floor(Math.random() * config.getNetTimeBetweenTries());
+                    Thread.sleep(sleep_time);
+                } catch (InterruptedException e1) {
+                }
+            }
+        }
+        return null;
+    }
+
+    public static void bufferedInputStremToFile(BufferedInputStream stream, String path) {
+        try {
+            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(path));
+            byte[] buff = new byte[32 * 1024];
+            int len = 0;
+            while ((len = stream.read(buff)) > 0) //If necessary readLine()
+                out.write(buff, 0, len);
+            stream.close();
+            out.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 }
