@@ -57,7 +57,7 @@ public class LoadingPanel extends JPanel {
             //                 LAYOUT               //
             //////////////////////////////////////////
             pnlForeground.setBackground(new Color(220, 220, 220));
-            this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY));
+            pnlForeground.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY));
             pnlForeground.setLocation(0, 0);
             pnlForeground.setSize(new Dimension(widthGif,heightGif));
 
