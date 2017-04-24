@@ -14,7 +14,7 @@ public class UIManager {
 
     private static int nbProkaryote = 87;
     private static int nbVirus = 72;
-    private static int nbEukaryote = 41;
+    private static int nbEukaryote = 42;
     private static int nbReplicons = -1;
 
     private static int currentProkaryote = 0;
