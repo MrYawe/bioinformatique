@@ -65,7 +65,7 @@ public class TreatFile {
                 {
                     res.setType(CDSResult.Type.PLASMID);
                 }
-                else if (nowLine.matches("^([\\s\\t]+(CDS)([\\s\\t])+.*$)"))
+                else if (nowLine.matches("([\\s\\t]+(CDS)([\\s\\t])+[^a^d]+)"))
                 {
                     //Récupérer le CDS complet
                     String current_CDS="";
