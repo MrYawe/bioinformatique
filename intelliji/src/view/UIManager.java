@@ -14,7 +14,7 @@ public class UIManager {
 
     private static int nbProkaryote = 87;
     private static int nbVirus = 72;
-    private static int nbEukaryote = 41;
+    private static int nbEukaryote = 42;
     private static int nbReplicons = -1;
 
     private static int currentProkaryote = 0;
@@ -23,11 +23,11 @@ public class UIManager {
 
     private static int currentStats = 0;
 
-    public static void writeError(String text) {
+    public synchronized static void writeError(String text) {
         frame.getConsole().println(text, Color.RED);
     }
 
-    public static void writeLog(String text) {
+    public synchronized static void writeLog(String text) {
         frame.getConsole().println(text);
     }
 

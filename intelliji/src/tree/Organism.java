@@ -4,10 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -314,9 +311,15 @@ public class Organism implements Serializable {
              String sDate = sheet.getRow(4).getCell(1).toString();
              SimpleDateFormat parser = new SimpleDateFormat("dd-MM-YYYY HH:mm");
              date = parser.parse(sDate);
-
          } catch(Exception ex) {
-             ex.printStackTrace();
+             try {
+                 if (Files.exists(Paths.get(resultPath))) {
+                     Files.delete(Paths.get(resultPath));
+                 }
+             }
+             catch (Exception e) {
+                 ex.printStackTrace();
+             }
          }
          return date;
      }
