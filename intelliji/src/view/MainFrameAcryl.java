@@ -19,7 +19,6 @@ import tree.TreeBuilderService.OrganismType;
 
 public class MainFrameAcryl extends JFrame {
 
-    //private JPanel backgroundPanel;
     private TreePanel pnlTree;
     private ConsolePanel pnlConsole;
 
@@ -35,6 +34,9 @@ public class MainFrameAcryl extends JFrame {
     private boolean computeStatsOnSelectedOrganisms = false;
     private boolean keepFilesOfSelectedOrganisms = false;
 
+    //////////////////////////////////////////
+    //               ACCESSORS              //
+    //////////////////////////////////////////
     public boolean isComputeStatsOnSelectedOrganismsEnabled()
     {
         return computeStatsOnSelectedOrganisms;
@@ -98,123 +100,190 @@ public class MainFrameAcryl extends JFrame {
 
     public MainFrameAcryl() {
         super("Bioinformatique");
-        //backgroundPanel = new JPanel();
 
-        // setup menu
-        JMenuBar menuBar = new JMenuBar();
-        JMenu menu = new JMenu("Menu");
+        //////////////////////////////////////////
+        //              DECLARATION             //
+        //////////////////////////////////////////
+
+        JSplitPane spTreeVSLogs;
+
+        JPanel pnlLoadingTree;
+        JPanel pnlStats;
+        JPanel contentPanel;
+        JPanel pnlSouth;
+        JPanel pnlOptions;
+
+
+        //Declaration of the menu items
+        JMenuBar menuBar;
+        JMenu menu;
         JMenuItem menuItem = new JMenuItem("Quitter");
+
+
+        JLabel lblDownloadBehavior;
+        JLabel lblComputeBehavior;
+
+        JRadioButton rdbKeepAll;
+        JRadioButton rdbKeepNothing;
+        JRadioButton rdbCompute;
+        JRadioButton rdbDownloadOnly;
+
+        Dimension screenSize;
+        Dimension dimension;
+
+        //////////////////////////////////////////
+        //             INSTANTIATION            //
+        //////////////////////////////////////////
+
+        //Instantiation of the menu items
+        menuBar = new JMenuBar();
+        menu = new JMenu("Menu");
+        menuItem = new JMenuItem("Quitter");
+
+
+        contentPanel = new JPanel(new BorderLayout());
+        pnlTree = new TreePanel();
+        pnlConsole = new ConsolePanel();
+        spTreeVSLogs = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, pnlTree, pnlConsole);
+        pnlOptions = new JPanel(new GridLayout(6,1));
+        pnlSouth = new JPanel(new BorderLayout());
+        pnlStats = new JPanel(new BorderLayout());
+        pnlLoadingTree = new JPanel(new GridLayout(3,1));
+
+
+        //Instantiation of the Loaders
+        pnlLoadingEukaryote = new LoadingTreePanel(OrganismType.EUKARYOTES);
+        pnlLoadingProkaryote = new LoadingTreePanel(OrganismType.PROKARYOTES);
+        pnlLoadingVirus = new LoadingTreePanel(OrganismType.VIRUSES);
+        pnlRun = new LoadingTreePanel();
+        pnlLoadingMain = new LoadingTreePanel();
+
+        ButtonGroup btnGroupDownload = new ButtonGroup();
+        ButtonGroup btnGroupBehavior = new ButtonGroup();
+
+        lblDownloadBehavior = new JLabel("Keep genome files:");
+        rdbKeepAll = new JRadioButton("Yes", false);
+        rdbKeepNothing = new JRadioButton("No", true);
+        lblComputeBehavior = new JLabel("Compute behavior:");
+        rdbCompute = new JRadioButton("Compute statistics on selected organisms", true);
+        rdbDownloadOnly = new JRadioButton("Only download the selected organisms' genomes", false);
+        rdbDownloadOnly.setEnabled(false);
+
+        btnLoadTree = new JButton("Load Tree");
+        btnRun = new JButton("Download and compute statistics");
+
+        // 75% de la taille de l'écran, centré
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        dimension = Toolkit.getDefaultToolkit().getScreenSize();
+
+
+        //////////////////////////////////////////
+        //              PROPERTIES              //
+        //////////////////////////////////////////
+
+        spTreeVSLogs.setDividerLocation(screenSize.width / 4);
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 4, 4, 4));
+
+        btnRun.setEnabled(false);
+
+
+
+        //Setting the application to 75% of the size of the screen and center it.
+        this.setSize(screenSize.width * 3/4, screenSize.height * 3/4);
+        int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+        this.setLocation(x, y);
+
+        //////////////////////////////////////////
+        //                 LAYOUT               //
+        //////////////////////////////////////////
+
+        //Adding menu components
+        menu.add(menuItem);
+        menuBar.add(menu);
+        setJMenuBar(menuBar);
+
+        //Setting radio buttons in groups
+        btnGroupDownload.add(rdbKeepAll);
+        btnGroupDownload.add(rdbKeepNothing);
+        btnGroupBehavior.add(rdbCompute);
+        btnGroupBehavior.add(rdbDownloadOnly);
+
+        //Adding panels hierarchy
+        this.setContentPane(contentPanel);
+        contentPanel.add(spTreeVSLogs, BorderLayout.CENTER);
+        contentPanel.add(pnlSouth, BorderLayout.SOUTH);
+
+        pnlSouth.add(pnlLoadingTree, BorderLayout.WEST);
+        pnlSouth.add(pnlStats, BorderLayout.CENTER);
+        //pnlSouth.add(, BorderLayout.EAST);
+
+
+            pnlLoadingTree.add(btnLoadTree);
+            //pnlLoadingTree.add(pnlLoadingEukaryote, BorderLayout.NORTH);
+            //pnlLoadingTree.add(pnlLoadingVirus, BorderLayout.CENTER);
+            //pnlLoadingTree.add(pnlLoadingProkaryote, BorderLayout.SOUTH);
+
+            pnlStats.add(pnlOptions, BorderLayout.NORTH);
+            pnlStats.add(btnRun, BorderLayout.CENTER);
+            pnlStats.add(pnlLoadingMain, BorderLayout.SOUTH);
+
+                pnlOptions.add(lblDownloadBehavior);
+                pnlOptions.add(rdbKeepAll);
+                pnlOptions.add(rdbKeepNothing);
+                pnlOptions.add(lblComputeBehavior);
+                pnlOptions.add(rdbCompute);
+                pnlOptions.add(rdbDownloadOnly);
+
+        //////////////////////////////////////////
+        //           ACTION LISTENERS           //
+        //////////////////////////////////////////
+
+        //Adding ActionLister to the menu items
         menuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.exit(0);
             }
         });
-        menu.add(menuItem);
-        menuBar.add(menu);
-        setJMenuBar(menuBar);
 
-        // setup widgets
-        JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 4, 4, 4));
-        //JTree
-        pnlTree = new TreePanel();
-        pnlConsole = new ConsolePanel();
-
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, pnlTree, pnlConsole);
-
-        contentPanel.add(splitPane, BorderLayout.CENTER);
-        setContentPane(contentPanel);
-
-        // add listeners
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         });
 
-        // 75% de la taille de l'écran, centré
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize(screenSize.width * 3/4, screenSize.height * 3/4);
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
-        int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
-        this.setLocation(x, y);
-
-        //JTree de largeur 1/4 de l'écran
-        splitPane.setDividerLocation(screenSize.width / 4);
-
-        //Redim westPanel
-        JPanel pnlSouth = new JPanel(new BorderLayout());
-        //pnlSouth.setPreferredSize(new Dimension(100,100));
-
-        contentPanel.add(pnlSouth, BorderLayout.SOUTH);
-
-        pnlLoadingEukaryote = new LoadingTreePanel(OrganismType.EUKARYOTES);
-        pnlLoadingProkaryote = new LoadingTreePanel(OrganismType.PROKARYOTES);
-        pnlLoadingVirus = new LoadingTreePanel(OrganismType.VIRUSES);
-        pnlRun = new LoadingTreePanel();
-
-        JPanel pnlWest = new JPanel(new BorderLayout());
-        pnlWest.add(pnlLoadingEukaryote, BorderLayout.NORTH);
-        pnlWest.add(pnlLoadingVirus, BorderLayout.CENTER);
-        pnlWest.add(pnlLoadingProkaryote, BorderLayout.SOUTH);
-
-        pnlSouth.add(pnlWest, BorderLayout.WEST);
-
-        btnLoadTree = new JButton("Load Tree");
-        btnRun = new JButton("Download and compute statistics");
-        btnRun.setEnabled(false);
-
         btnLoadTree.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                pnlLoadingTree.add(btnLoadTree, BorderLayout.CENTER);
+
+
                 // Executing the Tree
                 if(btnLoadTree.isEnabled()) {
                     UIManager.lock();
                     UIManager.resetLoadingTreePanel();
+
+                    pnlLoadingTree.remove(btnLoadTree);
+                    pnlLoadingTree.add(pnlLoadingEukaryote);
+                    pnlLoadingTree.add(pnlLoadingVirus);
+                    pnlLoadingTree.add(pnlLoadingProkaryote);
+
                     MainFrameAcryl.getInstance().updateDisplayedTree(TreePanel.getDefaultTree("Loading ..."));
                     new Thread(() -> {
                         OrganismTree.load();
                         MainFrameAcryl.getInstance().updateDisplayedTree(OrganismTree.getInstance());
                         UIManager.unlock();
+
+                        pnlLoadingTree.remove(pnlLoadingEukaryote);
+                        pnlLoadingTree.remove(pnlLoadingVirus);
+                        pnlLoadingTree.remove(pnlLoadingProkaryote);
+                        pnlLoadingTree.add(btnLoadTree);
                     }).start();
                 } else {
                     UIManager.writeError("Button is currently locked");
                 }
             }
         });
-        //pnlSouth.add(btnLoadTree, BorderLayout.CENTER);
-        JPanel pnlTest = new JPanel(new GridLayout(6,1));
-        //pnlTest.setAlignmentY(JComponent.LEFT_ALIGNMENT);
-        JLabel labelDownloadBehavior = new JLabel("Keep genome files:");
-        JRadioButton rdbKeepAll = new JRadioButton("Yes", false);
-        JRadioButton rdbNoKeep = new JRadioButton("No", true);
-        JLabel labelComputeBehavior = new JLabel("Compute behavior:");
-        JRadioButton rdbCompute = new JRadioButton("Compute statistics on selected organisms", true);
-        JRadioButton rdbDownloadOnly = new JRadioButton("Only download the selected organisms' genomes", false);
-        rdbDownloadOnly.setEnabled(false);
-
-        ButtonGroup groupDownload = new ButtonGroup();
-        groupDownload.add(rdbKeepAll);
-        groupDownload.add(rdbNoKeep);
-        ButtonGroup groupBehavior = new ButtonGroup();
-        groupBehavior.add(rdbCompute);
-        groupBehavior.add(rdbDownloadOnly);
-
-        pnlTest.add(labelDownloadBehavior);
-        pnlTest.add(rdbKeepAll);
-        pnlTest.add(rdbNoKeep);
-        pnlTest.add(labelComputeBehavior);
-        pnlTest.add(rdbCompute);
-        pnlTest.add(rdbDownloadOnly);
-
-        JPanel pnlTest2 = new JPanel(new BorderLayout());
-        pnlTest2.add(pnlTest, BorderLayout.NORTH);
-        pnlTest2.add(btnRun, BorderLayout.CENTER);
-
-        pnlLoadingMain = new LoadingTreePanel();
-        pnlTest2.add(pnlLoadingMain, BorderLayout.SOUTH);
-
-        pnlSouth.add(pnlTest2, BorderLayout.CENTER);
 
         rdbKeepAll.addActionListener(new ActionListener()
         {
@@ -231,12 +300,12 @@ public class MainFrameAcryl extends JFrame {
             }
         });
 
-        rdbNoKeep.addChangeListener(new ChangeListener()
+        rdbKeepNothing.addChangeListener(new ChangeListener()
         {
             @Override
             public void stateChanged(ChangeEvent changeEvent)
             {
-                if (rdbNoKeep.isSelected())
+                if (rdbKeepNothing.isSelected())
                 {
                     rdbDownloadOnly.setSelected(false);
                     rdbDownloadOnly.setEnabled(false);
@@ -256,13 +325,13 @@ public class MainFrameAcryl extends JFrame {
             {
                 if (rdbDownloadOnly.isSelected())
                 {
-                    rdbNoKeep.setSelected(false);
-                    rdbNoKeep.setEnabled(false);
+                    rdbKeepNothing.setSelected(false);
+                    rdbKeepNothing.setEnabled(false);
                     rdbKeepAll.setSelected(true);
                 }
                 else
                 {
-                    rdbNoKeep.setEnabled(true);
+                    rdbKeepNothing.setEnabled(true);
                 }
             }
         });
@@ -314,11 +383,7 @@ public class MainFrameAcryl extends JFrame {
                 }
             }
         });
-        pnlSouth.add(btnLoadTree, BorderLayout.EAST);
-
     }
-
-
 
     public void updateDisplayedTree(Tree tree){
         pnlTree.updateDisplayedTree(tree);

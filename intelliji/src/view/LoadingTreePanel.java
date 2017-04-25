@@ -54,7 +54,11 @@ public class LoadingTreePanel extends JPanel {
         //////////////////////////////////////////
         //             INSTANTIATION            //
         //////////////////////////////////////////
-        pnlLoadingTree = new LoadingPanel();
+        if(type==null)
+            pnlLoadingTree = new LoadingPanel(true);
+        else
+            pnlLoadingTree = new LoadingPanel(false);
+
         pnlMain = new JPanel(new BorderLayout());
         String base = getType()!=null?getType().toString().toLowerCase():"Computing stats";
         lblTypePercent = new JLabel(base + " : "+ percent + "%");
@@ -63,8 +67,8 @@ public class LoadingTreePanel extends JPanel {
         //                 LAYOUT               //
         //////////////////////////////////////////
         this.setLayout(new BorderLayout());
-        pnlMain.add(lblTypePercent, BorderLayout.NORTH);
-        pnlMain.add(pnlLoadingTree, BorderLayout.CENTER);
+        pnlMain.add(lblTypePercent, BorderLayout.CENTER);
+        pnlMain.add(pnlLoadingTree, BorderLayout.SOUTH);
         this.add(pnlMain, BorderLayout.CENTER);
     }
 
