@@ -17,7 +17,6 @@ import statistics.XlsExport;
 import tree.TreeBuilderService.OrganismType;
 import view.MainFrameAcryl;
 import view.UIManager;
-// import ui.UIManager;
 
 /**
  * Created by yannis on 29/01/17.
@@ -134,7 +133,9 @@ public class OrganismTree {
         try {
             // Wait until all organism are downloaded and stats computed
             if(executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS) && MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
-                XlsExport.computePartialSums(ConfigManager.getConfig().getResultsFolder());
+                String resultsPath = ConfigManager.getConfig().getResultsFolder();
+                XlsExport.computePartialSums(resultsPath);
+                UIManager.writeLog(System.getProperty("line.separator") + "END OF COMPUTING" + System.getProperty("line.separator"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -151,6 +152,22 @@ public class OrganismTree {
             org = walker.next();
             res+=org.getReplicons().keySet().size();
         }
+        return res;
+    }
+
+    public static int countGroups(String path) {
+        int res = 0;
+        File dir = new File(path);
+        File[] files = dir.listFiles();
+        for (File f : files)
+        {
+            if (f.isDirectory())
+            {
+                res++;
+                res += countGroups(f.getPath());
+            }
+        }
+
         return res;
     }
 }
