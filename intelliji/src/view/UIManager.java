@@ -77,36 +77,38 @@ public class UIManager {
         }
     }
 
-    public static void addProgressTree() {
+    public synchronized static void addProgressTree() {
         LoadingTreePanel loadingStatsPanel = frame.getLoadingPanel(null);
+        int pnlSize = (int)loadingStatsPanel.getPnlLoadingTree().getSize().getWidth();
         currentStats++;
 
-        loadingStatsPanel.setPercent(currentStats*100/nbReplicons);
+        loadingStatsPanel.setPercent(currentStats*100.0/nbReplicons);
         loadingStatsPanel.updatePercent();
-        loadingStatsPanel.getPnlForeground().setLocation(currentStats*loadingStatsPanel.getWidthGif()/nbReplicons,0);
+        loadingStatsPanel.getPnlForeground().setLocation(currentStats*pnlSize/nbReplicons,0);
+
     }
 
-    public static void addProgressTree(OrganismType type) {
+    public synchronized static void addProgressTree(OrganismType type) {
         LoadingTreePanel loadingPanel=frame.getLoadingPanel(type);
-
+        int pnlSize = (int)loadingPanel.getPnlLoadingTree().getSize().getWidth();
         if(type.equals(OrganismType.EUKARYOTES)) {
             currentEukaryote++;
             //progressPanel.setLocation((int)Math.round(progressPanel.getLocation().getX()+(loadingPanel.getWidthGif()/(nbEukaryote))),0);
-            loadingPanel.setPercent(currentEukaryote*100/nbEukaryote);
+            loadingPanel.setPercent(currentEukaryote*100.0/nbEukaryote);
             loadingPanel.updatePercent();
-            loadingPanel.getPnlForeground().setLocation(currentEukaryote*loadingPanel.getWidthGif()/nbEukaryote,0);
+            loadingPanel.getPnlForeground().setLocation(currentEukaryote*pnlSize/nbEukaryote,0);
         } else if(type.equals(OrganismType.VIRUSES)) {
             currentVirus++;
             //progressPanel.setLocation((int)progressPanel.getLocation().getX()+(loadingPanel.getWidthGif()/(nbVirus)),0);
-            loadingPanel.setPercent(currentVirus*100/nbVirus);
+            loadingPanel.setPercent(currentVirus*100.0/nbVirus);
             loadingPanel.updatePercent();
-            loadingPanel.getPnlForeground().setLocation(currentVirus*loadingPanel.getWidthGif()/nbVirus,0);
+            loadingPanel.getPnlForeground().setLocation(currentVirus*pnlSize/nbVirus,0);
         } else if(type.equals(OrganismType.PROKARYOTES)) {
             currentProkaryote++;
             //progressPanel.setLocation((int)progressPanel.getLocation().getX()+(loadingPanel.getWidthGif()/(nbProkaryote)),0);
-            loadingPanel.setPercent(currentProkaryote*100/nbProkaryote);
+            loadingPanel.setPercent(currentProkaryote*100.0/nbProkaryote);
             loadingPanel.updatePercent();
-            loadingPanel.getPnlForeground().setLocation(currentProkaryote*loadingPanel.getWidthGif()/nbProkaryote,0);
+            loadingPanel.getPnlForeground().setLocation(currentProkaryote*pnlSize/nbProkaryote,0);
         }
     }
 }
