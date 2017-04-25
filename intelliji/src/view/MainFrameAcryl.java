@@ -183,7 +183,7 @@ public class MainFrameAcryl extends JFrame {
 
         spTreeVSLogs.setDividerLocation(screenSize.width / 4);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 4, 4, 4));
-
+        pnlLoadingTree.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
         btnRun.setEnabled(false);
 
 
