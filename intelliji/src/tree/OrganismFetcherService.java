@@ -51,8 +51,6 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
     }
 
     public Void fetchOrganism() {
-        System.out.println("Download "+organism.getName()+" ...");
-
         if (organism != null){
             StatsExport export = new StatsExport(this.organism);
             String basePath = organism.getOrganismPath();
@@ -83,10 +81,16 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                 String repliconPath = basePath+config.getFolderSeparator()+replicon+".txt";
 
                 if(willDowloadAndComputeStats) {
-                    UIManager.writeLog("--- Older stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" found ...");
+                    if(lastStatsDate != null) {
+                        UIManager.writeLog("--- Older stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" found ...");
+                    }
                     if (Files.exists(Paths.get(repliconPath))) {
-                        File repliconFile = new File(repliconPath);
-                        repliconFile.delete();
+                        try {
+                            Files.delete(Paths.get(repliconPath));
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+
                     }
                 }
 
@@ -97,6 +101,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                     try {
                         FileOutputStream fos = new FileOutputStream(repliconPath);
                         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                        fos.close();
                     } catch (Exception ex) {
                         ex.printStackTrace();
                         throw new RuntimeException(); // will be catched in run()
@@ -112,6 +117,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
 
                 if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && Files.exists(Paths.get(repliconPath))) {
                     UIManager.writeLog("--- Delete replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
+                    System.out.println("Delete "+repliconPath);
                     File repliconFile = new File(repliconPath);
                     repliconFile.delete();
                 }
