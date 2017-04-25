@@ -67,7 +67,6 @@ class ConsolePanel extends JPanel {
 
     //Function used to write a line with the specified Color on the output without returning to the next line.
     public void print(String s, Color c) {
-        scrollBottom();
         Style style = jtpOutput.addStyle("Style", null);
         StyleConstants.setForeground(style, c);
 
@@ -77,6 +76,7 @@ class ConsolePanel extends JPanel {
             System.out.println("[Exception>ConsolePanel>print]: while printing the output following error has been encountered: \n"+err.getMessage());
             println("Exception -> " + err.getMessage(), Color.RED);
         }
+        scrollBottom();
     }
 
     //Function used to write a line in black on the output with a new line
