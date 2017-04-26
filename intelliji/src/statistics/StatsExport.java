@@ -4,10 +4,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import models.TreatFile;
 import tree.Organism;
-import view.MainFrameAcryl;
 import view.UIManager;
 
 /**
@@ -32,6 +32,11 @@ public class StatsExport
 	private SumResults sumResults;
 
 	/**
+	 * Liste de tous les noms d'onglets créés (pour éviter les doublons)
+	 */
+	private ArrayList<String> sheetNames;
+
+	/**
 	 * Constructeur de la classe permettant de traiter entièrement un organisme
 	 * @param organism Organisme à traiter
 	 */
@@ -41,6 +46,7 @@ public class StatsExport
 		this.organism = organism;
 		this.sumResults = new SumResults(this.organism);
 		this.sumResults.setNbOrganisms(1);
+		this.sheetNames = new ArrayList<>();
 	}
 
 	/**
@@ -59,6 +65,23 @@ public class StatsExport
 			if (replicon.contains("chromosome_"))
 			{
 				result.setType(CDSResult.Type.CHROMOSOME);
+			}
+			if (replicon.length() > 30)
+			{
+				result.setLocusName(replicon.substring(0, 29));
+			}
+			int nb = 0;
+			for (String name : this.sheetNames)
+			{
+				if (name.equals(result.getLocusName()))
+				{
+					nb++;
+				}
+			}
+			this.sheetNames.add(result.getLocusName());
+			if (nb != 0)
+			{
+				result.setLocusName(result.getLocusName() + (nb+1));
 			}
 			XlsExport.exportStats(this.workbook, result, this.sumResults);
 			UIManager.writeLog("--- [STATS] Replicon \"" + replicon + "\" of \"" + this.organism.getName() + "\" treated");

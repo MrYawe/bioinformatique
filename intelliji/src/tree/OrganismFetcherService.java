@@ -117,7 +117,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
 
                 if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && Files.exists(Paths.get(repliconPath))) {
                     UIManager.writeLog("--- Delete replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
-                    System.out.println("Delete "+repliconPath);
+                    //System.out.println("Delete "+repliconPath);
                     File repliconFile = new File(repliconPath);
                     repliconFile.delete();
                 }
