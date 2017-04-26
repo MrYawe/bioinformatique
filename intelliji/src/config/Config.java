@@ -15,6 +15,7 @@ public interface Config {
     // Net Configuration
     int getNetMaxDownloadTries();
     int getNetTimeBetweenTries();
+    int getSecondsBetweenTries();
 
     // Fetcher Configuration
     int getIdPerPage();

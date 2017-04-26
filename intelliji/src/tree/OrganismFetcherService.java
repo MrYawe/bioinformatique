@@ -144,6 +144,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
         } catch (Exception e) {
             UIManager.writeError("[ERROR] An error occured while downloading the organism \""+this.organism.getName()+"\": Genbank is unreachable.");
             System.out.println("[ERROR "+e.getClass()+"] An error occured while downloading the organism \"" + this.organism.getName() + "\". ");
+            e.printStackTrace();
         }
     }
 }
