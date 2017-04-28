@@ -31,6 +31,11 @@ public class MainFrameAcryl extends JFrame {
     private JButton btnLoadTree;
     private JButton btnRun;
 
+    private JRadioButton rdbKeepAll;
+    private JRadioButton rdbKeepNothing;
+    private JRadioButton rdbCompute;
+    private JRadioButton rdbDownloadOnly;
+
     private boolean computeStatsOnSelectedOrganisms = false;
     private boolean keepFilesOfSelectedOrganisms = false;
 
@@ -55,6 +60,10 @@ public class MainFrameAcryl extends JFrame {
     public void setKeepFilesOfSelectedOrganisms(boolean keepFilesOfSelectedOrganisms)
     {
         this.keepFilesOfSelectedOrganisms = keepFilesOfSelectedOrganisms;
+    }
+
+    public JRadioButton[] getRadioBtns() {
+        return new JRadioButton[] {rdbCompute, rdbDownloadOnly, rdbKeepAll, rdbKeepNothing};
     }
 
     public JButton[] getBtn() {
@@ -123,11 +132,6 @@ public class MainFrameAcryl extends JFrame {
         JLabel lblDownloadBehavior;
         JLabel lblComputeBehavior;
 
-        JRadioButton rdbKeepAll;
-        JRadioButton rdbKeepNothing;
-        JRadioButton rdbCompute;
-        JRadioButton rdbDownloadOnly;
-
         Dimension screenSize;
         Dimension dimension;
 
@@ -167,7 +171,6 @@ public class MainFrameAcryl extends JFrame {
         lblComputeBehavior = new JLabel("Compute behavior:");
         rdbCompute = new JRadioButton("Compute statistics on selected organisms", true);
         rdbDownloadOnly = new JRadioButton("Only download the selected organisms' genomes", false);
-        rdbDownloadOnly.setEnabled(false);
 
         btnLoadTree = new JButton("Load Tree");
         btnRun = new JButton("Download and compute statistics");
@@ -285,12 +288,12 @@ public class MainFrameAcryl extends JFrame {
             }
         });
 
-        rdbKeepAll.addActionListener(new ActionListener()
+        rdbKeepAll.addItemListener(new ItemListener()
         {
             @Override
-            public void actionPerformed(ActionEvent e)
+            public void itemStateChanged(ItemEvent itemEvent)
             {
-                if (rdbKeepAll.isSelected())
+                if (itemEvent.getStateChange() == ItemEvent.SELECTED)
                 {
                     JOptionPane.showMessageDialog(MainFrameAcryl.getInstance(),
                             "Be careful, genome files are quite heavy (up to 150MB per file).\nPlease make sure you have enough space left on your hard drive.",
@@ -300,38 +303,28 @@ public class MainFrameAcryl extends JFrame {
             }
         });
 
-        rdbKeepNothing.addChangeListener(new ChangeListener()
+        rdbKeepNothing.addItemListener(new ItemListener()
         {
             @Override
-            public void stateChanged(ChangeEvent changeEvent)
+            public void itemStateChanged(ItemEvent itemEvent)
             {
-                if (rdbKeepNothing.isSelected())
+                if (itemEvent.getStateChange() == ItemEvent.SELECTED)
                 {
                     rdbDownloadOnly.setSelected(false);
-                    rdbDownloadOnly.setEnabled(false);
                     rdbCompute.setSelected(true);
-                }
-                else
-                {
-                    rdbDownloadOnly.setEnabled(true);
                 }
             }
         });
 
-        rdbDownloadOnly.addChangeListener(new ChangeListener()
+        rdbDownloadOnly.addItemListener(new ItemListener()
         {
             @Override
-            public void stateChanged(ChangeEvent changeEvent)
+            public void itemStateChanged(ItemEvent itemEvent)
             {
-                if (rdbDownloadOnly.isSelected())
+                if (itemEvent.getStateChange() == ItemEvent.SELECTED)
                 {
                     rdbKeepNothing.setSelected(false);
-                    rdbKeepNothing.setEnabled(false);
                     rdbKeepAll.setSelected(true);
-                }
-                else
-                {
-                    rdbKeepNothing.setEnabled(true);
                 }
             }
         });
