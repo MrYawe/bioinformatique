@@ -550,6 +550,7 @@ public class XlsExport
                 if (f.isDirectory())
                 {
                     computePartialSums(f.getPath());
+                    UIManager.addProgressTree(1);
                     try
                     {
                         String subTotal = currentPath + config.getFolderSeparator() + "Total_" + f.getName() + ".xlsx";

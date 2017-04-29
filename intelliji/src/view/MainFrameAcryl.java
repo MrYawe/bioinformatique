@@ -260,13 +260,14 @@ public class MainFrameAcryl extends JFrame {
 
                 // Executing the Tree
                 if(btnLoadTree.isEnabled()) {
-                    UIManager.lock();
                     UIManager.resetLoadingTreePanel();
 
                     pnlLoadingTree.remove(btnLoadTree);
                     pnlLoadingTree.add(pnlLoadingEukaryote);
                     pnlLoadingTree.add(pnlLoadingVirus);
                     pnlLoadingTree.add(pnlLoadingProkaryote);
+
+                    UIManager.lock();
 
                     MainFrameAcryl.getInstance().updateDisplayedTree(TreePanel.getDefaultTree("Loading ..."));
                     new Thread(() -> {

@@ -134,6 +134,8 @@ public class OrganismTree {
             // Wait until all organism are downloaded and stats computed
             if(executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS) && MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
                 String resultsPath = ConfigManager.getConfig().getResultsFolder();
+                UIManager.setNbGroupExcel(countGroups(resultsPath));
+
                 XlsExport.computePartialSums(resultsPath);
                 UIManager.writeLog(System.getProperty("line.separator") + "END OF COMPUTING" + System.getProperty("line.separator"));
             }
@@ -167,7 +169,6 @@ public class OrganismTree {
                 res += countGroups(f.getPath());
             }
         }
-
         return res;
     }
 }

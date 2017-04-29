@@ -15,13 +15,17 @@ public class UIManager {
     private static int nbProkaryote = 87;
     private static int nbVirus = 72;
     private static int nbEukaryote = 42;
+
     private static int nbReplicons = -1;
+    private static int nbGroupExcel = -1;
+
 
     private static int currentProkaryote = 0;
     private static int currentVirus = 0;
     private static int currentEukaryote = 0;
 
     private static int currentStats = 0;
+    private static int currentGroupExcel = 0;
 
     public synchronized static void writeError(String text) {
         frame.getConsole().println(text, Color.RED);
@@ -30,14 +34,6 @@ public class UIManager {
     public synchronized static void writeLog(String text) {
         frame.getConsole().println(text);
     }
-
-    /*public static void lockOn(int value) {
-        unlock0=-value;
-        JButton[] btns = frame.getBtn();
-        for(int i=0;i<btns.length;i++){
-            btns[i].setEnabled(false);
-        }
-    }*/
 
     public static void lock() {
         JButton[] btns = frame.getBtn();
@@ -55,7 +51,9 @@ public class UIManager {
         }
     }
 
-
+    public static void setNbGroupExcel(int nbGroupExcel){
+        UIManager.nbGroupExcel=nbGroupExcel;
+    }
 
     public static void setNbReplicons(int nbReplicons){
         UIManager.nbReplicons=nbReplicons;
@@ -64,6 +62,8 @@ public class UIManager {
 
     public static void resetLoadingStatsPanel() {
         currentStats=0;
+        currentGroupExcel=0;
+        UIManager.nbGroupExcel=-1;
         frame.getPnlLoadingMain().reset();
     }
 
@@ -77,14 +77,23 @@ public class UIManager {
         }
     }
 
-    public synchronized static void addProgressTree() {
+    public synchronized static void addProgressTree(int stade) {
         LoadingTreePanel loadingStatsPanel = frame.getLoadingPanel(null);
         int pnlSize = (int)loadingStatsPanel.getPnlLoadingTree().getSize().getWidth();
-        currentStats++;
 
-        loadingStatsPanel.setPercent(currentStats*100.0/nbReplicons);
-        loadingStatsPanel.updatePercent();
-        loadingStatsPanel.getPnlForeground().setLocation(currentStats*pnlSize/nbReplicons,0);
+        if(stade==0){
+            currentStats++;
+
+            loadingStatsPanel.setPercent(currentStats*100.0/nbReplicons);
+            loadingStatsPanel.updatePercent(0);
+            loadingStatsPanel.getPnlForeground().setLocation(currentStats*pnlSize/nbReplicons,0);
+        } else if (stade==1){
+            currentGroupExcel++;
+            loadingStatsPanel.setPercent(currentGroupExcel*100.0/nbGroupExcel);
+            loadingStatsPanel.updatePercent(1);
+            loadingStatsPanel.getPnlForeground().setLocation(currentGroupExcel*pnlSize/nbGroupExcel,0);
+        }
+
 
     }
 

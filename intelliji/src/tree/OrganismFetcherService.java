@@ -122,7 +122,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                     repliconFile.delete();
                 }
 
-                UIManager.addProgressTree();
+                UIManager.addProgressTree(0);
             }
 
             if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled() && willDowloadAndComputeStats) {

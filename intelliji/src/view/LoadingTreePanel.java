@@ -90,6 +90,20 @@ public class LoadingTreePanel extends JPanel {
             lblTypePercent.setText(base + " : "+ df.format(percent) + "%");
     }
 
+    //Fonction used to update the text of the label referring to the current loading tree
+    public void updatePercent(int stade) {
+        String base = "";
+        if(stade==0) {
+            base = getType()!=null?getType().toString().toLowerCase():"Computing stats";
+        } else if(stade==1) {
+            base = getType()!=null?getType().toString().toLowerCase():"Computing groups";
+        }
+        if(percent>=100)
+            lblTypePercent.setText(base + " : DONE");
+        else
+            lblTypePercent.setText(base + " : "+ df.format(percent) + "%");
+    }
+
     public void reset() {
         String base = getType()!=null?getType().toString().toLowerCase():"Computing stats";
         percent=0;
