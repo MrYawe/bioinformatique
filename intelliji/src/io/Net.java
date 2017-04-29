@@ -1,6 +1,5 @@
 package io;
 
-import com.google.common.io.Resources;
 import config.Config;
 import config.ConfigManager;
 

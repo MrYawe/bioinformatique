@@ -1,13 +1,10 @@
 package tree;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.Callable;
 
 import config.Config;
@@ -17,7 +14,6 @@ import com.github.rholder.retry.Retryer;
 import com.github.rholder.retry.RetryerBuilder;
 import com.github.rholder.retry.StopStrategies;
 import com.github.rholder.retry.WaitStrategies;
-import com.google.common.io.Resources;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
 
 import io.Net;

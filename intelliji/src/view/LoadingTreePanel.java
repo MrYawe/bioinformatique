@@ -3,10 +3,8 @@ package view;
 import tree.TreeBuilderService.OrganismType;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.math.RoundingMode;
-import java.net.URL;
 import java.text.DecimalFormat;
 
 /**

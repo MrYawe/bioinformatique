@@ -1,7 +1,6 @@
 package tree;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,8 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import config.Config;
 import config.ConfigManager;
@@ -23,14 +20,10 @@ import com.github.rholder.retry.Retryer;
 import com.github.rholder.retry.RetryerBuilder;
 import com.github.rholder.retry.StopStrategies;
 import com.github.rholder.retry.WaitStrategies;
-import com.google.common.base.Predicates;
+
 import com.google.common.io.Resources;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
-import com.google.common.util.concurrent.AbstractService;
-import view.MainFrameAcryl;
 import view.UIManager;
-
-// import ui.UIManager;
 
 public class TreeBuilderService extends AbstractExecutionThreadService {
 

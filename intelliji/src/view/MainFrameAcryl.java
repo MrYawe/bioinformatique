@@ -3,19 +3,13 @@ package view;
 /**
  * Created by germain on 05/02/2017.
  **/
-import sun.applet.Main;
-import tree.Organism;
 import tree.OrganismTree;
-import tree.SelectedTreeWalker;
 import tree.Tree;
+import tree.TreeBuilderService.OrganismType;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import tree.TreeBuilderService.OrganismType;
 
 public class MainFrameAcryl extends JFrame {
 

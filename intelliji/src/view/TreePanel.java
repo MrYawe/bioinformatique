@@ -2,14 +2,11 @@ package view;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
 import tree.Organism;
 import tree.Tree;
 import java.awt.*;
 import java.util.*;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by germain on 21/03/17.
