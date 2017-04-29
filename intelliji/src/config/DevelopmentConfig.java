@@ -47,6 +47,9 @@ public class DevelopmentConfig implements Config {
         return 10000;
     }
 
+    @Override
+    public int getSecondsBetweenTries() {return 3; }
+
 
     // Fetcher Configuration
     @Override

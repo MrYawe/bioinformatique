@@ -41,6 +41,11 @@ public class UIManager {
         for(int i=0;i<btns.length;i++){
             btns[i].setEnabled(false);
         }
+        JRadioButton[] rdbtns = frame.getRadioBtns();
+        for (JRadioButton r : rdbtns)
+        {
+            r.setEnabled(false);
+        }
     }
 
     public static void unlock() {
@@ -48,6 +53,11 @@ public class UIManager {
         frame.setResizable(true);
         for(int i=0;i<btns.length;i++){
             btns[i].setEnabled(true);
+        }
+        JRadioButton[] rdbtns = frame.getRadioBtns();
+        for (JRadioButton r : rdbtns)
+        {
+            r.setEnabled(true);
         }
     }
 

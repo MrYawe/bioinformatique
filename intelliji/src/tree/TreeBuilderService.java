@@ -1,12 +1,14 @@
 package tree;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,8 +59,8 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
         this.retryer = RetryerBuilder.<List<Organism>>newBuilder()
                 .retryIfExceptionOfType(IOException.class)
                 .retryIfRuntimeException()
-                .withStopStrategy(StopStrategies.stopAfterAttempt(3))
-                .withWaitStrategy(WaitStrategies.fibonacciWait())
+                .withStopStrategy(StopStrategies.neverStop())
+                .withWaitStrategy(WaitStrategies.fixedWait(config.getSecondsBetweenTries(), TimeUnit.SECONDS))
                 .build();
 
         switch(type){
@@ -88,22 +90,27 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
                 } else {
                     this.organismList.addAll(result);
                     UIManager.writeLog(this.type.toString()+ " page : "+this.currentPage);
-                    // UIManager.addProgress(1);
                     UIManager.addProgressTree(this.type);
                 }
             }catch(Exception e){
                 UIManager.writeError("[ERROR] An error occured while downloading the organism tree: Genbank is unreachable.");
+
                 System.out.println("[ERROR "+e.getClass()+"] An error occured while downloading the organism tree.");
-                //System.exit(1);
+                e.printStackTrace();
             }
-            // UIManager.log(this.type.toString()+ " page : "+this.currentPage);
 
             currentPage ++;
         }
     }
 
     public List<Organism> parseCurrentPage() throws MalformedURLException, IOException{
-        String webPage = new String(Resources.toByteArray(new URL(this.baseURL+this.currentPage)));
+        String webPage = "";
+        try {
+            webPage = new String(Resources.toByteArray(new URL(this.baseURL+this.currentPage)));
+        } catch (Exception ex) {
+            UIManager.writeError("["+this.type+"] Genbank is unreachable.\n Retrying in "+config.getSecondsBetweenTries()+" seconds...");
+        }
+
 
         if(webPage.split("-->")[1].trim().length() == 0){
             return null;

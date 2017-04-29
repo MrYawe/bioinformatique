@@ -117,7 +117,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
 
                 if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && Files.exists(Paths.get(repliconPath))) {
                     UIManager.writeLog("--- Delete replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
-                    System.out.println("Delete "+repliconPath);
+                    //System.out.println("Delete "+repliconPath);
                     File repliconFile = new File(repliconPath);
                     repliconFile.delete();
                 }
@@ -144,6 +144,7 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
         } catch (Exception e) {
             UIManager.writeError("[ERROR] An error occured while downloading the organism \""+this.organism.getName()+"\": Genbank is unreachable.");
             System.out.println("[ERROR "+e.getClass()+"] An error occured while downloading the organism \"" + this.organism.getName() + "\". ");
+            e.printStackTrace();
         }
     }
 }
