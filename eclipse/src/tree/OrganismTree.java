@@ -18,7 +18,7 @@ import config.ConfigManager;
 import statistics.XlsExport;
 import tree.TreeBuilderService.OrganismType;
 import view.MainFrameAcryl;
-// import ui.UIManager;
+import view.UIManager;
 
 /**
  * Created by yannis on 29/01/17.
@@ -51,7 +51,7 @@ public class OrganismTree {
             Gson gson = builder.create();
 
             Config config = ConfigManager.getConfig();
-            InputStream stream = new FileInputStream(config.getResourcesFolder() + config.getFolderSeparator() + "testTree.json");
+            InputStream stream = new FileInputStream(config.getResourcesFolder() + config.getFolderSeparator() + "organismTree.json");
             Reader reader = new InputStreamReader(stream, "UTF-8");
             JsonReader jsonReader = new JsonReader(reader);
             jsonReader.setLenient(true);
@@ -98,7 +98,7 @@ public class OrganismTree {
 
         // UIManager.log("End of tree fetch !");
         System.out.println("End of tree fetch !");
-        // UIManager.log("Starting tree build.");
+        UIManager.writeLog("Starting tree build.");
         System.out.println("Starting tree build.");
         List<Organism> organisms = new ArrayList<Organism>();
         organisms.addAll(eukaryotes.organisms());
@@ -111,7 +111,7 @@ public class OrganismTree {
             o.updateTree(mainTree);
         }
 
-        // UIManager.log("End of tree build !");
+        UIManager.writeLog("End of tree build !");
         System.out.println("End of tree build !");
         OrganismTree.tree = mainTree;
     }
@@ -136,7 +136,11 @@ public class OrganismTree {
         try {
             // Wait until all organism are downloaded and stats computed
             if(executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS) && MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
-                XlsExport.computePartialSums(ConfigManager.getConfig().getResultsFolder());
+                String resultsPath = ConfigManager.getConfig().getResultsFolder();
+                UIManager.setNbGroupExcel(countGroups(resultsPath));
+
+                XlsExport.computePartialSums(resultsPath);
+                UIManager.writeLog(System.getProperty("line.separator") + "END OF COMPUTING" + System.getProperty("line.separator"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -152,6 +156,21 @@ public class OrganismTree {
         while(walker.hasNext()){
             org = walker.next();
             res+=org.getReplicons().keySet().size();
+        }
+        return res;
+    }
+
+    public static int countGroups(String path) {
+        int res = 0;
+        File dir = new File(path);
+        File[] files = dir.listFiles();
+        for (File f : files)
+        {
+            if (f.isDirectory())
+            {
+                res++;
+                res += countGroups(f.getPath());
+            }
         }
         return res;
     }

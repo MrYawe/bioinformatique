@@ -3,9 +3,9 @@ package view;
 import tree.TreeBuilderService.OrganismType;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.net.URL;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /**
  * Created by saetlan on 16/03/17.
@@ -21,7 +21,8 @@ public class LoadingTreePanel extends JPanel {
     private LoadingPanel pnlLoadingTree;
 
     private OrganismType type;
-    private int percent;
+    private double percent;
+    DecimalFormat df;
     JLabel lblTypePercent;
 
     //////////////////////////////////////////
@@ -35,7 +36,11 @@ public class LoadingTreePanel extends JPanel {
 
     int getWidthGif() { return pnlLoadingTree.getWidthGif(); }
 
-    void setPercent(int p) { this.percent = p; }
+    void setPercent(double p) { this.percent = p; }
+
+    public LoadingPanel getPnlLoadingTree(){
+        return pnlLoadingTree;
+    }
 
     //////////////////////////////////////////
     //              CONSTRUCTOR             //
@@ -50,21 +55,27 @@ public class LoadingTreePanel extends JPanel {
         //              DECLARATION             //
         //////////////////////////////////////////
         JPanel pnlMain;         //Panel that will get
+        df = new DecimalFormat("#.###"); //Decimal formatting to show percentage
+        df.setRoundingMode(RoundingMode.CEILING);
 
         //////////////////////////////////////////
         //             INSTANTIATION            //
         //////////////////////////////////////////
-        pnlLoadingTree = new LoadingPanel();
+        if(type==null)
+            pnlLoadingTree = new LoadingPanel(true);
+        else
+            pnlLoadingTree = new LoadingPanel(false);
+
         pnlMain = new JPanel(new BorderLayout());
         String base = getType()!=null?getType().toString().toLowerCase():"Computing stats";
-        lblTypePercent = new JLabel(base + " : "+ percent + "%");
+        lblTypePercent = new JLabel(base + " : "+ df.format(percent) + "%");
 
         //////////////////////////////////////////
         //                 LAYOUT               //
         //////////////////////////////////////////
         this.setLayout(new BorderLayout());
-        pnlMain.add(lblTypePercent, BorderLayout.NORTH);
-        pnlMain.add(pnlLoadingTree, BorderLayout.CENTER);
+        pnlMain.add(lblTypePercent, BorderLayout.CENTER);
+        pnlMain.add(pnlLoadingTree, BorderLayout.SOUTH);
         this.add(pnlMain, BorderLayout.CENTER);
     }
 
@@ -74,13 +85,27 @@ public class LoadingTreePanel extends JPanel {
         if(percent>=100)
             lblTypePercent.setText(base + " : DONE");
         else
-            lblTypePercent.setText(base + " : "+ percent + "%");
+            lblTypePercent.setText(base + " : "+ df.format(percent) + "%");
+    }
+
+    //Fonction used to update the text of the label referring to the current loading tree
+    public void updatePercent(int stade) {
+        String base = "";
+        if(stade==0) {
+            base = getType()!=null?getType().toString().toLowerCase():"Computing stats";
+        } else if(stade==1) {
+            base = getType()!=null?getType().toString().toLowerCase():"Computing groups";
+        }
+        if(percent>=100)
+            lblTypePercent.setText(base + " : DONE");
+        else
+            lblTypePercent.setText(base + " : "+ df.format(percent) + "%");
     }
 
     public void reset() {
         String base = getType()!=null?getType().toString().toLowerCase():"Computing stats";
         percent=0;
-        lblTypePercent.setText(base + " : "+ percent + "%");
+        lblTypePercent.setText(base + " : "+ df.format(percent) + "%");
         pnlLoadingTree.reset();
     }
 

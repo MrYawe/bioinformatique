@@ -47,6 +47,9 @@ public class DevelopmentConfig implements Config {
         return 10000;
     }
 
+    @Override
+    public int getSecondsBetweenTries() {return 3; }
+
 
     // Fetcher Configuration
     @Override
@@ -107,6 +110,6 @@ public class DevelopmentConfig implements Config {
     // Threads Configuration
     @Override
     public int getNbThreads() {
-        return 40;
+        return 8;
     }
 }

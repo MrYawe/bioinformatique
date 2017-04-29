@@ -4,10 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,10 +29,10 @@ public class Organism implements Serializable {
     private ArrayList<String> processed_replicons;
 
     public Organism(String kingdom, String group, String subgroup, String name, String bioproject, String creation_date, String modification_date){
-        this.kingdom = kingdom.replace("/", "_").replace(" ", "_");
-        this.group = group.replace("/", "_").replace(" ", "_");
-        this.subgroup = subgroup.replace("/", "_").replace(" ", "_");
-        this.name = name.replace("/", "_").replace(" ", "_");
+        this.kingdom = kingdom.replace("/", "_").replace(" ", "_").replace(":", "_");
+        this.group = group.replace("/", "_").replace(" ", "_").replace(":", "_");
+        this.subgroup = subgroup.replace("/", "_").replace(" ", "_").replace(":", "_");
+        this.name = name.replace("/", "_").replace(" ", "_").replace(":", "_");
         this.bioproject = bioproject;
         this.creation_date = creation_date;
         this.modification_date = modification_date;
@@ -314,9 +311,15 @@ public class Organism implements Serializable {
              String sDate = sheet.getRow(4).getCell(1).toString();
              SimpleDateFormat parser = new SimpleDateFormat("dd-MM-YYYY HH:mm");
              date = parser.parse(sDate);
-
          } catch(Exception ex) {
-             ex.printStackTrace();
+             try {
+                 if (Files.exists(Paths.get(resultPath))) {
+                     Files.delete(Paths.get(resultPath));
+                 }
+             }
+             catch (Exception e) {
+                 ex.printStackTrace();
+             }
          }
          return date;
      }

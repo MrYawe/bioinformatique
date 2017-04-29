@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.concurrent.TimeUnit;
 
 import config.Config;
 import config.ConfigManager;
@@ -21,14 +20,10 @@ import com.github.rholder.retry.Retryer;
 import com.github.rholder.retry.RetryerBuilder;
 import com.github.rholder.retry.StopStrategies;
 import com.github.rholder.retry.WaitStrategies;
-import com.google.common.base.Predicates;
+
 import com.google.common.io.Resources;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
-import com.google.common.util.concurrent.AbstractService;
-import view.MainFrameAcryl;
 import view.UIManager;
-
-// import ui.UIManager;
 
 public class TreeBuilderService extends AbstractExecutionThreadService {
 
@@ -57,8 +52,8 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
         this.retryer = RetryerBuilder.<List<Organism>>newBuilder()
                 .retryIfExceptionOfType(IOException.class)
                 .retryIfRuntimeException()
-                .withStopStrategy(StopStrategies.stopAfterAttempt(3))
-                .withWaitStrategy(WaitStrategies.fibonacciWait())
+                .withStopStrategy(StopStrategies.neverStop())
+                .withWaitStrategy(WaitStrategies.fixedWait(config.getSecondsBetweenTries(), TimeUnit.SECONDS))
                 .build();
 
         switch(type){
@@ -88,21 +83,27 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
                 } else {
                     this.organismList.addAll(result);
                     UIManager.writeLog(this.type.toString()+ " page : "+this.currentPage);
-                    // UIManager.addProgress(1);
                     UIManager.addProgressTree(this.type);
                 }
             }catch(Exception e){
+                UIManager.writeError("[ERROR] An error occured while downloading the organism tree: Genbank is unreachable.");
+
+                System.out.println("[ERROR "+e.getClass()+"] An error occured while downloading the organism tree.");
                 e.printStackTrace();
-                System.exit(1);
             }
-            // UIManager.log(this.type.toString()+ " page : "+this.currentPage);
 
             currentPage ++;
         }
     }
 
     public List<Organism> parseCurrentPage() throws MalformedURLException, IOException{
-        String webPage = new String(Resources.toByteArray(new URL(this.baseURL+this.currentPage)));
+        String webPage = "";
+        try {
+            webPage = new String(Resources.toByteArray(new URL(this.baseURL+this.currentPage)));
+        } catch (Exception ex) {
+            UIManager.writeError("["+this.type+"] Genbank is unreachable.\n Retrying in "+config.getSecondsBetweenTries()+" seconds...");
+        }
+
 
         if(webPage.split("-->")[1].trim().length() == 0){
             return null;

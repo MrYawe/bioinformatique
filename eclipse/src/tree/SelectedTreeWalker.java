@@ -1,7 +1,5 @@
 package tree;
 
-import view.MainFrameAcryl;
-
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.Lock;

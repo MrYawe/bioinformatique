@@ -85,9 +85,8 @@ public class XlsExport
      */
     public static XSSFWorkbook getWorkbookFromTemplate()
     {
-    	Config config = ConfigManager.getConfig();
-
         XSSFWorkbook workbook = null;
+        Config config = ConfigManager.getConfig();
 
         try
 		{
@@ -182,10 +181,6 @@ public class XlsExport
      */
     public static void exportStats(XSSFWorkbook workbook, CDSResult results, SumResults sumResults)
     {
-		if (results.getLocusName().length() > 31)
-		{
-			results.setLocusName(results.getLocusName().substring(0, 30));
-		}
         XlsExport.createNewSheet(workbook, results.getLocusName());
         Sheet sheet = workbook.getSheet(results.getLocusName());
         sheet.getRow(0).getCell(1).setCellValue(results.getOrganism());
@@ -550,6 +545,7 @@ public class XlsExport
                 if (f.isDirectory())
                 {
                     computePartialSums(f.getPath());
+                    UIManager.addProgressTree(1);
                     try
                     {
                         String subTotal = currentPath + config.getFolderSeparator() + "Total_" + f.getName() + ".xlsx";
