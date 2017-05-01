@@ -29,10 +29,10 @@ public class Organism implements Serializable {
     private ArrayList<String> processed_replicons;
 
     public Organism(String kingdom, String group, String subgroup, String name, String bioproject, String creation_date, String modification_date){
-        this.kingdom = kingdom.replace("/", "_").replace(" ", "_").replace(":", "_");
-        this.group = group.replace("/", "_").replace(" ", "_").replace(":", "_");
-        this.subgroup = subgroup.replace("/", "_").replace(" ", "_").replace(":", "_");
-        this.name = name.replace("/", "_").replace(" ", "_").replace(":", "_");
+        this.kingdom = kingdom.replace("/", "_").replace(" ", "_").replace(":", "_").replace("*", "_");
+        this.group = group.replace("/", "_").replace(" ", "_").replace(":", "_").replace("*", "_");
+        this.subgroup = subgroup.replace("/", "_").replace(" ", "_").replace(":", "_").replace("*", "_");
+        this.name = name.replace("/", "_").replace(" ", "_").replace(":", "_").replace("*", "_");
         this.bioproject = bioproject;
         this.creation_date = creation_date;
         this.modification_date = modification_date;
