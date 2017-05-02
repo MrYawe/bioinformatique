@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.concurrent.Callable;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import config.Config;
 import config.ConfigManager;
@@ -51,16 +53,28 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
             StatsExport export = new StatsExport(this.organism);
             String basePath = organism.getOrganismPath();
             File dir = new File(basePath);
+            FileOutputStream zip = null;
+            ZipOutputStream zos = null;
 
             if(Files.exists(Paths.get(basePath))) {
                 if(dir.list().length >= organism.getReplicons().size() ) {
                     UIManager.writeLog("All replicons of "+organism.getName()+" are already downloaded.");
                 } else {
-                    UIManager.writeLog("Download "+organism.getName()+ "...");
+                    UIManager.writeLog("Begin "+organism.getName()+ "...");
                 }
             } else {
                 dir.mkdirs();
-                UIManager.writeLog("Download "+organism.getName()+ "...");
+                UIManager.writeLog("Begin "+organism.getName()+ "...");
+            }
+
+            if (MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled()) {
+                try {
+                    zip = new FileOutputStream(basePath + ".zip");
+                    zos = new ZipOutputStream(zip);
+                }
+                catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
 
             String resultsPath = "";
@@ -90,32 +104,53 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                     }
                 }
 
-                if (willDowloadAndComputeStats || (MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && !MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) && !Files.exists(Paths.get(repliconPath))) {
-                    UIManager.writeLog("--- Download replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
+                if ((willDowloadAndComputeStats || MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled()) && !Files.exists(Paths.get(repliconPath)))
+                {
+                    UIManager.writeLog("--- Download replicon \"" + replicon + "\" of \"" + organism.getName() + "\" ...");
                     String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", organism.getReplicons().get(replicon));
                     ReadableByteChannel rbc = Net.getUrlAsByteChannel(url);
-                    try {
+                    try
+                    {
                         FileOutputStream fos = new FileOutputStream(repliconPath);
                         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
                         fos.close();
-                    } catch (Exception ex) {
+                    } catch (Exception ex)
+                    {
                         ex.printStackTrace();
                         throw new RuntimeException(); // will be catched in run()
                     }
-                    UIManager.writeLog("--- Download of replicon \""+replicon+"\" of \"" + organism.getName() + "\" ended.");
-
-                    if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
-                        export.treatReplicon(repliconPath, replicon);
-                    }
-                } else {
-                    UIManager.writeLog("--- Latest stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" already found.");
+                    UIManager.writeLog("--- Download of replicon \"" + replicon + "\" of \"" + organism.getName() + "\" ended.");
                 }
 
-                if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && Files.exists(Paths.get(repliconPath))) {
-                    UIManager.writeLog("--- Delete replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
-                    //System.out.println("Delete "+repliconPath);
-                    File repliconFile = new File(repliconPath);
-                    repliconFile.delete();
+                if (!willDowloadAndComputeStats && MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
+                    UIManager.writeLog("--- Latest stats of replicon \""+replicon+"\" of \"" + organism.getName() + "\" available");
+                }
+
+                if (willDowloadAndComputeStats && MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
+                    export.treatReplicon(repliconPath, replicon);
+                }
+
+                if (MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled()) {
+                    UIManager.writeLog("--- Writing replicon \"" + replicon + "\" of \"" + organism.getName() + "\" in zipfile");
+                }
+
+                if (Files.exists(Paths.get(repliconPath))) {
+                    if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled()) {
+                        UIManager.writeLog("--- Delete replicon \"" + replicon + "\" of \"" + organism.getName() + "\" ...");
+                        //System.out.println("Delete "+repliconPath);
+                        File repliconFile = new File(repliconPath);
+                        repliconFile.delete();
+                    }
+                    else {
+                        if (zos != null) {
+                            try {
+                                addToZipFile(repliconPath, zos);
+                            }
+                            catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
                 }
 
                 UIManager.addProgressTree(0);
@@ -125,8 +160,27 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                 export.exportOrganism(resultsPath);
             }
 
-            if ((!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() || !willDowloadAndComputeStats) && Files.exists(Paths.get(basePath))) {
+            if (MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && zip != null) {
+                try {
+                    zos.close();
+                    zip.close();
+                    UIManager.writeLog("--- [ZIP] Zipfile of organism \"" + organism.getName() + "\" created");
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && Files.exists(Paths.get(basePath))) {
                 dir.delete();
+                if (Files.exists(Paths.get(basePath + ".zip"))) {
+                    try {
+                        Files.delete(Paths.get(basePath + ".zip"));
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
         return null;
@@ -142,5 +196,24 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
             System.out.println("[ERROR "+e.getClass()+"] An error occured while downloading the organism \"" + this.organism.getName() + "\". ");
             e.printStackTrace();
         }
+    }
+
+    protected static void addToZipFile(String fileName, ZipOutputStream zos) throws IOException {
+        File file = new File(fileName);
+        FileInputStream fis = new FileInputStream(file);
+        int buffer = 1024;
+        BufferedInputStream origin = new BufferedInputStream(fis, buffer);
+        ZipEntry zipEntry = new ZipEntry(file.getName());
+        zos.putNextEntry(zipEntry);
+
+        byte[] bytes = new byte[buffer];
+        int length;
+        while ((length = origin.read(bytes, 0, buffer)) != -1) {
+            zos.write(bytes, 0, length);
+        }
+
+        zos.closeEntry();
+        origin.close();
+        fis.close();
     }
 }
