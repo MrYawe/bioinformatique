@@ -132,11 +132,13 @@ public class OrganismTree {
 
         try {
             // Wait until all organism are downloaded and stats computed
-            if(executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS) && MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
-                String resultsPath = ConfigManager.getConfig().getResultsFolder();
-                UIManager.setNbGroupExcel(countGroups(resultsPath));
+            if(executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS)) {
+                if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
+                    String resultsPath = ConfigManager.getConfig().getResultsFolder();
+                    UIManager.setNbGroupExcel(countGroups(resultsPath));
 
-                XlsExport.computePartialSums(resultsPath);
+                    XlsExport.computePartialSums(resultsPath);
+                }
                 UIManager.writeLog(System.getProperty("line.separator") + "END OF COMPUTING" + System.getProperty("line.separator"));
             }
         } catch (Exception ex) {
