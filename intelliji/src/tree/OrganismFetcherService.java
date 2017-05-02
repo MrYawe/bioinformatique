@@ -104,35 +104,34 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                     }
                 }
 
-                if (willDowloadAndComputeStats || (MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled() && !MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) && !Files.exists(Paths.get(repliconPath))) {
-                    UIManager.writeLog("--- Download replicon \""+replicon+"\" of \""+organism.getName()+"\" ...");
+                if ((willDowloadAndComputeStats || MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled()) && !Files.exists(Paths.get(repliconPath)))
+                {
+                    UIManager.writeLog("--- Download replicon \"" + replicon + "\" of \"" + organism.getName() + "\" ...");
                     String url = ConfigManager.getConfig().getGenDownloadUrl().replaceAll("<ID>", organism.getReplicons().get(replicon));
                     ReadableByteChannel rbc = Net.getUrlAsByteChannel(url);
-                    try {
+                    try
+                    {
                         FileOutputStream fos = new FileOutputStream(repliconPath);
                         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
                         fos.close();
-                    } catch (Exception ex) {
+                    } catch (Exception ex)
+                    {
                         ex.printStackTrace();
                         throw new RuntimeException(); // will be catched in run()
                     }
-                    UIManager.writeLog("--- Download of replicon \""+replicon+"\" of \"" + organism.getName() + "\" ended.");
-
-                    if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
-                        export.treatReplicon(repliconPath, replicon);
-                    }
-
-                    if (MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled()) {
-                        UIManager.writeLog("--- Writing replicon \"" + replicon + "\" of \"" + organism.getName() + "\" in zipfile");
-                    }
+                    UIManager.writeLog("--- Download of replicon \"" + replicon + "\" of \"" + organism.getName() + "\" ended.");
                 }
-                else {
-                    if (!MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled()) {
-                        UIManager.writeLog("--- Latest stats of replicon \""+replicon+"\" of \""+organism.getName()+"\" already found.");
-                    }
-                    else {
-                        UIManager.writeLog("--- Writing replicon \"" +replicon+ "\" of \""+organism.getName()+ "\" in zipfile");
-                    }
+
+                if (!willDowloadAndComputeStats && MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
+                    UIManager.writeLog("--- Latest stats of replicon \""+replicon+"\" of \"" + organism.getName() + "\" available");
+                }
+
+                if (willDowloadAndComputeStats && MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
+                    export.treatReplicon(repliconPath, replicon);
+                }
+
+                if (MainFrameAcryl.getInstance().isKeepFilesOfSelectedOrganismsEnabled()) {
+                    UIManager.writeLog("--- Writing replicon \"" + replicon + "\" of \"" + organism.getName() + "\" in zipfile");
                 }
 
                 if (Files.exists(Paths.get(repliconPath))) {
