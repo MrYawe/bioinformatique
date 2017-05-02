@@ -102,7 +102,7 @@ public class MainFrameAcryl extends JFrame {
     }
 
     public MainFrameAcryl() {
-        super("Bioinformatique");
+        super("Bioinformatique - CMPSSSW");
 
         //////////////////////////////////////////
         //              DECLARATION             //
@@ -120,7 +120,7 @@ public class MainFrameAcryl extends JFrame {
         //Declaration of the menu items
         JMenuBar menuBar;
         JMenu menu;
-        JMenuItem menuItem = new JMenuItem("Quitter");
+        JMenuItem menuItem;
 
 
         JLabel lblDownloadBehavior;
@@ -136,7 +136,7 @@ public class MainFrameAcryl extends JFrame {
         //Instantiation of the menu items
         menuBar = new JMenuBar();
         menu = new JMenu("Menu");
-        menuItem = new JMenuItem("Quitter");
+        menuItem = new JMenuItem("Exit");
 
 
         contentPanel = new JPanel(new BorderLayout());

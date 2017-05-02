@@ -56,11 +56,11 @@ public class OrganismFetcherService extends AbstractExecutionThreadService {
                 if(dir.list().length >= organism.getReplicons().size() ) {
                     UIManager.writeLog("All replicons of "+organism.getName()+" are already downloaded.");
                 } else {
-                    UIManager.writeLog("Download "+organism.getName()+ "...");
+                    UIManager.writeLog("Begin "+organism.getName()+ "...");
                 }
             } else {
                 dir.mkdirs();
-                UIManager.writeLog("Download "+organism.getName()+ "...");
+                UIManager.writeLog("Begin "+organism.getName()+ "...");
             }
 
             String resultsPath = "";
