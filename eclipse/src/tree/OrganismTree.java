@@ -1,6 +1,8 @@
 package tree;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -12,8 +14,6 @@ import com.google.common.util.concurrent.ServiceManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-
-import config.Config;
 import config.ConfigManager;
 import statistics.XlsExport;
 import tree.TreeBuilderService.OrganismType;
@@ -50,12 +50,20 @@ public class OrganismTree {
             builder.setPrettyPrinting();
             Gson gson = builder.create();
 
-            Config config = ConfigManager.getConfig();
-            InputStream stream = new FileInputStream(config.getResourcesFolder() + config.getFolderSeparator() + "organismTree.json");
-            Reader reader = new InputStreamReader(stream, "UTF-8");
-            JsonReader jsonReader = new JsonReader(reader);
-            jsonReader.setLenient(true);
-            OrganismTree.tree = gson.fromJson(jsonReader, Tree.class);
+            String treePath = System.getProperty("user.dir") + ConfigManager.getConfig().getFolderSeparator() + "organismTree.json";
+            if (Files.exists(Paths.get(treePath)))
+            {
+                InputStream stream = new FileInputStream(treePath);
+                Reader reader = new InputStreamReader(stream, "UTF-8");
+                JsonReader jsonReader = new JsonReader(reader);
+                jsonReader.setLenient(true);
+                OrganismTree.tree = gson.fromJson(jsonReader, Tree.class);
+            }
+            else
+            {
+                UIManager.writeLog("Local tree does not exist, downloading from GenBank...");
+                loadFromGenBank();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,7 +77,7 @@ public class OrganismTree {
         Gson gson = builder.create();
 
         String treeJson = gson.toJson(OrganismTree.tree, Tree.class);
-        try (PrintStream out = new PrintStream(new File(ConfigManager.getConfig().getResourcesFolder()+"/organismTree.json"), "UTF-8")) {
+        try (PrintStream out = new PrintStream(new File(System.getProperty("user.dir") + ConfigManager.getConfig().getFolderSeparator() + "organismTree.json"), "UTF-8")) {
             out.println(treeJson);
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,7 +106,7 @@ public class OrganismTree {
 
         // UIManager.log("End of tree fetch !");
         System.out.println("End of tree fetch !");
-        UIManager.writeLog("Starting tree build.");
+        UIManager.writeLog("Starting tree build...");
         System.out.println("Starting tree build.");
         List<Organism> organisms = new ArrayList<Organism>();
         organisms.addAll(eukaryotes.organisms());
@@ -114,6 +122,9 @@ public class OrganismTree {
         UIManager.writeLog("End of tree build !");
         System.out.println("End of tree build !");
         OrganismTree.tree = mainTree;
+        UIManager.writeLog("Saving tree in local...");
+        saveToLocalResource();
+        UIManager.writeLog("Tree saved successfully!");
     }
 
     public static void downloadSelectedOrganisms() {
