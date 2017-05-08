@@ -2,7 +2,7 @@ import config.ConfigManager;
 import config.DevelopmentConfig;
 import config.ProductionConfig;
 import view.MainFrameAcryl;
-import javax.swing.*;
+import javax.swing.UIManager;
 
 public class Main {
 

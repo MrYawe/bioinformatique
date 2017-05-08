@@ -1,6 +1,9 @@
 package config;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by yannis on 29/01/17.
@@ -92,6 +95,11 @@ public class ProductionConfig implements Config {
     @Override
     public String getTreeVirusesUrl() {
         return "https://www.ncbi.nlm.nih.gov/genomes/Genome2BE/genome2srv.cgi?action=GetGenomes4Grid&king=Viruses&mode=2&pageSize=100&page=";
+    }
+
+    @Override
+    public List<String> getArchaeaGroups() {
+        return new ArrayList<String>(Arrays.asList("Asgard_group", "Euryarchaeota", "TACK_group", "DPANN_group", "environmental_samples", "unclassified_Archaea"));
     }
 
 
