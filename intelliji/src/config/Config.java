@@ -1,5 +1,7 @@
 package config;
 
+import java.util.List;
+
 /**
  * Created by yannis on 29/01/17.
  */
@@ -28,6 +30,7 @@ public interface Config {
     String getTreeEukaryotesUrl();
     String getTreeProkaryotesUrl();
     String getTreeVirusesUrl();
+    List<String> getArchaeaGroups();
 
     // Parser Configuration
     int getGenPerDownload();
