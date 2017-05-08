@@ -179,12 +179,31 @@ public class TreeBuilderService extends AbstractExecutionThreadService {
                         currentOrganism.addReplicon(repliconName, repliconID);
                     }
                 }
+
+                if(this.type == OrganismType.PROKARYOTES) {
+                    modifyProkaryotesGroupAndSubgroup(currentOrganism);
+                }
+
                 if(validOrganism){
                     organismsList.add(currentOrganism);
                 }
             }
         }
         return organismsList;
+    }
+
+    private void modifyProkaryotesGroupAndSubgroup(Organism org) {
+        if(config.getArchaeaGroups().contains(org.getGroup())) {
+            String group = org.getGroup();
+            org.setGroup("Archaea");
+            org.setSubgroup(group);
+        } else if(config.getArchaeaGroups().contains(org.getSubgroup())) {
+            org.setGroup("Archaea");
+        } else {
+            String group = org.getGroup();
+            org.setGroup("Bacteria");
+            org.setSubgroup(group);
+        }
     }
 
     public List<Organism> organisms(){
