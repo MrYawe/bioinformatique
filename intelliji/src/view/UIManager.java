@@ -12,8 +12,8 @@ import java.awt.*;
 public class UIManager {
     private static MainFrameAcryl frame = MainFrameAcryl.getInstance();
 
-    private static int nbProkaryote = 87;
-    private static int nbVirus = 72;
+    private static int nbProkaryote = 88;
+    private static int nbVirus = 73;
     private static int nbEukaryote = 43;
 
     private static int nbReplicons = -1;
