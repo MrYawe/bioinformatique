@@ -42,7 +42,7 @@ public class OrganismTree {
         }
     }
 
-    private static void loadFromLocalResource() {
+    public static void loadFromLocalResource() {
         try {
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(Tree.class, new TreeSerializer());

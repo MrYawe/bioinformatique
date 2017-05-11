@@ -109,4 +109,11 @@ public class LoadingTreePanel extends JPanel {
         pnlLoadingTree.reset();
     }
 
+    public void set100() {
+        String base = getType()!=null?getType().toString().toLowerCase():"Computing stats";
+        percent=100;
+        lblTypePercent.setText(base + " : "+ df.format(percent) + "%");
+        getPnlForeground().setLocation(getWidthGif(),0);
+    }
+
 }
