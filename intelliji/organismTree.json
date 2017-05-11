@@ -1905,6 +1905,20 @@
                   },
                   "processed_replicons": []
                 },
+                "Alligator_mississippiensis": {
+                  "kingdom": "EUKARYOTES",
+                  "group": "Animals",
+                  "subgroup": "Reptiles",
+                  "name": "Alligator_mississippiensis",
+                  "bioproject": "PRJNA221578",
+                  "creation_date": "2012/07/24",
+                  "modification_date": "2016/03/28",
+                  "activated": true,
+                  "replicons": {
+                    "mitochondrion_MT_NC_001922.1": "NC_001922.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Gekko_japonicus": {
                   "kingdom": "EUKARYOTES",
                   "group": "Animals",
@@ -1990,6 +2004,20 @@
                   "activated": true,
                   "replicons": {
                     "mitochondrion_MT_NC_000886.1": "NC_000886.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Alligator_sinensis": {
+                  "kingdom": "EUKARYOTES",
+                  "group": "Animals",
+                  "subgroup": "Reptiles",
+                  "name": "Alligator_sinensis",
+                  "bioproject": "PRJNA221633",
+                  "creation_date": "2013/08/27",
+                  "modification_date": "2014/08/11",
+                  "activated": true,
+                  "replicons": {
+                    "mitochondrion_MT_NC_004448.1": "NC_004448.1"
                   },
                   "processed_replicons": []
                 },
@@ -2652,20 +2680,6 @@
                   },
                   "processed_replicons": []
                 },
-                "Alligator_mississippiensis": {
-                  "kingdom": "EUKARYOTES",
-                  "group": "Animals",
-                  "subgroup": "Other_Animals",
-                  "name": "Alligator_mississippiensis",
-                  "bioproject": "PRJNA221578",
-                  "creation_date": "2012/07/24",
-                  "modification_date": "2016/03/28",
-                  "activated": true,
-                  "replicons": {
-                    "mitochondrion_MT_NC_001922.1": "NC_001922.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Tetranychus_urticae": {
                   "kingdom": "EUKARYOTES",
                   "group": "Animals",
@@ -2761,20 +2775,6 @@
                   "activated": true,
                   "replicons": {
                     "mitochondrion_MT_NC_001453.1": "NC_001453.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Alligator_sinensis": {
-                  "kingdom": "EUKARYOTES",
-                  "group": "Animals",
-                  "subgroup": "Other_Animals",
-                  "name": "Alligator_sinensis",
-                  "bioproject": "PRJNA221633",
-                  "creation_date": "2013/08/27",
-                  "modification_date": "2014/08/11",
-                  "activated": true,
-                  "replicons": {
-                    "mitochondrion_MT_NC_004448.1": "NC_004448.1"
                   },
                   "processed_replicons": []
                 },
@@ -9670,17 +9670,17 @@
                   },
                   "processed_replicons": []
                 },
-                "Chlamydia_pneumoniae_phage_CPAR39": {
+                "Escherichia_virus_phiK": {
                   "kingdom": "VIRUSES",
                   "group": "ssDNA_viruses",
                   "subgroup": "Microviridae",
-                  "name": "Chlamydia_pneumoniae_phage_CPAR39",
-                  "bioproject": "PRJNA247",
-                  "creation_date": "2000/02/29",
-                  "modification_date": "2014/02/14",
+                  "name": "Escherichia_virus_phiK",
+                  "bioproject": "PRJNA307872",
+                  "creation_date": "1996/07/30",
+                  "modification_date": "2016/01/06",
                   "activated": true,
                   "replicons": {
-                    "NC_002180.1": "NC_002180.1"
+                    "NC_001730.1": "NC_001730.1"
                   },
                   "processed_replicons": []
                 },
@@ -20234,8 +20234,8 @@
                   "modification_date": "2015/01/30",
                   "activated": true,
                   "replicons": {
-                    "NC_027979.1": "NC_027979.1",
                     "NC_025448.1": "NC_025448.1",
+                    "NC_027979.1": "NC_027979.1",
                     "NC_025419.1": "NC_025419.1"
                   },
                   "processed_replicons": []
@@ -26838,20 +26838,6 @@
                   },
                   "processed_replicons": []
                 },
-                "White_sucker_hepadnavirus": {
-                  "kingdom": "VIRUSES",
-                  "group": "Retro-transcribing_viruses",
-                  "subgroup": "Hepadnaviridae",
-                  "name": "White_sucker_hepadnavirus",
-                  "bioproject": "PRJNA298046",
-                  "creation_date": "2015/09/17",
-                  "modification_date": "2015/12/17",
-                  "activated": true,
-                  "replicons": {
-                    "NC_027922.1": "NC_027922.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Bat_hepatitis_virus": {
                   "kingdom": "VIRUSES",
                   "group": "Retro-transcribing_viruses",
@@ -26891,6 +26877,20 @@
                   "activated": true,
                   "replicons": {
                     "NC_004107.1": "NC_004107.1"
+                  },
+                  "processed_replicons": []
+                },
+                "White_sucker_hepatitis_B_virus": {
+                  "kingdom": "VIRUSES",
+                  "group": "Retro-transcribing_viruses",
+                  "subgroup": "Hepadnaviridae",
+                  "name": "White_sucker_hepatitis_B_virus",
+                  "bioproject": "PRJNA298046",
+                  "creation_date": "2015/09/17",
+                  "modification_date": "2015/12/17",
+                  "activated": true,
+                  "replicons": {
+                    "NC_027922.1": "NC_027922.1"
                   },
                   "processed_replicons": []
                 },
@@ -36300,6 +36300,20 @@
                   },
                   "processed_replicons": []
                 },
+                "Fikirini_rhabdovirus": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Rhabdoviridae",
+                  "name": "Fikirini_rhabdovirus",
+                  "bioproject": "PRJNA264899",
+                  "creation_date": "2013/10/27",
+                  "modification_date": "2014/10/27",
+                  "activated": true,
+                  "replicons": {
+                    "NC_025341.1": "NC_025341.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Fukuoka_ledantevirus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -36678,20 +36692,6 @@
                   },
                   "processed_replicons": []
                 },
-                "Kumasi_rhabdbovirus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Rhabdoviridae",
-                  "name": "Kumasi_rhabdbovirus",
-                  "bioproject": "PRJNA301023",
-                  "creation_date": "2015/02/20",
-                  "modification_date": "2015/11/03",
-                  "activated": true,
-                  "replicons": {
-                    "NC_028236.1": "NC_028236.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Eel_virus_European_X": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -36857,20 +36857,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_025253.1": "NC_025253.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Fikirini_bat_rhabdovirus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Rhabdoviridae",
-                  "name": "Fikirini_bat_rhabdovirus",
-                  "bioproject": "PRJNA264899",
-                  "creation_date": "2013/10/27",
-                  "modification_date": "2014/10/27",
-                  "activated": true,
-                  "replicons": {
-                    "NC_025341.1": "NC_025341.1"
                   },
                   "processed_replicons": []
                 },
@@ -37109,6 +37095,20 @@
                   "activated": true,
                   "replicons": {
                     "NC_025358.1": "NC_025358.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Kumasi_rhabdovirus": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Rhabdoviridae",
+                  "name": "Kumasi_rhabdovirus",
+                  "bioproject": "PRJNA301023",
+                  "creation_date": "2015/02/20",
+                  "modification_date": "2015/11/03",
+                  "activated": true,
+                  "replicons": {
+                    "NC_028236.1": "NC_028236.1"
                   },
                   "processed_replicons": []
                 },
@@ -39543,6 +39543,20 @@
                   "activated": true,
                   "replicons": {
                     "NC_009019.1": "NC_009019.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Bovine_nidovirus_TCH5": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Coronaviridae",
+                  "name": "Bovine_nidovirus_TCH5",
+                  "bioproject": "PRJNA286008",
+                  "creation_date": "2015/04/29",
+                  "modification_date": "2015/06/06",
+                  "activated": true,
+                  "replicons": {
+                    "NC_027199.1": "NC_027199.1"
                   },
                   "processed_replicons": []
                 },
@@ -46949,20 +46963,6 @@
                   },
                   "processed_replicons": []
                 },
-                "Bovine_nidovirus_TCH5": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Bovine_nidovirus_TCH5",
-                  "bioproject": "PRJNA286008",
-                  "creation_date": "2015/04/29",
-                  "modification_date": "2015/06/06",
-                  "activated": true,
-                  "replicons": {
-                    "NC_027199.1": "NC_027199.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Solenopsis_invicta_virus_2": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -47044,20 +47044,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_032804.1": "NC_032804.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Ball_python_nidovirus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Ball_python_nidovirus",
-                  "bioproject": "PRJNA259246",
-                  "creation_date": "2014/08/20",
-                  "modification_date": "2014/08/25",
-                  "activated": true,
-                  "replicons": {
-                    "NC_024709.1": "NC_024709.1"
                   },
                   "processed_replicons": []
                 },
@@ -50494,6 +50480,20 @@
             },
             "Luteoviridae": {
               "nodes": {
+                "Alfalfa_enamovirus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Luteoviridae",
+                  "name": "Alfalfa_enamovirus_1",
+                  "bioproject": "PRJNA320120",
+                  "creation_date": "2016/04/27",
+                  "modification_date": "2016/04/29",
+                  "activated": true,
+                  "replicons": {
+                    "NC_029993.1": "NC_029993.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Beet_mild_yellowing_virus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -50743,20 +50743,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_012931.1": "NC_012931.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Alfalfa_enamovirus-1": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Luteoviridae",
-                  "name": "Alfalfa_enamovirus-1",
-                  "bioproject": "PRJNA320120",
-                  "creation_date": "2016/04/27",
-                  "modification_date": "2016/04/29",
-                  "activated": true,
-                  "replicons": {
-                    "NC_029993.1": "NC_029993.1"
                   },
                   "processed_replicons": []
                 },
@@ -55487,17 +55473,17 @@
                   },
                   "processed_replicons": []
                 },
-                "Dragonfly-associated_circular_virus_3": {
+                "Dragonfly-associated_circular_virus_2": {
                   "kingdom": "VIRUSES",
                   "group": "Other",
                   "subgroup": "Genomoviridae",
-                  "name": "Dragonfly-associated_circular_virus_3",
-                  "bioproject": "PRJNA243273",
+                  "name": "Dragonfly-associated_circular_virus_2",
+                  "bioproject": "PRJNA243272",
                   "creation_date": "2012/10/01",
                   "modification_date": "2014/04/08",
                   "activated": true,
                   "replicons": {
-                    "NC_023870.1": "NC_023870.1"
+                    "NC_023871.1": "NC_023871.1"
                   },
                   "processed_replicons": []
                 },

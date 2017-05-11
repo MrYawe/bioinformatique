@@ -222,8 +222,8 @@ public class MainFrameAcryl extends JFrame {
         //pnlSouth.add(, BorderLayout.EAST);
 
 
-            pnlLoadingTree.add(btnLoadTree);
             pnlLoadingTree.add(jcbLocalTree);
+            pnlLoadingTree.add(btnLoadTree);
             //pnlLoadingTree.add(pnlLoadingEukaryote, BorderLayout.NORTH);
             //pnlLoadingTree.add(pnlLoadingVirus, BorderLayout.CENTER);
             //pnlLoadingTree.add(pnlLoadingProkaryote, BorderLayout.SOUTH);
@@ -301,8 +301,8 @@ public class MainFrameAcryl extends JFrame {
                         pnlLoadingTree.remove(pnlLoadingEukaryote);
                         pnlLoadingTree.remove(pnlLoadingVirus);
                         pnlLoadingTree.remove(pnlLoadingProkaryote);
-                        pnlLoadingTree.add(btnLoadTree);
                         pnlLoadingTree.add(jcbLocalTree);
+                        pnlLoadingTree.add(btnLoadTree);
 
                     }).start();
 
