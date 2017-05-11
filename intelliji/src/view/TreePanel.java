@@ -20,7 +20,7 @@ public class TreePanel extends JPanel {
     public TreePanel()
     {
         super();
-        panel = new JScrollPane(getDefaultTree("Click on Load Tree..."));
+        panel = new JScrollPane(getDefaultTree("Click on the button Load Tree below..."));
         this.setLayout(new BorderLayout());
         this.add(panel, BorderLayout.CENTER);
     }

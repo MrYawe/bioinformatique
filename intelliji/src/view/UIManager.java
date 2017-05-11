@@ -46,6 +46,11 @@ public class UIManager {
         {
             r.setEnabled(false);
         }
+        JCheckBox[] checkBtns = frame.getCheckBtns();
+        for (JCheckBox jcb : checkBtns)
+        {
+            jcb.setEnabled(false);
+        }
     }
 
     public static void unlock() {
@@ -58,6 +63,11 @@ public class UIManager {
         for (JRadioButton r : rdbtns)
         {
             r.setEnabled(true);
+        }
+        JCheckBox[] checkBtns = frame.getCheckBtns();
+        for (JCheckBox jcb : checkBtns)
+        {
+            jcb.setEnabled(true);
         }
     }
 
@@ -75,6 +85,13 @@ public class UIManager {
         currentGroupExcel=0;
         UIManager.nbGroupExcel=-1;
         frame.getPnlLoadingMain().reset();
+    }
+
+    public static void setTreeTo100() {
+        LoadingTreePanel[] panels = frame.getLoadingTrees();
+        for(LoadingTreePanel p:panels) {
+            p.set100();
+        }
     }
 
     public static void resetLoadingTreePanel() {

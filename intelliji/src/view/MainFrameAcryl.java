@@ -3,6 +3,7 @@ package view;
 /**
  * Created by germain on 05/02/2017.
  **/
+import tree.Organism;
 import tree.OrganismTree;
 import tree.Tree;
 import tree.TreeBuilderService.OrganismType;
@@ -29,6 +30,7 @@ public class MainFrameAcryl extends JFrame {
     private JRadioButton rdbKeepNothing;
     private JRadioButton rdbCompute;
     private JRadioButton rdbDownloadOnly;
+    private JCheckBox jcbLocalTree;
 
     private boolean computeStatsOnSelectedOrganisms = false;
     private boolean keepFilesOfSelectedOrganisms = false;
@@ -55,9 +57,11 @@ public class MainFrameAcryl extends JFrame {
     {
         this.keepFilesOfSelectedOrganisms = keepFilesOfSelectedOrganisms;
     }
-
+    public JCheckBox[] getCheckBtns() {
+        return new JCheckBox[] { jcbLocalTree };
+    }
     public JRadioButton[] getRadioBtns() {
-        return new JRadioButton[] {rdbCompute, rdbDownloadOnly, rdbKeepAll, rdbKeepNothing};
+        return new JRadioButton[] { rdbCompute, rdbDownloadOnly, rdbKeepAll, rdbKeepNothing};
     }
 
     public JButton[] getBtn() {
@@ -166,7 +170,9 @@ public class MainFrameAcryl extends JFrame {
         rdbCompute = new JRadioButton("Compute statistics on selected organisms", true);
         rdbDownloadOnly = new JRadioButton("Only download the selected organisms' genomes", false);
 
-        btnLoadTree = new JButton("Load Tree");
+        jcbLocalTree = new JCheckBox("Use local tree (if exists)", false);
+
+        btnLoadTree = new JButton("Load tree from GenBank");
         btnRun = new JButton("Download and compute statistics");
 
         // 75% de la taille de l'écran, centré
@@ -217,6 +223,7 @@ public class MainFrameAcryl extends JFrame {
 
 
             pnlLoadingTree.add(btnLoadTree);
+            pnlLoadingTree.add(jcbLocalTree);
             //pnlLoadingTree.add(pnlLoadingEukaryote, BorderLayout.NORTH);
             //pnlLoadingTree.add(pnlLoadingVirus, BorderLayout.CENTER);
             //pnlLoadingTree.add(pnlLoadingProkaryote, BorderLayout.SOUTH);
@@ -249,10 +256,21 @@ public class MainFrameAcryl extends JFrame {
             }
         });
 
+        jcbLocalTree.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(jcbLocalTree.isSelected()) {
+                    btnLoadTree.setText("Load local tree");
+                } else {
+                    btnLoadTree.setText("Load tree from GenBank");
+                }
+            }
+        });
+
         btnLoadTree.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                pnlLoadingTree.add(btnLoadTree, BorderLayout.CENTER);
+                //pnlLoadingTree.add(btnLoadTree, BorderLayout.CENTER);
 
 
                 // Executing the Tree
@@ -260,6 +278,8 @@ public class MainFrameAcryl extends JFrame {
                     UIManager.resetLoadingTreePanel();
 
                     pnlLoadingTree.remove(btnLoadTree);
+                    pnlLoadingTree.remove(jcbLocalTree);
+
                     pnlLoadingTree.add(pnlLoadingEukaryote);
                     pnlLoadingTree.add(pnlLoadingVirus);
                     pnlLoadingTree.add(pnlLoadingProkaryote);
@@ -268,15 +288,24 @@ public class MainFrameAcryl extends JFrame {
 
                     MainFrameAcryl.getInstance().updateDisplayedTree(TreePanel.getDefaultTree("Loading ..."));
                     new Thread(() -> {
-                        OrganismTree.load();
+                        if(!jcbLocalTree.isSelected()) {
+                            OrganismTree.load();
+                        } else {
+                            OrganismTree.loadFromLocalResource();
+                        }
+                        UIManager.setTreeTo100();
                         MainFrameAcryl.getInstance().updateDisplayedTree(OrganismTree.getInstance());
+
                         UIManager.unlock();
 
                         pnlLoadingTree.remove(pnlLoadingEukaryote);
                         pnlLoadingTree.remove(pnlLoadingVirus);
                         pnlLoadingTree.remove(pnlLoadingProkaryote);
                         pnlLoadingTree.add(btnLoadTree);
+                        pnlLoadingTree.add(jcbLocalTree);
+
                     }).start();
+
                 } else {
                     UIManager.writeError("Button is currently locked");
                 }
