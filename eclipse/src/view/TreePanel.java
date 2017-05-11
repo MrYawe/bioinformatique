@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import tree.Organism;
 import tree.Tree;
@@ -26,6 +27,8 @@ public class TreePanel extends JPanel {
 
     public void updateDisplayedTree(Tree tree){
         currentTree = buildJTree(tree);
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) currentTree.getModel().getRoot();
+        updateNbOrganisms(root);
         panel.setViewportView(currentTree);
     }
 
@@ -101,5 +104,36 @@ public class TreePanel extends JPanel {
             cur.add(new DefaultMutableTreeNode(org));
             return cur;
         }
+    }
+
+    private void updateNbOrganisms(DefaultMutableTreeNode currentNode)
+    {
+        if(!currentNode.isLeaf())
+        {
+            int nbChildren = nbChildren(currentNode);
+            currentNode.setUserObject(currentNode.toString() + " (" + nbChildren + ")");
+            ((DefaultTreeModel) currentTree.getModel()).nodeChanged(currentNode);
+            for(int i = 0 ; i < currentNode.getChildCount() ; i++)
+            {
+                updateNbOrganisms((DefaultMutableTreeNode)currentNode.getChildAt(i));
+            }
+        }
+    }
+
+    private int nbChildren(DefaultMutableTreeNode currentNode)
+    {
+        int res = 0;
+        if(currentNode.isLeaf())
+        {
+            res = 1;
+        }
+        else
+        {
+            for(int i = 0 ; i < currentNode.getChildCount() ; i++)
+            {
+                res += nbChildren((DefaultMutableTreeNode)currentNode.getChildAt(i));
+            }
+        }
+        return res;
     }
 }
