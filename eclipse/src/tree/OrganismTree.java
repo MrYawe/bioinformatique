@@ -14,8 +14,9 @@ import com.google.common.util.concurrent.ServiceManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+import config.Config;
 import config.ConfigManager;
-import statistics.XlsExport;
+import statistics.ComputeGroupsService;
 import tree.TreeBuilderService.OrganismType;
 import view.MainFrameAcryl;
 import view.UIManager;
@@ -147,11 +148,28 @@ public class OrganismTree {
         try {
             // Wait until all organism are downloaded and stats computed
             if(executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS)) {
-                if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled()) {
+                if (MainFrameAcryl.getInstance().isComputeStatsOnSelectedOrganismsEnabled())
+                {
                     String resultsPath = ConfigManager.getConfig().getResultsFolder();
                     UIManager.setNbGroupExcel(countGroups(resultsPath));
 
-                    XlsExport.computePartialSums(resultsPath);
+                    Config config = ConfigManager.getConfig();
+                    ArrayList<ComputeGroupsService> services = new ArrayList<>();
+                    if (Files.exists(Paths.get(config.getResultsFolder() + config.getFolderSeparator() + "EUKARYOTES")))
+                    {
+                        services.add(new ComputeGroupsService(OrganismType.EUKARYOTES));
+                    }
+                    if (Files.exists(Paths.get(config.getResultsFolder() + config.getFolderSeparator() + "PROKARYOTES")))
+                    {
+                        services.add(new ComputeGroupsService(OrganismType.PROKARYOTES));
+                    }
+                    if (Files.exists(Paths.get(config.getResultsFolder() + config.getFolderSeparator() + "VIRUSES")))
+                    {
+                        services.add(new ComputeGroupsService(OrganismType.VIRUSES));
+                    }
+                    ServiceManager sm = new ServiceManager(services);
+                    sm.startAsync();
+                    sm.awaitStopped();
                 }
                 UIManager.writeLog(System.getProperty("line.separator") + "END OF COMPUTING" + System.getProperty("line.separator"));
             }

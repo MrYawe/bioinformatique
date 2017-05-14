@@ -85,8 +85,10 @@ public class XlsExport
      */
     public static XSSFWorkbook getWorkbookFromTemplate()
     {
+
+    	Config config = ConfigManager.getConfig();
+
         XSSFWorkbook workbook = null;
-        Config config = ConfigManager.getConfig();
 
         try
 		{
@@ -545,7 +547,6 @@ public class XlsExport
                 if (f.isDirectory())
                 {
                     computePartialSums(f.getPath());
-                    UIManager.addProgressTree(1);
                     try
                     {
                         String subTotal = currentPath + config.getFolderSeparator() + "Total_" + f.getName() + ".xlsx";
@@ -582,6 +583,7 @@ public class XlsExport
                     currentSum.setOrganism("Total_" + group);
                     XlsExport.exportExcelFile(wb, currentSum, currentDir.getParent());
                     UIManager.writeLog("--- [EXCEL] Excel file of group \"" + group + "\" created");
+                    UIManager.addProgressTree(1);
                 }
             }
             catch (Exception e)
