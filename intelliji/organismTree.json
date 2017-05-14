@@ -6444,17 +6444,16 @@
                   "activated": true,
                   "replicons": {
                     "chromosome_5_NC_015442.2": "NC_015442.2",
+                    "chromosome_1_NC_015438.2": "NC_015438.2",
                     "chromosome_4_NC_015441.2": "NC_015441.2",
+                    "chromosome_2_NC_015439.2": "NC_015439.2",
                     "chromosome_3_NC_015440.2": "NC_015440.2",
                     "chromosome_6_NC_015443.2": "NC_015443.2",
                     "chromosome_9_NC_015446.2": "NC_015446.2",
                     "chromosome_8_NC_015445.2": "NC_015445.2",
                     "chromosome_12_NC_015449.2": "NC_015449.2",
-                    "chloroplast_Pltd_NC_007898.3": "NC_007898.3",
                     "chromosome_10_NC_015447.2": "NC_015447.2",
                     "chromosome_11_NC_015448.2": "NC_015448.2",
-                    "chromosome_1_NC_015438.2": "NC_015438.2",
-                    "chromosome_2_NC_015439.2": "NC_015439.2",
                     "chromosome_7_NC_015444.2": "NC_015444.2"
                   },
                   "processed_replicons": []
@@ -7054,8 +7053,7 @@
                     "chromosome_1_NC_026929.1": "NC_026929.1",
                     "chromosome_11_NC_026939.1": "NC_026939.1",
                     "chromosome_6_NC_026934.1": "NC_026934.1",
-                    "chromosome_5_NC_026933.1": "NC_026933.1",
-                    "chloroplast_NC_016668.1": "NC_016668.1"
+                    "chromosome_5_NC_026933.1": "NC_026933.1"
                   },
                   "processed_replicons": []
                 },
@@ -8048,20 +8046,6 @@
                   },
                   "processed_replicons": []
                 },
-                "Halogeometricum_pleomorphic_virus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssDNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Halogeometricum_pleomorphic_virus_1",
-                  "bioproject": "PRJNA157263",
-                  "creation_date": "2012/03/13",
-                  "modification_date": "2012/12/07",
-                  "activated": true,
-                  "replicons": {
-                    "NC_017090.1": "NC_017090.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Gastropod_associated_circular_ssDNA_virus": {
                   "kingdom": "VIRUSES",
                   "group": "ssDNA_viruses",
@@ -8087,20 +8071,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_026257.1": "NC_026257.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Halorubrum_pleomorphic_virus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssDNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Halorubrum_pleomorphic_virus_1",
-                  "bioproject": "PRJNA36677",
-                  "creation_date": "2009/04/12",
-                  "modification_date": "2009/05/08",
-                  "activated": true,
-                  "replicons": {
-                    "NC_012558.1": "NC_012558.1"
                   },
                   "processed_replicons": []
                 },
@@ -14724,20 +14694,6 @@
                   },
                   "processed_replicons": []
                 },
-                "Haloarcula_hispanica_pleomorphic_virus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsDNA_viruses,_no_RNA_stage",
-                  "subgroup": "unclassified",
-                  "name": "Haloarcula_hispanica_pleomorphic_virus_1",
-                  "bioproject": "PRJNA43589",
-                  "creation_date": "2010/01/25",
-                  "modification_date": "2010/01/27",
-                  "activated": true,
-                  "replicons": {
-                    "NC_013758.1": "NC_013758.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Halorubrum_phage_CGphi46": {
                   "kingdom": "VIRUSES",
                   "group": "dsDNA_viruses,_no_RNA_stage",
@@ -15656,11 +15612,11 @@
                   },
                   "processed_replicons": []
                 },
-                "Bat_adenovirus": {
+                "Bat_mastadenovirus": {
                   "kingdom": "VIRUSES",
                   "group": "dsDNA_viruses,_no_RNA_stage",
                   "subgroup": "Adenoviridae",
-                  "name": "Bat_adenovirus",
+                  "name": "Bat_mastadenovirus",
                   "bioproject": "PRJNA353920",
                   "creation_date": "2016/11/14",
                   "modification_date": "2016/11/17",
@@ -16318,20 +16274,6 @@
                   },
                   "processed_replicons": []
                 },
-                "Lactococcus_phage_KSY1": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsDNA_viruses,_no_RNA_stage",
-                  "subgroup": "Podoviridae",
-                  "name": "Lactococcus_phage_KSY1",
-                  "bioproject": "PRJNA20783",
-                  "creation_date": "2007/06/24",
-                  "modification_date": "2009/04/17",
-                  "activated": true,
-                  "replicons": {
-                    "NC_009817.1": "NC_009817.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Mycoplasma_virus_P1": {
                   "kingdom": "VIRUSES",
                   "group": "dsDNA_viruses,_no_RNA_stage",
@@ -16539,6 +16481,20 @@
                   "activated": true,
                   "replicons": {
                     "NC_004678.1": "NC_004678.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Lactococcus_phage_asccphi28": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsDNA_viruses,_no_RNA_stage",
+                  "subgroup": "Podoviridae",
+                  "name": "Lactococcus_phage_asccphi28",
+                  "bioproject": "PRJNA28985",
+                  "creation_date": "2008/02/25",
+                  "modification_date": "2009/04/17",
+                  "activated": true,
+                  "replicons": {
+                    "NC_010363.1": "NC_010363.1"
                   },
                   "processed_replicons": []
                 },
@@ -16763,6 +16719,20 @@
                   "activated": true,
                   "replicons": {
                     "NC_024149.1": "NC_024149.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Lactococcus_virus_KSY1": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsDNA_viruses,_no_RNA_stage",
+                  "subgroup": "Podoviridae",
+                  "name": "Lactococcus_virus_KSY1",
+                  "bioproject": "PRJNA20783",
+                  "creation_date": "2007/06/24",
+                  "modification_date": "2009/04/17",
+                  "activated": true,
+                  "replicons": {
+                    "NC_009817.1": "NC_009817.1"
                   },
                   "processed_replicons": []
                 },
@@ -17488,6 +17458,20 @@
                   },
                   "processed_replicons": []
                 },
+                "Mycobacterium_virus_244": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsDNA_viruses,_no_RNA_stage",
+                  "subgroup": "Siphoviridae",
+                  "name": "Mycobacterium_virus_244",
+                  "bioproject": "PRJNA17115",
+                  "creation_date": "2006/06/09",
+                  "modification_date": "2009/04/17",
+                  "activated": true,
+                  "replicons": {
+                    "NC_008194.1": "NC_008194.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Tsukamurella_phage_TIN2": {
                   "kingdom": "VIRUSES",
                   "group": "dsDNA_viruses,_no_RNA_stage",
@@ -17740,6 +17724,20 @@
                   },
                   "processed_replicons": []
                 },
+                "Lactococcus_virus_712": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsDNA_viruses,_no_RNA_stage",
+                  "subgroup": "Siphoviridae",
+                  "name": "Lactococcus_virus_712",
+                  "bioproject": "PRJNA17757",
+                  "creation_date": "2006/09/13",
+                  "modification_date": "2009/01/09",
+                  "activated": true,
+                  "replicons": {
+                    "NC_008370.1": "NC_008370.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Paracoccus_phage_vB_PmaS_IMEP1": {
                   "kingdom": "VIRUSES",
                   "group": "dsDNA_viruses,_no_RNA_stage",
@@ -17905,6 +17903,20 @@
                   "activated": true,
                   "replicons": {
                     "NC_009799.3": "NC_009799.3"
+                  },
+                  "processed_replicons": []
+                },
+                "Lactobacillus_virus_ATCC8014": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsDNA_viruses,_no_RNA_stage",
+                  "subgroup": "Siphoviridae",
+                  "name": "Lactobacillus_virus_ATCC8014",
+                  "bioproject": "PRJNA184150",
+                  "creation_date": "2012/10/10",
+                  "modification_date": "2012/12/19",
+                  "activated": true,
+                  "replicons": {
+                    "NC_019916.1": "NC_019916.1"
                   },
                   "processed_replicons": []
                 },
@@ -20098,6 +20110,20 @@
                   },
                   "processed_replicons": []
                 },
+                "Lactobacillus_virus_LP65": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsDNA_viruses,_no_RNA_stage",
+                  "subgroup": "Myoviridae",
+                  "name": "Lactobacillus_virus_LP65",
+                  "bioproject": "PRJNA14547",
+                  "creation_date": "2004/11/01",
+                  "modification_date": "2007/12/19",
+                  "activated": true,
+                  "replicons": {
+                    "NC_006565.1": "NC_006565.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Enterobacter_phage_Arya": {
                   "kingdom": "VIRUSES",
                   "group": "dsDNA_viruses,_no_RNA_stage",
@@ -20221,22 +20247,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_029072.1": "NC_029072.1"
-                  },
-                  "processed_replicons": []
-                },
-                "T4virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsDNA_viruses,_no_RNA_stage",
-                  "subgroup": "Myoviridae",
-                  "name": "T4virus",
-                  "bioproject": "PRJNA261534",
-                  "creation_date": "2014/10/22",
-                  "modification_date": "2015/01/30",
-                  "activated": true,
-                  "replicons": {
-                    "NC_025448.1": "NC_025448.1",
-                    "NC_027979.1": "NC_027979.1",
-                    "NC_025419.1": "NC_025419.1"
                   },
                   "processed_replicons": []
                 },
@@ -21766,31 +21776,45 @@
             },
             "Tectiviridae": {
               "nodes": {
-                "Enterobacteria_phage_PRD1": {
+                "Bacillus_virus_AP50": {
                   "kingdom": "VIRUSES",
                   "group": "dsDNA_viruses,_no_RNA_stage",
                   "subgroup": "Tectiviridae",
-                  "name": "Enterobacteria_phage_PRD1",
-                  "bioproject": "PRJNA14062",
-                  "creation_date": "1993/04/28",
-                  "modification_date": "2015/02/10",
-                  "activated": true,
-                  "replicons": {
-                    "NC_001421.2": "NC_001421.2"
-                  },
-                  "processed_replicons": []
-                },
-                "Bacillus_phage_AP50": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsDNA_viruses,_no_RNA_stage",
-                  "subgroup": "Tectiviridae",
-                  "name": "Bacillus_phage_AP50",
+                  "name": "Bacillus_virus_AP50",
                   "bioproject": "PRJNA32599",
                   "creation_date": "2008/11/05",
                   "modification_date": "2010/03/26",
                   "activated": true,
                   "replicons": {
                     "NC_011523.1": "NC_011523.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Bacillus_phage_Bam35c": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsDNA_viruses,_no_RNA_stage",
+                  "subgroup": "Tectiviridae",
+                  "name": "Bacillus_phage_Bam35c",
+                  "bioproject": "PRJNA14311",
+                  "creation_date": "2003/09/11",
+                  "modification_date": "2009/04/17",
+                  "activated": true,
+                  "replicons": {
+                    "NC_005258.1": "NC_005258.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Salmonella_virus_PRD1": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsDNA_viruses,_no_RNA_stage",
+                  "subgroup": "Tectiviridae",
+                  "name": "Salmonella_virus_PRD1",
+                  "bioproject": "PRJNA14062",
+                  "creation_date": "1993/04/28",
+                  "modification_date": "2015/02/10",
+                  "activated": true,
+                  "replicons": {
+                    "NC_001421.2": "NC_001421.2"
                   },
                   "processed_replicons": []
                 }
@@ -23078,6 +23102,20 @@
                   },
                   "processed_replicons": []
                 },
+                "Anatid_alphaherpesvirus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsDNA_viruses,_no_RNA_stage",
+                  "subgroup": "Herpesviridae",
+                  "name": "Anatid_alphaherpesvirus_1",
+                  "bioproject": "PRJNA39725",
+                  "creation_date": "2008/08/17",
+                  "modification_date": "2010/11/16",
+                  "activated": true,
+                  "replicons": {
+                    "NC_013036.1": "NC_013036.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Ateline_gammaherpesvirus_3": {
                   "kingdom": "VIRUSES",
                   "group": "dsDNA_viruses,_no_RNA_stage",
@@ -23201,20 +23239,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_002641.1": "NC_002641.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Anatid_herpesvirus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsDNA_viruses,_no_RNA_stage",
-                  "subgroup": "Herpesviridae",
-                  "name": "Anatid_herpesvirus_1",
-                  "bioproject": "PRJNA39725",
-                  "creation_date": "2008/08/17",
-                  "modification_date": "2010/11/16",
-                  "activated": true,
-                  "replicons": {
-                    "NC_013036.1": "NC_013036.1"
                   },
                   "processed_replicons": []
                 },
@@ -25756,11 +25780,11 @@
             },
             "Plasmaviridae": {
               "nodes": {
-                "Acholeplasma_phage_L2": {
+                "Acholeplasma_virus_L2": {
                   "kingdom": "VIRUSES",
                   "group": "dsDNA_viruses,_no_RNA_stage",
                   "subgroup": "Plasmaviridae",
-                  "name": "Acholeplasma_phage_L2",
+                  "name": "Acholeplasma_virus_L2",
                   "bioproject": "PRJNA14066",
                   "creation_date": "1993/06/11",
                   "modification_date": "2015/02/10",
@@ -28634,21 +28658,6 @@
                   },
                   "processed_replicons": []
                 },
-                "unidentified_phage": {
-                  "kingdom": "VIRUSES",
-                  "group": "unclassified_phages",
-                  "subgroup": "unclassified",
-                  "name": "unidentified_phage",
-                  "bioproject": "PRJNA277058",
-                  "creation_date": "2015/09/23",
-                  "modification_date": "2016/01/05",
-                  "activated": true,
-                  "replicons": {
-                    "NC_029008.1": "NC_029008.1",
-                    "NC_028886.1": "NC_028886.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Staphylococcus_phage_phi2958PVL": {
                   "kingdom": "VIRUSES",
                   "group": "unclassified_phages",
@@ -28842,20 +28851,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_031076.1": "NC_031076.1"
-                  },
-                  "processed_replicons": []
-                },
-                "uncultured_crAssphage": {
-                  "kingdom": "VIRUSES",
-                  "group": "unclassified_phages",
-                  "subgroup": "unclassified",
-                  "name": "uncultured_crAssphage",
-                  "bioproject": "PRJNA259336",
-                  "creation_date": "2014/08/25",
-                  "modification_date": "2015/12/10",
-                  "activated": true,
-                  "replicons": {
-                    "NC_024711.1": "NC_024711.1"
                   },
                   "processed_replicons": []
                 },
@@ -31633,6 +31628,35 @@
             },
             "unclassified": {
               "nodes": {
+                "Sclerotium_hydrophilum_virus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsRNA_viruses",
+                  "subgroup": "unclassified",
+                  "name": "Sclerotium_hydrophilum_virus_1",
+                  "bioproject": "PRJNA342646",
+                  "creation_date": "2016/09/03",
+                  "modification_date": "2016/09/12",
+                  "activated": true,
+                  "replicons": {
+                    "NC_030888.1": "NC_030888.1",
+                    "NC_030891.1": "NC_030891.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Persimmon_latent_virus": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsRNA_viruses",
+                  "subgroup": "unclassified",
+                  "name": "Persimmon_latent_virus",
+                  "bioproject": "PRJNA244308",
+                  "creation_date": "2012/08/08",
+                  "modification_date": "2014/04/10",
+                  "activated": true,
+                  "replicons": {
+                    "NC_023983.1": "NC_023983.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Circulifer_tenellus_virus_1": {
                   "kingdom": "VIRUSES",
                   "group": "dsRNA_viruses",
@@ -31644,20 +31668,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_014360.1": "NC_014360.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Colletotrichum_higginsianum_non-segmented_dsRNA_virus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsRNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Colletotrichum_higginsianum_non-segmented_dsRNA_virus_1",
-                  "bioproject": "PRJNA301019",
-                  "creation_date": "2015/10/31",
-                  "modification_date": "2016/06/22",
-                  "activated": true,
-                  "replicons": {
-                    "NC_028242.1": "NC_028242.1"
                   },
                   "processed_replicons": []
                 },
@@ -31703,107 +31713,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_027427.1": "NC_027427.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Sclerotinia_sclerotiorum_dsRNA_mycovirus-L": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsRNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Sclerotinia_sclerotiorum_dsRNA_mycovirus-L",
-                  "bioproject": "PRJNA165743",
-                  "creation_date": "2012/05/07",
-                  "modification_date": "2012/08/20",
-                  "activated": true,
-                  "replicons": {
-                    "NC_017915.1": "NC_017915.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Sclerotinia_sclerotiorum_botybirnavirus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsRNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Sclerotinia_sclerotiorum_botybirnavirus_1",
-                  "bioproject": "PRJNA285598",
-                  "creation_date": "2015/05/19",
-                  "modification_date": "2015/06/02",
-                  "activated": true,
-                  "replicons": {
-                    "NC_027139.1": "NC_027139.1",
-                    "NC_027138.1": "NC_027138.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Cryphonectria_parasitica_bipartite_mycovirus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsRNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Cryphonectria_parasitica_bipartite_mycovirus_1",
-                  "bioproject": "PRJNA203281",
-                  "creation_date": "2013/05/08",
-                  "modification_date": "2015/10/29",
-                  "activated": true,
-                  "replicons": {
-                    "NC_021223.1": "NC_021223.1",
-                    "NC_021222.1": "NC_021222.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Papaya_meleira_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsRNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Papaya_meleira_virus",
-                  "bioproject": "PRJNA302025",
-                  "creation_date": "2015/11/04",
-                  "modification_date": "2015/12/08",
-                  "activated": true,
-                  "replicons": {
-                    "NC_028378.1": "NC_028378.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Gentian_Kobu-sho-associated_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsRNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Gentian_Kobu-sho-associated_virus",
-                  "bioproject": "PRJNA189210",
-                  "creation_date": "2013/02/02",
-                  "modification_date": "2013/03/27",
-                  "activated": true,
-                  "replicons": {
-                    "NC_020252.1": "NC_020252.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Sclerotium_hydrophilum_virus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsRNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Sclerotium_hydrophilum_virus_1",
-                  "bioproject": "PRJNA342646",
-                  "creation_date": "2016/09/03",
-                  "modification_date": "2016/09/12",
-                  "activated": true,
-                  "replicons": {
-                    "NC_030888.1": "NC_030888.1",
-                    "NC_030891.1": "NC_030891.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Persimmon_latent_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsRNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Persimmon_latent_virus",
-                  "bioproject": "PRJNA244308",
-                  "creation_date": "2012/08/08",
-                  "modification_date": "2014/04/10",
-                  "activated": true,
-                  "replicons": {
-                    "NC_023983.1": "NC_023983.1"
                   },
                   "processed_replicons": []
                 },
@@ -31875,6 +31784,20 @@
                   "activated": true,
                   "replicons": {
                     "NC_013469.1": "NC_013469.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Sclerotinia_sclerotiorum_dsRNA_mycovirus-L": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsRNA_viruses",
+                  "subgroup": "unclassified",
+                  "name": "Sclerotinia_sclerotiorum_dsRNA_mycovirus-L",
+                  "bioproject": "PRJNA165743",
+                  "creation_date": "2012/05/07",
+                  "modification_date": "2012/08/20",
+                  "activated": true,
+                  "replicons": {
+                    "NC_017915.1": "NC_017915.1"
                   },
                   "processed_replicons": []
                 },
@@ -31952,6 +31875,21 @@
                   },
                   "processed_replicons": []
                 },
+                "Cryphonectria_parasitica_bipartite_mycovirus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsRNA_viruses",
+                  "subgroup": "unclassified",
+                  "name": "Cryphonectria_parasitica_bipartite_mycovirus_1",
+                  "bioproject": "PRJNA203281",
+                  "creation_date": "2013/05/08",
+                  "modification_date": "2015/10/29",
+                  "activated": true,
+                  "replicons": {
+                    "NC_021223.1": "NC_021223.1",
+                    "NC_021222.1": "NC_021222.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Fusarium_poae_mycovirus_1": {
                   "kingdom": "VIRUSES",
                   "group": "dsRNA_viruses",
@@ -31980,6 +31918,20 @@
                   },
                   "processed_replicons": []
                 },
+                "Papaya_meleira_virus": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsRNA_viruses",
+                  "subgroup": "unclassified",
+                  "name": "Papaya_meleira_virus",
+                  "bioproject": "PRJNA302025",
+                  "creation_date": "2015/11/04",
+                  "modification_date": "2015/12/08",
+                  "activated": true,
+                  "replicons": {
+                    "NC_028378.1": "NC_028378.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Alternaria_longipes_dsRNA_virus_1": {
                   "kingdom": "VIRUSES",
                   "group": "dsRNA_viruses",
@@ -32005,6 +31957,20 @@
                   "activated": true,
                   "replicons": {
                     "NC_001782.1": "NC_001782.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Gentian_Kobu-sho-associated_virus": {
+                  "kingdom": "VIRUSES",
+                  "group": "dsRNA_viruses",
+                  "subgroup": "unclassified",
+                  "name": "Gentian_Kobu-sho-associated_virus",
+                  "bioproject": "PRJNA189210",
+                  "creation_date": "2013/02/02",
+                  "modification_date": "2013/03/27",
+                  "activated": true,
+                  "replicons": {
+                    "NC_020252.1": "NC_020252.1"
                   },
                   "processed_replicons": []
                 }
@@ -34178,24 +34144,6 @@
                     "NC_014239.1": "NC_014239.1",
                     "NC_014237.1": "NC_014237.1",
                     "NC_014238.1": "NC_014238.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Grapevine_Cabernet_Sauvignon_reovirus": {
-                  "kingdom": "VIRUSES",
-                  "group": "dsRNA_viruses",
-                  "subgroup": "Reoviridae",
-                  "name": "Grapevine_Cabernet_Sauvignon_reovirus",
-                  "bioproject": "PRJNA293721",
-                  "creation_date": "2015/08/19",
-                  "modification_date": "2015/10/29",
-                  "activated": true,
-                  "replicons": {
-                    "NC_027802.1": "NC_027802.1",
-                    "NC_027816.1": "NC_027816.1",
-                    "NC_027808.1": "NC_027808.1",
-                    "NC_027809.1": "NC_027809.1",
-                    "NC_027810.1": "NC_027810.1"
                   },
                   "processed_replicons": []
                 },
@@ -36566,20 +36514,6 @@
                   },
                   "processed_replicons": []
                 },
-                "Spring_viraemia_of_carp_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Rhabdoviridae",
-                  "name": "Spring_viraemia_of_carp_virus",
-                  "bioproject": "PRJNA14726",
-                  "creation_date": "1995/11/16",
-                  "modification_date": "2010/06/23",
-                  "activated": true,
-                  "replicons": {
-                    "NC_002803.1": "NC_002803.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Cocal_virus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -36703,6 +36637,20 @@
                   "activated": true,
                   "replicons": {
                     "NC_022581.1": "NC_022581.1"
+                  },
+                  "processed_replicons": []
+                },
+                "European_bat_1_lyssavirus": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Rhabdoviridae",
+                  "name": "European_bat_1_lyssavirus",
+                  "bioproject": "PRJNA19757",
+                  "creation_date": "2007/04/02",
+                  "modification_date": "2008/12/08",
+                  "activated": true,
+                  "replicons": {
+                    "NC_009527.1": "NC_009527.1"
                   },
                   "processed_replicons": []
                 },
@@ -36969,20 +36917,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_016136.1": "NC_016136.1"
-                  },
-                  "processed_replicons": []
-                },
-                "European_bat_lyssavirus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Rhabdoviridae",
-                  "name": "European_bat_lyssavirus_1",
-                  "bioproject": "PRJNA19757",
-                  "creation_date": "2007/04/02",
-                  "modification_date": "2008/12/08",
-                  "activated": true,
-                  "replicons": {
-                    "NC_009527.1": "NC_009527.1"
                   },
                   "processed_replicons": []
                 },
@@ -37267,6 +37201,20 @@
                   },
                   "processed_replicons": []
                 },
+                "Perch_perhabdovirus": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Rhabdoviridae",
+                  "name": "Perch_perhabdovirus",
+                  "bioproject": "PRJNA194138",
+                  "creation_date": "2012/11/24",
+                  "modification_date": "2013/03/26",
+                  "activated": true,
+                  "replicons": {
+                    "NC_020803.1": "NC_020803.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Inhangapi_virus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -37463,6 +37411,20 @@
                   },
                   "processed_replicons": []
                 },
+                "Carp_sprivivirus": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Rhabdoviridae",
+                  "name": "Carp_sprivivirus",
+                  "bioproject": "PRJNA14726",
+                  "creation_date": "1995/11/16",
+                  "modification_date": "2010/06/23",
+                  "activated": true,
+                  "replicons": {
+                    "NC_002803.1": "NC_002803.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Oak-Vale_virus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -37544,20 +37506,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_000855.1": "NC_000855.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Perch_rhabdovirus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Rhabdoviridae",
-                  "name": "Perch_rhabdovirus",
-                  "bioproject": "PRJNA194138",
-                  "creation_date": "2012/11/24",
-                  "modification_date": "2013/03/26",
-                  "activated": true,
-                  "replicons": {
-                    "NC_020803.1": "NC_020803.1"
                   },
                   "processed_replicons": []
                 },
@@ -41020,6 +40968,38 @@
             },
             "Peribunyaviridae": {
               "nodes": {
+                "Maprik_virus": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Peribunyaviridae",
+                  "name": "Maprik_virus",
+                  "bioproject": "PRJNA274117",
+                  "creation_date": "2015/01/15",
+                  "modification_date": "2015/10/20",
+                  "activated": true,
+                  "replicons": {
+                    "NC_026281.1": "NC_026281.1",
+                    "NC_026282.1": "NC_026282.1",
+                    "NC_026283.1": "NC_026283.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Wuhan_Fly_Virus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Peribunyaviridae",
+                  "name": "Wuhan_Fly_Virus_1",
+                  "bioproject": "PRJNA344589",
+                  "creation_date": "2015/02/08",
+                  "modification_date": "2016/09/27",
+                  "activated": true,
+                  "replicons": {
+                    "NC_031297.1": "NC_031297.1",
+                    "NC_031295.1": "NC_031295.1",
+                    "NC_031298.1": "NC_031298.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Brazoran_virus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -41228,6 +41208,22 @@
                   },
                   "processed_replicons": []
                 },
+                "Hunter_Island_virus": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Peribunyaviridae",
+                  "name": "Hunter_Island_virus",
+                  "bioproject": "PRJNA293055",
+                  "creation_date": "2015/07/31",
+                  "modification_date": "2015/12/17",
+                  "activated": true,
+                  "replicons": {
+                    "NC_027716.1": "NC_027716.1",
+                    "NC_027717.1": "NC_027717.1",
+                    "NC_027715.1": "NC_027715.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Aino_virus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -41308,6 +41304,70 @@
                   },
                   "processed_replicons": []
                 },
+                "Sanxia_Water_Strider_Virus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Peribunyaviridae",
+                  "name": "Sanxia_Water_Strider_Virus_1",
+                  "bioproject": "PRJNA344202",
+                  "creation_date": "2015/02/08",
+                  "modification_date": "2016/09/23",
+                  "activated": true,
+                  "replicons": {
+                    "NC_031142.1": "NC_031142.1",
+                    "NC_031143.1": "NC_031143.1",
+                    "NC_031141.1": "NC_031141.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Shayang_Spider_Virus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Peribunyaviridae",
+                  "name": "Shayang_Spider_Virus_1",
+                  "bioproject": "PRJNA344321",
+                  "creation_date": "2015/02/08",
+                  "modification_date": "2016/09/26",
+                  "activated": true,
+                  "replicons": {
+                    "NC_031220.1": "NC_031220.1",
+                    "NC_031219.1": "NC_031219.1",
+                    "NC_031218.1": "NC_031218.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Wutai_Mosquito_Virus": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Peribunyaviridae",
+                  "name": "Wutai_Mosquito_Virus",
+                  "bioproject": "PRJNA345034",
+                  "creation_date": "2015/02/08",
+                  "modification_date": "2016/09/30",
+                  "activated": true,
+                  "replicons": {
+                    "NC_031318.1": "NC_031318.1",
+                    "NC_031317.1": "NC_031317.1",
+                    "NC_031319.1": "NC_031319.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Kigluaik_phantom_virus": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Peribunyaviridae",
+                  "name": "Kigluaik_phantom_virus",
+                  "bioproject": "PRJNA385636",
+                  "creation_date": "2014/05/28",
+                  "modification_date": "2017/05/05",
+                  "activated": true,
+                  "replicons": {
+                    "NC_034469.1": "NC_034469.1",
+                    "NC_034462.1": "NC_034462.1",
+                    "NC_034463.1": "NC_034463.1"
+                  },
+                  "processed_replicons": []
+                },
                 "La_Crosse_virus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -41372,6 +41432,54 @@
                   },
                   "processed_replicons": []
                 },
+                "Mulberry_vein_banding_virus": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Peribunyaviridae",
+                  "name": "Mulberry_vein_banding_virus",
+                  "bioproject": "PRJNA277203",
+                  "creation_date": "2015/03/01",
+                  "modification_date": "2015/09/01",
+                  "activated": true,
+                  "replicons": {
+                    "NC_026618.2": "NC_026618.2",
+                    "NC_026619.1": "NC_026619.1",
+                    "NC_026617.1": "NC_026617.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Huangpi_Tick_Virus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Peribunyaviridae",
+                  "name": "Huangpi_Tick_Virus_1",
+                  "bioproject": "PRJNA344205",
+                  "creation_date": "2015/02/08",
+                  "modification_date": "2016/09/23",
+                  "activated": true,
+                  "replicons": {
+                    "NC_031135.1": "NC_031135.1",
+                    "NC_031136.1": "NC_031136.1",
+                    "NC_031137.1": "NC_031137.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Lone_Star_virus": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Peribunyaviridae",
+                  "name": "Lone_Star_virus",
+                  "bioproject": "PRJNA203651",
+                  "creation_date": "2013/05/18",
+                  "modification_date": "2013/05/21",
+                  "activated": true,
+                  "replicons": {
+                    "NC_021244.1": "NC_021244.1",
+                    "NC_021242.1": "NC_021242.1",
+                    "NC_021243.1": "NC_021243.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Simbu_orthobunyavirus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -41385,6 +41493,22 @@
                     "NC_018476.1": "NC_018476.1",
                     "NC_018477.1": "NC_018477.1",
                     "NC_018478.1": "NC_018478.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Wenzhou_Shrimp_Virus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Peribunyaviridae",
+                  "name": "Wenzhou_Shrimp_Virus_1",
+                  "bioproject": "PRJNA344592",
+                  "creation_date": "2015/02/08",
+                  "modification_date": "2016/09/27",
+                  "activated": true,
+                  "replicons": {
+                    "NC_031292.1": "NC_031292.1",
+                    "NC_031290.1": "NC_031290.1",
+                    "NC_031287.1": "NC_031287.1"
                   },
                   "processed_replicons": []
                 },
@@ -41463,20 +41587,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_030691.1": "NC_030691.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Elapid_1_bornavirus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bornaviridae",
-                  "name": "Elapid_1_bornavirus",
-                  "bioproject": "PRJNA260159",
-                  "creation_date": "2014/09/02",
-                  "modification_date": "2016/07/26",
-                  "activated": true,
-                  "replicons": {
-                    "NC_024778.1": "NC_024778.1"
                   },
                   "processed_replicons": []
                 },
@@ -46733,21 +46843,6 @@
                   },
                   "processed_replicons": []
                 },
-                "Black_currant_leaf_chlorosis_associated_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "unclassified",
-                  "name": "Black_currant_leaf_chlorosis_associated_virus",
-                  "bioproject": "PRJNA384966",
-                  "creation_date": "2017/04/18",
-                  "modification_date": "2017/05/01",
-                  "activated": true,
-                  "replicons": {
-                    "NC_034390.1": "NC_034390.1",
-                    "NC_034408.1": "NC_034408.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Xingshan_cricket_virus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -49089,21 +49184,6 @@
                   },
                   "processed_replicons": []
                 },
-                "Kasokero_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Nairoviridae",
-                  "name": "Kasokero_virus",
-                  "bioproject": "PRJNA319069",
-                  "creation_date": "2015/09/16",
-                  "modification_date": "2016/04/20",
-                  "activated": true,
-                  "replicons": {
-                    "NC_029933.1": "NC_029933.1",
-                    "NC_029932.1": "NC_029932.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Keterrah_virus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -49964,218 +50044,6 @@
                 }
               }
             },
-            "Bunyaviridae": {
-              "nodes": {
-                "Maprik_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Maprik_virus",
-                  "bioproject": "PRJNA274117",
-                  "creation_date": "2015/01/15",
-                  "modification_date": "2015/10/20",
-                  "activated": true,
-                  "replicons": {
-                    "NC_026281.1": "NC_026281.1",
-                    "NC_026282.1": "NC_026282.1",
-                    "NC_026283.1": "NC_026283.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Wuhan_Fly_Virus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Wuhan_Fly_Virus_1",
-                  "bioproject": "PRJNA344589",
-                  "creation_date": "2015/02/08",
-                  "modification_date": "2016/09/27",
-                  "activated": true,
-                  "replicons": {
-                    "NC_031297.1": "NC_031297.1",
-                    "NC_031295.1": "NC_031295.1",
-                    "NC_031298.1": "NC_031298.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Sanxia_Water_Strider_Virus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Sanxia_Water_Strider_Virus_1",
-                  "bioproject": "PRJNA344202",
-                  "creation_date": "2015/02/08",
-                  "modification_date": "2016/09/23",
-                  "activated": true,
-                  "replicons": {
-                    "NC_031142.1": "NC_031142.1",
-                    "NC_031143.1": "NC_031143.1",
-                    "NC_031141.1": "NC_031141.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Shayang_Spider_Virus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Shayang_Spider_Virus_1",
-                  "bioproject": "PRJNA344321",
-                  "creation_date": "2015/02/08",
-                  "modification_date": "2016/09/26",
-                  "activated": true,
-                  "replicons": {
-                    "NC_031220.1": "NC_031220.1",
-                    "NC_031219.1": "NC_031219.1",
-                    "NC_031218.1": "NC_031218.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Wutai_Mosquito_Virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Wutai_Mosquito_Virus",
-                  "bioproject": "PRJNA345034",
-                  "creation_date": "2015/02/08",
-                  "modification_date": "2016/09/30",
-                  "activated": true,
-                  "replicons": {
-                    "NC_031318.1": "NC_031318.1",
-                    "NC_031317.1": "NC_031317.1",
-                    "NC_031319.1": "NC_031319.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Kigluaik_phantom_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Kigluaik_phantom_virus",
-                  "bioproject": "PRJNA385636",
-                  "creation_date": "2014/05/28",
-                  "modification_date": "2017/05/05",
-                  "activated": true,
-                  "replicons": {
-                    "NC_034469.1": "NC_034469.1",
-                    "NC_034462.1": "NC_034462.1",
-                    "NC_034463.1": "NC_034463.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Hantavirus_Z10": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Hantavirus_Z10",
-                  "bioproject": "PRJNA15044",
-                  "creation_date": "1999/10/07",
-                  "modification_date": "2009/11/30",
-                  "activated": true,
-                  "replicons": {
-                    "NC_006433.1": "NC_006433.1",
-                    "NC_006437.1": "NC_006437.1",
-                    "NC_006435.1": "NC_006435.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Mulberry_vein_banding_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Mulberry_vein_banding_virus",
-                  "bioproject": "PRJNA277203",
-                  "creation_date": "2015/03/01",
-                  "modification_date": "2015/09/01",
-                  "activated": true,
-                  "replicons": {
-                    "NC_026618.2": "NC_026618.2",
-                    "NC_026619.1": "NC_026619.1",
-                    "NC_026617.1": "NC_026617.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Huangpi_Tick_Virus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Huangpi_Tick_Virus_1",
-                  "bioproject": "PRJNA344205",
-                  "creation_date": "2015/02/08",
-                  "modification_date": "2016/09/23",
-                  "activated": true,
-                  "replicons": {
-                    "NC_031135.1": "NC_031135.1",
-                    "NC_031136.1": "NC_031136.1",
-                    "NC_031137.1": "NC_031137.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Lone_Star_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Lone_Star_virus",
-                  "bioproject": "PRJNA203651",
-                  "creation_date": "2013/05/18",
-                  "modification_date": "2013/05/21",
-                  "activated": true,
-                  "replicons": {
-                    "NC_021244.1": "NC_021244.1",
-                    "NC_021242.1": "NC_021242.1",
-                    "NC_021243.1": "NC_021243.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Wenzhou_Shrimp_Virus_1": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Wenzhou_Shrimp_Virus_1",
-                  "bioproject": "PRJNA344592",
-                  "creation_date": "2015/02/08",
-                  "modification_date": "2016/09/27",
-                  "activated": true,
-                  "replicons": {
-                    "NC_031292.1": "NC_031292.1",
-                    "NC_031290.1": "NC_031290.1",
-                    "NC_031287.1": "NC_031287.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Dobrava-Belgrade_hantavirus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Dobrava-Belgrade_hantavirus",
-                  "bioproject": "PRJNA15319",
-                  "creation_date": "2003/03/27",
-                  "modification_date": "2015/03/09",
-                  "activated": true,
-                  "replicons": {
-                    "NC_005234.1": "NC_005234.1",
-                    "NC_005233.1": "NC_005233.1",
-                    "NC_005235.1": "NC_005235.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Hunter_Island_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Bunyaviridae",
-                  "name": "Hunter_Island_virus",
-                  "bioproject": "PRJNA293055",
-                  "creation_date": "2015/07/31",
-                  "modification_date": "2015/12/17",
-                  "activated": true,
-                  "replicons": {
-                    "NC_027716.1": "NC_027716.1",
-                    "NC_027717.1": "NC_027717.1",
-                    "NC_027715.1": "NC_027715.1"
-                  },
-                  "processed_replicons": []
-                }
-              }
-            },
             "Filoviridae": {
               "nodes": {
                 "Lloviu_cuevavirus": {
@@ -50417,20 +50285,6 @@
                   "activated": true,
                   "replicons": {
                     "NC_002532.2": "NC_002532.2"
-                  },
-                  "processed_replicons": []
-                },
-                "Free_State_vervet_virus": {
-                  "kingdom": "VIRUSES",
-                  "group": "ssRNA_viruses",
-                  "subgroup": "Arteriviridae",
-                  "name": "Free_State_vervet_virus",
-                  "bioproject": "PRJNA320121",
-                  "creation_date": "2016/04/25",
-                  "modification_date": "2017/03/14",
-                  "activated": true,
-                  "replicons": {
-                    "NC_029992.1": "NC_029992.1"
                   },
                   "processed_replicons": []
                 },
@@ -53456,6 +53310,22 @@
             },
             "Hantaviridae": {
               "nodes": {
+                "Hantavirus_Z10": {
+                  "kingdom": "VIRUSES",
+                  "group": "ssRNA_viruses",
+                  "subgroup": "Hantaviridae",
+                  "name": "Hantavirus_Z10",
+                  "bioproject": "PRJNA15044",
+                  "creation_date": "1999/10/07",
+                  "modification_date": "2009/11/30",
+                  "activated": true,
+                  "replicons": {
+                    "NC_006433.1": "NC_006433.1",
+                    "NC_006437.1": "NC_006437.1",
+                    "NC_006435.1": "NC_006435.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Bruges_virus": {
                   "kingdom": "VIRUSES",
                   "group": "ssRNA_viruses",
@@ -55295,6 +55165,66 @@
         },
         "Other": {
           "nodes": {
+            "Pleolipoviridae": {
+              "nodes": {
+                "Halogeometricum_pleomorphic_virus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "Other",
+                  "subgroup": "Pleolipoviridae",
+                  "name": "Halogeometricum_pleomorphic_virus_1",
+                  "bioproject": "PRJNA157263",
+                  "creation_date": "2012/03/13",
+                  "modification_date": "2012/12/07",
+                  "activated": true,
+                  "replicons": {
+                    "NC_017090.1": "NC_017090.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Haloarcula_hispanica_pleomorphic_virus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "Other",
+                  "subgroup": "Pleolipoviridae",
+                  "name": "Haloarcula_hispanica_pleomorphic_virus_1",
+                  "bioproject": "PRJNA43589",
+                  "creation_date": "2010/01/25",
+                  "modification_date": "2010/01/27",
+                  "activated": true,
+                  "replicons": {
+                    "NC_013758.1": "NC_013758.1"
+                  },
+                  "processed_replicons": []
+                },
+                "His2_virus": {
+                  "kingdom": "VIRUSES",
+                  "group": "Other",
+                  "subgroup": "Pleolipoviridae",
+                  "name": "His2_virus",
+                  "bioproject": "PRJNA16651",
+                  "creation_date": "2006/03/20",
+                  "modification_date": "2010/03/26",
+                  "activated": true,
+                  "replicons": {
+                    "NC_007918.1": "NC_007918.1"
+                  },
+                  "processed_replicons": []
+                },
+                "Halorubrum_pleomorphic_virus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "Other",
+                  "subgroup": "Pleolipoviridae",
+                  "name": "Halorubrum_pleomorphic_virus_1",
+                  "bioproject": "PRJNA36677",
+                  "creation_date": "2009/04/12",
+                  "modification_date": "2009/05/08",
+                  "activated": true,
+                  "replicons": {
+                    "NC_012558.1": "NC_012558.1"
+                  },
+                  "processed_replicons": []
+                }
+              }
+            },
             "Sphaerolipoviridae": {
               "nodes": {
                 "Thermus_thermophilus_phage_IN93": {
@@ -56450,6 +56380,21 @@
                   },
                   "processed_replicons": []
                 },
+                "Sclerotinia_sclerotiorum_botybirnavirus_1": {
+                  "kingdom": "VIRUSES",
+                  "group": "Other",
+                  "subgroup": "Other",
+                  "name": "Sclerotinia_sclerotiorum_botybirnavirus_1",
+                  "bioproject": "PRJNA285598",
+                  "creation_date": "2015/05/19",
+                  "modification_date": "2015/06/02",
+                  "activated": true,
+                  "replicons": {
+                    "NC_027139.1": "NC_027139.1",
+                    "NC_027138.1": "NC_027138.1"
+                  },
+                  "processed_replicons": []
+                },
                 "Changjiang_polero-like_virus_1": {
                   "kingdom": "VIRUSES",
                   "group": "Other",
@@ -57000,23 +56945,6 @@
                   "activated": true,
                   "replicons": {
                     "chromosome_NC_007681.1": "NC_007681.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Methanothermobacter_thermautotrophicus": {
-                  "kingdom": "PROKARYOTES",
-                  "group": "Archaea",
-                  "subgroup": "Euryarchaeota",
-                  "name": "Methanothermobacter_thermautotrophicus",
-                  "bioproject": "PRJNA187689",
-                  "creation_date": "1992/10/09",
-                  "modification_date": "2014/12/18",
-                  "activated": true,
-                  "replicons": {
-                    "plasmid_pME2200_NC_000905.1": "NC_000905.1",
-                    "plasmid_pME2001_NC_002125.1": "NC_002125.1",
-                    "plasmid_pFV1_NC_001336.1": "NC_001336.1",
-                    "plasmid_pFZ1_NC_001337.1": "NC_001337.1"
                   },
                   "processed_replicons": []
                 },
@@ -58801,20 +58729,6 @@
                   },
                   "processed_replicons": []
                 },
-                "Aeromonas_caviae": {
-                  "kingdom": "PROKARYOTES",
-                  "group": "Bacteria",
-                  "subgroup": "Proteobacteria",
-                  "name": "Aeromonas_caviae",
-                  "bioproject": "PRJNA187863",
-                  "creation_date": "2004/08/19",
-                  "modification_date": "2016/07/26",
-                  "activated": true,
-                  "replicons": {
-                    "plasmid_pFBAOT6_NC_006143.1": "NC_006143.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Nitratifractor_salsuginis_DSM_16511": {
                   "kingdom": "PROKARYOTES",
                   "group": "Bacteria",
@@ -59772,29 +59686,6 @@
                     "plasmid_plb_NC_022540.1": "NC_022540.1",
                     "plasmid_pla_NC_022539.1": "NC_022539.1",
                     "plasmid_plc_NC_022542.1": "NC_022542.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Zymomonas_mobilis": {
-                  "kingdom": "PROKARYOTES",
-                  "group": "Bacteria",
-                  "subgroup": "Proteobacteria",
-                  "name": "Zymomonas_mobilis",
-                  "bioproject": "PRJNA178870",
-                  "creation_date": "1989/11/27",
-                  "modification_date": "2014/12/16",
-                  "activated": true,
-                  "replicons": {
-                    "plasmid_pZMO1_NC_011363.1": "NC_011363.1",
-                    "plasmid_unknown_plasmid_NC_010021.1": "NC_010021.1",
-                    "plasmid_pZMO1B_NC_019210.1": "NC_019210.1",
-                    "plasmid_pZMO2_NC_005701.1": "NC_005701.1",
-                    "plasmid_pZMO1A_NC_019198.1": "NC_019198.1",
-                    "plasmid_pCP4.2_NC_010982.1": "NC_010982.1",
-                    "plasmid_pZMO1_NC_001845.1": "NC_001845.1",
-                    "plasmid_1_NC_004457.1": "NC_004457.1",
-                    "plasmid_pZMO7_NC_019300.1": "NC_019300.1",
-                    "plasmid_pZMN1-1_NC_019019.1": "NC_019019.1"
                   },
                   "processed_replicons": []
                 },
@@ -62693,121 +62584,6 @@
                   "activated": true,
                   "replicons": {
                     "chromosome_NC_012559.1": "NC_012559.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Salmonella_enterica": {
-                  "kingdom": "PROKARYOTES",
-                  "group": "Bacteria",
-                  "subgroup": "Proteobacteria",
-                  "name": "Salmonella_enterica",
-                  "bioproject": "PRJNA178787",
-                  "creation_date": "1985/11/07",
-                  "modification_date": "2015/08/25",
-                  "activated": true,
-                  "replicons": {
-                    "plasmid_pKDSC50_NC_002638.1": "NC_002638.1",
-                    "plasmid_pSH163_120_NC_019122.1": "NC_019122.1",
-                    "plasmid_pSTm-A54650_NC_024983.1": "NC_024983.1",
-                    "plasmid_pU302S_NC_006815.1": "NC_006815.1",
-                    "plasmid_pHLR25_NC_019110.1": "NC_019110.1",
-                    "plasmid_pSENV_NC_019120.1": "NC_019120.1",
-                    "plasmid_pSRC15_NC_013104.1": "NC_013104.1",
-                    "plasmid_pSH696_135_NC_019118.1": "NC_019118.1",
-                    "plasmid_pSD_174_NC_019107.1": "NC_019107.1",
-                    "plasmid_pSD4.6_NC_019135.1": "NC_019135.1",
-                    "plasmid_pSH111_227_NC_019114.1": "NC_019114.1",
-                    "plasmid_pMdT_NC_019133.1": "NC_019133.1",
-                    "plasmid_pMAK1_NC_009981.1": "NC_009981.1",
-                    "plasmid_pAM04528_NC_012693.1": "NC_012693.1",
-                    "plasmid_cryptic_plasmid_NC_005862.1": "NC_005862.1",
-                    "plasmid_pC_NC_003457.1": "NC_003457.1",
-                    "plasmid_pSH163_34_NC_019130.1": "NC_019130.1",
-                    "plasmid_pSPUV_NC_019112.1": "NC_019112.1",
-                    "plasmid_pSe-Kan_NC_015570.1": "NC_015570.1",
-                    "plasmid_pSD5.6_NC_019136.1": "NC_019136.1",
-                    "plasmid_pSH1148_4.8_NC_019132.1": "NC_019132.1",
-                    "plasmid_p9134dT_NC_023290.1": "NC_023290.1",
-                    "plasmid_pSTM7_NC_023899.1": "NC_023899.1",
-                    "plasmid_pST728": "NC_010993.1",
-                    "plasmid_p2007057_NC_011897.1": "NC_011897.1",
-                    "plasmid_pMK101_NC_019103.1": "NC_019103.1",
-                    "plasmid_pWES-1_NC_011604.1": "NC_011604.1",
-                    "plasmid_pSD107_NC_019137.1": "NC_019137.1",
-                    "plasmid_pTPqnrS-1a_NC_009807.1": "NC_009807.1",
-                    "plasmid_pSD4.0_NC_019134.1": "NC_019134.1",
-                    "plasmid_IncW_pIE321_NC_010716.1": "NC_010716.1",
-                    "plasmid_pCS0010A_95_NC_019104.1": "NC_019104.1",
-                    "plasmid_pOU1113_NC_007208.1": "NC_007208.1",
-                    "plasmid_pSH146_32_NC_019129.1": "NC_019129.1",
-                    "plasmid_pSE34_NC_010860.1": "NC_010860.1",
-                    "plasmid_pAnkS_NC_010896.1": "NC_010896.1",
-                    "plasmid_pSARA30_NC_019138.1": "NC_019138.1",
-                    "plasmid_pSARC14-41_NC_019126.1": "NC_019126.1",
-                    "plasmid_pJ_NC_021927.1": "NC_021927.1",
-                    "plasmid_NTP16_NC_002090.1": "NC_002090.1",
-                    "plasmid_pSH146_87_NC_019131.1": "NC_019131.1",
-                    "plasmid_pCS0010A_NC_018954.1": "NC_018954.1",
-                    "plasmid_pK_NC_003456.1": "NC_003456.1",
-                    "plasmid_pSLT-BT_NC_013437.1": "NC_013437.1",
-                    "plasmid_p9134_NC_023275.1": "NC_023275.1",
-                    "plasmid_pSGSC3045-121_NC_019125.1": "NC_019125.1",
-                    "plasmid_pCTXM5-891_NC_025148.1": "NC_025148.1",
-                    "plasmid_R46_NC_003292.1": "NC_003292.1",
-                    "plasmid_pSal8934b_NC_019109.1": "NC_019109.1",
-                    "plasmid_pYT2_NC_019001.1": "NC_019001.1",
-                    "plasmid_pSH696_117_NC_019117.1": "NC_019117.1",
-                    "plasmid_pMAK3_NC_009982.1": "NC_009982.1",
-                    "plasmid_pCTXM5-1845_NC_025150.1": "NC_025150.1",
-                    "plasmid_pSH163_135_NC_019116.1": "NC_019116.1",
-                    "plasmid_pSal6919a_NC_019108.1": "NC_019108.1",
-                    "plasmid_p9134dAT_NC_023276.1": "NC_023276.1",
-                    "plasmid_pGY1_NC_010894.1": "NC_010894.1",
-                    "plasmid_pBSSB1_NC_011422.1": "NC_011422.1",
-                    "plasmid_pYT1_NC_014476.2": "NC_014476.2",
-                    "plasmid_pYT3_NC_022372.1": "NC_022372.1",
-                    "plasmid_pCTXM5-637_NC_025190.1": "NC_025190.1",
-                    "plasmid_pCTXM5-1358_NC_025149.1": "NC_025149.1",
-                    "plasmid_pP_NC_003455.1": "NC_003455.1",
-                    "plasmid_pVCM04_NC_014354.1": "NC_014354.1",
-                    "plasmid_pST12_NC_022376.1": "NC_022376.1",
-                    "plasmid_pSH146_65_NC_019115.1": "NC_019115.1",
-                    "plasmid_p1643_10_NC_022522.2": "NC_022522.2",
-                    "plasmid_pSTd4_NC_025026.1": "NC_025026.1",
-                    "plasmid_pSSAP03302A_NC_018966.1": "NC_018966.1",
-                    "plasmid_pSGI15_NC_012916.1": "NC_012916.1",
-                    "plasmid_pSTM709_NC_023915.1": "NC_023915.1",
-                    "plasmid_pS1400_89_NC_022267.1": "NC_022267.1",
-                    "plasmid_pSD_77_NC_019106.1": "NC_019106.1",
-                    "plasmid_R27_NC_002305.1": "NC_002305.1",
-                    "plasmid_pSH1148_107_NC_019123.1": "NC_019123.1",
-                    "plasmid_pSFD10_NC_003079.1": "NC_003079.1",
-                    "plasmid_pFPTB1_NC_011410.1": "NC_011410.1",
-                    "plasmid_pSH696_34_NC_019128.1": "NC_019128.1",
-                    "plasmid_pVCM01_NC_019127.1": "NC_019127.1",
-                    "plasmid_R621a_NC_015965.1": "NC_015965.1",
-                    "plasmid_pSN11": "NC_014003.1",
-                    "plasmid_pVQS1_NC_019124.1": "NC_019124.1",
-                    "plasmid_pOU1115_NC_010422.1": "NC_010422.1",
-                    "plasmid_pSH111_166_NC_019121.1": "NC_019121.1",
-                    "plasmid_pSD853_7.9_NC_015392.1": "NC_015392.1",
-                    "plasmid_pSBardo-Kan_NC_015575.1": "NC_015575.1",
-                    "plasmid_pSTM2_NC_023900.1": "NC_023900.1",
-                    "plasmid_pBERT_NC_001848.1": "NC_001848.1",
-                    "plasmid_pU302L_NC_006816.1": "NC_006816.1",
-                    "plasmid_pOU7519_NC_010119.1": "NC_010119.1",
-                    "plasmid_pNF1358_NC_019099.1": "NC_019099.1",
-                    "plasmid_pQnrS1-cp17s_NC_019113.1": "NC_019113.1",
-                    "plasmid_pSal8934a_NC_019111.1": "NC_019111.1",
-                    "plasmid_pUO-SbR5_NC_010500.1": "NC_010500.1",
-                    "plasmid_pA172_NC_010259.1": "NC_010259.1",
-                    "plasmid_pSD_88_NC_019105.1": "NC_019105.1",
-                    "plasmid_pB_NC_005002.1": "NC_005002.1",
-                    "plasmid_pSPI12_NC_019102.1": "NC_019102.1",
-                    "plasmid_pPAB19_NC_019101.1": "NC_019101.1",
-                    "plasmid_pOU1114_NC_010421.1": "NC_010421.1",
-                    "plasmid_pMAK2_NC_009980.1": "NC_009980.1",
-                    "plasmid_pSC101_NC_002056.1": "NC_002056.1"
                   },
                   "processed_replicons": []
                 },
@@ -69179,20 +68955,6 @@
                   },
                   "processed_replicons": []
                 },
-                "Alistipes_finegoldii_DSM_17242": {
-                  "kingdom": "PROKARYOTES",
-                  "group": "Bacteria",
-                  "subgroup": "FCB_group",
-                  "name": "Alistipes_finegoldii_DSM_17242",
-                  "bioproject": "PRJNA40775",
-                  "creation_date": "2012/06/08",
-                  "modification_date": "2017/04/07",
-                  "activated": true,
-                  "replicons": {
-                    "chromosome_NC_018011.1": "NC_018011.1"
-                  },
-                  "processed_replicons": []
-                },
                 "Flavobacterium_psychrophilum_JIP02_86": {
                   "kingdom": "PROKARYOTES",
                   "group": "Bacteria",
@@ -75058,74 +74820,6 @@
                   "activated": true,
                   "replicons": {
                     "chromosome_NC_004551.1": "NC_004551.1"
-                  },
-                  "processed_replicons": []
-                },
-                "Lactococcus_lactis": {
-                  "kingdom": "PROKARYOTES",
-                  "group": "Bacteria",
-                  "subgroup": "Terrabacteria_group",
-                  "name": "Lactococcus_lactis",
-                  "bioproject": "PRJNA178833",
-                  "creation_date": "1993/05/10",
-                  "modification_date": "2014/12/18",
-                  "activated": true,
-                  "replicons": {
-                    "plasmid_cryptic_plasmid_pDR1-1B_NC_004163.1": "NC_004163.1",
-                    "plasmid_pSK11P_NC_017500.1": "NC_017500.1",
-                    "plasmid_pIL2_NC_017489.1": "NC_017489.1",
-                    "plasmid_pNZ4000_NC_002137.1": "NC_002137.1",
-                    "plasmid_pSRQ900_NC_004959.1": "NC_004959.1",
-                    "plasmid_cryptic_plasmid_pDR1-1_NC_004164.2": "NC_004164.2",
-                    "plasmid_pAW601_NC_025005.1": "NC_025005.1",
-                    "plasmid_pCIS3_NC_002138.1": "NC_002138.1",
-                    "plasmid_pGdh442_NC_009435.1": "NC_009435.1",
-                    "plasmid_pWV01_NC_002192.1": "NC_002192.1",
-                    "plasmid_pSK11A_NC_017498.1": "NC_017498.1",
-                    "plasmid_pAR141_NC_013783.1": "NC_013783.1",
-                    "plasmid_pKL001_NC_011610.1": "NC_011610.1",
-                    "plasmid_pCRL291.1_NC_002799.1": "NC_002799.1",
-                    "plasmid_pIL1_NC_015860.1": "NC_015860.1",
-                    "plasmid_pNP40_NC_010901.1": "NC_010901.1",
-                    "plasmid_pAH33_NC_002150.1": "NC_002150.1",
-                    "plasmid_pLP712_NC_019377.1": "NC_019377.1",
-                    "plasmid_pS7b_NC_004653.1": "NC_004653.1",
-                    "plasmid_pIL105_NC_000906.2": "NC_000906.2",
-                    "plasmid_pAF14_NC_019350.1": "NC_019350.1",
-                    "plasmid_pAH82_NC_004966.1": "NC_004966.1",
-                    "plasmid_pKP1_NC_016042.1": "NC_016042.1",
-                    "plasmid_pAW153_NC_017494.1": "NC_017494.1",
-                    "plasmid_pHP003_NC_004847.1": "NC_004847.1",
-                    "plasmid_pK214_NC_009751.1": "NC_009751.1",
-                    "plasmid_pIL6_NC_019308.1": "NC_019308.1",
-                    "plasmid_pSK11B_NC_013551.1": "NC_013551.1",
-                    "plasmid_pIL3_NC_015861.1": "NC_015861.1",
-                    "plasmid_pSRQ800_NC_004960.1": "NC_004960.1",
-                    "plasmid_pAF04_NC_019347.1": "NC_019347.1",
-                    "plasmid_pDBORO_NC_009137.1": "NC_009137.1",
-                    "plasmid_pSK11L_NC_017478.1": "NC_017478.1",
-                    "plasmid_pIL5_NC_015863.1": "NC_015863.1",
-                    "plasmid_pCD4_NC_002748.1": "NC_002748.1",
-                    "plasmid_pND324_NC_008436.1": "NC_008436.1",
-                    "plasmid_pSRQ700_NC_002798.1": "NC_002798.1",
-                    "plasmid_pBM02_NC_004930.1": "NC_004930.1",
-                    "plasmid_pAF12_NC_019349.1": "NC_019349.1",
-                    "plasmid_pCI305_NC_002502.1": "NC_002502.1",
-                    "plasmid_pL2_NC_008594.1": "NC_008594.1",
-                    "plasmid_pAG6_NC_007191.1": "NC_007191.1",
-                    "plasmid_pBL1_NC_004955.1": "NC_004955.1",
-                    "plasmid_pFI430_NC_025249.1": "NC_025249.1",
-                    "plasmid_pWC1_NC_004980.1": "NC_004980.1",
-                    "plasmid_pWVO2_NC_002193.1": "NC_002193.1",
-                    "plasmid_pS7a_NC_004652.1": "NC_004652.1",
-                    "plasmid_pCL2.1_NC_004981.2": "NC_004981.2",
-                    "plasmid_pCRL1127_NC_003101.1": "NC_003101.1",
-                    "plasmid_pIBB-JZK_NC_024965.1": "NC_024965.1",
-                    "plasmid_pIL4_NC_015862.1": "NC_015862.1",
-                    "plasmid_pIL7_NC_015864.1": "NC_015864.1",
-                    "plasmid_pAF07_NC_019348.1": "NC_019348.1",
-                    "plasmid_pAF22_NC_019351.1": "NC_019351.1",
-                    "plasmid_pMN5_NC_004922.1": "NC_004922.1"
                   },
                   "processed_replicons": []
                 },
